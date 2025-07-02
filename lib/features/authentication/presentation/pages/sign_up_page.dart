@@ -60,12 +60,6 @@ class SignUpPage extends StatelessWidget {
 
 
                     PrimaryTextFormsFields(
-                      title: "Password",
-                      hintText: "Enter your password",
-                    ),
-
-
-                    PrimaryTextFormsFields(
                       title: "Student Name",
                       hintText: "Enter your full name",
                     ),
@@ -98,6 +92,22 @@ class SignUpPage extends StatelessWidget {
                       title: "Batch Time",
                       hintText: "e.g., 10:00 AM - 12:00 PM",
                     ),
+
+
+
+                    PrimaryTextFormsFields(
+                      title: "Password",
+                      hintText: "Enter your password",
+                      showObscureButton: true
+                    ),
+
+
+                    PrimaryTextFormsFields(
+                      title: "Confirm Password",
+                      hintText: "Confirm your password",
+                      showObscureButton: true
+                    ),
+
 
                   ],
                 ),
