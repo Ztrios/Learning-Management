@@ -7,7 +7,7 @@ class AppTheme {
   /// **Light Theme**
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: AppColors.primary,
+    primaryColor: AppColors.deepBlue,
     scaffoldBackgroundColor: AppColors.background,
     // colorScheme: const ColorScheme.light(
     //   primary: AppColors.primary,
@@ -33,7 +33,7 @@ class AppTheme {
     // ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.deepBlue,
         //foregroundColor: AppColors.onPrimary,
         //textStyle: AppTextStyles.button,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -41,40 +41,4 @@ class AppTheme {
     ),
   );
 
-  /// **Dark Theme**
-  static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: AppColors.primary,
-    // scaffoldBackgroundColor: AppColors.darkBackground,
-    // colorScheme: const ColorScheme.dark(
-    //   primary: AppColors.primary,
-    //   primaryContainer: AppColors.primaryVariant,
-    //   secondary: AppColors.secondary,
-    //   secondaryContainer: AppColors.secondaryVariant,
-    //   background: AppColors.darkBackground,
-    //   surface: AppColors.darkSurface,
-    //   error: AppColors.error,
-    //   onPrimary: AppColors.darkOnPrimary,
-    //   onSecondary: AppColors.darkOnSecondary,
-    //   onBackground: AppColors.darkOnBackground,
-    //   onSurface: AppColors.darkOnSurface,
-    //   onError: AppColors.darkOnError,
-    // ),
-    // textTheme: const TextTheme(
-    //   headline1: AppTextStyles.headline1,
-    //   headline2: AppTextStyles.headline2,
-    //   bodyText1: AppTextStyles.bodyText1,
-    //   bodyText2: AppTextStyles.bodyText2,
-    //   button: AppTextStyles.button,
-    //   caption: AppTextStyles.caption,
-    // ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
-        //foregroundColor: AppColors.onPrimary,
-        //textStyle: AppTextStyles.button,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-    ),
-  );
 }

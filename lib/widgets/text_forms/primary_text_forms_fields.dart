@@ -44,7 +44,7 @@ class PrimaryTextFormsFields extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             filled: true,
-            fillColor: AppColors.greyBackground,
+            //fillColor: AppColors.greyBackground,
             border: OutlineInputBorder(
                 borderRadius: radius8,
                 borderSide: BorderSide.none

@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:learning_management/core/utils/styles/app_colors.dart';
 
 class AppTextStyles {
   const AppTextStyles._();
 
-  static const TextStyle heading1 = TextStyle(
-    fontSize: 32,
+  static TextStyle heading1 = GoogleFonts.poppins(
+    fontSize: 12.sp,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
 
-  static const TextStyle heading2 = TextStyle(
-    fontSize: 24,
+  static TextStyle heading2 = GoogleFonts.poppins(
+    fontSize: 12.sp,
     fontWeight: FontWeight.w600,
     color: Colors.black87,
   );
 
-  static const TextStyle subtitle = TextStyle(
-    fontSize: 18,
+  static TextStyle title = GoogleFonts.poppins(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textSecondary,
+  );
+
+  static TextStyle subtitle = GoogleFonts.poppins(
+    fontSize: 8.sp,
     fontWeight: FontWeight.w500,
-    color: Colors.grey,
+    color: AppColors.textSecondary,
   );
 
-  static const TextStyle body = TextStyle(
-    fontSize: 16,
+  static TextStyle caption = GoogleFonts.poppins(
+    fontSize: 6.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: AppColors.textGrey,
   );
 
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: Colors.grey,
-  );
 
-  static const TextStyle button = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
+  static TextStyle button = GoogleFonts.poppins(
+    fontSize: 8.sp,
+    fontWeight: FontWeight.w600,
     color: Colors.white,
   );
 }
