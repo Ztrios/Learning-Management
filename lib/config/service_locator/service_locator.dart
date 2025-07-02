@@ -8,8 +8,8 @@ final sl = GetIt.instance;
 void initServiceLocator(){
 
   sl.registerSingleton<DioClient>(DioClient());
-  sl.registerSingleton<InternetConnectionChecker>(InternetConnectionChecker.instance);
-  sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
+  //sl.registerSingleton<InternetConnectionChecker>(InternetConnectionChecker.instance);
+  //sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
 
   // /// Remote Services
   // sl.registerSingleton<HomeServices>(HomeServicesImpl());
