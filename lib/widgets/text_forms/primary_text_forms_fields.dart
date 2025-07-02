@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
+import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 
@@ -30,7 +32,10 @@ class PrimaryTextFormsFields extends StatelessWidget {
           mainAxisAlignment: mainStart,
           children: [
             Text(
-              title.toUpperCase(),
+              title,
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.grey
+              ),
             ),
           ],
         ),
@@ -43,23 +48,33 @@ class PrimaryTextFormsFields extends StatelessWidget {
           maxLines: minLine,
           decoration: InputDecoration(
             hintText: hintText,
-            filled: true,
-            //fillColor: AppColors.greyBackground,
+            hintStyle: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.grey
+            ),
             border: OutlineInputBorder(
                 borderRadius: radius8,
                 borderSide: BorderSide.none
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: radius8,
-                borderSide: BorderSide.none
+                borderSide: BorderSide(
+                  width: 1.2.w,
+                  color: AppColors.grey
+                ),
             ),
             focusedBorder: OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide.none
+              borderRadius: radius8,
+              borderSide: BorderSide(
+                  width: 1.2.w,
+                  color: AppColors.grey
+              ),
             ),
             errorBorder:OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide.none
+              borderRadius: radius8,
+              borderSide: BorderSide(
+                  width: 1.2.w,
+                  color: AppColors.grey
+              ),
             ),
 
           ),

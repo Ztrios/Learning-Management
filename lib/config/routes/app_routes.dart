@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/route_error_page.dart';
+import 'package:learning_management/features/authentication/authentication_routes.dart';
+import 'package:learning_management/features/authentication/presentation/pages/sign_up_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -11,7 +13,7 @@ class AppRouter {
   /// Create GoRouter instance
   static final GoRouter routes = GoRouter(
     navigatorKey: navigatorKey,
-    //initialLocation: SplashPage.path, // Default route
+    initialLocation: SignUpPage.path, // Default route
     debugLogDiagnostics: true,
     errorBuilder: (context,state)=> ErrorPage(state: state),
     redirect: (BuildContext context, GoRouterState state){
@@ -19,24 +21,8 @@ class AppRouter {
     },
     routes: [
 
-      // /// Onboarding Routes
-      // ...OnboardingRouter.routes,
-      // /// Bottom Navigation Routes
-      // ...BottomNavigationRouter.routes,
-      // /// Home Routes
-      // ...HomeRouter.routes,
-      // /// Description Routes
-      // ...DetailsRoutes.routes,
-      // /// Recipes Routes
-      // ...RecipesRouter.routes,
-      // /// Campaigns Routes
-      // ...CampaignRouter.routes,
-      // /// Order Routes
-      // ...OrderRouter.routes,
-      // /// Cart Routes
-      // ...CartRouter.routes,
-      // /// Profile Routes
-      // ...SignupAndProfileRouter.routes
+      /// Authentication Routes
+      ...AuthenticationRouter.routes,
 
     ],
   );

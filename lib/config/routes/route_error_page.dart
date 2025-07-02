@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/utils/styles/app_colors.dart';
 
 class ErrorPage extends StatelessWidget {
   final GoRouterState? state;
@@ -8,36 +9,77 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final errorMessage = state?.error?.message ?? 'The page you’re looking for doesn’t exist.';
+    final failedPath = state?.uri.toString() ?? '';
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Page Not Found")),
+      backgroundColor: theme.colorScheme.surface,
+      appBar: AppBar(
+        title: const Text("404 - Page Not Found",style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+        elevation: 2,
+        backgroundColor: AppColors.deepBlue,
+      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Material(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Animated error icon
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0.8, end: 1),
+                    duration: const Duration(milliseconds: 700),
+                    curve: Curves.elasticOut,
+                    builder: (context, scale, _) => Transform.scale(
+                      scale: scale,
+                      child: const Icon(Icons.error_outline, size: 80, color: Colors.red),
+                    ),
+                  ),
 
-            const Icon(Icons.error_outline, size: 80, color: Colors.red),
-            const SizedBox(height: 16),
-            const Text(
-              "Oops! Page Not Found",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+                  const SizedBox(height: 24),
+                  Text(
+                    "Oops! Page Not Found",
+                    style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 12),
 
-            if (state != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                  state?.error?.message ?? "",
-                  style: TextStyle(color: Colors.grey)
+                  Text(
+                    errorMessage,
+                    style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.7)),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  if (failedPath.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      'Route: $failedPath',
+                      style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: 160,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.go('/'),
+                      icon: const Icon(Icons.home, color: Colors.white),
+                      label: const Text("Back to Home",style: TextStyle(color: Colors.white),),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
-              child: const Text("Go to Home"),
             ),
-
-          ],
+          ),
         ),
       ),
     );

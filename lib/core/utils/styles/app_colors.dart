@@ -9,6 +9,8 @@ class AppColors {
   static const Color deepOrange = Color(0xFFFF7648);
   static const Color deepPurpleAccent = Color(0xFF7364E6);
   static const Color deepGreen = Color(0xFF0D6E58);
+  static const Color grey = Color(0xFF999999);
+
 
   // UI Support Colors
   static const Color textPrimary = Color(0xFF000000);

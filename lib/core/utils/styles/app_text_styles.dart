@@ -1,45 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learning_management/core/utils/styles/app_colors.dart';
+import 'app_colors.dart'; // Make sure to define your AppColors here
 
 class AppTextStyles {
+
   const AppTextStyles._();
 
-  static TextStyle heading1 = GoogleFonts.poppins(
-    fontSize: 12.sp,
+  static TextStyle displayLarge = GoogleFonts.poppins(
+    fontSize: 57.sp,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle heading2 = GoogleFonts.poppins(
-    fontSize: 12.sp,
+  static TextStyle displayMedium = GoogleFonts.poppins(
+    fontSize: 45.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle displaySmall = GoogleFonts.poppins(
+    fontSize: 36.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle headlineLarge = GoogleFonts.poppins(
+    fontSize: 32.sp,
     fontWeight: FontWeight.w600,
-    color: Colors.black87,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle title = GoogleFonts.poppins(
-    fontSize: 10.sp,
+  static TextStyle headlineMedium = GoogleFonts.poppins(
+    fontSize: 28.sp,
     fontWeight: FontWeight.w600,
-    color: AppColors.textSecondary,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle subtitle = GoogleFonts.poppins(
-    fontSize: 8.sp,
+  static TextStyle headlineSmall = GoogleFonts.poppins(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle titleLarge = GoogleFonts.poppins(
+    fontSize: 22.sp,
     fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle caption = GoogleFonts.poppins(
-    fontSize: 6.sp,
+  static TextStyle titleMedium = GoogleFonts.poppins(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle titleSmall = GoogleFonts.poppins(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle bodyLarge = GoogleFonts.poppins(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle bodyMedium = GoogleFonts.poppins(
+    fontSize: 14.sp,
     fontWeight: FontWeight.normal,
     color: AppColors.textGrey,
   );
 
+  static TextStyle bodySmall = GoogleFonts.poppins(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textGrey,
+  );
 
-  static TextStyle button = GoogleFonts.poppins(
-    fontSize: 8.sp,
-    fontWeight: FontWeight.w600,
-    color: Colors.white,
+  static TextStyle labelLarge = GoogleFonts.poppins(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle labelMedium = GoogleFonts.poppins(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle labelSmall = GoogleFonts.poppins(
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textPrimary,
+  );
+
+  // Custom style if needed
+  static TextStyle caption = GoogleFonts.poppins(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textGrey,
   );
 }
