@@ -19,11 +19,14 @@ class LearningManagementApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: ToastificationWrapper(
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          routerConfig: AppRouter.routes,
+      child: MultiBlocProvider(
+        providers: AppBlocProviders.providers,
+        child: ToastificationWrapper(
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            routerConfig: AppRouter.routes,
+          ),
         ),
       ),
     );
