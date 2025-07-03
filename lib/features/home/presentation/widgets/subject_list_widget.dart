@@ -40,10 +40,10 @@ class SubjectListWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return SubjectItemView(
-                  svgIcon: "assets/icons/mathematics_icon.svg",
-                  subject: "Mathematics",
-                  background: AppColors.deepOrange,
-                  shapeColor: AppColors.lightOrange
+                  svgIcon: index.isEven ? "assets/icons/mathematics_icon.svg" : "assets/icons/geography_icon.svg",
+                  subject: index.isEven ? "Mathematics" : "Geography",
+                  background: index.isEven ? AppColors.deepOrange : AppColors.deepBlue,
+                  shapeColor: index.isEven ? AppColors.lightOrange : AppColors.blueLight
                 );
               }
           ),
