@@ -44,7 +44,7 @@ class PrimaryButton extends StatelessWidget {
         alignment: alignment ?? Alignment.center,
         padding: padding ?? paddingH16,
         decoration: ShapeDecoration(
-          color: background ?? AppColors.deepBlue,
+          color: background ?? AppColors.blueLight,
           shape: RoundedRectangleBorder(
               borderRadius: radius ?? radius8,
             side: strokeColor != null ? BorderSide(

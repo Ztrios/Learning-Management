@@ -8,7 +8,7 @@ class AuthenticationRouter {
 
   static final List<GoRoute> routes = [
 
-    /// Sign Up Route
+    /// Sign Up Page Route
     GoRoute(
         path: SignUpPage.path,
         name: SignUpPage.name,
@@ -21,7 +21,7 @@ class AuthenticationRouter {
         },
     ),
 
-    /// LogIn page
+    /// LogIn Page Route
     GoRoute(
         path: LogInPage.path,
         name: LogInPage.name,

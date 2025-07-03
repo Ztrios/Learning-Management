@@ -140,8 +140,8 @@ class SignUpPage extends StatelessWidget {
                           style: AppTextStyles.titleSmall.copyWith(
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
-                              decorationColor: AppColors.deepBlue,
-                              color: AppColors.deepBlue
+                              decorationColor: AppColors.blueLight,
+                              color: AppColors.blueLight
                           )
                       ),
                     )

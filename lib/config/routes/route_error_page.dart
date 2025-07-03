@@ -19,7 +19,7 @@ class ErrorPage extends StatelessWidget {
         title: const Text("404 - Page Not Found",style: TextStyle(color: Colors.white),),
         centerTitle: true,
         elevation: 2,
-        backgroundColor: AppColors.deepBlue,
+        backgroundColor: AppColors.blueLight,
       ),
       body: Center(
         child: Padding(

@@ -7,7 +7,7 @@ class AppTheme {
   /// **Light Theme**
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: AppColors.deepBlue,
+    primaryColor: AppColors.blueLight,
     scaffoldBackgroundColor: AppColors.background,
     // colorScheme: const ColorScheme.light(
     //   primary: AppColors.primary,
@@ -33,7 +33,7 @@ class AppTheme {
     // ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.deepBlue,
+        backgroundColor: AppColors.blueLight,
         //foregroundColor: AppColors.onPrimary,
         //textStyle: AppTextStyles.button,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
