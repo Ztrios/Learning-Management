@@ -12,7 +12,7 @@ class PrimaryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: paddingH24,
+      padding: paddingH20,
       child: Row(
         children: [
 

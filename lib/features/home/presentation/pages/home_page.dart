@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Padding(
-                    padding: padding24,
+                    padding: padding20,
                     child: Column(
                       crossAxisAlignment: crossStart,
                       children: [
