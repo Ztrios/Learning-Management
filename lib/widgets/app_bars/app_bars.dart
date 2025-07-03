@@ -56,10 +56,8 @@ class PrimaryAppBar extends StatelessWidget {
 
           IconButton(
               onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                size: 35.sp,
-                color: AppColors.grey,
+              icon: SvgPicture.asset(
+                "assets/icons/menu_icon.svg"
               )
           )
 
