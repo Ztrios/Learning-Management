@@ -5,6 +5,7 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/bottom_navigations/presentation/pages/bottom_navigation_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
@@ -97,7 +98,7 @@ class LogInPage extends StatelessWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: ()=> context.push(HomePage.path),
+                onPressed: ()=> context.push(BottomNavigationPage.path),
                 text: "Login",
                 textColor: Colors.white,
               ),

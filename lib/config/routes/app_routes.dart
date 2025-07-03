@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/route_error_page.dart';
 import 'package:learning_management/features/authentication/authentication_routes.dart';
 import 'package:learning_management/features/authentication/presentation/pages/sign_up_page.dart';
+import 'package:learning_management/features/bottom_navigations/bottom_navigation_router.dart';
 import 'package:learning_management/features/home/home_routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -22,10 +23,11 @@ class AppRouter {
     },
     routes: [
 
-
-
       /// Authentication Routes
       ...AuthenticationRouter.routes,
+
+      /// Bottom Navigation Routes
+      ...BottomNavigationRouter.routes,
 
       /// Home Routes
       ...HomeRouter.routes

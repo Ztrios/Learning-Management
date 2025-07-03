@@ -21,90 +21,88 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Container(
-            width: 1.sw,
-            height: 1.sh,
-            padding: paddingTop12,
-            child: Column(
-              children: [
+    return SafeArea(
+        child: Container(
+          width: 1.sw,
+          height: 1.sh,
+          padding: paddingTop12,
+          child: Column(
+            children: [
 
-                PrimaryAppBar(),
+              PrimaryAppBar(),
 
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: padding24,
-                      child: Column(
-                        crossAxisAlignment: crossStart,
-                        children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: padding24,
+                    child: Column(
+                      crossAxisAlignment: crossStart,
+                      children: [
 
 
-                          Container(
-                            width: 1.sw,
-                            padding: padding12,
-                            decoration: BoxDecoration(
-                                borderRadius: radius18,
-                                color: AppColors.errorRed
-                            ),
-                            child: Row(
-                              children: [
-
-                                Icon(
-                                  Icons.warning_amber_rounded,
-                                  color: Colors.white,
-                                  size: 25.sp,
-                                ),
-
-                                gap8,
-
-                                Expanded(
-                                  child: RichText(
-                                      text: TextSpan(
-                                          text: "This is account is currently deactived due to failed payment. ",
-                                          style: AppTextStyles.caption.copyWith(
-                                              color: Colors.white
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                                text: "Update payment Method",
-                                                style: AppTextStyles.caption.copyWith(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold
-                                                )
-                                            )
-                                          ]
-                                      )
-                                  ),
-                                ),
-                              ],
-                            ),
+                        Container(
+                          width: 1.sw,
+                          padding: padding12,
+                          decoration: BoxDecoration(
+                              borderRadius: radius18,
+                              color: AppColors.errorRed
                           ),
+                          child: Row(
+                            children: [
 
-                          gap12,
+                              Icon(
+                                Icons.warning_amber_rounded,
+                                color: Colors.white,
+                                size: 25.sp,
+                              ),
 
-                          ClassRoutineWidget(),
+                              gap8,
 
-                          gap12,
+                              Expanded(
+                                child: RichText(
+                                    text: TextSpan(
+                                        text: "This is account is currently deactived due to failed payment. ",
+                                        style: AppTextStyles.caption.copyWith(
+                                            color: Colors.white
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                              text: "Update payment Method",
+                                              style: AppTextStyles.caption.copyWith(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold
+                                              )
+                                          )
+                                        ]
+                                    )
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
-                          TaskListWidget(),
+                        gap12,
 
-                          gap12,
+                        ClassRoutineWidget(),
 
-                          SubjectListWidget()
+                        gap12,
+
+                        TaskListWidget(),
+
+                        gap12,
+
+                        SubjectListWidget()
 
 
-                        ],
-                      ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          )
-      ),
+              ),
+            ],
+          ),
+        )
     );
   }
 }
