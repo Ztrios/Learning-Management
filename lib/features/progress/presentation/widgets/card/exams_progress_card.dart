@@ -8,6 +8,8 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
+import '../progress_indicator_circle.dart';
+
 class ExamsProgressCard extends StatelessWidget {
   const ExamsProgressCard({super.key});
 
@@ -33,8 +35,13 @@ class ExamsProgressCard extends StatelessWidget {
             ),
           ),
           gap24,
-          _ProgressIndicatorCircle(),
-          gap48,
+          ProgressIndicatorCircle(
+            percantage: 72,
+            message: "Good progress",
+            progressColor: AppColors.deepOrange,
+            isForExam: true,
+          ),
+          gap24,
           _StatsCards(),
         ],
       ),
@@ -65,55 +72,6 @@ class _LanguageDropdown extends StatelessWidget {
 }
 
 
-class _ProgressIndicatorCircle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          width: 150.w,
-          height: 150.w,
-          child: CircularProgressIndicator(
-            value: 0.7,
-            strokeWidth: 12.w,
-            color: AppColors.deepOrange,
-            backgroundColor: Colors.white,
-            strokeCap: StrokeCap.round,
-          ),
-        ),
-        Column(
-          children: [
-            RichText(
-              text: TextSpan(
-                text: "37",
-                style: AppTextStyles.displaySmall.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                ),
-                children: [
-                  TextSpan(
-                    text: "/100",
-                    style: AppTextStyles.titleMedium.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              "Completed!",
-              style: AppTextStyles.bodyLarge.copyWith(
-                  color: AppColors.greyLight
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
 
 class _StatsCards extends StatelessWidget {
   @override
