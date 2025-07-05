@@ -11,6 +11,7 @@ class AppColors {
   static const Color deepPurpleAccent = Color(0xFF7364E6);
   static const Color deepGreen = Color(0xFF0D6E58);
   static const Color grey = Color(0xFF999999);
+  static const Color greyLight = Color(0xFF9B9B9B);
 
 
   // UI Support Colors
