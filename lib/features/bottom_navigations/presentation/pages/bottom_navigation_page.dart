@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
@@ -48,8 +49,18 @@ class BottomNavigationPage extends HookWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: navigationPages[currentIndex.value],
-      bottomNavigationBar: SizedBox(
-        height: 100.h,
+      bottomNavigationBar: Container(
+        height: 80.h,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x26000000),
+              blurRadius: 20,
+              offset: Offset(0, -2),
+              spreadRadius: 4,
+            )
+          ]
+        ),
         child: BottomNavigationBar(
           currentIndex: currentIndex.value,
           backgroundColor: Colors.white,
@@ -74,21 +85,24 @@ class BottomNavigationPage extends HookWidget {
               ),
             ),
 
-            BottomNavigationBarItem(
-              label: "Progress",
-              icon: SvgPicture.asset(
-                "assets/icons/progress_icon.svg",
-                colorFilter: currentIndex.value == 1 ? colorFilter : null,
-              ),
-            ),
 
             BottomNavigationBarItem(
               label: "Routine",
               icon: SvgPicture.asset(
                 "assets/icons/routine_icon.svg",
+                colorFilter: currentIndex.value == 1 ? colorFilter : null,
+              ),
+            ),
+
+
+            BottomNavigationBarItem(
+              label: "Progress",
+              icon: SvgPicture.asset(
+                "assets/icons/progress_icon.svg",
                 colorFilter: currentIndex.value == 2 ? colorFilter : null,
               ),
             ),
+
 
             BottomNavigationBarItem(
               label: "Results",
