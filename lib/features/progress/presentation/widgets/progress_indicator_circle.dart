@@ -40,23 +40,29 @@ class ProgressIndicatorCircle extends StatelessWidget {
         ),
         Column(
           children: [
-            RichText(
-              text: TextSpan(
-                text: percantage.toString(),
-                style: AppTextStyles.displaySmall.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: isForExam ? Colors.white : null
-                ),
-                children: [
-                  TextSpan(
-                    text: "/100",
-                    style: AppTextStyles.titleMedium.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: isForExam ? Colors.white : AppColors.textGrey,
+            TweenAnimationBuilder(
+              tween: IntTween(begin: 0, end: percantage),
+              duration: Duration(seconds: 1),
+              builder: (context,value,child) {
+                return RichText(
+                  text: TextSpan(
+                    text: value.toString(),
+                    style: AppTextStyles.displaySmall.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isForExam ? Colors.white : null
                     ),
+                    children: [
+                      TextSpan(
+                        text: "/100",
+                        style: AppTextStyles.titleMedium.copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: isForExam ? Colors.white : AppColors.textGrey,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              }
             ),
             Text(
               message,
