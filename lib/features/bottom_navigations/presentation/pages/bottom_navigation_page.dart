@@ -8,6 +8,7 @@ import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/progress/presentation/pages/progress_page.dart';
 import 'package:learning_management/features/results/presentation/pages/results_page.dart';
+import 'package:learning_management/features/routine/presentation/pages/routine_page.dart';
 
 class BottomNavigationPage extends HookWidget {
   static String get path => "/bottom-navigation";
@@ -22,7 +23,7 @@ class BottomNavigationPage extends HookWidget {
 
     final List<Widget> navigationPages = [
       const HomePage(),
-      const ProgressPage(),
+      const RoutinePage(),
       const ProgressPage(),
       const ResultsPage()
     ];
