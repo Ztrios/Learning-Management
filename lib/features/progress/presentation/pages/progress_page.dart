@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/progress/presentation/widgets/card/exams_progress_card.dart';
-import 'package:learning_management/features/progress/presentation/widgets/card/stats_progress_card.dart';
+import 'package:learning_management/features/progress/presentation/widgets/cards/exams_progress_card.dart';
+import 'package:learning_management/features/progress/presentation/widgets/cards/stats_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/progress_tab_bar_widget.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
 
