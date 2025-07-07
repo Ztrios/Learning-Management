@@ -14,7 +14,7 @@ class ProgressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = useState<int>(0);
+    final selectedIndex = useState<int>(1);
 
     return SafeArea(
       child: Container(

@@ -72,7 +72,7 @@ class RoutinePage extends HookWidget {
                     DatePicker(
                       DateTime.now(),
                       initialSelectedDate: DateTime.now(),
-                      height: 80.h,
+                      height: 90.h,
                       selectionColor: Colors.deepOrange,
                       daysCount: 30,
                       onDateChange: (date) {

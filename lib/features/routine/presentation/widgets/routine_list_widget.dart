@@ -59,8 +59,11 @@ class RoutineListWidget extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemCount: 10,
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index){
-                return RoutineListItemView();
+                return RoutineListItemView(
+                  isActive: index == 0,
+                );
               }
           ),
         )

@@ -8,8 +8,11 @@ import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
 class RoutineListItemView extends StatelessWidget {
+
+  final bool isActive;
   const RoutineListItemView({
     super.key,
+    required this.isActive
   });
 
   @override
@@ -50,7 +53,7 @@ class RoutineListItemView extends StatelessWidget {
               margin: paddingBottom20,
               padding: padding12,
               decoration: BoxDecoration(
-                  color: AppColors.deepOrange,
+                  color: isActive ? AppColors.deepOrange : Color(0xFFF6F6F5),
                   borderRadius: radius16
               ),
               child: Column(
@@ -63,13 +66,16 @@ class RoutineListItemView extends StatelessWidget {
                       Text(
                         "Mathematics",
                         style: AppTextStyles.titleLarge.copyWith(
-                            color: Colors.white
+                            color: isActive ? Colors.white : null
                         ),
                       ),
 
                       IconButton(
                           onPressed: (){},
-                          icon: Icon(Icons.more_vert,color: Colors.white,)
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: isActive ? Colors.white : null,
+                          )
                       )
 
 
@@ -79,7 +85,7 @@ class RoutineListItemView extends StatelessWidget {
                   Text(
                     "Chapter 1: Introduction",
                     style: AppTextStyles.bodyLarge.copyWith(
-                        color: Colors.white
+                        color: isActive ? Colors.white : null
                     ),
                   ),
 
@@ -88,14 +94,17 @@ class RoutineListItemView extends StatelessWidget {
                   Row(
                     children: [
 
-                      Icon(Icons.my_location, color: Colors.white),
+                      Icon(
+                          Icons.my_location,
+                          color: isActive ? Colors.white : null
+                      ),
 
                       gap12,
 
                       Text(
                         "Zoom ID: 3346566",
                         style: AppTextStyles.caption.copyWith(
-                            color: Colors.white
+                            color: isActive ? Colors.white : null
                         ),
                       )
 
@@ -119,7 +128,7 @@ class RoutineListItemView extends StatelessWidget {
                       Text(
                         "Julie Watson",
                         style: AppTextStyles.caption.copyWith(
-                            color: Colors.white
+                            color: isActive ? Colors.white : null
                         ),
                       )
 
