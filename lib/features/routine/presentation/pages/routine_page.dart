@@ -6,7 +6,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/routine/presentation/widgets/routine_list_widget.dart';
-import 'package:learning_management/widgets/app_bars/app_bars.dart';
+import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class RoutinePage extends HookWidget {

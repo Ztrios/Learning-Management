@@ -5,6 +5,7 @@ import 'package:learning_management/features/authentication/authentication_route
 import 'package:learning_management/features/authentication/presentation/pages/sign_up_page.dart';
 import 'package:learning_management/features/bottom_navigations/bottom_navigation_router.dart';
 import 'package:learning_management/features/home/home_routes.dart';
+import 'package:learning_management/features/lessons/lession_routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -30,7 +31,9 @@ class AppRouter {
       ...BottomNavigationRouter.routes,
 
       /// Home Routes
-      ...HomeRouter.routes
+      ...HomeRouter.routes,
+
+      ...LessionRouter.routes
 
     ],
   );

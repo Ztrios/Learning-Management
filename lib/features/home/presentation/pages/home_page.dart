@@ -10,7 +10,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/home/presentation/widgets/class_routine_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/subject_list_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/task_list_widget.dart';
-import 'package:learning_management/widgets/app_bars/app_bars.dart';
+import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 
 class HomePage extends StatelessWidget {
 
