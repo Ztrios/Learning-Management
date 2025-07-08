@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_tab_bar.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/lession_header_widget.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_bar/lession_tab_bar.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 
 

@@ -117,6 +117,7 @@ class SignUpPage extends StatelessWidget {
                 gap24,
 
                 PrimaryButton(
+                  onPressed: ()=> context.go(LogInPage.path),
                   text: "Sign Up",
                   textColor: Colors.white,
                 ),

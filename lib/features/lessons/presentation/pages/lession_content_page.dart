@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_content_tab_bar.dart' show LessionContentTabBar;
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/lession_item_view.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_bar/lession_content_tab_bar.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 
 class LessionContentPage extends StatelessWidget {

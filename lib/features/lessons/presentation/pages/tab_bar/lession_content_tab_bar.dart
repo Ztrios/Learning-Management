@@ -4,10 +4,10 @@ import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/assignments_tab_view.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/content_tab_view.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/materials_tab_view.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/quizzes_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/assignments_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/content_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/materials_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/quizzes_tab_view.dart';
 
 class LessionContentTabBar extends StatelessWidget {
   const LessionContentTabBar({super.key});
@@ -32,7 +32,7 @@ class LessionContentTabBar extends StatelessWidget {
             ),
             tabs: [
               Tab(text: "Content"),
-              Tab(text: "Material"),
+              Tab(text: "Materials"),
               Tab(text: "Assignment"),
               Tab(text: "Quizzes"),
             ],

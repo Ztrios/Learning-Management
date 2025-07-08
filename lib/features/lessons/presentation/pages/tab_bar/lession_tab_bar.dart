@@ -3,8 +3,8 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/exams_list_tab_view.dart' show ExamListTabView;
-import 'package:learning_management/features/lessons/presentation/widgets/tab_view/lession_list_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/exams_list_tab_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/tab_view/lession_list_tab_view.dart';
 
 class LessionTabBar extends StatelessWidget {
   const LessionTabBar({super.key});
