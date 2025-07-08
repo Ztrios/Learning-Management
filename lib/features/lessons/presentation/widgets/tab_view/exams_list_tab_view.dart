@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/exams_item_view.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/item_view/lession_item_view.dart';
 
 class ExamListTabView extends StatelessWidget {
   const ExamListTabView({super.key});
