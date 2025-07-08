@@ -12,12 +12,12 @@ import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
-class AssignmentSubmitPage extends StatelessWidget {
+class AssignmentSubmissionPage extends StatelessWidget {
 
-  static String get path => "/assignment-submit";
-  static String get name => "assignment-submit";
+  static String get path => "/assignment-submission";
+  static String get name => "assignment-submission";
 
-  const AssignmentSubmitPage({super.key});
+  const AssignmentSubmissionPage({super.key});
 
   @override
   Widget build(BuildContext context) {

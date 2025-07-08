@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/router_transition.dart';
-import 'package:learning_management/features/lessons/presentation/pages/assignment_submit_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/assignment_submission_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/exams_submission_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
@@ -33,6 +34,8 @@ class LessionRouter {
           );
         },
         routes: [
+
+          /// Lessions Details page routes
           GoRoute(
             path: LessionDetailsPage.path,
             name: LessionDetailsPage.name,
@@ -44,18 +47,22 @@ class LessionRouter {
               );
             },
             routes: [
+
+              /// Assignment Submission page route
               GoRoute(
-                path: AssignmentSubmitPage.path,
-                name: AssignmentSubmitPage.name,
+                path: AssignmentSubmissionPage.path,
+                name: AssignmentSubmissionPage.name,
                 pageBuilder: (context,state){
                   return CustomTransitionPage(
                       key: state.pageKey,
-                      child: AssignmentSubmitPage(),
+                      child: AssignmentSubmissionPage(),
                       transitionsBuilder: routerTransition
                   );
                 },
               ),
 
+
+              /// Quiz Submission page route
               GoRoute(
                 path: QuizSubmissionPage.path,
                 name: QuizSubmissionPage.name,
@@ -69,9 +76,23 @@ class LessionRouter {
               )
 
             ]
+          ),
+
+          /// Exams Submission page route
+          GoRoute(
+            path: ExamsSubmissionPage.path,
+            name: ExamsSubmissionPage.name,
+            pageBuilder: (context,state){
+              return CustomTransitionPage(
+                  key: state.pageKey,
+                  child: ExamsSubmissionPage(),
+                  transitionsBuilder: routerTransition
+              );
+            },
           )
+
         ]
-    ),
+    )
 
   ];
 

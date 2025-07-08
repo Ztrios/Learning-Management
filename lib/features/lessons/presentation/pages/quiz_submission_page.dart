@@ -15,8 +15,8 @@ import 'package:learning_management/widgets/network_image_widget.dart';
 
 class QuizSubmissionPage extends StatelessWidget {
 
-  static String get path => "/quiz-submit";
-  static String get name => "quiz-submit";
+  static String get path => "/quiz-submission";
+  static String get name => "quiz-submission";
 
   const QuizSubmissionPage({super.key});
 

@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:learning_management/features/lessons/presentation/pages/exams_submission_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/exams_item_view.dart';
 
 class ExamListTabView extends StatelessWidget {
@@ -12,10 +15,13 @@ class ExamListTabView extends StatelessWidget {
       itemCount: 10,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        return ExamItemView(
-          showStar: Random().nextInt(10).isOdd,
-          isCompleted: index < 3,
-          title: "Monthly exam ${index+1}: April",
+        return InkWell(
+          onTap: ()=> context.push(LessionsPage.path + ExamsSubmissionPage.path),
+          child: ExamItemView(
+            showStar: Random().nextInt(10).isOdd,
+            isCompleted: index < 3,
+            title: "Monthly exam ${index+1}: April",
+          ),
         );
       },
     );
