@@ -54,6 +54,7 @@ dependencies:
   timeago: ^3.7.1
   share_plus: ^11.0.0
   internet_connection_checker: ^3.0.1
+  flutter_html: ^3.0.0
 
 
 dev_dependencies:
