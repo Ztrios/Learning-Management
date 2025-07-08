@@ -20,8 +20,8 @@ class LessionPageExtraParams{
 }
 
 class LessionsPage extends StatelessWidget {
-  static String get path => "/lession";
-  static String get name => "lession";
+  static String get path => "/lessions";
+  static String get name => "lessions";
 
   final String subject;
   final String subjectIcon;
@@ -43,7 +43,11 @@ class LessionsPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const SecondaryAppBar(),
+
+            const SecondaryAppBar(
+              title: "Lesson 1: Integration",
+            ),
+
             Expanded(
               child: Container(
                 width: 1.sw,

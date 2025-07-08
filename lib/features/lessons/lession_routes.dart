@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/router_transition.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lession_content_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/assignment_submit_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
 
 class LessionRouter {
@@ -32,15 +33,28 @@ class LessionRouter {
         },
         routes: [
           GoRoute(
-            path: LessionContentPage.path,
-            name: LessionContentPage.name,
+            path: LessionDetailsPage.path,
+            name: LessionDetailsPage.name,
             pageBuilder: (context,state){
               return CustomTransitionPage(
                   key: state.pageKey,
-                  child: LessionContentPage(),
+                  child: LessionDetailsPage(),
                   transitionsBuilder: routerTransition
               );
-            }
+            },
+            routes: [
+              GoRoute(
+                path: AssignmentSubmitPage.path,
+                name: AssignmentSubmitPage.name,
+                pageBuilder: (context,state){
+                  return CustomTransitionPage(
+                      key: state.pageKey,
+                      child: AssignmentSubmitPage(),
+                      transitionsBuilder: routerTransition
+                  );
+                },
+              )
+            ]
           )
         ]
     ),

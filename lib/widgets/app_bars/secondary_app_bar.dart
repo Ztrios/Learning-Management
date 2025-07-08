@@ -7,7 +7,11 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 
 class SecondaryAppBar extends StatelessWidget {
-  const SecondaryAppBar({super.key});
+  final String title;
+  const SecondaryAppBar({
+    super.key,
+    required this.title
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class SecondaryAppBar extends StatelessWidget {
           ),
 
           Text(
-              "Mathematics",
+              title,
             style: AppTextStyles.titleMedium.copyWith(
               color: AppColors.blueLight,
               fontWeight: FontWeight.w900
