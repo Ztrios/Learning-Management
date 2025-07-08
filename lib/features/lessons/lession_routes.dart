@@ -4,6 +4,7 @@ import 'package:learning_management/config/routes/router_transition.dart';
 import 'package:learning_management/features/lessons/presentation/pages/assignment_submit_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
 
 class LessionRouter {
   const LessionRouter._();
@@ -53,7 +54,20 @@ class LessionRouter {
                       transitionsBuilder: routerTransition
                   );
                 },
+              ),
+
+              GoRoute(
+                path: QuizSubmissionPage.path,
+                name: QuizSubmissionPage.name,
+                pageBuilder: (context,state){
+                  return CustomTransitionPage(
+                      key: state.pageKey,
+                      child: QuizSubmissionPage(),
+                      transitionsBuilder: routerTransition
+                  );
+                },
               )
+
             ]
           )
         ]

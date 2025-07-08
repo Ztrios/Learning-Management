@@ -40,7 +40,7 @@ class LessionDetailsPage extends StatelessWidget {
                       ),
 
                       Expanded(
-                          child: LessionContentTabBar()
+                        child: LessionContentTabBar(),
                       )
 
                     ],
