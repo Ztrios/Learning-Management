@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/progress/presentation/pages/progress_page.dart';
 import 'package:learning_management/features/results/presentation/pages/results_page.dart';
 import 'package:learning_management/features/routine/presentation/pages/routine_page.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
 class BottomNavigationPage extends HookWidget {
   static String get path => "/bottom-navigation";
@@ -50,6 +50,7 @@ class BottomNavigationPage extends HookWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      endDrawer: CustomDrawer(),
       body: navigationPages[currentIndex.value],
       bottomNavigationBar: Container(
         height: 80.h,

@@ -1,0 +1,142 @@
+import 'package:defer_pointer/defer_pointer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/utils/styles/app_colors.dart';
+import 'package:learning_management/core/utils/styles/app_text_styles.dart';
+import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
+import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return DeferredPointerHandler(
+      child: Container(
+        width: 1.sw,
+        height: 1.sh,
+        alignment: Alignment.centerRight,
+        color: Colors.transparent,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+
+            Container(
+              width: 250.w,
+              color: Colors.white,
+              padding: padding16,
+              child: SafeArea(
+                child: Column(
+                  children: [
+
+                    Column(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/avatar_icon.svg",
+                          width: 70.w,
+                          height: 70.w,
+                        ),
+
+                        gap6,
+
+                        Text(
+                          "Madelyn Dias",
+                          style: AppTextStyles.titleLarge.copyWith(
+                              color: AppColors.blueLight
+                          ),
+                        ),
+
+                        Text(
+                          "Student ID: 16512",
+                          style: AppTextStyles.caption,
+                        ),
+
+                      ],
+                    ),
+
+
+                    gap16,
+
+                    const Divider(),
+
+                    _drawerItem(
+                        svgImage: "assets/icons/profile_icon.svg",
+                        title: "Profile",
+                        onPressed: (){
+
+                        }
+                    ),
+
+                    _drawerItem(
+                        svgImage: "assets/icons/routine_icon.svg",
+                        title: "Routine",
+                        onPressed: (){
+
+                        }
+                    ),
+
+                    _drawerItem(
+                        svgImage: "assets/icons/progress_icon.svg",
+                        title: "Progress",
+                        onPressed: (){
+
+                        }
+                    ),
+
+                    _drawerItem(
+                        svgImage: "assets/icons/payment_icon.svg",
+                        title: "Payments",
+                        onPressed: (){
+                          print("Hello");
+                        }
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+
+            Positioned(
+              top: 60,
+              left: -60,
+              child: DeferPointer(
+                child: IconButton(
+                    onPressed: ()=> context.pop(),
+                    icon: CircleAvatar(
+                      child: Icon(Icons.close),
+                    )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _drawerItem({required String svgImage, required String title, required VoidCallback onPressed}){
+    return Column(
+      children: [
+        ListTile(
+          leading: SvgPicture.asset(
+            svgImage,
+            colorFilter: ColorFilter.mode(
+                AppColors.blueLight,
+                BlendMode.srcIn
+            ),
+          ),
+          title: Text(
+            title,
+            style: AppTextStyles.titleSmall,
+          ),
+          onTap: () => onPressed(),
+        ),
+        const Divider()
+      ],
+    );
+  }
+}
+

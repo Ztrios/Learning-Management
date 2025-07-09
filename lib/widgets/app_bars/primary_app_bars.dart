@@ -54,11 +54,17 @@ class PrimaryAppBar extends StatelessWidget {
           const Spacer(),
 
 
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                "assets/icons/menu_icon.svg"
-              )
+          Builder(
+            builder: (context) {
+              return IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: SvgPicture.asset(
+                    "assets/icons/menu_icon.svg"
+                  )
+              );
+            }
           )
 
         ],
