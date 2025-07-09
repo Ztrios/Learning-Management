@@ -8,6 +8,7 @@ import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/assignments_item_view.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/submission_types_selection.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/files_upload_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
@@ -120,47 +121,8 @@ class AssignmentSubmissionPage extends StatelessWidget {
 
                         gap12,
 
-                        SubmissionTypeSelection(),
+                        FilesUploadWidget()
 
-
-                        gap24,
-
-                        InkWell(
-                          onTap: (){},
-                          child: Container(
-                            width: 1.sw,
-                            height: 150.h,
-                            decoration: BoxDecoration(
-                              borderRadius: radius6,
-                              border: Border.all(
-                                width: 1.w,
-                                color: AppColors.deepOrange
-                              )
-                            ),
-                            child: Column(
-                              mainAxisAlignment: mainCenter,
-                              crossAxisAlignment: crossCenter,
-                              children: [
-
-                                Icon(
-                                  Icons.add,
-                                  size: 45.sp,
-                                  color: AppColors.deepOrange,
-                                ),
-
-                                Text(
-                                  "Click to Upload A PDF File",
-                                  style: AppTextStyles.bodySmall.copyWith(
-                                    color: AppColors.textPrimary
-                                  ),
-                                )
-
-                              ],
-                            ),
-                          ),
-                        )
-                    
-                    
                       ],
                     ),
                   ),

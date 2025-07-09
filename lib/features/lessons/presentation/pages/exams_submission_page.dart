@@ -1,3 +1,4 @@
+import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -8,6 +9,7 @@ import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/assignments_item_view.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/submission_types_selection.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/files_upload_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
@@ -120,112 +122,7 @@ class ExamsSubmissionPage extends StatelessWidget {
 
                         gap12,
 
-                        SubmissionTypeSelection(),
-
-
-                        gap24,
-
-                        Row(
-                          children: [
-
-                            Expanded(
-                              child: Container(
-                                width: 1.sw,
-                                height: 110.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: radius6,
-                                    border: Border.all(
-                                        width: 1.w,
-                                        color: AppColors.deepOrange
-                                    )
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  clipBehavior: Clip.none,
-                                  children: [
-
-                                    Image.network(
-                                      "https://www.studiestoday.com/sites/default/files/images16/Revision%20Worksheet%20Class%206%20Mathematics_2.PNG",
-                                      width: 1.sw,
-                                      height: 1.sh,
-                                    ),
-
-
-                                    CircleAvatar(
-                                      backgroundColor: AppColors.deepOrange,
-                                      child: Text(
-                                        "20",
-                                        style: AppTextStyles.titleSmall.copyWith(
-                                          color: Colors.white
-                                        ),
-                                      ),
-                                    ),
-
-                                    Positioned(
-                                      top: -15,
-                                      right: -15,
-                                      child: Material(
-                                        child: InkWell(
-                                          onTap: (){
-                                            print("On Tap");
-                                          },
-                                          child: CircleAvatar(
-                                            radius: 14.sp,
-                                            backgroundColor: AppColors.deepOrange,
-                                            child: Icon(
-                                              Icons.close,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-
-
-                                  ],
-                                ),
-                              ),
-                            ),
-                            gap12,
-                            Expanded(
-                              child: InkWell(
-                                onTap: (){},
-                                child: Container(
-                                  width: 1.sw,
-                                  height: 110.h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: radius6,
-                                      border: Border.all(
-                                          width: 1.w,
-                                          color: AppColors.deepOrange
-                                      )
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: mainCenter,
-                                    crossAxisAlignment: crossCenter,
-                                    children: [
-
-                                      Icon(
-                                        Icons.add,
-                                        size: 45.sp,
-                                        color: AppColors.deepOrange,
-                                      ),
-
-                                      Text(
-                                        "Click to Upload A PDF File",
-                                        style: AppTextStyles.bodySmall.copyWith(
-                                            color: AppColors.textPrimary
-                                        ),
-                                      )
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-
+                        FilesUploadWidget()
 
                       ],
                     ),
