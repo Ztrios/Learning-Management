@@ -6,6 +6,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_tab_bar.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/lession_header_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
 
 class LessionPageExtraParams{
@@ -40,6 +41,7 @@ class LessionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      endDrawer: CustomDrawer(),
       body: SafeArea(
         child: Column(
           children: [

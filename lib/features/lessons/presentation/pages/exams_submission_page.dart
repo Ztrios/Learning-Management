@@ -12,6 +12,7 @@ import 'package:learning_management/features/lessons/presentation/widgets/submis
 import 'package:learning_management/features/lessons/presentation/widgets/files_upload_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class ExamsSubmissionPage extends StatelessWidget {
@@ -24,6 +25,7 @@ class ExamsSubmissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: CustomDrawer(),
       body: SafeArea(
         child: SizedBox(
           width: 1.sw,

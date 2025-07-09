@@ -11,6 +11,7 @@ import 'package:learning_management/features/lessons/presentation/widgets/item_v
 import 'package:learning_management/features/lessons/presentation/pages/listview/mcq_list_view.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class QuizSubmissionPage extends StatelessWidget {
@@ -23,6 +24,7 @@ class QuizSubmissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       body: SafeArea(
         child: SizedBox(
           width: 1.sw,

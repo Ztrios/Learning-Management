@@ -4,6 +4,7 @@ import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_details_tab_bar.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/lession_item_view.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
 class LessionDetailsPage extends StatelessWidget {
 
@@ -15,8 +16,9 @@ class LessionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: 1.sw,
           height: 1.sh,
           child: Column(
