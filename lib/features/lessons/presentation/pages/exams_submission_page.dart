@@ -25,7 +25,7 @@ class ExamsSubmissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      endDrawer: CustomDrawer(),
       body: SafeArea(
         child: SizedBox(
           width: 1.sw,
@@ -124,7 +124,7 @@ class ExamsSubmissionPage extends StatelessWidget {
 
                         gap12,
 
-                        FilesUploadWidget()
+                        FilesUploadWidget(),
 
                       ],
                     ),

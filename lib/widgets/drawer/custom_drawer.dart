@@ -1,5 +1,6 @@
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -89,9 +91,7 @@ class CustomDrawer extends StatelessWidget {
                     _drawerItem(
                         svgImage: "assets/icons/payment_icon.svg",
                         title: "Payments",
-                        onPressed: (){
-                          print("Hello");
-                        }
+                        onPressed: ()=> context.push(PaymentPage.path),
                     ),
 
                   ],

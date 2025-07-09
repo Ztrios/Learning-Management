@@ -62,7 +62,7 @@ class PrimaryButton extends StatelessWidget {
             )
         ) : Text(
           text ?? "Continue",
-          style: AppTextStyles.bodyMedium.copyWith(color: textColor, fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodyMedium.copyWith(color: textColor ?? Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );
