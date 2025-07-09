@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
+import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet_title.dart';
 import 'package:learning_management/features/payments/presentation/widgets/fee_type_selection.dart';
 import 'package:learning_management/features/payments/presentation/widgets/payment_row_widget.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
@@ -44,22 +45,7 @@ class PaymentBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Header Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Invoice ID: 478593",
-                style: AppTextStyles.titleLarge.copyWith(
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.blueLight,
-                ),
-              ),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.clear, size: 30.sp, color: AppColors.blueLight),
-              ),
-            ],
-          ),
+          BottomSheetTitle(),
 
           gap12,
 
