@@ -98,7 +98,7 @@ class LogInPage extends StatelessWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: ()=> context.push(BottomNavigationPage.path),
+                onPressed: ()=> context.push(HomePage.path),
                 text: "Login",
                 textColor: Colors.white,
               ),

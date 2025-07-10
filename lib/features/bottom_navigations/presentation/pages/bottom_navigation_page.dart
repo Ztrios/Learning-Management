@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
@@ -11,22 +12,45 @@ import 'package:learning_management/features/routine/presentation/pages/routine_
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
 class BottomNavigationPage extends HookWidget {
-  static String get path => "/bottom-navigation";
 
-  static String get name => "bottom-navigation";
-
-  const BottomNavigationPage({super.key});
+  final Widget child;
+  const BottomNavigationPage({
+    super.key,
+    required this.child
+  });
 
   @override
   Widget build(BuildContext context) {
     final currentIndex = useState<int>(0);
 
-    final List<Widget> navigationPages = [
-      const HomePage(),
-      const RoutinePage(),
-      const ProgressPage(),
-      const ResultsPage()
-    ];
+    void onTap(int index){
+      currentIndex.value = index;
+      switch (index) {
+        case 0:
+          context.go(HomePage.path);
+        case 1:
+          context.go(RoutinePage.path);
+        case 2:
+          context.go(ProgressPage.path);
+        case 3:
+          context.go(ResultsPage.path);
+      }
+    }
+
+
+    void initialIndex() {
+      final location = GoRouter.of(context).state.path;
+      if (location == HomePage.path) {
+        currentIndex.value = 0;
+      } else if (location == RoutinePage.path) {
+        currentIndex.value = 1;
+      } else if (location == ProgressPage.path) {
+        currentIndex.value = 2;
+      } else if (location == ResultsPage.path) {
+        currentIndex.value = 3;
+      }
+    }
+
 
     Color getColor() {
       switch (currentIndex.value) {
@@ -48,10 +72,17 @@ class BottomNavigationPage extends HookWidget {
       BlendMode.srcIn,
     );
 
+
+    useEffect((){
+      initialIndex();
+      return null;
+    },[]);
+
+
     return Scaffold(
       backgroundColor: AppColors.background,
       endDrawer: CustomDrawer(),
-      body: navigationPages[currentIndex.value],
+      body: child,
       bottomNavigationBar: Container(
         height: 80.h,
         decoration: BoxDecoration(
@@ -77,7 +108,7 @@ class BottomNavigationPage extends HookWidget {
             fontWeight: FontWeight.bold,
           ),
           selectedItemColor: getColor(),
-          onTap: (index) => currentIndex.value = index,
+          onTap: onTap,
           items: [
             BottomNavigationBarItem(
               label: "Home",

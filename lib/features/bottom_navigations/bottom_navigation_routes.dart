@@ -17,7 +17,7 @@ class BottomNavigationRouter {
         pageBuilder: (context, state, child){
           return CustomTransitionPage(
               key: state.pageKey,
-              child: BottomNavigationPage(),
+              child: BottomNavigationPage(child: child),
               transitionsBuilder: routerTransition
           );
         },

@@ -108,7 +108,7 @@ class CustomDrawer extends StatelessWidget {
               left: -60,
               child: DeferPointer(
                 child: IconButton(
-                    onPressed: ()=> context.pop(),
+                    onPressed: ()=> Navigator.pop(context),
                     icon: CircleAvatar(
                       child: Icon(Icons.close),
                     )
