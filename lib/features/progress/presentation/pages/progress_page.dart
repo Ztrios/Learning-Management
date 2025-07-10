@@ -10,6 +10,9 @@ import 'package:learning_management/features/progress/presentation/widgets/progr
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
 
 class ProgressPage extends HookWidget {
+
+  static String get path => "/progress";
+  static String get name => "progress";
   const ProgressPage({super.key});
 
   @override

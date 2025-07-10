@@ -17,6 +17,8 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
 
 class ResultsPage extends HookWidget {
+  static String get path => "/results";
+  static String get name => "results";
   const ResultsPage({super.key});
 
   @override

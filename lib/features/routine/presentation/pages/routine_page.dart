@@ -10,6 +10,9 @@ import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class RoutinePage extends HookWidget {
+  static String get path => "/routine";
+  static String get name => "routine";
+
   const RoutinePage({super.key});
 
   @override
