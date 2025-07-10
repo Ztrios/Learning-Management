@@ -50,12 +50,14 @@ dependencies:
   firebase_messaging: ^15.2.7
   awesome_notifications: ^0.10.1
 
+  # Helpers and Services
   image_picker: ^1.1.2
   url_launcher: ^6.3.1
   timeago: ^3.7.1
   share_plus: ^11.0.0
   internet_connection_checker: ^3.0.1
   flutter_html: ^3.0.0
+  better_player_plus: ^1.0.8
 
 
 dev_dependencies:
