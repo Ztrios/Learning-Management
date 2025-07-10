@@ -7,6 +7,7 @@ import 'package:learning_management/features/bottom_navigations/bottom_navigatio
 import 'package:learning_management/features/home/home_routes.dart';
 import 'package:learning_management/features/lessons/lession_routes.dart';
 import 'package:learning_management/features/payments/payment_routes.dart';
+import 'package:learning_management/features/profile/presentation/profile_routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -38,7 +39,10 @@ class AppRouter {
       ...LessionRouter.routes,
 
       /// Payment Routes
-      ...PaymentRouter.routes
+      ...PaymentRouter.routes,
+
+      /// Profile Routes
+      ...ProfileRouter.routes
 
     ],
   );

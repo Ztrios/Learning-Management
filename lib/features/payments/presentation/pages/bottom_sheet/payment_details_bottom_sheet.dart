@@ -5,9 +5,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet_title.dart';
 import 'package:learning_management/features/payments/presentation/widgets/column_text_widget.dart';
-import 'package:learning_management/features/payments/presentation/widgets/fee_type_selection.dart';
 import 'package:learning_management/features/payments/presentation/widgets/payment_row_widget.dart';
-import 'package:learning_management/widgets/buttons/primary_button.dart';
 
 
 void showPaymentDetailsBottomSheet(BuildContext context){
