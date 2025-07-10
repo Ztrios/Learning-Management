@@ -26,6 +26,7 @@ class HomePage extends StatelessWidget {
           width: 1.sw,
           height: 1.sh,
           padding: paddingTop12,
+          color: AppColors.background,
           child: Column(
             children: [
 

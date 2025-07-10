@@ -14,7 +14,7 @@ import 'package:learning_management/widgets/text_forms/primary_text_forms_fields
 class StudentProfilePage extends StatelessWidget {
 
   static String get path => "/student-profile";
-  static String get name => "/student-profile";
+  static String get name => "student-profile";
 
   const StudentProfilePage({super.key});
 

@@ -24,6 +24,7 @@ class ProgressPage extends HookWidget {
         width: 1.sw,
         height: 1.sh,
         padding: padding20,
+        color: AppColors.background,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(

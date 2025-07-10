@@ -31,24 +31,25 @@ class ResultsPage extends HookWidget {
     ]);
 
     return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: padding20,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                gap12,
-                const StatsHeader(
-                  grade: "3.33",
-                  totalRank: "1,438",
-                  classRank: "56",
-                  background: AppColors.deepGreen,
-                ),
-                gap48,
-                ResultsCard(results: results.value),
-              ],
-            ),
+      child: Container(
+        width: 1.sw,
+        height: 1.sh,
+        padding: padding20,
+        color: AppColors.background,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              gap12,
+              const StatsHeader(
+                grade: "3.33",
+                totalRank: "1,438",
+                classRank: "56",
+                background: AppColors.deepGreen,
+              ),
+              gap48,
+              ResultsCard(results: results.value),
+            ],
           ),
         ),
       ),
