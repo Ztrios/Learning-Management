@@ -42,10 +42,10 @@ class StudentProfilePage extends StatelessWidget {
                       // Profile Picture and Name with background
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: 24.h),
+                        padding: paddingV24,
                         decoration: BoxDecoration(
                           color: Colors.blue.shade50, // 🎨 background color
-                          borderRadius: BorderRadius.circular(12.r),
+                          borderRadius: radius12,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -68,13 +68,16 @@ class StudentProfilePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 12.h),
+
+                            gap12,
+
                             Text(
                               "Sakib Hossain",
                               style: AppTextStyles.bodyLarge.copyWith(
                                 fontWeight: FontWeight.w900
                               ),
                             ),
+
                             Text(
                               "Student ID: STU123456",
                               style: AppTextStyles.bodyMedium,
@@ -83,7 +86,7 @@ class StudentProfilePage extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: 24.h),
+                      gap24,
 
                       // Read-only form fields
                       Column(
@@ -100,7 +103,7 @@ class StudentProfilePage extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 24.h),
+                      gap24,
 
                       PrimaryButton(
                         text: "Update Profile",
