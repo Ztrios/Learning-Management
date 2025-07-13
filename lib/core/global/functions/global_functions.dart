@@ -15,18 +15,6 @@ class GlobalFunctions{
   const GlobalFunctions._();
 
 
-
-  static Future<void> clearLocalDatabase() async {
-    try {
-      final box = await Hive.openBox(LocalDatabaseKeys.database);
-      await box.clear();
-      log("🧹 Local database cleared successfully.");
-    } catch (e) {
-      log("❌ Failed to clear local database: $e");
-    }
-  }
-
-
   static void showSuccessToast(String message) {
     toastification.show(
       overlayState: navigatorKey.currentState?.overlay,
@@ -41,10 +29,25 @@ class GlobalFunctions{
   }
 
 
+  static void showErrorToast({required String title, required String message}) {
+    toastification.show(
+      overlayState: navigatorKey.currentState?.overlay,
+      type: ToastificationType.error,
+      style: ToastificationStyle.minimal,
+      title: Text(title),
+      description: Text(message),
+      autoCloseDuration: const Duration(seconds: 3),
+      alignment: Alignment.bottomCenter,
+      icon: const Icon(Icons.error,),
+    );
+  }
+
+
+
   static void showApiErrorToast(int statusCode, String message) {
     toastification.show(
-    overlayState: navigatorKey.currentState?.overlay,
-    type: ToastificationType.error,
+      overlayState: navigatorKey.currentState?.overlay,
+      type: ToastificationType.error,
       style: ToastificationStyle.minimal,
       title: Text("Status Code: $statusCode"),
       description: Text(message),
@@ -53,6 +56,7 @@ class GlobalFunctions{
       icon: const Icon(Icons.error,),
     );
   }
+
 
 
   static String formatDate({DateTime? dateTime}) {
