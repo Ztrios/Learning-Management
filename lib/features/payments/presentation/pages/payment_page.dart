@@ -22,7 +22,7 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      endDrawer: CustomDrawer(),
       body: SafeArea(
         child: SizedBox(
           width: 1.sw,
@@ -31,7 +31,7 @@ class PaymentPage extends StatelessWidget {
             children: [
 
               SecondaryAppBar(
-                  title: "Payment"
+                  title: "Payment",
               ),
 
 

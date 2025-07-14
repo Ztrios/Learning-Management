@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
@@ -19,12 +20,21 @@ void showPaymentBottomSheet(BuildContext context){
   );
 }
 
-class PaymentBottomSheet extends StatelessWidget {
+class PaymentBottomSheet extends HookWidget {
   const PaymentBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
 
+    final paymentDuration = useState<String>("1 Month");
+
+    final List<String> months = [
+      "1 Month",
+      "2 Months",
+      "3 Months",
+      "6 Months",
+      "12 Months"
+    ];
 
     final outlineBorder = OutlineInputBorder(
       borderRadius: radius12,
@@ -54,24 +64,35 @@ class PaymentBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleText("Payment for month"),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  width: 100.w,
-                  padding: padding4,
-                  decoration: BoxDecoration(
-                    borderRadius: radius6,
-                    border: Border.all(width: 1.w, color: AppColors.blueLight),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("3 Months", style: AppTextStyles.titleSmall),
-                      Icon(Icons.keyboard_arrow_down, color: AppColors.blueLight),
-                    ],
+              Container(
+                height: 30.h,
+                padding: paddingH6,
+                decoration: BoxDecoration(
+                  borderRadius: radius6,
+                  border: Border.all(width: 1.w, color: AppColors.blueLight),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: paymentDuration.value,
+                    icon: Icon(Icons.keyboard_arrow_down, color: AppColors.deepBlue,
+                        size: 25.sp),
+                    dropdownColor: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                    style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.bold),
+                    onChanged: (value) {
+                      if (value != null) {
+                        paymentDuration.value = value;
+                      }
+                    },
+                    items: months.map((item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
                   ),
                 ),
-              ),
+              )
             ],
           ),
 
