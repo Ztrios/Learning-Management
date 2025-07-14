@@ -10,6 +10,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/home/presentation/widgets/class_routine_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/subject_list_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/task_list_widget.dart';
+import 'package:learning_management/features/payments/presentation/widgets/payment_notice_card.dart';
 import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,45 +43,10 @@ class HomePage extends StatelessWidget {
                       children: [
 
 
-                        Container(
-                          width: 1.sw,
-                          padding: padding12,
-                          decoration: BoxDecoration(
-                              borderRadius: radius18,
-                              color: AppColors.errorRed
-                          ),
-                          child: Row(
-                            children: [
-
-                              Icon(
-                                Icons.warning_amber_rounded,
-                                color: Colors.white,
-                                size: 25.sp,
-                              ),
-
-                              gap8,
-
-                              Expanded(
-                                child: RichText(
-                                    text: TextSpan(
-                                        text: "This is account is currently deactived due to failed payment. ",
-                                        style: AppTextStyles.caption.copyWith(
-                                            color: Colors.white
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                              text: "Update payment Method",
-                                              style: AppTextStyles.caption.copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold
-                                              )
-                                          )
-                                        ]
-                                    )
-                                ),
-                              ),
-                            ],
-                          ),
+                        PaymentNoticeCard(
+                            message: "Your email couldn't be renewed because your payment didn’t work",
+                            isRedNotice: true,
+                            onPressed: (){}
                         ),
 
                         gap12,
