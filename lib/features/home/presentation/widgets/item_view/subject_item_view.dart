@@ -68,6 +68,15 @@ class SubjectItemView extends StatelessWidget {
                 )
             ),
 
+            Positioned(
+                top: 10,
+                right: 10,
+                child: IconButton(
+                    onPressed: (){},
+                    icon: Icon(Icons.more_vert,color: Colors.white)
+                ),
+            ),
+
           ],
         ),
       ),
