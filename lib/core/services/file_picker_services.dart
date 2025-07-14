@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 class FilePickerServices{
   const FilePickerServices._();
 
-  Future<File?> uploadPDF() async {
+  static Future<File?> uploadPDF() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -18,8 +18,12 @@ class FilePickerServices{
   }
 
 
-  Future<List<File>?> uploadImages() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true,);
+  static Future<List<File>?> uploadImages() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png']
+    );
 
     if (result != null) {
       return result.paths.map((path) => File(path!)).toList();

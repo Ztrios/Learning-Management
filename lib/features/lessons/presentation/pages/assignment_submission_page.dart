@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -123,7 +125,11 @@ class AssignmentSubmissionPage extends StatelessWidget {
 
                         gap12,
 
-                        FilesUploadWidget()
+                        FilesUploadWidget(
+                          selectedFiles: (files, type){
+
+                          },
+                        )
 
                       ],
                     ),

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
@@ -124,7 +127,9 @@ class ExamsSubmissionPage extends StatelessWidget {
 
                         gap12,
 
-                        FilesUploadWidget(),
+                        FilesUploadWidget(
+                          selectedFiles: (List<File>? files, UploadType type) {  },
+                        ),
 
                       ],
                     ),
