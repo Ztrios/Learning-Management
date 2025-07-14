@@ -33,7 +33,7 @@ class FilesUploadWidget extends HookWidget {
         selectedPDF.value = await FilePickerServices.uploadPDF();
         selectedFiles([?selectedPDF.value],UploadType.pdf);
       }else{
-        List<File>? imageFiles = await FilePickerServices.uploadImages();
+        List<File>? imageFiles = await FilePickerServices.uploadMultipleImages();
         selectedImages.value = [...?imageFiles,...?selectedImages.value];
         selectedFiles(selectedImages.value, UploadType.images);
       }

@@ -1,6 +1,12 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/services/file_picker_services.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
@@ -9,9 +15,10 @@ import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
+import 'package:learning_management/widgets/network_image_widget.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends HookWidget {
   static String get path => "/";
   //static String get path => "/sign-up";
   static String get name => "sign-up";
@@ -22,6 +29,13 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final picture = useState<File?>(null);
+
+    Future<void> uploadProfilePciture() async {
+      picture.value = await FilePickerServices.uploadProfilePicture();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -51,11 +65,49 @@ class SignUpPage extends StatelessWidget {
                   ),
                 ),
             
-                gap12,
+                gap24,
 
                 Column(
                   spacing: 12.w,
                   children: [
+
+
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+
+                        if(picture.value != null)
+                        ClipRRect(
+                          borderRadius: radiusCircle,
+                          child: Image.file(
+                            picture.value!,
+                            width: 120.w,
+                            height: 120.w,
+                            fit: BoxFit.cover,
+                          ),
+                        )else SvgPicture.asset(
+                          "assets/icons/avatar_icon.svg",
+                          width: 120.w,
+                          height: 120.w,
+                        ),
+
+                        Positioned(
+                          child: InkWell(
+                            onTap: uploadProfilePciture,
+                            child: CircleAvatar(
+                              radius: 16.r,
+                              backgroundColor: AppColors.blueLight,
+                              child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 16.sp,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
 
                     PrimaryTextFormsFields(
                       title: "Email",
@@ -112,35 +164,38 @@ class SignUpPage extends StatelessWidget {
                       showObscureButton: true
                     ),
 
-                    gap2,
-
-                    InkWell(
-                      onTap: (){},
-                      child: Container(
-                        width: 1.sw,
-                        height: 100.h,
-                        decoration: BoxDecoration(
-                          borderRadius: radius10,
-                          border: Border.all(
-                            color: AppColors.grey
-                          )
-                        ),
-                        child: Column(
-                          crossAxisAlignment: crossCenter,
-                          mainAxisAlignment: mainCenter,
-                          children: [
-
-                            Icon(Icons.add,color: AppColors.blueLight, size: 35.sp),
-
-                            Text(
-                              "Click to upload your picture",
-                              style: AppTextStyles.titleSmall,
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    )
+                    // gap2,
+                    //
+                    // InkWell(
+                    //   onTap: uploadProfilePciture,
+                    //   child: DottedBorder(
+                    //     options: RoundedRectDottedBorderOptions(
+                    //       dashPattern: [5, 5],
+                    //       strokeWidth: 2,
+                    //       color: AppColors.blueLight,
+                    //       strokeCap: StrokeCap.round,
+                    //       radius: Radius.circular(10.r),
+                    //     ),
+                    //     child: SizedBox(
+                    //       width: 1.sw,
+                    //       height: 100.h,
+                    //       child: Column(
+                    //         crossAxisAlignment: crossCenter,
+                    //         mainAxisAlignment: mainCenter,
+                    //         children: [
+                    //
+                    //           Icon(Icons.upload,color: AppColors.blueLight, size: 35.sp),
+                    //
+                    //           Text(
+                    //             "Click to upload your picture",
+                    //             style: AppTextStyles.titleSmall,
+                    //           ),
+                    //
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
 
 
                   ],
