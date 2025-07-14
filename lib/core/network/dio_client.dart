@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
-import 'package:learning_management/core/global/functions/global_functions.dart';
+import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
 import 'package:learning_management/core/network/interceptor.dart';
 
 
@@ -145,7 +145,7 @@ class DioClient {
       case DioExceptionType.receiveTimeout:
         return NetworkFailure("Request timeout, please try again.");
       case DioExceptionType.badResponse:
-        GlobalFunctions.showApiErrorToast(e.response?.statusCode ?? 500,e.response?.data["message"]);
+        ToastNotifications.showApiErrorToast(e.response?.statusCode ?? 500,e.response?.data["message"]);
         return ApiFailure(
           e.response?.statusCode ?? 500,
           "${e.response?.data["message"]}",

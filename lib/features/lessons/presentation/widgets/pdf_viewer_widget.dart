@@ -4,7 +4,7 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:learning_management/core/global/functions/global_functions.dart';
+import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
@@ -29,14 +29,14 @@ class PdfViewerWidget extends HookWidget {
         onDownloadCompleted: (String path) {
           if (context.mounted) {
             Navigator.pop(context);
-            GlobalFunctions.showSuccessToast("PDF downloaded successfully.");
+            ToastNotifications.showSuccessToast("PDF downloaded successfully.");
           }
           isDownloading.value = false;
         },
         onDownloadError: (String error) {
           if (context.mounted) {
             Navigator.pop(context);
-            GlobalFunctions.showErrorToast(
+            ToastNotifications.showErrorToast(
               title: "Download Failed!",
               message: "Something went wrong. Please try again!",
             );

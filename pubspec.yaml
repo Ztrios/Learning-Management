@@ -51,7 +51,7 @@ dependencies:
   awesome_notifications: ^0.10.1
 
   # Helpers and Services
-  image_picker: ^1.1.2
+  file_picker: ^10.2.0
   url_launcher: ^6.3.1
   timeago: ^3.7.1
   share_plus: ^11.0.0
