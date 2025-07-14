@@ -13,7 +13,11 @@ class MaterialsTabView extends StatelessWidget {
         itemBuilder: (context, index){
           return InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> PdfViewerWidget()));
+              if(index.isEven){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> VideoPlayerWidget()));
+              }else{
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> PdfViewerWidget()));
+              }
             },
             child: MaterialsItemView()
           );
