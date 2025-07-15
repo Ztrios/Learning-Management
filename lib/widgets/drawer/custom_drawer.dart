@@ -10,6 +10,8 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
 import 'package:learning_management/features/profile/presentation/pages/student_profile_page.dart';
+import 'package:learning_management/features/progress/presentation/pages/progress_page.dart';
+import 'package:learning_management/features/routine/presentation/pages/routine_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -78,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
                         svgImage: "assets/icons/routine_icon.svg",
                         title: "Routine",
                         onPressed: (){
-
+                          context.push(RoutinePage.path);
                           Navigator.pop(context);
                         }
                     ),
@@ -87,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
                         svgImage: "assets/icons/progress_icon.svg",
                         title: "Progress",
                         onPressed: (){
-
+                          context.push(ProgressPage.path);
                           Navigator.pop(context);
                         }
                     ),
@@ -95,7 +97,10 @@ class CustomDrawer extends StatelessWidget {
                     _drawerItem(
                         svgImage: "assets/icons/payment_icon.svg",
                         title: "Payments",
-                        onPressed: ()=> context.push(PaymentPage.path),
+                        onPressed: (){
+                          context.push(PaymentPage.path);
+                          Navigator.pop(context);
+                        },
                     ),
 
                   ],
