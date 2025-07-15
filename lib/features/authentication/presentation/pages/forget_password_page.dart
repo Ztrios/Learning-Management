@@ -47,7 +47,7 @@ class ForgetPasswordPage extends HookWidget {
 
               Text(
                 "Forgot password",
-                style: AppTextStyles.titleMedium,
+                style: AppTextStyles.titleLarge,
               ),
 
               gap6,
