@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
+import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 Future<TimeRange> showTimeRangePickerDialog(BuildContext context)async{
@@ -19,7 +20,7 @@ Future<TimeRange> showTimeRangePickerDialog(BuildContext context)async{
       ticksOffset: -7,
       ticksLength: 15,
       ticksColor: Colors.grey,
-      selectedColor: AppColors.deepOrange,
+      selectedColor: AppColors.blueLight,
       use24HourFormat: false,
       minDuration: Duration(hours: 1),
       labels: [
