@@ -15,6 +15,14 @@ Future<TimeRange> showTimeRangePickerDialog(BuildContext context)async{
           endTime: const TimeOfDay(hour: 5, minute: 0)
       ),
       disabledColor: Colors.red.withValues(alpha: 0.5),
+      timeTextStyle: AppTextStyles.titleMedium.copyWith(
+        color: Colors.white,
+        fontWeight: FontWeight.w900
+      ),
+      activeTimeTextStyle: AppTextStyles.titleLarge.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w900
+      ),
       strokeWidth: 4,
       ticks: 24,
       ticksOffset: -7,
