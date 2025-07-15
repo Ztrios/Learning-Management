@@ -44,18 +44,19 @@ class SignUpPage extends HookWidget {
     }
 
     Future<void> signUp()async{
-      if(picture.value != null){
-        if(formKey.currentState!.validate()){
-          context.go(LogInPage.path);
-        }
-      }else{
-        scrollController.jumpTo(scrollController.position.minScrollExtent);
-        ToastNotifications.showErrorToast(
-            title: "Empty Profile Picture",
-            message: "Profile picture is required.",
-            alignment: Alignment.topCenter
-        );
-      }
+      context.go(LogInPage.path);
+      // if(picture.value != null){
+      //   if(formKey.currentState!.validate()){
+      //     context.go(LogInPage.path);
+      //   }
+      // }else{
+      //   scrollController.jumpTo(scrollController.position.minScrollExtent);
+      //   ToastNotifications.showErrorToast(
+      //       title: "Empty Profile Picture",
+      //       message: "Profile picture is required.",
+      //       alignment: Alignment.topCenter
+      //   );
+      // }
     }
 
     return Scaffold(

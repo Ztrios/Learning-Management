@@ -8,6 +8,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/authentication/presentation/pages/reset_password_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 import 'package:pinput/pinput.dart';
@@ -79,7 +80,7 @@ class OTPVerificationPage extends HookWidget {
               gap48,
 
               Pinput(
-                length: 6,
+                length: 5,
                 separatorBuilder: (index) => const SizedBox(width: 8),
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
                 keyboardType: TextInputType.number,
@@ -106,7 +107,7 @@ class OTPVerificationPage extends HookWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: (){},
+                onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> ResetPasswordPage())),
                 text: "Verify Code",
               ),
 
