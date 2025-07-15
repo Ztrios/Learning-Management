@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
@@ -10,7 +12,7 @@ import 'package:learning_management/features/home/presentation/pages/home_page.d
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 
-class LogInPage extends StatelessWidget {
+class LogInPage extends HookWidget {
   static String get path => "/login";
   static String get name => "login";
 
@@ -20,6 +22,15 @@ class LogInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final formKey = useMemoized(()=> GlobalKey<FormState>());
+
+    Future<void> logIn() async {
+      if(formKey.currentState!.validate()){
+        context.push(HomePage.path);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -42,23 +53,34 @@ class LogInPage extends StatelessWidget {
 
               gap24,
 
-              Column(
-                spacing: 12.w,
-                children: [
+              Form(
+                key: formKey,
+                child: Column(
+                  spacing: 12.w,
+                  children: [
 
-                  PrimaryTextFormsFields(
-                    title: "Email",
-                    hintText: "Enter your email address",
-                  ),
+                    PrimaryTextFormsFields(
+                      title: "Email",
+                      hintText: "Enter your email address",
+                      validator: (value)=> FormValidation(
+                          validationType: ValidationType.email,
+                          formValue: value
+                      ).validate(),
+                    ),
 
 
-                  PrimaryTextFormsFields(
+                    PrimaryTextFormsFields(
                       title: "Password",
                       hintText: "Enter your password",
-                      showObscureButton: true
-                  ),
+                      showObscureButton: true,
+                      validator: (value)=> FormValidation(
+                          validationType: ValidationType.password,
+                          formValue: value
+                      ).validate(),
+                    ),
 
-                ],
+                  ],
+                ),
               ),
 
               Row(
@@ -98,7 +120,7 @@ class LogInPage extends StatelessWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: ()=> context.push(HomePage.path),
+                onPressed: logIn,
                 text: "Login",
                 textColor: Colors.white,
               ),
