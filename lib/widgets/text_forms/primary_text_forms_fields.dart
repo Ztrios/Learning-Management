@@ -16,6 +16,8 @@ class PrimaryTextFormsFields extends HookWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
+  final VoidCallback? onTap;
+
   const PrimaryTextFormsFields({
     super.key,
     required this.title,
@@ -23,12 +25,13 @@ class PrimaryTextFormsFields extends HookWidget {
     this.controller,
     this.hintText,
     this.minLine,
-    this.validator
+    this.validator,
+    this.onTap
   });
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _context) {
 
 
     final obscureText = useState<bool>(true);
@@ -52,51 +55,65 @@ class PrimaryTextFormsFields extends HookWidget {
 
         gap4,
 
-        TextFormField(
-          controller: controller,
-          // minLines: minLine,
-          // maxLines: minLine,
-          obscureText: showObscureButton == true ? obscureText.value : false,
-          decoration: InputDecoration(
-            suffixIcon: showObscureButton == true ? IconButton(
-              onPressed: ()=> obscureText.value = !obscureText.value,
-              icon: Icon(
-                  obscureText.value == true ?
-                Icons.visibility_off : Icons.visibility
-              )
-            ): null,
-            hintText: hintText,
-            hintStyle: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.grey
-            ),
-            border: OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide.none
-            ),
-            enabledBorder: OutlineInputBorder(
+        InkWell(
+          onTap: onTap,
+          child: TextFormField(
+            controller: controller,
+            // minLines: minLine,
+            // maxLines: minLine,
+            enabled: onTap == null,
+            obscureText: showObscureButton == true ? obscureText.value : false,
+            decoration: InputDecoration(
+              suffixIcon: showObscureButton == true ? IconButton(
+                onPressed: ()=> obscureText.value = !obscureText.value,
+                icon: Icon(
+                    obscureText.value == true ?
+                  Icons.visibility_off : Icons.visibility
+                )
+              ): null,
+              hintText: hintText,
+              hintStyle: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.grey
+              ),
+              border: OutlineInputBorder(
                 borderRadius: radius8,
                 borderSide: BorderSide(
-                  width: 1.2.w,
-                  color: AppColors.grey
+                    width: 1.2.w,
+                    color: AppColors.grey
                 ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: radius8,
-              borderSide: BorderSide(
-                  width: 1.2.w,
-                  color: AppColors.grey
               ),
-            ),
-            errorBorder:OutlineInputBorder(
-              borderRadius: radius8,
-              borderSide: BorderSide(
-                  width: 1.2.w,
-                  color: AppColors.grey
+              disabledBorder: OutlineInputBorder(
+                borderRadius: radius8,
+                borderSide: BorderSide(
+                    width: 1.2.w,
+                    color: AppColors.grey
+                ),
               ),
-            ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: radius8,
+                  borderSide: BorderSide(
+                    width: 1.2.w,
+                    color: AppColors.grey
+                  ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: radius8,
+                borderSide: BorderSide(
+                    width: 1.2.w,
+                    color: AppColors.grey
+                ),
+              ),
+              errorBorder:OutlineInputBorder(
+                borderRadius: radius8,
+                borderSide: BorderSide(
+                    width: 1.2.w,
+                    color: AppColors.grey
+                ),
+              ),
 
+            ),
+            validator: validator,
           ),
-          validator: validator,
         )
 
       ],
