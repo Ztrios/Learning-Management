@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/services/file_picker_services.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
@@ -15,8 +17,12 @@ import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
+import 'package:learning_management/widgets/dialogs/time_range_picker_dialog.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
+import 'package:from_to_time_picker/from_to_time_picker.dart';
+import 'package:time_range_picker/time_range_picker.dart';
+
 
 class SignUpPage extends HookWidget {
   static String get path => "/";
@@ -30,9 +36,10 @@ class SignUpPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
+    final batchTimeController = useTextEditingController();
     final picture = useState<File?>(null);
 
-    Future<void> uploadProfilePciture() async {
+    Future<void> uploadProfilePicture() async {
       picture.value = await FilePickerServices.uploadProfilePicture();
     }
 
@@ -93,7 +100,7 @@ class SignUpPage extends HookWidget {
 
                         Positioned(
                           child: InkWell(
-                            onTap: uploadProfilePciture,
+                            onTap: uploadProfilePicture,
                             child: CircleAvatar(
                               radius: 16.r,
                               backgroundColor: AppColors.blueLight,
@@ -144,9 +151,16 @@ class SignUpPage extends HookWidget {
                       hintText: "Enter your mobile number",
                     ),
 
-                    PrimaryTextFormsFields(
-                      title: "Batch Time",
-                      hintText: "e.g., 10:00 AM - 12:00 PM",
+                    InkWell(
+                      child: PrimaryTextFormsFields(
+                        controller: batchTimeController,
+                        onTap: () async {
+                          batchTimeController.text = DateTimeFormatters
+                              .formatTimeRange(await showTimeRangePickerDialog(context), context);
+                        },
+                        title: "Batch Time",
+                        hintText: "e.g., 10:00 AM - 12:00 PM",
+                      ),
                     ),
 
 
