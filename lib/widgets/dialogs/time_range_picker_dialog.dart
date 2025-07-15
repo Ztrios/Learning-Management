@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 Future<TimeRange> showTimeRangePickerDialog(BuildContext context)async{
   return await showTimeRangePicker(
       context: context,
+      fromText: "Start Time",
+      toText: "End Time",
       start: const TimeOfDay(hour: 9, minute: 0),
       end: const TimeOfDay(hour: 12, minute: 0),
       disabledTime: TimeRange(
@@ -16,6 +19,9 @@ Future<TimeRange> showTimeRangePickerDialog(BuildContext context)async{
       ticksOffset: -7,
       ticksLength: 15,
       ticksColor: Colors.grey,
+      selectedColor: AppColors.deepOrange,
+      use24HourFormat: false,
+      minDuration: Duration(hours: 1),
       labels: [
         "12 am",
         "3 am",

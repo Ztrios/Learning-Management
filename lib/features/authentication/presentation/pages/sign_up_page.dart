@@ -155,8 +155,8 @@ class SignUpPage extends HookWidget {
                       child: PrimaryTextFormsFields(
                         controller: batchTimeController,
                         onTap: () async {
-                          batchTimeController.text = DateTimeFormatters
-                              .formatTimeRange(await showTimeRangePickerDialog(context), context);
+                          TimeRange timeRange = await showTimeRangePickerDialog(context);
+                          batchTimeController.text = DateTimeFormatters.formatTimeRange(context, timeRange);
                         },
                         title: "Batch Time",
                         hintText: "e.g., 10:00 AM - 12:00 PM",

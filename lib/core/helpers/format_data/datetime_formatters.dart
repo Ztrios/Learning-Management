@@ -6,7 +6,7 @@ class DateTimeFormatters{
   const DateTimeFormatters._();
 
 
-  static String formatTimeRange(TimeRange timeRange, BuildContext context){
+  static String formatTimeRange( BuildContext context, TimeRange timeRange){
     final localizations = MaterialLocalizations.of(context);
     String formattedStart = localizations.formatTimeOfDay(timeRange.startTime);
     String formattedEnd = localizations.formatTimeOfDay(timeRange.endTime);
