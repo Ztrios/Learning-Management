@@ -29,7 +29,7 @@ class ToastNotifications{
   }
 
 
-  static void showErrorToast({required String title, required String message}) {
+  static void showErrorToast({required String title, required String message, AlignmentGeometry? alignment}) {
     toastification.show(
       overlayState: navigatorKey.currentState?.overlay,
       type: ToastificationType.error,
@@ -37,7 +37,7 @@ class ToastNotifications{
       title: Text(title),
       description: Text(message),
       autoCloseDuration: const Duration(seconds: 3),
-      alignment: Alignment.bottomCenter,
+      alignment: alignment ?? Alignment.bottomCenter,
       icon: const Icon(Icons.error,),
     );
   }

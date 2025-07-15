@@ -31,7 +31,7 @@ class PrimaryTextFormsFields extends HookWidget {
 
 
   @override
-  Widget build(BuildContext _context) {
+  Widget build(BuildContext context) {
 
 
     final obscureText = useState<bool>(true);
@@ -62,6 +62,7 @@ class PrimaryTextFormsFields extends HookWidget {
             // minLines: minLine,
             // maxLines: minLine,
             enabled: onTap == null,
+            style: AppTextStyles.bodyLarge,
             obscureText: showObscureButton == true ? obscureText.value : false,
             decoration: InputDecoration(
               suffixIcon: showObscureButton == true ? IconButton(

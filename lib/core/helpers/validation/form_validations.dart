@@ -1,4 +1,4 @@
-enum ValidationType { name, phone, email, password, otp }
+enum ValidationType { name, phone, email, password, otp, required }
 
 class FormValidation {
 
@@ -8,22 +8,33 @@ class FormValidation {
 
   String? validate() {
     switch (validationType) {
-      case ValidationType.name:
-        return userNameValidation(name: formValue);
+        case ValidationType.name:
+          return userNameValidation(name: formValue);
 
-      case ValidationType.phone:
-        return phoneValidation(phone: formValue);
+        case ValidationType.phone:
+          return phoneValidation(phone: formValue);
 
-      case ValidationType.email:
-        return emailValidation(email: formValue);
+        case ValidationType.email:
+          return emailValidation(email: formValue);
 
-      case ValidationType.password:
-        return passwordValidation(password: formValue);
+        case ValidationType.password:
+          return passwordValidation(password: formValue);
 
-      case ValidationType.otp:
-        return otpValidation(code: formValue);
+        case ValidationType.otp:
+          return otpValidation(code: formValue);
 
-      }
+      case ValidationType.required:
+          return requiredField(value: formValue);
+
+    }
+  }
+
+  String? requiredField({required String? value}) {
+    if (value == null || value.isEmpty) {
+      return "This field is required";
+    } else {
+      return null;
+    }
   }
 
   String? userNameValidation({required String? name}) {
