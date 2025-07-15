@@ -16,6 +16,8 @@ class PrimaryTextFormsFields extends HookWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
+  final TextInputType? textInputType;
+
   final VoidCallback? onTap;
 
   const PrimaryTextFormsFields({
@@ -26,7 +28,8 @@ class PrimaryTextFormsFields extends HookWidget {
     this.hintText,
     this.minLine,
     this.validator,
-    this.onTap
+    this.onTap,
+    this.textInputType
   });
 
 
@@ -64,6 +67,7 @@ class PrimaryTextFormsFields extends HookWidget {
             enabled: onTap == null,
             style: AppTextStyles.bodyLarge,
             obscureText: showObscureButton == true ? obscureText.value : false,
+            keyboardType: textInputType,
             decoration: InputDecoration(
               suffixIcon: showObscureButton == true ? IconButton(
                 onPressed: ()=> obscureText.value = !obscureText.value,

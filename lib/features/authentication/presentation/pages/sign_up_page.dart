@@ -14,6 +14,7 @@ import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/dialogs/time_range_picker_dialog.dart';
@@ -136,6 +137,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Email",
                         hintText: "Enter your email address",
+                        textInputType: TextInputType.emailAddress,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.email,
                             formValue: value
@@ -146,6 +148,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Student Name",
                         hintText: "Enter your full name",
+                        textInputType: TextInputType.name,
                         validator: (value)=> FormValidation(
                           validationType: ValidationType.name,
                           formValue: value
@@ -157,6 +160,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Father's Name",
                         hintText: "Enter your father's name",
+                        textInputType: TextInputType.name,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.name,
                             formValue: value
@@ -167,6 +171,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Mother's Name",
                         hintText: "Enter your mother's name",
+                        textInputType: TextInputType.name,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.name,
                             formValue: value
@@ -177,6 +182,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Own District",
                         hintText: "Enter your home district",
+                        textInputType: TextInputType.name,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.required,
                             formValue: value
@@ -187,6 +193,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Mobile Number (WhatsApp is connected)",
                         hintText: "Enter your mobile number",
+                        textInputType: TextInputType.phone,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.phone,
                             formValue: value
@@ -212,6 +219,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Password",
                         hintText: "Enter your password",
+                        textInputType: TextInputType.visiblePassword,
                         showObscureButton: true,
                         validator: (value)=> FormValidation(
                             validationType: ValidationType.password,
@@ -223,6 +231,7 @@ class SignUpPage extends HookWidget {
                       PrimaryTextFormsFields(
                         title: "Confirm Password",
                         hintText: "Confirm your password",
+                        textInputType: TextInputType.visiblePassword,
                         showObscureButton: true,
                         validator: (value){
                           return "";
@@ -288,7 +297,8 @@ class SignUpPage extends HookWidget {
                     ),
 
                     TextButton(
-                      onPressed: ()=> context.go(LogInPage.path),
+                      //onPressed: ()=> context.go(LogInPage.path),
+                      onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgetPasswordPage())),
                       child: Text(
                           "Login",
                           style: AppTextStyles.titleSmall.copyWith(

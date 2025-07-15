@@ -62,6 +62,7 @@ class LogInPage extends HookWidget {
                     PrimaryTextFormsFields(
                       title: "Email",
                       hintText: "Enter your email address",
+                      textInputType: TextInputType.emailAddress,
                       validator: (value)=> FormValidation(
                           validationType: ValidationType.email,
                           formValue: value
@@ -73,6 +74,7 @@ class LogInPage extends HookWidget {
                       title: "Password",
                       hintText: "Enter your password",
                       showObscureButton: true,
+                      textInputType: TextInputType.visiblePassword,
                       validator: (value)=> FormValidation(
                           validationType: ValidationType.password,
                           formValue: value
