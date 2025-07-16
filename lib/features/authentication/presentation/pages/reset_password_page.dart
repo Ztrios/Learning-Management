@@ -4,14 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
-import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/authentication/presentation/pages/otp_verification_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 
 class ResetPasswordPage extends HookWidget {
+
+  static String get path => "/reset-password";
+  static String get name => "reset-password";
+
   const ResetPasswordPage({super.key});
 
   @override

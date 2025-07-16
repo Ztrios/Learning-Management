@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
-import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/authentication/presentation/pages/forget_password_page.dart';
+import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/features/authentication/presentation/pages/reset_password_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
-import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPVerificationPage extends HookWidget {
+
+  static String get path => "/otp-verification";
+  static String get name => "otp-verification";
+
   const OTPVerificationPage({super.key});
 
   @override
@@ -107,7 +112,7 @@ class OTPVerificationPage extends HookWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> ResetPasswordPage())),
+                onPressed: ()=> context.pushReplacement(LogInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path + ResetPasswordPage.path),
                 text: "Verify Code",
               ),
 

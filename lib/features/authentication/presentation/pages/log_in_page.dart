@@ -7,6 +7,7 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:learning_management/features/bottom_navigations/presentation/pages/bottom_navigation_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
@@ -108,7 +109,7 @@ class LogInPage extends HookWidget {
                   const Spacer(),
 
                   TextButton(
-                    onPressed: (){},
+                    onPressed: ()=> context.pushNamed( ForgetPasswordPage.name),
                     child: Text(
                       "Forgot Password?",
                       style: AppTextStyles.bodyMedium.copyWith(
