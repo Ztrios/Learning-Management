@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -8,11 +11,48 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
-class ClassRoutineWidget extends StatelessWidget {
+class ClassRoutineWidget extends HookWidget {
   const ClassRoutineWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+     final size = useState<double>(150.w);
+     final asset = useState<String>("assets/images/teacher.svg");
+     final background = useState<Color>(AppColors.deepBlue);
+    
+     setRoutineInterface(){
+      int index = Random().nextInt(5);
+      switch(index){
+        case 0:
+          size.value = 150.w;
+          background.value = AppColors.deepBlue;
+          asset.value = "assets/images/teacher.svg";
+        case 1:
+          size.value = 120.w;
+          asset.value = "assets/images/global_learning.svg";
+          background.value = AppColors.deepGreen;
+        case 2:
+          size.value = 150.w;
+          asset.value = "assets/images/exam_scene.svg";
+          background.value = AppColors.deepPink;
+        case 3:
+          size.value = 150.w;
+        asset.value = "assets/images/online_learning.svg";
+          background.value = AppColors.tealBlue;
+        case 4:
+          size.value = 150.w;
+          asset.value = "assets/images/pdf_learning.svg";
+          background.value = AppColors.deepRed;
+
+      }
+    }
+
+    useEffect((){
+      Future.microtask(()=> setRoutineInterface());
+      return null;
+    },[]);
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -22,7 +62,7 @@ class ClassRoutineWidget extends StatelessWidget {
           padding: padding16,
           decoration: BoxDecoration(
               borderRadius: radius16,
-              color: AppColors.deepBlue
+              color: background.value
           ),
           child: Column(
             crossAxisAlignment: crossStart,
@@ -155,9 +195,12 @@ class ClassRoutineWidget extends StatelessWidget {
 
         Positioned(
             bottom: 0,
-            right: 0,
+            right: -20,
             child: SvgPicture.asset(
-                "assets/images/teacher.svg"
+              asset.value,
+              width: size.value,
+              height: size.value,
+              fit: BoxFit.cover,
             )
         ),
 
