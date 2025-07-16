@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
+import 'package:learning_management/core/utils/ui_helpers/decoration.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
@@ -64,8 +65,9 @@ class PrimaryTextFormsFields extends HookWidget {
             controller: controller,
             // minLines: minLine,
             // maxLines: minLine,
-            enabled: onTap == null,
+            //enabled: onTap == null,
             style: AppTextStyles.bodyLarge,
+            readOnly: onTap != null,
             obscureText: showObscureButton == true ? obscureText.value : false,
             keyboardType: textInputType,
             decoration: InputDecoration(
@@ -80,41 +82,11 @@ class PrimaryTextFormsFields extends HookWidget {
               hintStyle: AppTextStyles.bodyMedium.copyWith(
                   color: AppColors.grey
               ),
-              border: OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide(
-                    width: 1.2.w,
-                    color: AppColors.grey
-                ),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide(
-                    width: 1.2.w,
-                    color: AppColors.grey
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: radius8,
-                  borderSide: BorderSide(
-                    width: 1.2.w,
-                    color: AppColors.grey
-                  ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide(
-                    width: 1.2.w,
-                    color: AppColors.grey
-                ),
-              ),
-              errorBorder:OutlineInputBorder(
-                borderRadius: radius8,
-                borderSide: BorderSide(
-                    width: 1.2.w,
-                    color: AppColors.grey
-                ),
-              ),
+              border: primaryInputBorder,
+              disabledBorder: primaryInputBorder,
+              enabledBorder: primaryInputBorder,
+              focusedBorder: primaryInputBorder,
+              errorBorder: primaryInputBorder,
 
             ),
             validator: validator,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,7 @@ import 'package:learning_management/features/authentication/presentation/pages/f
 import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/dialogs/time_range_picker_dialog.dart';
+import 'package:learning_management/widgets/text_forms/dropdown_text_form_fields.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
@@ -36,7 +38,7 @@ class SignUpPage extends HookWidget {
 
     final scrollController = useScrollController();
     final formKey = useMemoized(()=> GlobalKey<FormState>());
-    final batchTimeController = useTextEditingController();
+    final batchYear = useTextEditingController();
     final picture = useState<File?>(null);
 
     Future<void> uploadProfilePicture() async {
@@ -201,20 +203,52 @@ class SignUpPage extends HookWidget {
                         ).validate(),
                       ),
 
-                      PrimaryTextFormsFields(
-                        controller: batchTimeController,
-                        onTap: () async {
-                          TimeRange timeRange = await showTimeRangePickerDialog(context);
-                          batchTimeController.text = DateTimeFormatters.formatTimeRange(context, timeRange);
-                        },
-                        title: "Batch Time",
-                        hintText: "e.g., 10:00 AM - 12:00 PM",
-                        validator: (value)=> FormValidation(
-                            validationType: ValidationType.required,
-                            formValue: value
-                        ).validate(),
+                      // PrimaryTextFormsFields(
+                      //   controller: batchTimeController,
+                      //   onTap: () async {
+                      //     TimeRange timeRange = await showTimeRangePickerDialog(context);
+                      //     batchTimeController.text = DateTimeFormatters.formatTimeRange(context, timeRange);
+                      //   },
+                      //   title: "Batch Time",
+                      //   hintText: "e.g., 10:00 AM - 12:00 PM",
+                      //   validator: (value)=> FormValidation(
+                      //       validationType: ValidationType.required,
+                      //       formValue: value
+                      //   ).validate(),
+                      // ),
+                      //
+                      // PrimaryTextFormsFields(
+                      //   controller: batchYear,
+                      //   onTap: () async {
+                      //
+                      //   },
+                      //   title: "Batch Year",
+                      //   hintText: "e.g., 2025",
+                      //   validator: (value)=> FormValidation(
+                      //       validationType: ValidationType.required,
+                      //       formValue: value
+                      //   ).validate(),
+                      //
+
+                      DropdownTextFormFields(
+                        controller: SingleValueDropDownController(),
+                        title: "Batch Year",
+                        hintText: "Select Year",
+                        dropDownList: List.generate(15, (year) =>
+                            (2020 + year).toString()),
                       ),
 
+
+                      DropdownTextFormFields(
+                        controller: SingleValueDropDownController(),
+                        title: "Section",
+                        hintText: "Select Section",
+                        dropDownList: [
+                          "Evening Section (07:00 PM) | Cadet Coaching",
+                          "Afternoon Section (03:15PM) | Cadet Coaching",
+                          "Morning Section (07:45 AM) | Cadet Coaching"
+                        ],
+                      ),
 
 
                       PrimaryTextFormsFields(
