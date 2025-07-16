@@ -100,7 +100,7 @@ class ClassRoutineWidget extends HookWidget {
                       children: [
                         Icon(
                           Icons.alarm,
-                          color: AppColors.deepBlue,
+                            color: background.value
                         ),
 
                         gap4,
@@ -109,7 +109,7 @@ class ClassRoutineWidget extends HookWidget {
                           "03:04:35",
                           style: AppTextStyles.titleSmall.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.deepBlue
+                              color: background.value
                           ),
                         ),
                       ],

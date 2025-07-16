@@ -40,7 +40,9 @@ class SubjectItemView extends StatelessWidget {
                 children: [
 
                   SvgPicture.asset(
-                      svgIcon
+                      svgIcon,
+                    width: 30.w,
+                    height: 30.w,
                   ),
 
                   Text(
@@ -57,8 +59,8 @@ class SubjectItemView extends StatelessWidget {
 
 
             Positioned(
-                top: -60,
-                right: -30,
+                top: -70,
+                right: -40,
                 child: SvgPicture.asset(
                   "assets/images/draw_shape.svg",
                   colorFilter: ColorFilter.mode(

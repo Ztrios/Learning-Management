@@ -4,7 +4,7 @@ class Assets {
 
   static const String iconsAvatarIcon = 'assets/icons/avatar_icon.svg';
   static const String iconsBanglaIcon = 'assets/icons/bangla_icon.svg';
-  static const String iconsEnglishIcon = 'assets/icons/english_icon.svg';
+  static const String iconsEnglishIcon = 'assets/icons/history_icon.svg';
   static const String iconsGeographyIcon = 'assets/icons/geography_icon.svg';
   static const String iconsHomeIcon = 'assets/icons/home_icon.svg';
   static const String iconsLanguageIcon = 'assets/icons/language_icon.svg';

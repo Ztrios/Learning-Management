@@ -39,124 +39,126 @@ class LogInPage extends HookWidget {
           width: 1.sw,
           height: 1.sh,
           padding: padding24,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              gap48,
-
-              Text(
-                "Hi, Welcome Back! 👋",
-                style: AppTextStyles.titleLarge.copyWith(
-                    fontWeight: FontWeight.bold
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+            
+                gap48,
+            
+                Text(
+                  "Hi, Welcome Back! 👋",
+                  style: AppTextStyles.titleLarge.copyWith(
+                      fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-
-              gap24,
-
-              Form(
-                key: formKey,
-                child: Column(
-                  spacing: 12.w,
-                  children: [
-
-                    PrimaryTextFormsFields(
-                      title: "Email",
-                      hintText: "Enter your email address",
-                      textInputType: TextInputType.emailAddress,
-                      validator: (value)=> FormValidation(
-                          validationType: ValidationType.email,
-                          formValue: value
-                      ).validate(),
-                    ),
-
-
-                    PrimaryTextFormsFields(
-                      title: "Password",
-                      hintText: "Enter your password",
-                      showObscureButton: true,
-                      textInputType: TextInputType.visiblePassword,
-                      validator: (value)=> FormValidation(
-                          validationType: ValidationType.password,
-                          formValue: value
-                      ).validate(),
-                    ),
-
-                  ],
-                ),
-              ),
-
-              Row(
-                children: [
-                  Checkbox(
-                      value: true,
-                      checkColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: AppColors.grey),
-                        borderRadius: BorderRadius.circular(6), // Rounded corners
+            
+                gap24,
+            
+                Form(
+                  key: formKey,
+                  child: Column(
+                    spacing: 12.w,
+                    children: [
+            
+                      PrimaryTextFormsFields(
+                        title: "Email",
+                        hintText: "Enter your email address",
+                        textInputType: TextInputType.emailAddress,
+                        validator: (value)=> FormValidation(
+                            validationType: ValidationType.email,
+                            formValue: value
+                        ).validate(),
                       ),
-                      activeColor: AppColors.blueLight,
-                      onChanged: (value){}
+            
+            
+                      PrimaryTextFormsFields(
+                        title: "Password",
+                        hintText: "Enter your password",
+                        showObscureButton: true,
+                        textInputType: TextInputType.visiblePassword,
+                        validator: (value)=> FormValidation(
+                            validationType: ValidationType.password,
+                            formValue: value
+                        ).validate(),
+                      ),
+            
+                    ],
                   ),
-
-                  Text(
-                    "Remember Me",
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.textPrimary
+                ),
+            
+                Row(
+                  children: [
+                    Checkbox(
+                        value: true,
+                        checkColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: AppColors.grey),
+                          borderRadius: BorderRadius.circular(6), // Rounded corners
+                        ),
+                        activeColor: AppColors.blueLight,
+                        onChanged: (value){}
                     ),
-                  ),
-
-                  const Spacer(),
-
-                  TextButton(
-                    onPressed: ()=> context.pushNamed( ForgetPasswordPage.name),
-                    child: Text(
-                      "Forgot Password?",
+            
+                    Text(
+                      "Remember Me",
                       style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.errorRed.withValues(alpha: 0.7)
+                        color: AppColors.textPrimary
+                      ),
+                    ),
+            
+                    const Spacer(),
+            
+                    TextButton(
+                      onPressed: ()=> context.pushNamed( ForgetPasswordPage.name),
+                      child: Text(
+                        "Forgot Password?",
+                        style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.errorRed.withValues(alpha: 0.7)
+                        )
                       )
                     )
-                  )
-                ],
-              ),
-
-              gap24,
-
-              PrimaryButton(
-                onPressed: logIn,
-                text: "Login",
-                textColor: Colors.white,
-              ),
-
-
-              const Spacer(),
-
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  Text(
-                    "Don’t have an account ?",
-                    style: AppTextStyles.titleSmall,
-                  ),
-
-                  TextButton(
-                    onPressed: (){},
-                    child: Text(
-                        "Sign Up",
-                        style: AppTextStyles.titleSmall.copyWith(
-                            decoration: TextDecoration.underline,
-                            color: AppColors.deepPurpleAccent
-                        )
+                  ],
+                ),
+            
+                gap24,
+            
+                PrimaryButton(
+                  onPressed: logIn,
+                  text: "Login",
+                  textColor: Colors.white,
+                ),
+            
+            
+                gap6,
+            
+            
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+            
+                    Text(
+                      "Don’t have an account ?",
+                      style: AppTextStyles.titleSmall,
                     ),
-                  )
-
-                ],
-              )
-
-
-            ],
+            
+                    TextButton(
+                      onPressed: (){},
+                      child: Text(
+                          "Sign Up",
+                          style: AppTextStyles.titleSmall.copyWith(
+                              decoration: TextDecoration.underline,
+                              color: AppColors.deepPurpleAccent
+                          )
+                      ),
+                    )
+            
+                  ],
+                )
+            
+            
+              ],
+            ),
           ),
         ),
       ),
