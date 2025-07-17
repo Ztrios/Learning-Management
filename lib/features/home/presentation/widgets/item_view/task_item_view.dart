@@ -11,6 +11,7 @@ class TaskItemView extends StatelessWidget {
   final String title;
   final String subject;
   final String svgAsset;
+  final VoidCallback onTap;
 
   const TaskItemView({
     super.key,
@@ -19,14 +20,12 @@ class TaskItemView extends StatelessWidget {
     required this.title,
     required this.subject,
     required this.svgAsset,
+    required this.onTap
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1.sw,
-      height: 80.h,
-      padding: padding10,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -37,40 +36,54 @@ class TaskItemView extends StatelessWidget {
           borderRadius: radius20,
         ),
       ),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            svgAsset,
-            width: 65.w,
-            height: 65.w,
-          ),
-
-          gap12,
-
-          Column(
-            crossAxisAlignment: crossStart,
-            mainAxisAlignment: mainCenter,
-            children: [
-              Text(
-                title,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.bold,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          splashColor: AppColors.randomColors(),
+          borderRadius: radius16,
+          splashFactory: InkRipple.splashFactory,
+          child: Container(
+            width: 1.sw,
+            height: 80.h,
+            padding: padding10,
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  svgAsset,
+                  width: 65.w,
+                  height: 65.w,
                 ),
-              ),
-              Text(
-                "$subject • $quantity $type",
-                style: AppTextStyles.titleSmall.copyWith(
-                  color: AppColors.textGrey,
+
+                gap12,
+
+                Column(
+                  crossAxisAlignment: crossStart,
+                  mainAxisAlignment: mainCenter,
+                  children: [
+                    Text(
+                      title,
+                      style: AppTextStyles.titleMedium.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "$subject • $quantity $type",
+                      style: AppTextStyles.titleSmall.copyWith(
+                        color: AppColors.textGrey,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: AppColors.deepPurpleAccent,
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: AppColors.deepPurpleAccent,
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/task_item_view.dart';
+import 'package:learning_management/features/lessons/presentation/pages/assignment_submission_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
+import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 
 class TaskListPage extends StatelessWidget {
@@ -46,7 +51,14 @@ class TaskListPage extends StatelessWidget {
                             type: index.isEven ? "Quizzes" : "Question",
                             title: index.isEven ? "English Quiz" : "Math Assignment",
                             subject: index.isEven ? "English" : "Math",
-                            svgAsset: index.isEven ? "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg"
+                            svgAsset: index.isEven ? "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
+                            onTap: () {
+                              if(index.isEven){
+                                context.push(LessionsPage.path + LessionDetailsPage.path + QuizSubmissionPage.path);
+                              }else{
+                                context.push(LessionsPage.path + LessionDetailsPage.path + AssignmentSubmissionPage.path);
+                              }
+                            },
                         ),
                       );
                     }

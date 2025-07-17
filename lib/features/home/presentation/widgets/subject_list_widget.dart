@@ -76,26 +76,21 @@ class SubjectListWidget extends HookWidget {
                 return InkWell(
                   onTap: () {
                     Map<String, String> parameters = {
-                      "subject": index.isEven ? "Mathematics" : "Geography",
-                      "subjectIcon": index.isEven
-                          ? "assets/icons/mathematics_icon.svg"
-                          : "assets/icons/geography_icon.svg",
+                      "subject": subjects[index],
+                      "subjectIcon": icons[subjects[index].toLowerCase()]
                     };
                     context.push(
                         Uri(path: LessionsPage.path, queryParameters: parameters).toString(),
                         extra: LessionPageExtraParams(
-                        background: index.isEven
-                            ? AppColors.deepOrange
-                            : AppColors.deepBlue,
-                        shapeColor: index.isEven
-                            ? AppColors.lightOrange
-                            : AppColors.blueLight
-                    ));
+                          background: colors[index % colors.length].withValues(alpha: 0.9),
+                          shapeColor: colors[index % colors.length],
+                        )
+                    );
                   },
 
                   child: SubjectItemView(
-                    svgIcon: icons[subjects[index].toLowerCase()],
                     subject: subjects[index],
+                    svgIcon: icons[subjects[index].toLowerCase()],
                     background: colors[index % colors.length].withValues(alpha: 0.9),
                     shapeColor: colors[index % colors.length],
                   ),

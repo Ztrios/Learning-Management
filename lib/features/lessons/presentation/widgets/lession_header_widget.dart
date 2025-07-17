@@ -50,8 +50,8 @@ class HeaderCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -60,
-            right: -30,
+            top: -50,
+            right: -25,
             child: SvgPicture.asset(
               "assets/images/draw_shape.svg",
               colorFilter: ColorFilter.mode(shapeColor, BlendMode.srcIn),
@@ -60,7 +60,11 @@ class HeaderCard extends StatelessWidget {
           Positioned(
             right: 30,
             top: 30,
-            child: SvgPicture.asset(subjectIcon),
+            child: SvgPicture.asset(
+              subjectIcon,
+              width: 30.w,
+              height: 30.w
+            ),
           ),
         ],
       ),

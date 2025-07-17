@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -30,5 +32,22 @@ class AppColors {
 
   // Background
   static const Color background = Color(0xFFFFFFFF);
+
+
+
+  /// Splash Colors
+  static Color randomColors(){
+    const List<Color> colors = [
+      deepBlue,
+      blueLight,
+      deepOrange,
+      deepPurpleAccent,
+      deepGreen,
+      deepPink,
+      deepRed,
+      tealBlue
+    ];
+    return colors[Random().nextInt(colors.length)].withValues(alpha: 0.6);
+  }
 
 }

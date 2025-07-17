@@ -17,7 +17,7 @@ class SecondaryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.only(left: 16.w, right: 16.w, top: 16.h),
+      padding: EdgeInsetsGeometry.only(left: 16.w, right: 16.w, top: 8.h),
       child: Row(
         mainAxisAlignment: mainSpaceBetween,
         children: [
