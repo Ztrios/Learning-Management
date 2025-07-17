@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
@@ -13,7 +14,7 @@ import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends HookWidget {
   static String get path => "/payment";
   static String get name => "payment";
 
@@ -21,6 +22,14 @@ class PaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    useEffect((){
+      if(true){
+        Future.microtask(()=> showPaymentBottomSheet(context));
+      }
+      return null;
+    },[]);
+
     return Scaffold(
       endDrawer: CustomDrawer(),
       body: SafeArea(

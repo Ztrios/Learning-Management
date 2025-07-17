@@ -33,7 +33,7 @@ class SubjectListWidget extends HookWidget {
       AppColors.deepBlue,
       AppColors.deepGreen,
       AppColors.tealBlue,
-      AppColors.deepRed
+      AppColors.deepPurpleAccent
     ];
 
 

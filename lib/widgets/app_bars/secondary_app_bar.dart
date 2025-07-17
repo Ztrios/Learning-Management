@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -16,7 +17,7 @@ class SecondaryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: paddingH16,
+      padding: EdgeInsetsGeometry.only(left: 16.w, right: 16.w, top: 16.h),
       child: Row(
         mainAxisAlignment: mainSpaceBetween,
         children: [
