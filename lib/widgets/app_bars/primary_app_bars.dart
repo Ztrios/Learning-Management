@@ -4,8 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
+import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/home/presentation/pages/home_page.dart';
+import 'package:learning_management/features/notifications/presentation/pages/notifications_page.dart' show NotificationsPage;
 import 'package:learning_management/features/profile/presentation/pages/student_profile_page.dart';
 
 class PrimaryAppBar extends StatelessWidget {
@@ -28,6 +31,7 @@ class PrimaryAppBar extends StatelessWidget {
           gap12,
 
           Column(
+            crossAxisAlignment: crossStart,
             children: [
 
               Row(
@@ -38,7 +42,7 @@ class PrimaryAppBar extends StatelessWidget {
 
                   Text(
                     "Good Morning".toUpperCase(),
-                    style: AppTextStyles.titleMedium.copyWith(
+                    style: AppTextStyles.titleSmall.copyWith(
                         color: AppColors.blueLight,
                         fontWeight: FontWeight.bold
                     ),
@@ -48,7 +52,7 @@ class PrimaryAppBar extends StatelessWidget {
 
               Text(
                 "Madelyn Dias",
-                style: AppTextStyles.titleLarge.copyWith(
+                style: AppTextStyles.titleMedium.copyWith(
                     color: AppColors.blueLight
                 ),
               )
@@ -58,6 +62,16 @@ class PrimaryAppBar extends StatelessWidget {
 
           const Spacer(),
 
+          IconButton(
+              onPressed: ()=> context.push(NotificationsPage.path),
+              icon: Icon(
+                Icons.notifications,
+                size: 30.sp,
+                color: AppColors.deepPurpleAccent
+              )
+          ),
+
+          gap12,
 
           Builder(
             builder: (context) {

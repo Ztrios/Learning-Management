@@ -9,6 +9,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/home/presentation/widgets/cards/notice_board_card.dart';
 import 'package:learning_management/features/home/presentation/widgets/class_routine_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/subject_list_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/task_list_widget.dart';
@@ -44,11 +45,21 @@ class HomePage extends HookWidget {
                       crossAxisAlignment: crossStart,
                       children: [
 
-
                         PaymentNoticeCard(
                             message: "Your email couldn't be renewed because your payment didn’t work",
                             isRedNotice: true,
                             onPressed: ()=> context.push(PaymentPage.path)
+                        ),
+
+                        gap12,
+
+                        NoticeBoardCard(
+                          title: "Notice for Change in Exam Schedule",
+                          message:
+                          "This is to inform you that the Mid-Term Exam will be held from August 5 to August 12, 2025. "
+                              "Please check your exam schedule, bring your admit card and necessary materials, and arrive at least 15 minutes early.",
+                          issuedBy: "— Academic Office",
+                          issuedDate: DateTime(2025, 12, 12),
                         ),
 
                         gap12,

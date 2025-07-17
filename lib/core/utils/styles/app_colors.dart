@@ -38,7 +38,6 @@ class AppColors {
   /// Splash Colors
   static Color randomColors(){
     const List<Color> colors = [
-      deepBlue,
       blueLight,
       deepOrange,
       deepPurpleAccent,
@@ -47,7 +46,7 @@ class AppColors {
       deepRed,
       tealBlue
     ];
-    return colors[Random().nextInt(colors.length)].withValues(alpha: 0.6);
+    return colors[Random().nextInt(colors.length)];
   }
 
 }
