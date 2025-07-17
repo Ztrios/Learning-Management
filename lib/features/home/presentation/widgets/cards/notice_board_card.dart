@@ -27,7 +27,7 @@ class NoticeBoardCard extends StatelessWidget {
     return Container(
       padding: padding12,
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F7FA),
+        color: AppColors.deepPurpleAccent,
         borderRadius: radius12,
         border: Border.all(color: const Color(0xFFE0E6ED)),
       ),
@@ -57,10 +57,17 @@ class NoticeBoardCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1C2A3A),
+                    color: Colors.white,
                   ),
                 ),
               ),
+
+              // Icon(
+              //   Icons.arrow_forward_ios,
+              //   color: AppColors.blueLight,
+              //   size: 15.sp,
+              // )
+
             ],
           ),
 
@@ -71,18 +78,37 @@ class NoticeBoardCard extends StatelessWidget {
             message,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.caption,
+            style: AppTextStyles.caption.copyWith(
+              color: Colors.white
+            ),
           ),
 
           SizedBox(height: 8.h),
 
           /// Footer
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: mainSpaceBetween,
             children: [
+
+              Container(
+                padding: padding6,
+                decoration: BoxDecoration(
+                  color: AppColors.blueLight,
+                  borderRadius: radius6,
+                ),
+                child: Text(
+                  "View More",
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: Colors.white
+                  ),
+                ),
+              ),
+
               Text(
                 "$issuedBy • 12 Dec 2025",
-                style: AppTextStyles.caption,
+                style: AppTextStyles.caption.copyWith(
+                  color: Colors.white
+                ),
               ),
             ],
           ),
