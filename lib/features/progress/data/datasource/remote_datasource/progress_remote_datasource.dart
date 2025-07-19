@@ -1,3 +1,3 @@
 sealed class ProgressRemoteDataSource {}
 
-class ProgressRemoteDatasource implements ProgressRemoteDataSource{}
+class ProgressRemoteDatasourceImpl implements ProgressRemoteDataSource{}
