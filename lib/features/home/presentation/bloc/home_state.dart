@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:learning_management/core/utils/enums/enums.dart';
+part of 'home_bloc.dart';
 
 class HomeState extends Equatable {
   final Status status;

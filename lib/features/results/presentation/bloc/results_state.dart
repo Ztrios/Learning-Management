@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:learning_management/core/utils/enums/enums.dart';
+part of 'results_bloc.dart';
 
 class ResultsState extends Equatable {
   final Status status;

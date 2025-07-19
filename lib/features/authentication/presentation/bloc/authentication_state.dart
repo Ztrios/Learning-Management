@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:learning_management/core/utils/enums/enums.dart';
+part of 'authentication_bloc.dart';
 
 class AuthenticationState extends Equatable {
   final Status status;

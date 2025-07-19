@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:learning_management/core/utils/enums/enums.dart';
+part of 'payment_bloc.dart';
 
 class PaymentState extends Equatable {
   final Status status;
