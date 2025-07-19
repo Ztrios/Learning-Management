@@ -1,0 +1,3 @@
+import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
+
+class AuthenticationRepositoryIml implements AuthenticationRepositories{}

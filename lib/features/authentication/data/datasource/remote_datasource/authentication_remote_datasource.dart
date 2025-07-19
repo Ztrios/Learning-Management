@@ -1,0 +1,3 @@
+sealed class AuthenticationRemoteDatasource {}
+
+class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasource{}

@@ -1,0 +1,3 @@
+sealed class NotificationsRemoteDatasource {}
+
+class NotificationsRemoteDatasourceImpl extends NotificationsRemoteDatasource{}

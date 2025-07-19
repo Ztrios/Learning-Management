@@ -1,0 +1,3 @@
+sealed class RoutineRemoteDatasource{}
+
+class RoutineRemoteDatasourceImpl implements RoutineRemoteDatasource{}

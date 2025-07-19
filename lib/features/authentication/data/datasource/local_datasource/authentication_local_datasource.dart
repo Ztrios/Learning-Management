@@ -1,0 +1,3 @@
+sealed class AuthenticationLocalDatasource {}
+
+class AuthenticationLocalDatasourceImpl implements AuthenticationLocalDatasource{}
