@@ -38,7 +38,15 @@ class SignUpPage extends HookWidget {
 
     final scrollController = useScrollController();
     final formKey = useMemoized(()=> GlobalKey<FormState>());
-    final batchYear = useTextEditingController();
+    final emailController = useTextEditingController();
+    final studentNameController = useTextEditingController();
+    final fathersNameController = useTextEditingController();
+    final mothersNameController = useTextEditingController();
+    final districtController = useTextEditingController();
+    final phoneController = useTextEditingController();
+    final batchYearController = useMemoized(() => SingleValueDropDownController());
+    final sectionController = useMemoized(() => SingleValueDropDownController());
+    final passwordController = useTextEditingController();
     final picture = useState<File?>(null);
 
     Future<void> uploadProfilePicture() async {
@@ -47,18 +55,19 @@ class SignUpPage extends HookWidget {
 
     Future<void> signUp()async{
       context.go(LogInPage.path);
-      // if(picture.value != null){
-      //   if(formKey.currentState!.validate()){
-      //     context.go(LogInPage.path);
-      //   }
-      // }else{
-      //   scrollController.jumpTo(scrollController.position.minScrollExtent);
-      //   ToastNotifications.showErrorToast(
-      //       title: "Empty Profile Picture",
-      //       message: "Profile picture is required.",
-      //       alignment: Alignment.topCenter
-      //   );
-      // }
+      if(picture.value != null){
+        if(formKey.currentState!.validate()){
+
+          //context.go(LogInPage.path);
+        }
+      }else{
+        scrollController.jumpTo(scrollController.position.minScrollExtent);
+        ToastNotifications.showErrorToast(
+            title: "Empty Profile Picture",
+            message: "Profile picture is required.",
+            alignment: Alignment.topCenter
+        );
+      }
     }
 
     return Scaffold(
@@ -138,6 +147,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: emailController,
                         title: "Email",
                         hintText: "Enter your email address",
                         textInputType: TextInputType.emailAddress,
@@ -149,6 +159,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: studentNameController,
                         title: "Student Name",
                         hintText: "Enter your full name",
                         textInputType: TextInputType.name,
@@ -161,6 +172,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: fathersNameController,
                         title: "Father's Name",
                         hintText: "Enter your father's name",
                         textInputType: TextInputType.name,
@@ -172,6 +184,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: mothersNameController,
                         title: "Mother's Name",
                         hintText: "Enter your mother's name",
                         textInputType: TextInputType.name,
@@ -183,6 +196,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: districtController,
                         title: "Own District",
                         hintText: "Enter your home district",
                         textInputType: TextInputType.name,
@@ -194,6 +208,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: phoneController,
                         title: "Mobile Number (WhatsApp is connected)",
                         hintText: "Enter your mobile number",
                         textInputType: TextInputType.phone,
@@ -231,7 +246,7 @@ class SignUpPage extends HookWidget {
                       //
 
                       DropdownTextFormFields(
-                        controller: SingleValueDropDownController(),
+                        controller: batchYearController,
                         title: "Batch Year",
                         hintText: "Select Year",
                         dropDownList: List.generate(15, (year) =>
@@ -240,7 +255,7 @@ class SignUpPage extends HookWidget {
 
 
                       DropdownTextFormFields(
-                        controller: SingleValueDropDownController(),
+                        controller: sectionController,
                         title: "Section",
                         hintText: "Select Section",
                         dropDownList: [
@@ -252,6 +267,7 @@ class SignUpPage extends HookWidget {
 
 
                       PrimaryTextFormsFields(
+                        controller: passwordController,
                         title: "Password",
                         hintText: "Enter your password",
                         textInputType: TextInputType.visiblePassword,
@@ -269,7 +285,11 @@ class SignUpPage extends HookWidget {
                         textInputType: TextInputType.visiblePassword,
                         showObscureButton: true,
                         validator: (value){
-                          return "";
+                          if(passwordController.text == value) {
+                            return null;
+                          } else {
+                            return"Confirm password doesn't match!";
+                          }
                         },
                       ),
 

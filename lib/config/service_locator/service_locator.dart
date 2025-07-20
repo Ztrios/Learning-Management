@@ -5,6 +5,8 @@ import 'package:learning_management/core/services/firebase_services/push_notific
 import 'package:learning_management/features/authentication/data/datasource/local_datasource/authentication_local_datasource.dart';
 import 'package:learning_management/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
+import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
+import 'package:learning_management/features/authentication/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
 import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
 import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
@@ -67,9 +69,10 @@ void initServiceLocator(){
 
 
 
-  // /// UseCases
-  // sl.registerSingleton<GetOnboardUseCase>(GetOnboardUseCase());
-  // sl.registerSingleton<CategoriesUseCase>(CategoriesUseCase());
+  /// UseCases
+  /// Authentication UseCases
+  sl.registerSingleton<SignupUseCase>(SignupUseCase());
+  sl.registerSingleton<SignInUseCase>(SignInUseCase());
 
 
 }
