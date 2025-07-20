@@ -48,7 +48,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     emit(state.copyWith(status: Status.loading));
 
     Map<String,dynamic> body = {
-      "file" : MultipartFile.fromFile(event.studentPhoto.path),
+      "file" : await MultipartFile.fromFile(event.studentPhoto.path),
       "dto" : jsonEncode(
           {
             "email": event.email,
@@ -57,13 +57,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
             "mothersName": event.mothersName,
             "address": event.district,
             "phone": event.phone,
-            "yearBatch": event.phone,
+            "yearBatch": event.batchYear,
             "sectionId": event.section,
             "password": event.password,
           }
       )
     };
-    var result = await sl<SignupUseCase>().call(params: body);
+    var result = await sl<SignUpUseCase>().call(params: body);
     result.fold(
             (error) => emit(state.copyWith(status: Status.error, message: error.message)),
         (data) => emit(state.copyWith(status: Status.success, studentEntity: data))

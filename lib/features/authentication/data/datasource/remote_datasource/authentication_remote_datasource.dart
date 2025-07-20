@@ -23,12 +23,15 @@ class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasour
   @override
   Future<Either<Failure, SignInEntity>> signIn({required Map<String,dynamic> body}) async {
     try{
-      Response response = await sl<DioClient>().post(ApiUrls.signIn);
+      Response response = await sl<DioClient>().post(
+          ApiUrls.signIn,
+        data: body
+      );
       SignInEntity signInEntity = SignInModel.fromJson(response.data).toEntity();
       return Right(signInEntity);
     }catch(error, stackTrace){
       log(
-        "Authentication DataSource",
+        "Authentication DataSource: ",
         error: error,
         stackTrace: stackTrace
       );
@@ -42,19 +45,23 @@ class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasour
     try{
       Response response = await sl<DioClient>().post(
         ApiUrls.signUp,
-        options: Options(contentType: "multipart/form-data")
+        options: Options(contentType: "multipart/form-data"),
+        data: FormData.fromMap(body)
       );
       StudentEntity studentEntity = StudentModel.fromJson(response.data).toEntity();
       return right(studentEntity);
     }catch(error, stackTrace){
       log(
-          "Authentication DataSource",
+          "Authentication DataSource: ",
           error: error,
           stackTrace: stackTrace
       );
       return Left(UnknownFailure(error.toString()));
     }
   }
+
+
+
 
 
 }

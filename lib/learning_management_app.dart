@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/config/routes/app_routes.dart';
 import 'package:learning_management/core/bloc/app_bloc_providers.dart';
 import 'package:learning_management/core/theme/app_theme.dart';
+import 'package:learning_management/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:toastification/toastification.dart';
 
 
@@ -20,10 +21,15 @@ class LearningManagementApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: ToastificationWrapper(
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          routerConfig: AppRouter.routes,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthenticationBloc>(create: (context)=> AuthenticationBloc())
+          ],
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            routerConfig: AppRouter.routes,
+          ),
         ),
       ),
     );

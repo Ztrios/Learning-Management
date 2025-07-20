@@ -3,6 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:learning_management/core/network/dio_client.dart';
 import 'package:learning_management/core/services/firebase_services/push_notification/push_notification_service.dart';
 import 'package:learning_management/features/authentication/data/datasource/local_datasource/authentication_local_datasource.dart';
+import 'package:learning_management/features/authentication/data/datasource/remote_datasource/authentication_remote_datasource.dart';
 import 'package:learning_management/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
@@ -41,7 +42,7 @@ void initServiceLocator(){
   sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
 
   /// Remote Services
-  sl.registerLazySingleton<AuthenticationLocalDatasource>(()=>AuthenticationLocalDatasourceImpl());
+  sl.registerLazySingleton<AuthenticationRemoteDatasource>(()=> AuthenticationRemoteDatasourceImpl());
   sl.registerLazySingleton<HomeRemoteDataSource>(()=>HomeRemoteDataSourceImpl());
   sl.registerLazySingleton<LessionsRemoteDataSource>(()=>LessionsRemoteDataSourceImpl());
   sl.registerLazySingleton<NotificationsRemoteDatasource>(()=>NotificationsRemoteDatasourceImpl());
@@ -53,26 +54,26 @@ void initServiceLocator(){
 
 
   /// Local Services
-  sl.registerSingleton<AuthenticationLocalDatasource>(AuthenticationLocalDatasourceImpl());
+  //sl.registerSingleton<AuthenticationLocalDatasource>(AuthenticationLocalDatasourceImpl());
 
 
   /// Repositories
-  sl.registerSingleton<AuthenticationRepositories>(AuthenticationRepositoryIml());
-  sl.registerSingleton<HomeRepositories>(HomeRepositoriesImpl());
-  sl.registerSingleton<LessionsRepositories>(LessionsRepositoriesImpl());
-  sl.registerSingleton<NotificationsRepositories>(NotificationsRepositoriesImpl());
-  sl.registerSingleton<PaymentsRepositories>(PaymentsRepositoriesImpl());
-  sl.registerSingleton<ProfileRepositories>(ProfileRepositoriesImpl());
-  sl.registerSingleton<ProgressRepositories>(ProgressRepositoriesImpl());
-  sl.registerSingleton<ResultsRepositories>(ResultsRepositoriesImpl());
-  sl.registerSingleton<RoutineRepositories>(RoutineRepositoriesImpl());
+  sl.registerLazySingleton<AuthenticationRepositories>(()=> AuthenticationRepositoryIml());
+  sl.registerLazySingleton<HomeRepositories>(()=> HomeRepositoriesImpl());
+  sl.registerLazySingleton<LessionsRepositories>(()=> LessionsRepositoriesImpl());
+  sl.registerLazySingleton<NotificationsRepositories>(()=> NotificationsRepositoriesImpl());
+  sl.registerLazySingleton<PaymentsRepositories>(()=> PaymentsRepositoriesImpl());
+  sl.registerLazySingleton<ProfileRepositories>(()=> ProfileRepositoriesImpl());
+  sl.registerLazySingleton<ProgressRepositories>(()=> ProgressRepositoriesImpl());
+  sl.registerLazySingleton<ResultsRepositories>(()=> ResultsRepositoriesImpl());
+  sl.registerLazySingleton<RoutineRepositories>(()=> RoutineRepositoriesImpl());
 
 
 
   /// UseCases
   /// Authentication UseCases
-  sl.registerSingleton<SignupUseCase>(SignupUseCase());
-  sl.registerSingleton<SignInUseCase>(SignInUseCase());
+  sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
+  sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
 
 
 }

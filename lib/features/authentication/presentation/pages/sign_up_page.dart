@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,11 +11,14 @@ import 'package:learning_management/core/helpers/format_data/datetime_formatters
 import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/services/file_picker_services.dart';
+import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:learning_management/features/authentication/presentation/bloc/authentication_event.dart';
 import 'package:learning_management/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:learning_management/features/authentication/presentation/pages/log_in_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
@@ -54,10 +58,20 @@ class SignUpPage extends HookWidget {
     }
 
     Future<void> signUp()async{
-      context.go(LogInPage.path);
       if(picture.value != null){
         if(formKey.currentState!.validate()){
-
+          context.read<AuthenticationBloc>().add(SignUp(
+              studentPhoto: picture.value!,
+              email: emailController.text,
+              studentName: studentNameController.text,
+              fathersName: fathersNameController.text,
+              mothersName: mothersNameController.text,
+              district: districtController.text,
+              phone: phoneController.text,
+              batchYear: "2025",
+              section: "5",
+              password: passwordController.text
+          ));
           //context.go(LogInPage.path);
         }
       }else{
@@ -333,10 +347,15 @@ class SignUpPage extends HookWidget {
 
                 gap24,
 
-                PrimaryButton(
-                  onPressed: signUp,
-                  text: "Sign Up",
-                  textColor: Colors.white,
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  builder: (context, state) {
+                    return PrimaryButton(
+                      isLoading: state.status.isLoading,
+                      onPressed: signUp,
+                      text: "Sign Up",
+                      textColor: Colors.white,
+                    );
+                  },
                 ),
                 
 
