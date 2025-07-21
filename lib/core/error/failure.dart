@@ -10,6 +10,11 @@ abstract class Failure extends Equatable {
   List<Object> get props => [message];
 }
 
+// Local Database
+class LocalDatabaseFailure extends Failure {
+  const LocalDatabaseFailure([super.message = ' Local Database Failure']);
+}
+
 // Common failure types
 class ServerFailure extends Failure {
   const ServerFailure([super.message = 'Server Failure']);

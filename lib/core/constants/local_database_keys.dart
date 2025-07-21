@@ -2,12 +2,10 @@ class LocalDatabaseKeys {
   const LocalDatabaseKeys._();
 
   /// Local Database Name
-  static String database = "khabaar";
-
+  static String database = "LMS";
 
   /// Local Database Keys
-  static String userId = "userId";
-  static String onboard = "onboard";
-  static String carts = "carts";
+  static String student = "student";
+
 
 }

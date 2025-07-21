@@ -34,7 +34,7 @@ class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasour
       return Right(signInEntity);
     }catch(error, stackTrace){
       log(
-        "Authentication DataSource: ",
+        "Authentication Remote DataSource: ",
         error: error,
         stackTrace: stackTrace
       );
@@ -55,7 +55,7 @@ class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasour
       return right(studentEntity);
     }catch(error, stackTrace){
       log(
-          "Authentication DataSource: ",
+          "Authentication Remote DataSource: ",
           error: error,
           stackTrace: stackTrace
       );
@@ -75,7 +75,7 @@ class AuthenticationRemoteDatasourceImpl implements AuthenticationRemoteDatasour
       return Right(sectionEntity);
     }catch(error,stackTrace){
       log(
-          "Authentication DataSource: ",
+          "Authentication Remote DataSource: ",
           error: error,
           stackTrace: stackTrace
       );

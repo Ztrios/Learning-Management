@@ -12,6 +12,8 @@ import 'package:learning_management/features/authentication/domain/entities/sect
 import 'package:learning_management/features/authentication/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/authentication/domain/entities/student_entity.dart';
 import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
+import 'package:learning_management/features/authentication/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/authentication/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_up_usecase.dart';
@@ -27,6 +29,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     on<SignIn>(_onSignIn);
     on<SignUp>(_onSignUp);
     on<GetSections>(_onGetSections);
+    on<GetSignInEntity>(_onGetSignInEntity);
+    on<SaveSignInEntity>(_onSaveInEntity);
   }
 
 
@@ -84,5 +88,30 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
         (data)=> emit(state.copyWith(status: Status.success, sectionsEntity: data))
     );
   }
+
+
+  Future<void> _onGetSignInEntity(GetSignInEntity event,Emitter<AuthenticationState> emit) async {
+    emit(state.copyWith(signInStatus: Status.loading));
+    var result = await sl<GetSignInEntityUseCase>().call();
+    result.fold(
+            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
+            (data)=> emit(state.copyWith(
+            signInEntity: data,
+            studentEntity: data.signInData?.student != null ?
+            StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
+        ))
+    );
+  }
+
+  Future<void> _onSaveInEntity(SaveSignInEntity event,Emitter<AuthenticationState> emit) async {
+    emit(state.copyWith(signInStatus: Status.loading));
+    var result = await sl<SaveSignInEntityUseCase>().call(params: state.signInEntity);
+    result.fold(
+            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
+            (data)=> emit(state.copyWith(signInStatus: Status.success))
+    );
+  }
+
+
 
 }

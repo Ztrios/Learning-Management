@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:learning_management/features/authentication/domain/entities/sign_in_entity.dart';
 
 sealed class AuthenticationEvent extends Equatable{}
 
@@ -68,4 +69,14 @@ class GetSections extends AuthenticationEvent{
   List<Object?> get props => [
     batchYear
   ];
+}
+
+class SaveSignInEntity extends AuthenticationEvent{
+  @override
+  List<Object?> get props => [];
+}
+
+class GetSignInEntity extends AuthenticationEvent{
+  @override
+  List<Object?> get props => [];
 }
