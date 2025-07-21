@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +27,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
 
 
   Future<void> _onSignIn(SignIn event,Emitter<AuthenticationState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+    emit(state.copyWith(signInStatus: Status.loading));
     Map<String,dynamic> body = {
       "username" : event.userName,
       "password" : event.password
     };
     var result = await sl<SignInUseCase>().call(params: body);
     result.fold(
-        (error)=> emit(state.copyWith(status: Status.error, message: error.toString())),
+        (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
         (data)=> emit(state.copyWith(
-            status: Status.success,
+            signInStatus: Status.success,
             signInEntity: data,
             studentEntity: data.signInData?.student != null ?
               StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
@@ -45,7 +46,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
 
 
   Future<void> _onSignUp(SignUp event, Emitter<AuthenticationState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+    emit(state.copyWith(signInStatus: Status.loading));
 
     Map<String,dynamic> body = {
       "file" : await MultipartFile.fromFile(event.studentPhoto.path),
@@ -65,8 +66,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     };
     var result = await sl<SignUpUseCase>().call(params: body);
     result.fold(
-            (error) => emit(state.copyWith(status: Status.error, message: error.message)),
-        (data) => emit(state.copyWith(status: Status.success, studentEntity: data))
+            (error) => emit(state.copyWith(signInStatus: Status.error, message: error.message)),
+        (data) => emit(state.copyWith(signInStatus: Status.success, studentEntity: data))
     );
   }
 

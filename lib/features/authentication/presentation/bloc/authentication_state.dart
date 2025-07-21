@@ -1,13 +1,15 @@
 part of 'authentication_bloc.dart';
 
 class AuthenticationState extends Equatable {
-  final Status status;
+  final Status logInStatus;
+  final Status signInStatus;
   final String? message;
   final SignInEntity? signInEntity;
   final StudentEntity? studentEntity;
 
   const AuthenticationState({
-    required this.status,
+    required this.logInStatus,
+    required this.signInStatus,
     required this.message,
     required this.studentEntity,
     required this.signInEntity
@@ -15,7 +17,8 @@ class AuthenticationState extends Equatable {
 
   /// Initial state factory
   factory AuthenticationState.initial() => const AuthenticationState(
-    status: Status.initial,
+    logInStatus: Status.initial,
+    signInStatus: Status.initial,
     message: null,
     signInEntity: null,
     studentEntity: null
@@ -23,13 +26,15 @@ class AuthenticationState extends Equatable {
 
   /// Copy with new values
   AuthenticationState copyWith({
-    Status? status,
+    Status? logInStatus,
+    Status? signInStatus,
     String? message,
     SignInEntity? signInEntity,
     StudentEntity? studentEntity,
   }) {
     return AuthenticationState(
-      status: status ?? this.status,
+      logInStatus: logInStatus ?? this.logInStatus,
+      signInStatus: signInStatus ?? this.signInStatus,
       message: message ?? this.message,
       signInEntity: signInEntity ?? this.signInEntity,
       studentEntity: studentEntity ?? this.studentEntity
@@ -39,7 +44,10 @@ class AuthenticationState extends Equatable {
   /// Equatable props — always last
   @override
   List<Object?> get props => [
-    status,
+    logInStatus,
+    signInStatus,
     message,
+    signInEntity,
+    studentEntity
   ];
 }
