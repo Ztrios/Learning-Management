@@ -22,9 +22,7 @@ class LearningManagementApp extends StatelessWidget {
       splitScreenMode: true,
       child: ToastificationWrapper(
         child: MultiBlocProvider(
-          providers: [
-            BlocProvider<AuthenticationBloc>(create: (context)=> AuthenticationBloc())
-          ],
+          providers: AppBlocProviders.providers,
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,

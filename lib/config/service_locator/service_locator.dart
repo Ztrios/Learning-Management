@@ -41,7 +41,7 @@ void initServiceLocator(){
   sl.registerSingleton<InternetConnectionChecker>(InternetConnectionChecker.instance);
   sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
 
-  /// Remote Services
+  /// Remote DataSource
   sl.registerLazySingleton<AuthenticationRemoteDatasource>(()=> AuthenticationRemoteDatasourceImpl());
   sl.registerLazySingleton<HomeRemoteDataSource>(()=>HomeRemoteDataSourceImpl());
   sl.registerLazySingleton<LessionsRemoteDataSource>(()=>LessionsRemoteDataSourceImpl());
@@ -53,7 +53,7 @@ void initServiceLocator(){
   sl.registerLazySingleton<RoutineRemoteDatasource>(()=>RoutineRemoteDatasourceImpl());
 
 
-  /// Local Services
+  /// Local DataSource
   //sl.registerSingleton<AuthenticationLocalDatasource>(AuthenticationLocalDatasourceImpl());
 
 
