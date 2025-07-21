@@ -88,7 +88,7 @@ class SignUpPage extends HookWidget {
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthenticationBloc,AuthenticationState>(
         listener: (context, state){
-          if(state.signInStatus.isSuccess) context.go(HomePage.path);
+          if(state.signUpStatus.isSuccess) context.go(HomePage.path);
         },
         builder: (context,state) {
           return SafeArea(
@@ -353,7 +353,7 @@ class SignUpPage extends HookWidget {
                     gap24,
 
                     PrimaryButton(
-                      isLoading: state.signInStatus.isLoading,
+                      isLoading: state.signUpStatus.isLoading,
                       onPressed: signUp,
                       text: "Sign Up",
                       textColor: Colors.white,

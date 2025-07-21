@@ -46,7 +46,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
 
 
   Future<void> _onSignUp(SignUp event, Emitter<AuthenticationState> emit) async {
-    emit(state.copyWith(signInStatus: Status.loading));
+    emit(state.copyWith(signUpStatus: Status.loading));
 
     Map<String,dynamic> body = {
       "file" : await MultipartFile.fromFile(event.studentPhoto.path),
@@ -66,8 +66,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     };
     var result = await sl<SignUpUseCase>().call(params: body);
     result.fold(
-            (error) => emit(state.copyWith(signInStatus: Status.error, message: error.message)),
-        (data) => emit(state.copyWith(signInStatus: Status.success, studentEntity: data))
+            (error) => emit(state.copyWith(signUpStatus: Status.error, message: error.message)),
+        (data) => emit(state.copyWith(signUpStatus: Status.success, studentEntity: data))
     );
   }
 
