@@ -270,6 +270,11 @@ class SignUpPage extends HookWidget {
                             hintText: "Select Year",
                             dropDownList: List.generate(15, (year) =>
                                 (2020 + year).toString()),
+                            onChanged: (value){
+                              context.read<AuthenticationBloc>().add(
+                                  GetSections(batchYear: batchYearController
+                                      .dropDownValue!.name));
+                            },
                           ),
 
 

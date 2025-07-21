@@ -6,6 +6,7 @@ import 'package:learning_management/features/authentication/data/datasource/loca
 import 'package:learning_management/features/authentication/data/datasource/remote_datasource/authentication_remote_datasource.dart';
 import 'package:learning_management/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
+import 'package:learning_management/features/authentication/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
@@ -74,6 +75,7 @@ void initServiceLocator(){
   /// Authentication UseCases
   sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
   sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
+  sl.registerLazySingleton(()=> SectionsUseCase());
 
 
 }

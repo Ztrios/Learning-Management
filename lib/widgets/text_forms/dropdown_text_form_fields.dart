@@ -16,11 +16,12 @@ class DropdownTextFormFields extends StatelessWidget {
   final bool? clearOption;
   final List<String> dropDownList;
   final SingleValueDropDownController controller;
-
+  final Function(dynamic)? onChanged;
   const DropdownTextFormFields({
     super.key,
     this.clearOption,
     this.enableSearch,
+    this.onChanged,
     required this.title,
     required this.hintText,
     required this.dropDownList,
@@ -73,7 +74,7 @@ class DropdownTextFormFields extends StatelessWidget {
                   value: item,
               );
           }).toList(),
-          onChanged: (val) {},
+          onChanged: onChanged,
         ),
       ],
     );

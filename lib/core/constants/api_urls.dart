@@ -8,6 +8,7 @@ class ApiUrls {
   // Authentication API endpoints
   static const String signIn = "/api/v1/auth/login";
   static const String signUp = "/api/v1/students";
+  static const String sections = "/api/v1/sections";
 
 
   // Public getter to access the base URL

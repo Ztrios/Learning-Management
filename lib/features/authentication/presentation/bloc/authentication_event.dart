@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 sealed class AuthenticationEvent extends Equatable{}
 
@@ -57,5 +56,16 @@ class SignUp extends AuthenticationEvent{
     batchYear,
     section,
     password
+  ];
+}
+
+
+class GetSections extends AuthenticationEvent{
+  final String batchYear;
+  GetSections({required this.batchYear});
+
+  @override
+  List<Object?> get props => [
+    batchYear
   ];
 }

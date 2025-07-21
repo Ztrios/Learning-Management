@@ -8,8 +8,11 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/features/authentication/data/models/student_model.dart';
+import 'package:learning_management/features/authentication/domain/entities/sections_entity.dart';
 import 'package:learning_management/features/authentication/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/authentication/domain/entities/student_entity.dart';
+import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
+import 'package:learning_management/features/authentication/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
 import 'package:learning_management/features/authentication/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/authentication/presentation/bloc/authentication_event.dart';
@@ -23,6 +26,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
   AuthenticationBloc():super(AuthenticationState.initial()){
     on<SignIn>(_onSignIn);
     on<SignUp>(_onSignUp);
+    on<GetSections>(_onGetSections);
   }
 
 
@@ -72,5 +76,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
   }
 
 
+  Future<void> _onGetSections(GetSections event, Emitter<AuthenticationState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<SectionsUseCase>().call(params: event.batchYear);
+    result.fold(
+        (error)=> emit(state.copyWith(status: Status.error, message: error.toString())),
+        (data)=> emit(state.copyWith(status: Status.success, sectionsEntity: data))
+    );
+  }
 
 }
