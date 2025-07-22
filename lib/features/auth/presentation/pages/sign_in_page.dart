@@ -18,11 +18,11 @@ import 'package:learning_management/features/home/presentation/pages/home_page.d
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 
-class LogInPage extends HookWidget {
-  static String get path => "/login";
-  static String get name => "login";
+class SignInPage extends HookWidget {
+  static String get path => "/sign-in";
+  static String get name => "sign-in";
 
-  const LogInPage({super.key});
+  const SignInPage({super.key});
 
 
 
@@ -77,17 +77,19 @@ class LogInPage extends HookWidget {
                         children: [
 
                           PrimaryTextFormsFields(
-                            title: "Email",
-                            hintText: "Enter your email address",
+                            controller: userNameController,
+                            title: "User Name",
+                            hintText: "Enter your User Name",
                             textInputType: TextInputType.emailAddress,
                             validator: (value)=> FormValidation(
-                                validationType: ValidationType.email,
+                                validationType: ValidationType.required,
                                 formValue: value
                             ).validate(),
                           ),
 
 
                           PrimaryTextFormsFields(
+                            controller: passwordController,
                             title: "Password",
                             hintText: "Enter your password",
                             showObscureButton: true,
@@ -139,6 +141,7 @@ class LogInPage extends HookWidget {
                     gap24,
 
                     PrimaryButton(
+                      isLoading: state.signInStatus.isLoading,
                       onPressed: logIn,
                       text: "Login",
                       textColor: Colors.white,

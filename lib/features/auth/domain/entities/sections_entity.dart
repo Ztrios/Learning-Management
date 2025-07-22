@@ -1,15 +1,14 @@
-import 'package:learning_management/features/auth/data/models/sign_in_model.dart';
+import 'package:learning_management/features/auth/data/models/sections_model.dart';
 
 class SectionsEntity {
-  final int? id;
-  final String? sectionName;
-  final String? yearBatch;
-  final Standard? standard;
+  final int? statusCode;
+  final String? message;
+  final SectionsData? sectionsData;
 
   SectionsEntity({
-    this.id,
-    this.sectionName,
-    this.yearBatch,
-    this.standard,
+    this.statusCode,
+    this.message,
+    this.sectionsData,
   });
+
 }

@@ -12,6 +12,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 class DropdownTextFormFields extends StatelessWidget {
   final String title;
   final String hintText;
+  final bool? isLoading;
   final bool? enableSearch;
   final bool? clearOption;
   final List<String> dropDownList;
@@ -22,6 +23,7 @@ class DropdownTextFormFields extends StatelessWidget {
     this.clearOption,
     this.enableSearch,
     this.onChanged,
+    this.isLoading,
     required this.title,
     required this.hintText,
     required this.dropDownList,
@@ -39,6 +41,21 @@ class DropdownTextFormFields extends StatelessWidget {
               title,
               style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey),
             ),
+
+            gap6,
+
+            Visibility(
+              visible: isLoading == true,
+              child: SizedBox(
+                width: 10.w,
+                height: 10.w,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.w,
+                  color: AppColors.blueLight,
+                ),
+              ),
+            )
+
           ],
         ),
 

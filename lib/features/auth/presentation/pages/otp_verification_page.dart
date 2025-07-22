@@ -9,7 +9,7 @@ import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/pages/forget_password_page.dart';
-import 'package:learning_management/features/auth/presentation/pages/log_in_page.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:pinput/pinput.dart';
@@ -112,7 +112,7 @@ class OTPVerificationPage extends HookWidget {
               gap24,
 
               PrimaryButton(
-                onPressed: ()=> context.pushReplacement(LogInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path + ResetPasswordPage.path),
+                onPressed: ()=> context.pushReplacement(SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path + ResetPasswordPage.path),
                 text: "Verify Code",
               ),
 

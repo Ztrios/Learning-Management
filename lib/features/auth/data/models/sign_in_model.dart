@@ -305,10 +305,17 @@ class Student {
     "emergencyContact": emergencyContact,
     "remarks": remarks,
     "deviceId": deviceId,
-    "deviceExpTime": "${deviceExpTime!.year.toString().padLeft(4, '0')}-${deviceExpTime!.month.toString().padLeft(2, '0')}-${deviceExpTime!.day.toString().padLeft(2, '0')}",
+    "deviceExpTime": deviceExpTime != null ? "${deviceExpTime!
+        .year
+        .toString()
+        .padLeft(4, '0')}-${deviceExpTime!.month.toString().padLeft(
+        2, '0')}-${deviceExpTime!.day.toString().padLeft(2, '0')}" : null,
+
     "prevClassGrade": prevClassGrade,
     "section": section?.toJson(),
-    "enrollmentDate": "${enrollmentDate!.year.toString().padLeft(4, '0')}-${enrollmentDate!.month.toString().padLeft(2, '0')}-${enrollmentDate!.day.toString().padLeft(2, '0')}",
+    "enrollmentDate": enrollmentDate != null ? "${enrollmentDate!.year
+        .toString().padLeft(4, '0')}-${enrollmentDate!.month.toString().padLeft(
+        2, '0')}-${enrollmentDate!.day.toString().padLeft(2, '0')}" : null,
     "isRegistrationDone": isRegistrationDone,
     "subscriptionExpiry": subscriptionExpiry?.toIso8601String(),
   };

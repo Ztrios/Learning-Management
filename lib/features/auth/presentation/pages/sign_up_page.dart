@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:collection/collection.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +11,7 @@ import 'package:learning_management/core/helpers/format_data/datetime_formatters
 import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/services/file_picker_services.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
@@ -20,7 +21,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_management/features/auth/presentation/pages/forget_password_page.dart';
-import 'package:learning_management/features/auth/presentation/pages/log_in_page.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/dialogs/time_range_picker_dialog.dart';
@@ -30,8 +31,7 @@ import 'package:time_range_picker/time_range_picker.dart';
 
 
 class SignUpPage extends HookWidget {
-  static String get path => "/";
-  //static String get path => "/sign-up";
+  static String get path => "/sign-up";
   static String get name => "sign-up";
 
   const SignUpPage({super.key});
@@ -52,6 +52,9 @@ class SignUpPage extends HookWidget {
     final batchYearController = useMemoized(() => SingleValueDropDownController());
     final sectionController = useMemoized(() => SingleValueDropDownController());
     final passwordController = useTextEditingController();
+
+
+    final selectedSectionID = useState<int?>(null);
     final picture = useState<File?>(null);
 
     Future<void> uploadProfilePicture() async {
@@ -61,6 +64,7 @@ class SignUpPage extends HookWidget {
     Future<void> signUp()async{
       if(picture.value != null){
         if(formKey.currentState!.validate()){
+
           context.read<AuthBloc>().add(SignUp(
               studentPhoto: picture.value!,
               email: emailController.text,
@@ -69,8 +73,8 @@ class SignUpPage extends HookWidget {
               mothersName: mothersNameController.text,
               district: districtController.text,
               phone: phoneController.text,
-              batchYear: "2025",
-              section: "5",
+              batchYear: batchYearController.dropDownValue!.name,
+              section: selectedSectionID.value!.toString(),
               password: passwordController.text
           ));
         }
@@ -237,32 +241,6 @@ class SignUpPage extends HookWidget {
                             ).validate(),
                           ),
 
-                          // PrimaryTextFormsFields(
-                          //   controller: batchTimeController,
-                          //   onTap: () async {
-                          //     TimeRange timeRange = await showTimeRangePickerDialog(context);
-                          //     batchTimeController.text = DateTimeFormatters.formatTimeRange(context, timeRange);
-                          //   },
-                          //   title: "Batch Time",
-                          //   hintText: "e.g., 10:00 AM - 12:00 PM",
-                          //   validator: (value)=> FormValidation(
-                          //       validationType: ValidationType.required,
-                          //       formValue: value
-                          //   ).validate(),
-                          // ),
-                          //
-                          // PrimaryTextFormsFields(
-                          //   controller: batchYear,
-                          //   onTap: () async {
-                          //
-                          //   },
-                          //   title: "Batch Year",
-                          //   hintText: "e.g., 2025",
-                          //   validator: (value)=> FormValidation(
-                          //       validationType: ValidationType.required,
-                          //       formValue: value
-                          //   ).validate(),
-                          //
 
                           DropdownTextFormFields(
                             controller: batchYearController,
@@ -274,19 +252,25 @@ class SignUpPage extends HookWidget {
                               context.read<AuthBloc>().add(
                                   GetSections(batchYear: batchYearController
                                       .dropDownValue!.name));
+                              sectionController.clearDropDown();
                             },
                           ),
 
 
                           DropdownTextFormFields(
+                            isLoading: state.status.isLoading,
                             controller: sectionController,
                             title: "Section",
                             hintText: "Select Section",
-                            dropDownList: [
-                              "Evening Section (07:00 PM) | Cadet Coaching",
-                              "Afternoon Section (03:15PM) | Cadet Coaching",
-                              "Morning Section (07:45 AM) | Cadet Coaching"
-                            ],
+                            dropDownList: (state.sectionsEntity?.sectionsData?.content).isNotNullAndNotEmpty ?
+                            state.sectionsEntity!.sectionsData!.content!.map((section){
+                              return section.sectionName ?? "";
+                            }).toList(): [],
+                            onChanged: (value){
+                              selectedSectionID.value = (state.sectionsEntity?.sectionsData?.content).isNotNullAndNotEmpty ?
+                              state.sectionsEntity!.sectionsData!.content!.singleWhereOrNull((section) =>
+                              section.sectionName == sectionController.dropDownValue?.name)?.id : null;
+                            },
                           ),
 
 
@@ -317,40 +301,6 @@ class SignUpPage extends HookWidget {
                             },
                           ),
 
-                          // gap2,
-                          //
-                          // InkWell(
-                          //   onTap: uploadProfilePciture,
-                          //   child: DottedBorder(
-                          //     options: RoundedRectDottedBorderOptions(
-                          //       dashPattern: [5, 5],
-                          //       strokeWidth: 2,
-                          //       color: AppColors.blueLight,
-                          //       strokeCap: StrokeCap.round,
-                          //       radius: Radius.circular(10.r),
-                          //     ),
-                          //     child: SizedBox(
-                          //       width: 1.sw,
-                          //       height: 100.h,
-                          //       child: Column(
-                          //         crossAxisAlignment: crossCenter,
-                          //         mainAxisAlignment: mainCenter,
-                          //         children: [
-                          //
-                          //           Icon(Icons.upload,color: AppColors.blueLight, size: 35.sp),
-                          //
-                          //           Text(
-                          //             "Click to upload your picture",
-                          //             style: AppTextStyles.titleSmall,
-                          //           ),
-                          //
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // )
-
-
                         ],
                       ),
                     ),
@@ -377,7 +327,7 @@ class SignUpPage extends HookWidget {
                         ),
 
                         TextButton(
-                          onPressed: ()=> context.go(LogInPage.path),
+                          onPressed: ()=> context.go(SignInPage.path),
                           child: Text(
                               "Login",
                               style: AppTextStyles.titleSmall.copyWith(

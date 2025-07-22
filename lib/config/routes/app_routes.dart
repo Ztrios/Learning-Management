@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/route_error_page.dart';
 import 'package:learning_management/features/auth/auth_routes.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:learning_management/features/bottom_navigation/bottom_navigation_routes.dart';
 import 'package:learning_management/features/home/home_routes.dart';
@@ -19,7 +20,7 @@ class AppRouter {
   /// Create GoRouter instance
   static final GoRouter routes = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: SignUpPage.path, // Default route
+    initialLocation: SignInPage.path, // Default route
     debugLogDiagnostics: true,
     errorBuilder: (context,state)=> ErrorPage(state: state),
     redirect: (BuildContext context, GoRouterState state){

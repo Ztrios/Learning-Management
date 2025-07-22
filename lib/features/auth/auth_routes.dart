@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/router_transition.dart';
 import 'package:learning_management/features/auth/presentation/pages/forget_password_page.dart';
-import 'package:learning_management/features/auth/presentation/pages/log_in_page.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/otp_verification_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_up_page.dart';
@@ -26,12 +26,12 @@ class AuthRouter {
 
     /// LogIn Page Route
     GoRoute(
-        path: LogInPage.path,
-        name: LogInPage.name,
+        path: SignInPage.path,
+        name: SignInPage.name,
         pageBuilder: (context, state){
           return CustomTransitionPage(
               key: state.pageKey,
-              child: LogInPage(),
+              child: SignInPage(),
               transitionsBuilder: routerTransition
           );
         },
