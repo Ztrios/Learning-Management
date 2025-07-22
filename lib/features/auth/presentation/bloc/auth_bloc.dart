@@ -43,12 +43,15 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     var result = await sl<SignInUseCase>().call(params: body);
     result.fold(
         (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
-        (data)=> emit(state.copyWith(
-            signInStatus: Status.success,
-            signInEntity: data,
-            studentEntity: data.signInData?.student != null ?
+        (data){
+          emit(state.copyWith(
+              signInStatus: Status.success,
+              signInEntity: data,
+              studentEntity: data.signInData?.student != null ?
               StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
-        ))
+          ));
+          if(event.rememberStudent) add(SaveSignInEntity());
+        }
     );
   }
 
@@ -90,25 +93,29 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
   }
 
 
-  Future<void> _onGetSignInEntity(GetSignInEntity event,Emitter<AuthState> emit) async {
-    emit(state.copyWith(signInStatus: Status.loading));
-    var result = await sl<GetSignInEntityUseCase>().call();
-    result.fold(
-            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
-            (data)=> emit(state.copyWith(
-            signInEntity: data,
-            studentEntity: data.signInData?.student != null ?
-            StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
-        ))
-    );
-  }
-
   Future<void> _onSaveInEntity(SaveSignInEntity event,Emitter<AuthState> emit) async {
     emit(state.copyWith(signInStatus: Status.loading));
     var result = await sl<SaveSignInEntityUseCase>().call(params: state.signInEntity);
     result.fold(
             (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
-            (data)=> emit(state.copyWith(signInStatus: Status.success))
+            (data){
+              emit(state.copyWith(signInStatus: Status.success));
+            }
+    );
+  }
+
+
+  Future<void> _onGetSignInEntity(GetSignInEntity event,Emitter<AuthState> emit) async {
+    //emit(state.copyWith(signInStatus: Status.loading));
+    var result = await sl<GetSignInEntityUseCase>().call();
+    result.fold(
+            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
+            (data)=> emit(state.copyWith(
+              signInStatus: Status.success,
+            signInEntity: data,
+            studentEntity: data?.signInData?.student != null ?
+            StudentModel.fromJson(data!.signInData!.student!.toJson()).toEntity() : null
+        ))
     );
   }
 

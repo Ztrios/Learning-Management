@@ -92,7 +92,7 @@ class SignUpPage extends HookWidget {
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc,AuthState>(
         listener: (context, state){
-          if(state.signUpStatus.isSuccess) context.go(HomePage.path);
+          if(state.signUpStatus.isSuccess) context.go(SignInPage.path);
         },
         builder: (context,state) {
           return SafeArea(

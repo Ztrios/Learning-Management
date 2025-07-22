@@ -7,13 +7,19 @@ sealed class AuthEvent extends Equatable{}
 
 
 class SignIn extends AuthEvent{
+  final bool rememberStudent;
   final String userName;
   final String password;
 
-  SignIn({required this.userName, required this.password});
+  SignIn({
+    required this.rememberStudent,
+    required this.userName,
+    required this.password
+  });
 
   @override
   List<Object?> get props => [
+    rememberStudent,
     userName,
     password
   ];

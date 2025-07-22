@@ -33,20 +33,34 @@ class SignInPage extends HookWidget {
     final userNameController = useTextEditingController();
     final passwordController = useTextEditingController();
 
+    final remeberStudent = useState<bool>(false);
+
     Future<void> logIn() async {
       if(formKey.currentState!.validate()){
         context.read<AuthBloc>().add(SignIn(
             userName: userNameController.text.trim(),
-            password: passwordController.text
+            password: passwordController.text,
+            rememberStudent: remeberStudent.value,
         ));
       }
     }
+
+
+    useEffect((){
+      Future.microtask((){
+        context.read<AuthBloc>().add(GetSignInEntity());
+      });
+      return null;
+    },[]);
+
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context,state){
-          if(state.signInStatus.isSuccess) context.go(HomePage.path);
+          if(state.signInStatus.isSuccess && state.signInEntity != null) {
+            context.go(HomePage.path);
+          }
         },
         builder: (context, state) {
           return SafeArea(
@@ -107,14 +121,14 @@ class SignInPage extends HookWidget {
                     Row(
                       children: [
                         Checkbox(
-                            value: true,
+                            value: remeberStudent.value,
                             checkColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(color: AppColors.grey),
                               borderRadius: BorderRadius.circular(6), // Rounded corners
                             ),
                             activeColor: AppColors.blueLight,
-                            onChanged: (value){}
+                            onChanged: (value)=> remeberStudent.value = value ?? false
                         ),
 
                         Text(

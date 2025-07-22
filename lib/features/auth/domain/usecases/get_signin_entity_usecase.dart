@@ -5,8 +5,8 @@ import 'package:learning_management/core/usecase/usecase.dart';
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 
-class GetSignInEntityUseCase extends UseCase<SignInEntity, dynamic>{
+class GetSignInEntityUseCase extends UseCase<SignInEntity?, dynamic>{
   @override
-  Future<Either<Failure, SignInEntity>> call({params}) async =>
+  Future<Either<Failure, SignInEntity?>> call({params}) async =>
       await sl<AuthRepositories>().getSignInEntity();
 }

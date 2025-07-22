@@ -8,20 +8,21 @@ import 'package:learning_management/features/auth/domain/entities/sign_in_entity
 
 sealed class AuthLocalDatasource {
   Future<Either<Failure,bool>> saveSignInEntity({required SignInEntity signInEntity});
-  Future<Either<Failure,SignInEntity>> getSignInEntity();
+  Future<Either<Failure, SignInEntity?>> getSignInEntity();
 }
 
 class AuthLocalDatasourceImpl implements AuthLocalDatasource {
+
   @override
   Future<Either<Failure, bool>> saveSignInEntity(
       {required SignInEntity signInEntity}) async {
     try {
       Box box = Hive.box(LocalDatabaseKeys.database);
-      box.put(LocalDatabaseKeys.student, signInEntity);
+      box.put(LocalDatabaseKeys.student, signInEntity.toRawJson());
       return Right(true);
     } catch (error, stackTrace) {
       log(
-          "auth Local Datasource: ",
+          "Auth Local Datasource: ",
           error: error,
           stackTrace: stackTrace
       );
@@ -30,12 +31,15 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
   }
 
   @override
-  Future<Either<Failure, SignInEntity>> getSignInEntity() async {
+  Future<Either<Failure, SignInEntity?>> getSignInEntity() async {
     try{
       Box box = Hive.box(LocalDatabaseKeys.database);
-      String data = box.get(LocalDatabaseKeys.student);
-      SignInEntity signInEntity = SignInEntity();
-      return Right(signInEntity);
+      String? data = box.get(LocalDatabaseKeys.student);
+      if(data != null){
+        SignInEntity signInEntity = SignInEntity.fromRawJson(data);
+        return right(signInEntity);
+      }
+      return Right(null);
     }catch(error,stackTrace){
       log(
         "auth Local Datasource",
@@ -45,5 +49,6 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       return Left(LocalDatabaseFailure(error.toString()));
     }
   }
+
 
 }

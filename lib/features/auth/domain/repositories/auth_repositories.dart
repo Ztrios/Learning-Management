@@ -9,5 +9,5 @@ abstract class AuthRepositories {
   Future<Either<Failure,StudentEntity>> signUp({required Map<String,dynamic> body});
   Future<Either<Failure,SectionsEntity>> getSections({required String batchYear});
   Future<Either<Failure,bool>> saveSignInEntity({required SignInEntity signInEntity});
-  Future<Either<Failure,SignInEntity>> getSignInEntity();
+  Future<Either<Failure,SignInEntity?>> getSignInEntity();
 }

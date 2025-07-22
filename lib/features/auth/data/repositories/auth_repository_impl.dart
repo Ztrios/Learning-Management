@@ -28,7 +28,7 @@ class AuthRepositoryIml implements AuthRepositories{
       await sl<AuthLocalDatasource>().saveSignInEntity(signInEntity: signInEntity);
 
   @override
-  Future<Either<Failure, SignInEntity>> getSignInEntity() async =>
+  Future<Either<Failure, SignInEntity?>> getSignInEntity() async =>
       await sl<AuthLocalDatasource>().getSignInEntity();
 
 

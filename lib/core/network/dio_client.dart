@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
+import 'package:learning_management/core/network/auth_interceptor.dart';
 import 'package:learning_management/core/network/interceptor.dart';
-
 
 class DioClient {
   final Dio _dio;
@@ -12,17 +12,19 @@ class DioClient {
       : _dio = Dio(
     BaseOptions(
       baseUrl: ApiUrls.baseURL,
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      contentType: "application/json; charset=UTF-8",
       responseType: ResponseType.json,
       sendTimeout: const Duration(seconds: 20),
       receiveTimeout: const Duration(seconds: 20),
     ),
   )..interceptors.addAll([
+    AuthInterceptor(),
     LoggerInterceptor(),
   ]);
 
   Future<Response<T>> get<T>(
       String url, {
+        dynamic data,
         Map<String, dynamic>? queryParameters,
         Options? options,
         CancelToken? cancelToken,
@@ -30,6 +32,7 @@ class DioClient {
       }) async {
     return _handleRequest(() => _dio.get<T>(
       url,
+      data: data,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,
