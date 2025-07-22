@@ -10,6 +10,9 @@ class ApiUrls {
   static const String signUp = "/api/v1/students";
   static const String sections = "/api/v1/sections";
 
+  // Home page API endpoints
+  static const String studentSubjects = "/api/v1/subjects";
+
 
   // Public getter to access the base URL
   static String get baseURL => _baseURL;

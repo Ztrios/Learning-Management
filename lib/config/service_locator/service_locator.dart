@@ -14,6 +14,7 @@ import 'package:learning_management/features/auth/domain/usecases/sign_up_usecas
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
 import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
 import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
+import 'package:learning_management/features/home/domain/usecases/get_student_subject_usecase.dart';
 import 'package:learning_management/features/lessons/data/datasource/remote_datasource/lessions_remote_datasouce.dart';
 import 'package:learning_management/features/lessons/data/repositories/lessions_repositories_impl.dart';
 import 'package:learning_management/features/lessons/domain/repositories/lessions_repositories.dart';
@@ -80,6 +81,9 @@ void initServiceLocator(){
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
   sl.registerLazySingleton<GetSignInEntityUseCase>(()=> GetSignInEntityUseCase());
   sl.registerLazySingleton<SaveSignInEntityUseCase>(()=> SaveSignInEntityUseCase());
+  
+  /// Home UseCases
+  sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());
 
 
 }
