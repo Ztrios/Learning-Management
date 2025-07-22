@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learning_management/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/notifications/presentation/bloc/notification_bloc.dart';
@@ -15,7 +15,7 @@ class AppBlocProviders {
   /// All Bloc Providers are created here
   static List<BlocProvider> get providers => [
     //BlocProvider<InternetConnectivityCubit>(create: (context)=> InternetConnectivityCubit()..connectivityChecker()),
-    BlocProvider<AuthenticationBloc>(create: (context)=> AuthenticationBloc()),
+    BlocProvider<AuthBloc>(create: (context)=> AuthBloc()),
     BlocProvider<HomeBloc>(create: (context)=> HomeBloc()),
     BlocProvider<LessionsBloc>(create: (context)=> LessionsBloc()),
     BlocProvider<RoutineBloc>(create: (context)=> RoutineBloc()),

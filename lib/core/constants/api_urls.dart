@@ -5,7 +5,7 @@ class ApiUrls {
   static const String _baseURL = "http://192.168.20.253:9090";
   static const String _imageBaseURL = "";
 
-  // Authentication API endpoints
+  // auth API endpoints
   static const String signIn = "/api/v1/auth/login";
   static const String signUp = "/api/v1/students";
   static const String sections = "/api/v1/sections";

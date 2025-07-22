@@ -2,15 +2,15 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:learning_management/core/network/dio_client.dart';
 import 'package:learning_management/core/services/firebase_services/push_notification/push_notification_service.dart';
-import 'package:learning_management/features/authentication/data/datasource/local_datasource/authentication_local_datasource.dart';
-import 'package:learning_management/features/authentication/data/datasource/remote_datasource/authentication_remote_datasource.dart';
-import 'package:learning_management/features/authentication/data/repositories/authentication_repository_impl.dart';
-import 'package:learning_management/features/authentication/domain/repositories/authentication_repositories.dart';
-import 'package:learning_management/features/authentication/domain/usecases/get_signin_entity_usecase.dart';
-import 'package:learning_management/features/authentication/domain/usecases/save_signin_entity_usecase.dart';
-import 'package:learning_management/features/authentication/domain/usecases/sections_usecase.dart';
-import 'package:learning_management/features/authentication/domain/usecases/sign_in_usecase.dart';
-import 'package:learning_management/features/authentication/domain/usecases/sign_up_usecase.dart';
+import 'package:learning_management/features/auth/data/datasource/local_datasource/auth_local_datasource.dart';
+import 'package:learning_management/features/auth/data/datasource/remote_datasource/auth_remote_datasource.dart';
+import 'package:learning_management/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
 import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
 import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
@@ -45,7 +45,7 @@ void initServiceLocator(){
   sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
 
   /// Remote DataSource
-  sl.registerLazySingleton<AuthenticationRemoteDatasource>(()=> AuthenticationRemoteDatasourceImpl());
+  sl.registerLazySingleton<AuthRemoteDatasource>(()=> AuthRemoteDatasourceImpl());
   sl.registerLazySingleton<HomeRemoteDataSource>(()=>HomeRemoteDataSourceImpl());
   sl.registerLazySingleton<LessionsRemoteDataSource>(()=>LessionsRemoteDataSourceImpl());
   sl.registerLazySingleton<NotificationsRemoteDatasource>(()=>NotificationsRemoteDatasourceImpl());
@@ -57,11 +57,11 @@ void initServiceLocator(){
 
 
   /// Local DataSource
-  sl.registerSingleton<AuthenticationLocalDatasource>(AuthenticationLocalDatasourceImpl());
+  sl.registerSingleton<AuthLocalDatasource>(AuthLocalDatasourceImpl());
 
 
   /// Repositories
-  sl.registerLazySingleton<AuthenticationRepositories>(()=> AuthenticationRepositoryIml());
+  sl.registerLazySingleton<AuthRepositories>(()=> AuthRepositoryIml());
   sl.registerLazySingleton<HomeRepositories>(()=> HomeRepositoriesImpl());
   sl.registerLazySingleton<LessionsRepositories>(()=> LessionsRepositoriesImpl());
   sl.registerLazySingleton<NotificationsRepositories>(()=> NotificationsRepositoriesImpl());
@@ -74,7 +74,7 @@ void initServiceLocator(){
 
 
   /// UseCases
-  /// Authentication UseCases
+  /// auth UseCases
   sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
   sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
