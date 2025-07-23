@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
-import 'package:learning_management/core/utils/styles/app_text_styles.dart';
-import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
-import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
-import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 
-class NoticeBoardCard extends StatelessWidget {
+class AnnouncementItemView extends StatelessWidget {
   final String title;
-  final String message;
-  final String issuedBy;
-  final DateTime issuedDate;
+  final String content;
+  final Color backgroundColor;
+  final VoidCallback onPressed;
 
-  const NoticeBoardCard({
+  const AnnouncementItemView({
     super.key,
     required this.title,
-    required this.message,
-    required this.issuedBy,
-    required this.issuedDate,
+    required this.content,
+    required this.backgroundColor,
+    required this.onPressed
   });
 
   @override
@@ -27,7 +23,7 @@ class NoticeBoardCard extends StatelessWidget {
     return Container(
       padding: padding12,
       decoration: BoxDecoration(
-        color: AppColors.deepPurpleAccent,
+        color: backgroundColor,
         borderRadius: radius12,
         border: Border.all(color: const Color(0xFFE0E6ED)),
       ),
@@ -75,39 +71,41 @@ class NoticeBoardCard extends StatelessWidget {
 
           /// Message
           Text(
-            message,
+            content,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: AppTextStyles.caption.copyWith(
-              color: Colors.white
+                color: Colors.white
             ),
           ),
 
-          SizedBox(height: 8.h),
+          const Spacer(),
 
           /// Footer
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
 
-              Container(
-                padding: padding6,
-                decoration: BoxDecoration(
-                  color: AppColors.blueLight,
-                  borderRadius: radius6,
-                ),
-                child: Text(
-                  "View More",
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: Colors.white
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: padding6,
+              //   decoration: BoxDecoration(
+              //     color: AppColors.blueLight,
+              //     borderRadius: radius6,
+              //   ),
+              //   child: Text(
+              //     "View More",
+              //     style: AppTextStyles.bodyMedium.copyWith(
+              //         color: Colors.white
+              //     ),
+              //   ),
+              // ),
+
+              const Spacer(),
 
               Text(
-                "$issuedBy • 12 Dec 2025",
+                "— Academic Office",
                 style: AppTextStyles.caption.copyWith(
-                  color: Colors.white
+                    color: Colors.white
                 ),
               ),
             ],

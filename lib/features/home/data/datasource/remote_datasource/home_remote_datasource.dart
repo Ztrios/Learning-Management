@@ -8,14 +8,17 @@ import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/network/dio_client.dart';
+import 'package:learning_management/features/home/data/models/announcement_model.dart';
 import 'package:learning_management/features/home/data/models/subjects_model.dart';
 import 'package:learning_management/features/home/data/models/tasks_model.dart';
 import 'package:learning_management/features/home/data/models/todays_class_model.dart';
+import 'package:learning_management/features/home/domain/entities/announcements_entity.dart';
 import 'package:learning_management/features/home/domain/entities/subject_entity.dart';
 import 'package:learning_management/features/home/domain/entities/tasks_entity.dart';
 import 'package:learning_management/features/home/domain/entities/todays_class_entity.dart';
 
 sealed class HomeRemoteDataSource {
+  Future<Either<Failure,AnnouncementsEntity>> getAnnouncements();
   Future<Either<Failure,TodaysClassEntity>> getTodaysClass({required String sectionId});
   Future<Either<Failure,SubjectsEntity>> getStudentSubjects({required String studentId});
   Future<Either<Failure,TasksEntity>> getStudentTasks({required String sectionId});
@@ -72,6 +75,24 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
       TodaysClassEntity todaysClassEntity = TodaysClassModel.fromJson(response.data).toEntity();
       return Right(todaysClassEntity);
+
+    }catch(error, stackTrace){
+      log(
+          "Home Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AnnouncementsEntity>> getAnnouncements() async {
+    try{
+
+      Response response = await sl<DioClient>().get(ApiUrls.announcement);
+      AnnouncementsEntity announcementsEntity = AnnouncementsModel.fromJson(response.data).toEntity();
+      return Right(announcementsEntity);
 
     }catch(error, stackTrace){
       log(
