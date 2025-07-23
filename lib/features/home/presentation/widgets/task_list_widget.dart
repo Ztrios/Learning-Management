@@ -32,9 +32,9 @@ class TaskListWidget extends HookWidget {
   Widget build(BuildContext context) {
     
     void getTasks(){
-      String? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.sectionId;
+      int? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.sectionId;
       if(sectionId != null){
-        context.read<HomeBloc>().add(GetStudentTasks(sectionId: sectionId));
+        context.read<HomeBloc>().add(GetStudentTasks(sectionId: sectionId.toString()));
       }
     }
     

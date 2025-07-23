@@ -44,7 +44,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     try{
       Map<String,dynamic> queries = {"sectionId" : sectionId};
       Response response = await sl<DioClient>().get(
-          ApiUrls.studentSubjects,
+          ApiUrls.studentTasks,
           queryParameters: queries
       );
       TasksEntity tasksEntity = TasksModel.fromJson(response.data).toEntity();

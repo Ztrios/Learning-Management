@@ -12,6 +12,7 @@ class ApiUrls {
 
   // Home page API endpoints
   static const String studentSubjects = "/api/v1/subjects";
+  static const String studentTasks = "/api/v1/students/upcoming-task";
 
 
   // Public getter to access the base URL
