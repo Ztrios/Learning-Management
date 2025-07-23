@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     };
     var result = await sl<SignInUseCase>().call(params: body);
     result.fold(
-        (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
+        (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.message)),
         (data){
           emit(state.copyWith(
               signInStatus: Status.success,
@@ -87,7 +87,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     emit(state.copyWith(status: Status.loading));
     var result = await sl<SectionsUseCase>().call(params: event.batchYear);
     result.fold(
-        (error)=> emit(state.copyWith(status: Status.error, message: error.toString())),
+        (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
         (data)=> emit(state.copyWith(status: Status.success, sectionsEntity: data))
     );
   }
@@ -97,7 +97,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     emit(state.copyWith(signInStatus: Status.loading));
     var result = await sl<SaveSignInEntityUseCase>().call(params: state.signInEntity);
     result.fold(
-            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.toString())),
+            (error)=> emit(state.copyWith(signInStatus: Status.error, message: error.message)),
             (data){
               emit(state.copyWith(signInStatus: Status.success));
             }

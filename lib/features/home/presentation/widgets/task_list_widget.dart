@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
+import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
+import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/home/presentation/pages/task_list_page.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/task_item_view.dart';
@@ -15,64 +22,101 @@ import 'package:learning_management/features/lessons/presentation/pages/assignme
 import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
+import 'package:learning_management/widgets/error_widget/error_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class TaskListWidget extends StatelessWidget {
+class TaskListWidget extends HookWidget {
   const TaskListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Your Tasks",
-              style: AppTextStyles.titleLarge.copyWith(
-                  fontWeight: FontWeight.bold
-              ),
-            ),
+    
+    void getTasks(){
+      String? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.sectionId;
+      if(sectionId != null){
+        context.read<HomeBloc>().add(GetStudentTasks(sectionId: sectionId));
+      }
+    }
+    
+    useEffect((){
+      Future.microtask(()=> getTasks());
+      return null;
+    },[]);
 
-            TextButton(
-              onPressed: ()=> context.push(HomePage.path + TaskListPage.path),
-              child: Text(
-                "See All",
-                style: AppTextStyles.titleSmall.copyWith(
-                    color: AppColors.deepPurpleAccent,
-                    fontWeight: FontWeight.bold
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if(state.status.isLoading || (state.tasksEntity?.taskData).isNotNullAndNotEmpty){
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Your Tasks",
+                    style: AppTextStyles.titleLarge.copyWith(
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+
+                  TextButton(
+                    onPressed: () =>
+                        context.push(HomePage.path + TaskListPage.path),
+                    child: Text(
+                      "See All",
+                      style: AppTextStyles.titleSmall.copyWith(
+                          color: AppColors.deepPurpleAccent,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  )
+
+                ],
+              ),
+
+
+              Skeletonizer(
+                enabled: true,
+                child: Column(
+                  children: [
+                    TaskItemView(
+                      quantity: 12,
+                      type: "Quizzes",
+                      title: "English Quiz",
+                      subject: "English",
+                      svgAsset: "assets/images/english_quiz.svg",
+                      onTap: () {
+                        context.push(LessionsPage.path + LessionDetailsPage.path +
+                            QuizSubmissionPage.path);
+                      },
+                    ),
+
+                    gap20,
+
+                    TaskItemView(
+                      quantity: 6,
+                      type: "Question",
+                      title: "Math Assignment",
+                      subject: "Math",
+                      svgAsset: "assets/images/math_assignment.svg",
+                      onTap: () {
+                        context.push(LessionsPage.path + LessionDetailsPage.path +
+                            AssignmentSubmissionPage.path);
+                      },
+                    ),
+                  ],
                 ),
               ),
-            )
 
-          ],
-        ),
-
-
-        TaskItemView(
-            quantity: 12,
-            type: "Quizzes",
-            title: "English Quiz",
-            subject: "English",
-            svgAsset: "assets/images/english_quiz.svg",
-            onTap: () {
-              context.push(LessionsPage.path + LessionDetailsPage.path + QuizSubmissionPage.path);
-            },
-        ),
-
-        gap20,
-
-        TaskItemView(
-            quantity: 6,
-            type: "Question",
-            title: "Math Assignment",
-            subject: "Math",
-            svgAsset: "assets/images/math_assignment.svg",
-            onTap: () {
-              context.push(LessionsPage.path + LessionDetailsPage.path + AssignmentSubmissionPage.path);
-            },
-        ),
-
-      ],
+            ],
+          );
+        }else if(state.status.isError){
+          return ErrorViewWidget(
+              message: state.message ?? "Not Found!"
+          );
+        }else{
+          return SizedBox.shrink();
+        }
+      },
     );
   }
 }

@@ -20,6 +20,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/subject_item_view.dart';
+import 'package:learning_management/features/home/presentation/widgets/loading_widgets/subjects_loading_widget.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
 import 'package:learning_management/widgets/error_widget/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -134,7 +135,7 @@ class SubjectListWidget extends HookWidget {
                     message: state.message ?? "Unknown"
                 );
               }else{
-                return CircularProgressIndicator();
+                return SubjectsLoadingWidget();
               }
             },
           ),
