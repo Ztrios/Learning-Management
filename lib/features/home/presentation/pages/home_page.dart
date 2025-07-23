@@ -49,7 +49,7 @@ class HomePage extends HookWidget {
 
                         PaymentNoticeCard(
                             message: "Your email couldn't be renewed because your payment didn’t work",
-                            isRedNotice: true,
+                            isRedNotice: false,
                             onPressed: ()=> context.push(PaymentPage.path)
                         ),
 

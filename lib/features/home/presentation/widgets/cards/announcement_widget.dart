@@ -47,7 +47,9 @@ class AnnouncementWidget extends HookWidget {
 
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if(state.status.isSuccess &&  (state.announcementsEntity?.announcementsData?.content).isNotNullAndNotEmpty){
+        if(state.status.isLoading){
+          return AnnouncementLoadingWidget();
+        } else if(state.status.isSuccess &&  (state.announcementsEntity?.announcementsData?.content).isNotNullAndNotEmpty){
           return Column(
             children: [
 

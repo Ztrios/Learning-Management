@@ -73,74 +73,75 @@ class SubjectListWidget extends HookWidget {
     },[]);
 
 
-    return Column(
-      crossAxisAlignment: crossStart,
-      children: [
+    return SizedBox(
+      width: 1.sw,
+      height: 170.h,
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if(state.status.isSuccess){
+            return Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                Text(
+                  "Subjects",
+                  style: AppTextStyles.titleMedium.copyWith(
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
 
-        Text(
-          "Subjects",
-          style: AppTextStyles.titleMedium.copyWith(
-              fontWeight: FontWeight.bold
-          ),
-        ),
+                Text(
+                  "Recommendations for you",
+                  style: AppTextStyles.caption,
+                ),
 
-        Text(
-          "Recommendations for you",
-          style: AppTextStyles.caption,
-        ),
+                gap12,
 
-        gap12,
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: state.subjectsEntity?.subjectsData?.content?.length,
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        Content? subject = (state.subjectsEntity?.subjectsData?.content).isNotNullAndNotEmpty ?
+                        state.subjectsEntity!.subjectsData!.content![index] : null;
+                        return InkWell(
+                          onTap: () {
+                            Map<String, String> parameters = {
+                              "subject": subjects[index],
+                              "subjectIcon": icons[subjects[index].toLowerCase()]
+                            };
+                            context.push(
+                                Uri(path: LessionsPage.path,
+                                    queryParameters: parameters).toString(),
+                                extra: LessionPageExtraParams(
+                                  background: colors[index % colors.length]
+                                      .withValues(alpha: 0.9),
+                                  shapeColor: colors[index % colors.length],
+                                )
+                            );
+                          },
 
-        SizedBox(
-          width: 1.sw,
-          height: 120.h,
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              if(state.status.isSuccess){
-                return ListView.builder(
-                    itemCount: state.subjectsEntity?.subjectsData?.content?.length,
-                    scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      Content? subject = (state.subjectsEntity?.subjectsData?.content).isNotNullAndNotEmpty ?
-                      state.subjectsEntity!.subjectsData!.content![index] : null;
-                      return InkWell(
-                        onTap: () {
-                          Map<String, String> parameters = {
-                            "subject": subjects[index],
-                            "subjectIcon": icons[subjects[index].toLowerCase()]
-                          };
-                          context.push(
-                              Uri(path: LessionsPage.path,
-                                  queryParameters: parameters).toString(),
-                              extra: LessionPageExtraParams(
-                                background: colors[index % colors.length]
-                                    .withValues(alpha: 0.9),
-                                shapeColor: colors[index % colors.length],
-                              )
-                          );
-                        },
-
-                        child: SubjectItemView(
-                          subject: subject?.name ?? "English",
-                          svgIcon: icons[(subject?.name ?? "english").toLowerCase()] ?? "assets/icons/history_icon.svg",
-                          background: colors[index % colors.length].withValues(alpha: 0.9),
-                          shapeColor: colors[index % colors.length],
-                        ),
-                      );
-                    }
-                );
-              }else if(state.status.isError){
-                return ErrorViewWidget(
-                    message: state.message ?? "Unknown"
-                );
-              }else{
-                return SubjectsLoadingWidget();
-              }
-            },
-          ),
-        ),
-      ],
+                          child: SubjectItemView(
+                            subject: subject?.name ?? "English",
+                            svgIcon: icons[(subject?.name ?? "english").toLowerCase()] ?? "assets/icons/history_icon.svg",
+                            background: colors[index % colors.length].withValues(alpha: 0.9),
+                            shapeColor: colors[index % colors.length],
+                          ),
+                        );
+                      }
+                  ),
+                ),
+              ],
+            );
+          }else if(state.status.isError){
+            return ErrorViewWidget(
+                message: state.message ?? "Unknown"
+            );
+          }else{
+            return SubjectsLoadingWidget();
+          }
+        },
+      ),
     );
   }
 }

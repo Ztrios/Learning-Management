@@ -19,6 +19,7 @@ import 'package:learning_management/features/home/presentation/bloc/home_bloc.da
 import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/teacher_item_view.dart';
 import 'package:learning_management/features/home/presentation/widgets/section_header.dart';
+import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/error_widget/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -181,6 +182,27 @@ class ClassRoutineWidget extends HookWidget {
                             "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
                             style: AppTextStyles.caption.copyWith(
                                 color: Colors.white
+                            ),
+                          ),
+
+                          gap12,
+
+                          InkWell(
+                            onTap: (){},
+                            child: Container(
+                              width: 85.w,
+                              height: 30.h,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: radius6,
+                                color: Colors.white
+                              ),
+                              child: Text(
+                                "Join Class",
+                                style: AppTextStyles.caption.copyWith(
+                                  color: background.value
+                                ),
+                              ),
                             ),
                           ),
 
