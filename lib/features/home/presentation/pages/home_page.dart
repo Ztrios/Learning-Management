@@ -9,8 +9,10 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/home/presentation/pages/task_list_page.dart';
 import 'package:learning_management/features/home/presentation/widgets/cards/announcement_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/class_routine_widget.dart';
+import 'package:learning_management/features/home/presentation/widgets/section_header.dart';
 import 'package:learning_management/features/home/presentation/widgets/subject_list_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/task_list_widget.dart';
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
@@ -51,20 +53,13 @@ class HomePage extends HookWidget {
                             onPressed: ()=> context.push(PaymentPage.path)
                         ),
 
-                        gap12,
+                        gap6,
 
                         AnnouncementWidget(),
-
                         gap12,
-
                         ClassRoutineWidget(),
-
-                        gap12,
-
+                        gap6,
                         TaskListWidget(),
-
-                        gap12,
-
                         SubjectListWidget()
 
 

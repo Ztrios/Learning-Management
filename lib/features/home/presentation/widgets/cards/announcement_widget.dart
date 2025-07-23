@@ -12,6 +12,7 @@ import 'package:learning_management/features/home/presentation/bloc/home_event.d
 import 'package:learning_management/features/home/presentation/widgets/item_view/announcement_item_view.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/loading_widgets/announcement_loading_widget.dart';
+import 'package:learning_management/features/home/presentation/widgets/section_header.dart';
 import 'package:learning_management/widgets/error_widget/error_widget.dart';
 
 class AnnouncementWidget extends HookWidget {
@@ -47,24 +48,34 @@ class AnnouncementWidget extends HookWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if(state.status.isSuccess &&  (state.announcementsEntity?.announcementsData?.content).isNotNullAndNotEmpty){
-          return FlutterCarousel.builder(
-            itemCount: state.announcementsEntity!.announcementsData!.content!.length,
-            options: FlutterCarouselOptions(
-              autoPlay: true,
-              viewportFraction: 1.0,
-              height: 140.h,
-              enableInfiniteScroll: false,
-              physics: BouncingScrollPhysics(),
-              showIndicator: false,
-            ),
-            itemBuilder: (context, index, child) {
-              return AnnouncementItemView(
-                onPressed: () {},
-                backgroundColor: AppColors.deepPurpleAccent,
-                title: state.announcementsEntity!.announcementsData!.content![index].title ?? "Not Found",
-                content: state.announcementsEntity!.announcementsData!.content![index].content ?? "Not Found",
-              );
-            },
+          return Column(
+            children: [
+
+              SectionHeader(
+                title: "Announcement",
+                onPressed: (){},
+              ),
+
+              FlutterCarousel.builder(
+                itemCount: state.announcementsEntity!.announcementsData!.content!.length,
+                options: FlutterCarouselOptions(
+                  autoPlay: true,
+                  viewportFraction: 1.0,
+                  height: 140.h,
+                  enableInfiniteScroll: false,
+                  physics: BouncingScrollPhysics(),
+                  showIndicator: false,
+                ),
+                itemBuilder: (context, index, child) {
+                  return AnnouncementItemView(
+                    onPressed: () {},
+                    backgroundColor: AppColors.deepPurpleAccent,
+                    title: state.announcementsEntity!.announcementsData!.content![index].title ?? "Not Found",
+                    content: state.announcementsEntity!.announcementsData!.content![index].content ?? "Not Found",
+                  );
+                },
+              ),
+            ],
           );
         }else if(state.status.isError){
           return ErrorViewWidget(

@@ -79,7 +79,7 @@ class SubjectListWidget extends HookWidget {
 
         Text(
           "Subjects",
-          style: AppTextStyles.titleLarge.copyWith(
+          style: AppTextStyles.titleMedium.copyWith(
               fontWeight: FontWeight.bold
           ),
         ),

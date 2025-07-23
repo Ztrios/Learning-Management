@@ -18,6 +18,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/teacher_item_view.dart';
+import 'package:learning_management/features/home/presentation/widgets/section_header.dart';
 import 'package:learning_management/widgets/error_widget/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -82,127 +83,136 @@ class ClassRoutineWidget extends HookWidget {
         if(state.status.isLoading || state.status.isSuccess){
           return Skeletonizer(
             enabled: state.status.isLoading,
-            child: Stack(
-              clipBehavior: Clip.none,
+            child: Column(
               children: [
-                Container(
-                  width: 1.sw,
-                  height: 210.h,
-                  padding: padding16,
-                  decoration: BoxDecoration(
-                      borderRadius: radius16,
-                      color: background.value
-                  ),
-                  child: Column(
-                    crossAxisAlignment: crossStart,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                SectionHeader(title: "Today's Class"),
+
+                gap8,
+
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: 1.sw,
+                      height: 210.h,
+                      padding: padding16,
+                      decoration: BoxDecoration(
+                          borderRadius: radius16,
+                          color: background.value
+                      ),
+                      child: Column(
+                        crossAxisAlignment: crossStart,
                         children: [
-                          Column(
-                            crossAxisAlignment: crossStart,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
-                                    state.todaysClassEntity!.classData!.classSchedule![0].classInfo!.className!
-                                    : "Not Found",
-                                style: AppTextStyles.titleSmall.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
-                                ),
+                              Column(
+                                crossAxisAlignment: crossStart,
+                                children: [
+                                  Text(
+                                    (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                                        state.todaysClassEntity!.classData!.classSchedule![0].classInfo!.className!
+                                        : "Not Found",
+                                    style: AppTextStyles.titleSmall.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+
+                                  Text(
+                                    (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                                    state.todaysClassEntity!
+                                        .classData!
+                                        .classSchedule!
+                                        .map((classSchedule) =>
+                                    classSchedule.classInfo?.subject)
+                                        .toList()
+                                        .join("&") : "Not Found",
+                                    style: AppTextStyles.caption.copyWith(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                ],
                               ),
 
-                              Text(
-                                (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
-                                state.todaysClassEntity!
-                                    .classData!
-                                    .classSchedule!
-                                    .map((classSchedule) =>
-                                classSchedule.classInfo?.subject)
-                                    .toList()
-                                    .join("&") : "Not Found",
-                                style: AppTextStyles.caption.copyWith(
-                                    color: Colors.white
+                              Container(
+                                padding: padding4,
+                                decoration: BoxDecoration(
+                                    borderRadius: radius8,
+                                    color: AppColors.lightOrange
                                 ),
-                              ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                        Icons.alarm,
+                                        color: background.value
+                                    ),
+
+                                    gap4,
+
+                                    Text(
+                                      DateTimeFormatters.formatLocalTime(
+                                          state.todaysClassEntity?.classData
+                                              ?.startTime ?? "03:04:35"),
+                                      style: AppTextStyles.titleSmall.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: background.value
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+
                             ],
                           ),
 
-                          Container(
-                            padding: padding4,
-                            decoration: BoxDecoration(
-                                borderRadius: radius8,
-                                color: AppColors.lightOrange
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                    Icons.alarm,
-                                    color: background.value
-                                ),
 
-                                gap4,
+                          gap24,
 
-                                Text(
-                                  DateTimeFormatters.formatLocalTime(
-                                      state.todaysClassEntity?.classData
-                                          ?.startTime ?? "03:04:35"),
-                                  style: AppTextStyles.titleSmall.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: background.value
-                                  ),
-                                ),
-                              ],
+                          Text(
+                            "Zoom ID : ${state.todaysClassEntity?.classData?.meetingId ?? "Not Found"}",
+                            style: AppTextStyles.caption.copyWith(
+                                color: Colors.white
                             ),
-                          )
+                          ),
+
+                          Text(
+                            "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
+                            style: AppTextStyles.caption.copyWith(
+                                color: Colors.white
+                            ),
+                          ),
+
+                          const Spacer(),
+
+                          Column(
+                            children: (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                            state.todaysClassEntity!.classData!.classSchedule!.map((classSchedule){
+                              return TeacherItemView(
+                                textColor: background.value,
+                                teacherName: classSchedule.classInfo?.instructor ?? "Sajib Hasan"
+                              );
+                            }).toList(): [],
+                          ),
 
                         ],
                       ),
+                    ),
 
+                    Positioned(
+                        bottom: 0,
+                        right: -20,
+                        child: SvgPicture.asset(
+                          asset.value,
+                          width: size.value,
+                          height: size.value,
+                          fit: BoxFit.cover,
+                        )
+                    ),
 
-                      gap24,
-
-                      Text(
-                        "Zoom ID : ${state.todaysClassEntity?.classData?.meetingId ?? "Not Found"}",
-                        style: AppTextStyles.caption.copyWith(
-                            color: Colors.white
-                        ),
-                      ),
-
-                      Text(
-                        "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
-                        style: AppTextStyles.caption.copyWith(
-                            color: Colors.white
-                        ),
-                      ),
-
-                      const Spacer(),
-
-                      Column(
-                        children: (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
-                        state.todaysClassEntity!.classData!.classSchedule!.map((classSchedule){
-                          return TeacherItemView(
-                            textColor: background.value,
-                            teacherName: classSchedule.classInfo?.instructor ?? "Sajib Hasan"
-                          );
-                        }).toList(): [],
-                      ),
-
-                    ],
-                  ),
+                  ],
                 ),
-
-                Positioned(
-                    bottom: 0,
-                    right: -20,
-                    child: SvgPicture.asset(
-                      asset.value,
-                      width: size.value,
-                      height: size.value,
-                      fit: BoxFit.cover,
-                    )
-                ),
-
               ],
             ),
           );

@@ -18,6 +18,7 @@ import 'package:learning_management/features/home/presentation/bloc/home_event.d
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/home/presentation/pages/task_list_page.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/task_item_view.dart';
+import 'package:learning_management/features/home/presentation/widgets/section_header.dart';
 import 'package:learning_management/features/lessons/presentation/pages/assignment_submission_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
 import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
@@ -48,31 +49,12 @@ class TaskListWidget extends HookWidget {
         if((state.tasksEntity?.taskData).isNotNullAndNotEmpty){
           return Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Your Tasks",
-                    style: AppTextStyles.titleLarge.copyWith(
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
 
-                  TextButton(
-                    onPressed: () =>
-                        context.push(HomePage.path + TaskListPage.path),
-                    child: Text(
-                      "See All",
-                      style: AppTextStyles.titleSmall.copyWith(
-                          color: AppColors.deepPurpleAccent,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  )
-
-                ],
+              SectionHeader(
+                title: "Your Tasks",
+                onPressed: () =>
+                    context.push(HomePage.path + TaskListPage.path),
               ),
-
 
               Skeletonizer(
                 enabled: state.status.isLoading,
