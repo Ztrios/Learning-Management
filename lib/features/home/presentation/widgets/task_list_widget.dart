@@ -45,7 +45,7 @@ class TaskListWidget extends HookWidget {
 
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if(state.status.isLoading || (state.tasksEntity?.taskData).isNotNullAndNotEmpty){
+        if((state.tasksEntity?.taskData).isNotNullAndNotEmpty){
           return Column(
             children: [
               Row(
@@ -75,35 +75,30 @@ class TaskListWidget extends HookWidget {
 
 
               Skeletonizer(
-                enabled: true,
+                enabled: state.status.isLoading,
                 child: Column(
-                  children: [
-                    TaskItemView(
-                      quantity: 12,
-                      type: "Quizzes",
-                      title: "English Quiz",
-                      subject: "English",
-                      svgAsset: "assets/images/english_quiz.svg",
-                      onTap: () {
-                        context.push(LessionsPage.path + LessionDetailsPage.path +
-                            QuizSubmissionPage.path);
-                      },
-                    ),
-
-                    gap20,
-
-                    TaskItemView(
-                      quantity: 6,
-                      type: "Question",
-                      title: "Math Assignment",
-                      subject: "Math",
-                      svgAsset: "assets/images/math_assignment.svg",
-                      onTap: () {
-                        context.push(LessionsPage.path + LessionDetailsPage.path +
-                            AssignmentSubmissionPage.path);
-                      },
-                    ),
-                  ],
+                  children: List.generate(state.tasksEntity!.taskData!.length > 2 ? 2 : state.tasksEntity!.taskData!.length, (index){
+                    return Padding(
+                      padding: paddingBottom16,
+                      child: TaskItemView(
+                        quantity: (state.tasksEntity!.taskData![index].totalMarks ?? 10.0).floor(),
+                        type: state.tasksEntity!.taskData![index].type ?? "Quiz",
+                        title: state.tasksEntity!.taskData![index].title ?? "English Quiz",
+                        subject: state.tasksEntity!.taskData![index].subjectName ?? "English",
+                        svgAsset: state.tasksEntity!.taskData![index].type == "QUIZ" ?
+                        "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
+                        onTap: () {
+                          if(state.tasksEntity!.taskData![index].type == "QUIZ"){
+                            context.push(LessionsPage.path + LessionDetailsPage.path +
+                                QuizSubmissionPage.path);
+                          }else{
+                            context.push(LessionsPage.path + LessionDetailsPage.path +
+                                AssignmentSubmissionPage.path);
+                          }
+                        },
+                      ),
+                    );
+                  })
                 ),
               ),
 

@@ -16,6 +16,7 @@ import 'package:learning_management/features/home/data/repositories/home_reposit
 import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
 import 'package:learning_management/features/home/domain/usecases/get_student_subjects_usecase.dart';
 import 'package:learning_management/features/home/domain/usecases/get_students_tasks_usecase.dart';
+import 'package:learning_management/features/home/domain/usecases/get_today_class_usecase.dart';
 import 'package:learning_management/features/lessons/data/datasource/remote_datasource/lessions_remote_datasouce.dart';
 import 'package:learning_management/features/lessons/data/repositories/lessions_repositories_impl.dart';
 import 'package:learning_management/features/lessons/domain/repositories/lessions_repositories.dart';
@@ -74,7 +75,6 @@ void initServiceLocator(){
   sl.registerLazySingleton<RoutineRepositories>(()=> RoutineRepositoriesImpl());
 
 
-
   /// UseCases
   /// auth UseCases
   sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
@@ -86,6 +86,7 @@ void initServiceLocator(){
   /// Home UseCases
   sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());
   sl.registerLazySingleton<GetStudentTasksUseCase>(()=> GetStudentTasksUseCase());
+  sl.registerLazySingleton<GetTodayClassUseCase>(()=> GetTodayClassUseCase());
 
 
 }

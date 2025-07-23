@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
-import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/network/auth_interceptor.dart';
 import 'package:learning_management/core/network/interceptor.dart';
 

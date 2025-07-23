@@ -45,7 +45,6 @@ class TaskItemView extends StatelessWidget {
           splashFactory: InkRipple.splashFactory,
           child: Container(
             width: 1.sw,
-            height: 80.h,
             padding: padding10,
             child: Row(
               children: [
@@ -61,10 +60,13 @@ class TaskItemView extends StatelessWidget {
                   crossAxisAlignment: crossStart,
                   mainAxisAlignment: mainCenter,
                   children: [
-                    Text(
-                      title,
-                      style: AppTextStyles.titleMedium.copyWith(
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 210.w,
+                      child: Text(
+                        title,
+                        style: AppTextStyles.titleMedium.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(

@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
-import 'package:learning_management/core/helpers/functions/toast_notifications.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/services/file_picker_services.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';

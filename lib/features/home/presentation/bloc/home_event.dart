@@ -8,6 +8,20 @@ class InitialEvent extends HomeEvent{
 }
 
 
+
+class GetTodaysClass extends HomeEvent{
+  final String sectionId;
+
+  GetTodaysClass({required this.sectionId});
+
+  @override
+  List<Object?> get props => [
+    sectionId,
+  ];
+}
+
+
+
 class GetStudentTasks extends HomeEvent{
   final String sectionId;
 

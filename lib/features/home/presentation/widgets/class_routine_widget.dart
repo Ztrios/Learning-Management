@@ -1,29 +1,38 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
+import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
+import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
+import 'package:learning_management/features/home/presentation/widgets/item_view/teacher_item_view.dart';
+import 'package:learning_management/widgets/error_widget/error_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ClassRoutineWidget extends HookWidget {
   const ClassRoutineWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = useState<double>(150.w);
+    final asset = useState<String>("assets/images/teacher.svg");
+    final background = useState<Color>(AppColors.deepBlue);
 
-     final size = useState<double>(150.w);
-     final asset = useState<String>("assets/images/teacher.svg");
-     final background = useState<Color>(AppColors.deepBlue);
-    
-     setRoutineInterface(){
+    setRoutineInterface() {
       int index = Random().nextInt(5);
-      switch(index){
+      switch (index) {
         case 0:
           size.value = 150.w;
           background.value = AppColors.deepBlue;
@@ -38,173 +47,175 @@ class ClassRoutineWidget extends HookWidget {
           background.value = AppColors.deepPink;
         case 3:
           size.value = 150.w;
-        asset.value = "assets/images/online_learning.svg";
+          asset.value = "assets/images/online_learning.svg";
           background.value = AppColors.tealBlue;
         case 4:
           size.value = 150.w;
           asset.value = "assets/images/pdf_learning.svg";
           background.value = AppColors.deepRed;
-
       }
     }
 
-    useEffect((){
-      Future.microtask(()=> setRoutineInterface());
-      return null;
-    },[]);
+    void getTodaysClass() async {
+      print("I am not called ");
+      int? sectionId = context
+          .read<AuthBloc>()
+          .state
+          .signInEntity
+          ?.signInData
+          ?.sectionId;
+      if (sectionId != null) {
+        context.read<HomeBloc>().add(
+            GetTodaysClass(sectionId: sectionId.toString()));
+      }
+    }
 
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          width: 1.sw,
-          height: 210.h,
-          padding: padding16,
-          decoration: BoxDecoration(
-              borderRadius: radius16,
-              color: background.value
-          ),
-          child: Column(
-            crossAxisAlignment: crossStart,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+    useEffect(() {
+      Future.microtask(() {
+        setRoutineInterface();
+        getTodaysClass();
+      });
+      return null;
+    }, []);
+
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if(state.status.isLoading || state.status.isSuccess){
+          return Skeletonizer(
+            enabled: state.status.isLoading,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 1.sw,
+                  height: 210.h,
+                  padding: padding16,
+                  decoration: BoxDecoration(
+                      borderRadius: radius16,
+                      color: background.value
+                  ),
+                  child: Column(
                     crossAxisAlignment: crossStart,
                     children: [
-                      Text(
-                        "Class 03",
-                        style: AppTextStyles.titleSmall.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: crossStart,
+                            children: [
+                              Text(
+                                (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                                    state.todaysClassEntity!.classData!.classSchedule![0].classInfo!.className!
+                                    : "Not Found",
+                                style: AppTextStyles.titleSmall.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+
+                              Text(
+                                (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                                state.todaysClassEntity!
+                                    .classData!
+                                    .classSchedule!
+                                    .map((classSchedule) =>
+                                classSchedule.classInfo?.subject)
+                                    .toList()
+                                    .join("&") : "Not Found",
+                                style: AppTextStyles.caption.copyWith(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Container(
+                            padding: padding4,
+                            decoration: BoxDecoration(
+                                borderRadius: radius8,
+                                color: AppColors.lightOrange
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                    Icons.alarm,
+                                    color: background.value
+                                ),
+
+                                gap4,
+
+                                Text(
+                                  DateTimeFormatters.formatLocalTime(
+                                      state.todaysClassEntity?.classData
+                                          ?.startTime ?? "03:04:35"),
+                                  style: AppTextStyles.titleSmall.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: background.value
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+
+                        ],
                       ),
 
+
+                      gap24,
+
                       Text(
-                        "Mathematics & English",
+                        "Zoom ID : ${state.todaysClassEntity?.classData?.meetingId ?? "Not Found"}",
                         style: AppTextStyles.caption.copyWith(
                             color: Colors.white
                         ),
                       ),
+
+                      Text(
+                        "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
+                        style: AppTextStyles.caption.copyWith(
+                            color: Colors.white
+                        ),
+                      ),
+
+                      const Spacer(),
+
+                      Column(
+                        children: (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
+                        state.todaysClassEntity!.classData!.classSchedule!.map((classSchedule){
+                          return TeacherItemView(
+                            textColor: background.value,
+                            teacherName: classSchedule.classInfo?.instructor ?? "Sajib Hasan"
+                          );
+                        }).toList(): [],
+                      ),
+
                     ],
                   ),
-
-                  Container(
-                    padding: padding4,
-                    decoration: BoxDecoration(
-                        borderRadius: radius8,
-                        color: AppColors.lightOrange
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.alarm,
-                            color: background.value
-                        ),
-
-                        gap4,
-
-                        Text(
-                          "03:04:35",
-                          style: AppTextStyles.titleSmall.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: background.value
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-
-                ],
-              ),
-
-
-              gap24,
-
-              Text(
-                "Zoom ID : 33467784",
-                style: AppTextStyles.caption.copyWith(
-                    color: Colors.white
                 ),
-              ),
 
-              Text(
-                "Password : Eng3355sd",
-                style: AppTextStyles.caption.copyWith(
-                    color: Colors.white
+                Positioned(
+                    bottom: 0,
+                    right: -20,
+                    child: SvgPicture.asset(
+                      asset.value,
+                      width: size.value,
+                      height: size.value,
+                      fit: BoxFit.cover,
+                    )
                 ),
-              ),
 
+              ],
+            ),
+          );
+        }else if(state.status.isError){
+          return ErrorViewWidget(
+              message: state.message ?? "Not Found!"
+          );
+        }else{
+          return SizedBox.shrink();
+        }
 
-
-              gap20,
-
-              Row(
-                children: [
-
-                  CircleAvatar(
-                    radius: 12.r,
-                    backgroundImage: NetworkImage(
-                      "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg",
-                    ),
-                  ),
-
-                  gap10,
-
-                  Text(
-                    "Julie Watson",
-                    style: AppTextStyles.caption.copyWith(
-                        color: Colors.white
-                    ),
-                  )
-
-                ],
-              ),
-
-              gap6,
-
-              Row(
-                children: [
-
-                  CircleAvatar(
-                    radius: 12.r,
-                    backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1695927621677-ec96e048dce2?fm=jpg",
-                    ),
-                  ),
-
-                  gap10,
-
-                  Text(
-                    "Brooklyn Williamson",
-                    style: AppTextStyles.caption.copyWith(
-                        color: Colors.white
-                    ),
-                  )
-
-                ],
-              ),
-
-
-
-
-            ],
-          ),
-        ),
-
-        Positioned(
-            bottom: 0,
-            right: -20,
-            child: SvgPicture.asset(
-              asset.value,
-              width: size.value,
-              height: size.value,
-              fit: BoxFit.cover,
-            )
-        ),
-
-      ],
+      },
     );
   }
 }
