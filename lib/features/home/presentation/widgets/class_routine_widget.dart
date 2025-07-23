@@ -57,7 +57,6 @@ class ClassRoutineWidget extends HookWidget {
     }
 
     void getTodaysClass() async {
-      print("I am not called ");
       int? sectionId = context
           .read<AuthBloc>()
           .state
