@@ -29,76 +29,80 @@ class AnnouncementItemView extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: crossStart,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           /// Header Row
-          Row(
-            crossAxisAlignment: crossCenter,
+          Column(
+            crossAxisAlignment: crossStart,
             children: [
-              Container(
-                width: 26.w,
-                height: 26.w,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDCE7F9),
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                alignment: Alignment.center,
-                child: const Text("📢", style: TextStyle(fontSize: 16)),
-              ),
-
-              gap8,
-
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+              Row(
+                crossAxisAlignment: crossCenter,
+                children: [
+                  Container(
+                    width: 26.w,
+                    height: 26.w,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFDCE7F9),
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text("📢", style: TextStyle(fontSize: 16)),
                   ),
-                ),
+
+                  gap8,
+
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+
+                  // Icon(
+                  //   Icons.arrow_forward_ios,
+                  //   color: AppColors.blueLight,
+                  //   size: 15.sp,
+                  // )
+
+                ],
               ),
 
-              // Icon(
-              //   Icons.arrow_forward_ios,
-              //   color: AppColors.blueLight,
-              //   size: 15.sp,
-              // )
+              gap6,
 
+              /// Message
+              Text(
+                content,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.caption.copyWith(
+                    color: Colors.white
+                ),
+              ),
             ],
           ),
-
-          gap6,
-
-          /// Message
-          Text(
-            content,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.caption.copyWith(
-                color: Colors.white
-            ),
-          ),
-
-          const Spacer(),
 
           /// Footer
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
 
-              // Container(
-              //   padding: padding6,
-              //   decoration: BoxDecoration(
-              //     color: AppColors.blueLight,
-              //     borderRadius: radius6,
-              //   ),
-              //   child: Text(
-              //     "View More",
-              //     style: AppTextStyles.bodyMedium.copyWith(
-              //         color: Colors.white
-              //     ),
-              //   ),
-              // ),
+              Container(
+                padding: padding6,
+                decoration: BoxDecoration(
+                  color: AppColors.blueLight,
+                  borderRadius: radius6,
+                ),
+                child: Text(
+                  "View More",
+                  style: AppTextStyles.bodyMedium.copyWith(
+                      color: Colors.white
+                  ),
+                ),
+              ),
 
               const Spacer(),
 

@@ -50,11 +50,12 @@ class AnnouncementWidget extends HookWidget {
           return FlutterCarousel.builder(
             itemCount: state.announcementsEntity!.announcementsData!.content!.length,
             options: FlutterCarouselOptions(
-                autoPlay: true,
-                viewportFraction: 1.0,
-                height: 140.h,
-                enableInfiniteScroll: false,
-                showIndicator: false
+              autoPlay: true,
+              viewportFraction: 1.0,
+              height: 140.h,
+              enableInfiniteScroll: false,
+              physics: BouncingScrollPhysics(),
+              showIndicator: false,
             ),
             itemBuilder: (context, index, child) {
               return AnnouncementItemView(
