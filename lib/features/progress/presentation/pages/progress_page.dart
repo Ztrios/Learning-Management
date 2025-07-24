@@ -11,7 +11,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/progress/presentation/bloc/progress_bloc.dart';
 import 'package:learning_management/features/progress/presentation/bloc/progress_event.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/exams_progress_card.dart';
-import 'package:learning_management/features/progress/presentation/widgets/cards/stats_progress_card.dart';
+import 'package:learning_management/features/progress/presentation/widgets/cards/quiz_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
 import 'package:learning_management/features/progress/presentation/widgets/tab_bar/progress_tab_bar.dart';
 
@@ -28,7 +28,7 @@ class ProgressPage extends HookWidget {
     final selectedIndex = useState<int>(1);
     const List<Widget> progressCads = [
       ExamsProgressCard(),
-      StatsProgressCard(),
+      QuizProgressCard(),
       ExamsProgressCard(),
     ];
 

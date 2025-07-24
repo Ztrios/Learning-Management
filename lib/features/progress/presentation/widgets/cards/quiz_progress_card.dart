@@ -9,14 +9,12 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/progress/data/models/progress_models.dart';
 import 'package:learning_management/features/progress/presentation/bloc/progress_bloc.dart';
 import 'package:learning_management/features/progress/presentation/bloc/progress_event.dart';
+import 'package:learning_management/features/progress/presentation/widgets/progress_indicator_circle.dart';
 
-import '../progress_indicator_circle.dart';
-
-class ExamsProgressCard extends HookWidget {
-  const ExamsProgressCard({super.key});
+class QuizProgressCard extends StatelessWidget {
+  const QuizProgressCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class ExamsProgressCard extends HookWidget {
           padding: padding16,
           decoration: BoxDecoration(
             borderRadius: radius16,
-            color: AppColors.blueLight,
+            color: const Color(0xFFE7E5FA),
           ),
           child: Column(
             crossAxisAlignment: crossCenter,
@@ -34,19 +32,13 @@ class ExamsProgressCard extends HookWidget {
             children: [
               _LanguageDropdown(),
               gap12,
-              Text(
-                "Your result ",
-                style: AppTextStyles.titleLarge.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
+              _ProgressText(),
               gap24,
               ProgressIndicatorCircle(
-                percantage: state.selectedSubject?.examPercentage ?? 0,
-                message: "Good progress",
-                progressColor: AppColors.deepOrange,
-                isForExam: true,
+                percantage: state.selectedSubject?.quizPercentage ?? 0,
+                message: "Completed!",
+                progressColor: AppColors.deepPurpleAccent,
+                isForExam: false,
               ),
               gap24,
               _StatsCards(),
@@ -107,8 +99,29 @@ class _LanguageDropdown extends HookWidget {
 }
 
 
-class _StatsCards extends StatelessWidget {
+class _ProgressText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "You have Completed ",
+          style: AppTextStyles.titleLarge.copyWith(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "37% of your full course!",
+          style: AppTextStyles.titleLarge.copyWith(
+            fontWeight: FontWeight.w900,
+            color: AppColors.deepPurpleAccent,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
+
+class _StatsCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProgressBloc, ProgressState>(
@@ -117,15 +130,15 @@ class _StatsCards extends StatelessWidget {
           spacing: 16.w,
           children: [
             _StatCard(
-              value: (state.selectedSubject?.totalExams ?? 00).toString(),
-              label: "Total Exams",
+              value: (state.selectedSubject?.quizAttends ?? 0).toString(),
+              label: "Quiz Attended",
               backgroundColor: Colors.white,
               textColor: Colors.black,
             ),
             _StatCard(
-              value: (state.selectedSubject?.totalExamAttends ?? 00).toString(),
-              label: "Completed",
-              backgroundColor: AppColors.deepOrange,
+              value: (state.selectedSubject?.quizAttends ?? 0).toString(),
+              label: "Assignment Done",
+              backgroundColor: AppColors.deepPurpleAccent,
               textColor: Colors.white,
               iconPath: "assets/icons/score_icon.svg",
             ),
