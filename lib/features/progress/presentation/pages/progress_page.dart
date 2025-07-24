@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -6,6 +7,9 @@ import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/progress/presentation/bloc/progress_bloc.dart';
+import 'package:learning_management/features/progress/presentation/bloc/progress_event.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/exams_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/stats_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
@@ -19,12 +23,26 @@ class ProgressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     final selectedIndex = useState<int>(1);
     const List<Widget> progressCads = [
       ExamsProgressCard(),
       StatsProgressCard(),
       ExamsProgressCard(),
     ];
+
+    void getStudentProgress(){
+      int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
+      if(studentId != null){
+        context.read<ProgressBloc>().add(GetStudentProgress(studentId: studentId.toString()));
+      }
+    }
+
+    useEffect((){
+      Future.microtask(()=> getStudentProgress());
+      return null;
+    },[]);
 
     return SafeArea(
       child: Container(
