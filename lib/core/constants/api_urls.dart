@@ -17,6 +17,10 @@ class ApiUrls {
   static const String announcement = "/api/v1/announcements";
 
 
+  // Results Page API endpoints
+  static const String studentResults = "/api/v1/students/";
+
+
   // Public getter to access the base URL
   static String get baseURL => _baseURL;
   static String get imageBaseURL => _imageBaseURL;

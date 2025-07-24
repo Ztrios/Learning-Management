@@ -36,6 +36,8 @@ import 'package:learning_management/features/progress/domain/repositories/progre
 import 'package:learning_management/features/results/data/datasource/remote_datasource/results_remote_datasource.dart';
 import 'package:learning_management/features/results/data/repositories/results_repositories_impl.dart';
 import 'package:learning_management/features/results/domain/repositories/results_repositories.dart';
+import 'package:learning_management/features/results/domain/usecases/student_results_usecases.dart';
+import 'package:learning_management/features/results/presentation/bloc/results_event.dart';
 import 'package:learning_management/features/routine/data/datasource/remote_datasource/routine_remote_datasource.dart';
 import 'package:learning_management/features/routine/data/repositories/routine_repositories_impl.dart';
 import 'package:learning_management/features/routine/domain/repositories/routine_repositories.dart';
@@ -89,6 +91,9 @@ void initServiceLocator(){
   sl.registerLazySingleton<GetStudentTasksUseCase>(()=> GetStudentTasksUseCase());
   sl.registerLazySingleton<GetTodayClassUseCase>(()=> GetTodayClassUseCase());
   sl.registerLazySingleton<GetAnnouncementsUseCase>(()=> GetAnnouncementsUseCase());
+
+  /// Results UseCases
+  sl.registerLazySingleton<StudentResultsUseCase>(()=> StudentResultsUseCase());
 
 
 }
