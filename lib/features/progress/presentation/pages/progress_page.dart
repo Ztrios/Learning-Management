@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
+import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
+import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/exams_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/stats_progress_card.dart';
-import 'package:learning_management/features/progress/presentation/widgets/progress_tab_bar_widget.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
+import 'package:learning_management/features/progress/presentation/widgets/tab_bar/progress_tab_bar.dart';
 
 class ProgressPage extends HookWidget {
 
@@ -18,6 +20,11 @@ class ProgressPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedIndex = useState<int>(1);
+    const List<Widget> progressCads = [
+      ExamsProgressCard(),
+      StatsProgressCard(),
+      ExamsProgressCard(),
+    ];
 
     return SafeArea(
       child: Container(
@@ -40,16 +47,16 @@ class ProgressPage extends HookWidget {
                     : AppColors.deepPurpleAccent,
               ),
 
-              ProgressTabBarWidget(
-                selectedIndex: selectedIndex.value,
-                tabs: ["Exams", "Stats", "Details"],
-                onChanged: (int value) => selectedIndex.value = value,
-              ),
-
-              if(selectedIndex.value == 0)
-                ExamsProgressCard()
-              else
-                StatsProgressCard()
+              Column(
+                children: [
+                  ProgressTabBar(
+                    selectedIndex: selectedIndex.value,
+                    tabs: ["Exams", "Quiz", "Assignment"],
+                    onChanged: (int value) => selectedIndex.value = value,
+                  ),
+                  progressCads[selectedIndex.value],
+                ],
+              )
 
 
             ],
