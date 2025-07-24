@@ -43,10 +43,10 @@ class ExamsProgressCard extends HookWidget {
               ),
               gap24,
               ProgressIndicatorCircle(
-                percantage: state.selectedSubject?.examPercentage ?? 0,
+                percentage: state.selectedSubject?.examPercentage ?? 0,
                 message: "Good progress",
                 progressColor: AppColors.deepOrange,
-                isForExam: true,
+                isForQuiz: false,
               ),
               gap24,
               _StatsCards(),

@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
-import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
-import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/progress/presentation/bloc/progress_bloc.dart';
 import 'package:learning_management/features/progress/presentation/bloc/progress_event.dart';
+import 'package:learning_management/features/progress/presentation/widgets/cards/assignment_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/exams_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/cards/quiz_progress_card.dart';
 import 'package:learning_management/features/progress/presentation/widgets/stats_header_widget.dart';
@@ -29,7 +28,7 @@ class ProgressPage extends HookWidget {
     const List<Widget> progressCads = [
       ExamsProgressCard(),
       QuizProgressCard(),
-      ExamsProgressCard(),
+      AssignmentProgressCard(),
     ];
 
     void getStudentProgress(){
@@ -62,7 +61,8 @@ class ProgressPage extends HookWidget {
                 classRank: "56",
                 background: selectedIndex.value == 0
                     ? AppColors.blueLight
-                    : AppColors.deepPurpleAccent,
+                    : selectedIndex.value == 1 ?
+                AppColors.deepPurpleAccent : AppColors.tealBlue,
               ),
 
               Column(
