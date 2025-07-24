@@ -14,6 +14,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/results/presentation/bloc/results_bloc.dart';
 import 'package:learning_management/features/results/presentation/bloc/results_event.dart';
+import 'package:learning_management/features/results/presentation/widgets/empty_results_widget.dart';
 import 'package:learning_management/features/results/presentation/widgets/loading_widget/results_graph_loading.dart';
 import 'package:learning_management/features/results/presentation/widgets/result_graph.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -73,21 +74,17 @@ class ResultsCard extends HookWidget {
                 ),
                 gap6,
 
-                if((state.resultsEntity?.resultsData?.subjectPerformances).isNotNullAndNotEmpty)
                 SizedBox(
                   width: 1.sw,
                   child: ResultBarChart(
                       subjectPerformances: state.resultsEntity?.resultsData?.subjectPerformances ?? []
                   ),
                 )
-                else Icon(
-                  Icons.add
-                )
               ],
             ),
           );
         }else {
-          return SizedBox.shrink();
+          return EmptyResultsWidget();
         }
       },
     );
