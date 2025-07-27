@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
+import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
@@ -21,22 +22,29 @@ class EmptyResultsWidget extends StatelessWidget {
         color: AppColors.deepGreen,
       ),
       child: Column(
+        crossAxisAlignment: crossCenter,
+        mainAxisAlignment: mainCenter,
         children: [
           Image.asset(
-            "assets/images/empty_results.png"
+            "assets/images/empty_results.png",
           ),
 
           gap12,
 
           Text(
-            "No Results Found!"
+            "No Results Found!",
+            style: AppTextStyles.titleLarge.copyWith(
+              color: Colors.white
+            ),
           ),
 
           gap4,
 
           Text(
             "Results are not available at the moment",
-            style: AppTextStyles.caption,
+            style: AppTextStyles.caption.copyWith(
+              color: Colors.white
+            ),
           )
 
         ],
