@@ -1,5 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
@@ -9,6 +10,9 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/routine/presentation/bloc/routine_bloc.dart';
+import 'package:learning_management/features/routine/presentation/bloc/routine_event.dart';
 import 'package:learning_management/features/routine/presentation/widgets/routine_date_selection_widget.dart';
 import 'package:learning_management/features/routine/presentation/widgets/routine_list_widget.dart';
 import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
@@ -22,6 +26,24 @@ class RoutinePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    void getTodaysRoutine(){
+      int? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.standardId;
+      if(sectionId != null){
+        context.read<RoutineBloc>().add(GetClassRoutines(
+            sectionID: sectionId.toString(),
+            selectedDateTime: DateTime.now()
+        ));
+      }
+    }
+
+
+    useEffect((){
+      Future.microtask(()=> getTodaysRoutine());
+      return null;
+    },[]);
+
     return SafeArea(
       child: Container(
         width: 1.sw,

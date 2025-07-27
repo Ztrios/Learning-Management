@@ -42,6 +42,7 @@ import 'package:learning_management/features/results/presentation/bloc/results_e
 import 'package:learning_management/features/routine/data/datasource/remote_datasource/routine_remote_datasource.dart';
 import 'package:learning_management/features/routine/data/repositories/routine_repositories_impl.dart';
 import 'package:learning_management/features/routine/domain/repositories/routine_repositories.dart';
+import 'package:learning_management/features/routine/domain/usecases/get_class_routines_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -98,6 +99,9 @@ void initServiceLocator(){
 
   /// Progress UseCases
   sl.registerLazySingleton<ProgressUseCase>(()=> ProgressUseCase());
+
+  /// Routine UseCases
+  sl.registerLazySingleton<GetClassRoutinesUseCase>(()=> GetClassRoutinesUseCase());
 
 
 }
