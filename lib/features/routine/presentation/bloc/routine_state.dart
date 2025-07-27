@@ -32,7 +32,7 @@ class RoutineState extends Equatable {
       status: status ?? this.status,
       message: message ?? this.message,
       selectedDate: selectedDate ?? this.selectedDate,
-      classRoutineEntity: classRoutineEntity ?? this.classRoutineEntity
+      classRoutineEntity: classRoutineEntity
     );
   }
 

@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/helpers/helpers.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/home/presentation/widgets/item_view/teacher_item_view.dart';
 
 class RoutineListItemView extends StatelessWidget {
 
   final bool isActive;
+  final String startTime;
+  final String endTime;
+  final String subject;
+  final String topic;
+  final String meetingId;
+  final String meetingPassword;
+  final String meetingLink;
+  final String teacherName;
+
   const RoutineListItemView({
     super.key,
-    required this.isActive
+    required this.isActive,
+    required this.startTime,
+    required this.endTime,
+    required this.subject,
+    required this.topic,
+    required this.meetingId,
+    required this.meetingPassword,
+    required this.meetingLink,
+    required this.teacherName
   });
 
   @override
@@ -21,14 +40,15 @@ class RoutineListItemView extends StatelessWidget {
       child: Row(
         children: [
           Column(
+            crossAxisAlignment: crossStart,
             children: [
               Text(
-                "11:35",
+                startTime,
                 style: AppTextStyles.titleMedium,
               ),
 
               Text(
-                "13:05",
+                endTime,
                 style: AppTextStyles.titleMedium.copyWith(
                     color: AppColors.textGreyLight
                 ),
@@ -64,7 +84,7 @@ class RoutineListItemView extends StatelessWidget {
                     mainAxisAlignment: mainSpaceBetween,
                     children: [
                       Text(
-                        "Mathematics",
+                        subject,
                         style: AppTextStyles.titleLarge.copyWith(
                             color: isActive ? Colors.white : null
                         ),
@@ -76,14 +96,15 @@ class RoutineListItemView extends StatelessWidget {
                             Icons.more_vert,
                             color: isActive ? Colors.white : null,
                           )
-                      )
+                      ),
+
 
 
                     ],
                   ),
 
                   Text(
-                    "Chapter 1: Introduction",
+                    topic,
                     style: AppTextStyles.bodyLarge.copyWith(
                         color: isActive ? Colors.white : null
                     ),
@@ -102,10 +123,51 @@ class RoutineListItemView extends StatelessWidget {
                       gap12,
 
                       Text(
-                        "Zoom ID: 3346566",
+                        "Zoom ID: $meetingId",
                         style: AppTextStyles.caption.copyWith(
                             color: isActive ? Colors.white : null
                         ),
+                      ),
+
+                      gap12,
+
+                      InkWell(
+                        onTap: (){},
+                          child: Icon(
+                              Icons.copy_rounded,
+                            color: Colors.white,
+                          )
+                      )
+
+                    ],
+                  ),
+
+
+                  Row(
+                    children: [
+
+                      Icon(
+                          Icons.password,
+                          color: isActive ? Colors.white : null
+                      ),
+
+                      gap12,
+
+                      Text(
+                        "Password: $meetingPassword",
+                        style: AppTextStyles.caption.copyWith(
+                            color: isActive ? Colors.white : null
+                        ),
+                      ),
+
+                      gap12,
+
+                      InkWell(
+                          onTap: (){},
+                          child: Icon(
+                            Icons.copy_rounded,
+                            color: Colors.white,
+                          )
                       )
 
                     ],
@@ -115,22 +177,34 @@ class RoutineListItemView extends StatelessWidget {
 
                   Row(
                     children: [
-
-                      CircleAvatar(
-                        radius: 12.r,
-                        backgroundImage: NetworkImage(
-                          "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg",
-                        ),
+                      TeacherItemView(
+                          teacherName: teacherName,
+                          iconTextColor: isActive ? Colors.deepOrange : AppColors.textPrimary,
+                          nameTextColor: !isActive ? AppColors.textPrimary : null
                       ),
 
-                      gap10,
+                      const Spacer(),
 
-                      Text(
-                        "Julie Watson",
-                        style: AppTextStyles.caption.copyWith(
-                            color: isActive ? Colors.white : null
+                      if(isActive)
+                        InkWell(
+                          onTap: ()=> Helpers.launchUri(uri: meetingLink),
+                          child: Container(
+                            width: 85.w,
+                            height: 30.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: radius6,
+                                color: Colors.white
+                            ),
+                            child: Text(
+                              "Join Class",
+                              style: AppTextStyles.caption,
+                            ),
+                          ),
                         ),
-                      )
+
+
+                      gap12,
 
                     ],
                   ),

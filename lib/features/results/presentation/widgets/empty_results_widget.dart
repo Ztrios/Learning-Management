@@ -7,6 +7,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/widgets/empty_widget.dart';
 
 class EmptyResultsWidget extends StatelessWidget {
   const EmptyResultsWidget({super.key});
@@ -17,37 +18,15 @@ class EmptyResultsWidget extends StatelessWidget {
       width: 1.sw,
       height: 380.h,
       padding: padding24,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: radius16,
         color: AppColors.deepGreen,
       ),
-      child: Column(
-        crossAxisAlignment: crossCenter,
-        mainAxisAlignment: mainCenter,
-        children: [
-          Image.asset(
-            "assets/images/empty_results.png",
-          ),
-
-          gap12,
-
-          Text(
-            "No Results Found!",
-            style: AppTextStyles.titleLarge.copyWith(
-              color: Colors.white
-            ),
-          ),
-
-          gap4,
-
-          Text(
-            "Results are not available at the moment",
-            style: AppTextStyles.caption.copyWith(
-              color: Colors.white
-            ),
-          )
-
-        ],
+      child: EmptyWidget(
+        title: "No Results Found!",
+        message: "Results are not available at this moment.",
+        textColor: Colors.white,
       ),
     );
   }

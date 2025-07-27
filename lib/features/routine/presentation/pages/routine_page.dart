@@ -7,6 +7,7 @@ import 'package:learning_management/core/helpers/format_data/datetime_formatters
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
+import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
@@ -29,7 +30,7 @@ class RoutinePage extends HookWidget {
 
 
     void getTodaysRoutine(){
-      int? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.standardId;
+      int? sectionId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.section?.id;
       if(sectionId != null){
         context.read<RoutineBloc>().add(GetClassRoutines(
             sectionID: sectionId.toString(),
@@ -65,6 +66,7 @@ class RoutinePage extends HookWidget {
                   children: [
 
                     Row(
+                      crossAxisAlignment: crossCenter,
                       children: [
                         Text(
                           DateTime.now().day.toString(),
@@ -74,25 +76,29 @@ class RoutinePage extends HookWidget {
                         gap4,
 
                         Text(
-                          "Wed\nJan\n2025",
+                              "${DateTimeFormatters.formatDateV2(dateTime: DateTime.now()).substring(2)}"
+                                  "\n${DateTimeFormatters.formatDayOfWeek(dateTime: DateTime.now())}",
                           style: AppTextStyles.caption,
                         ),
 
                         const Spacer(),
 
-                        Container(
-                          width: 83.w,
-                          height: 40.h,
-                          alignment: Alignment.center,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFF4DC591).withValues(alpha: 0.2),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          child: Text(
-                            "Today",
-                            style: AppTextStyles.titleMedium.copyWith(
-                              color: const Color(0xFF4DC591),
-                              fontWeight: FontWeight.w900
+                        InkWell(
+                          onTap: getTodaysRoutine,
+                          child: Container(
+                            width: 83.w,
+                            height: 40.h,
+                            alignment: Alignment.center,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFF4DC591).withValues(alpha: 0.2),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                            child: Text(
+                              "Today",
+                              style: AppTextStyles.titleMedium.copyWith(
+                                color: const Color(0xFF4DC591),
+                                fontWeight: FontWeight.w900
+                              ),
                             ),
                           ),
                         ),

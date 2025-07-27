@@ -17,6 +17,7 @@ import 'package:learning_management/features/results/presentation/bloc/results_e
 import 'package:learning_management/features/results/presentation/widgets/empty_results_widget.dart';
 import 'package:learning_management/features/results/presentation/widgets/loading_widget/results_graph_loading.dart';
 import 'package:learning_management/features/results/presentation/widgets/result_graph.dart';
+import 'package:learning_management/widgets/empty_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ResultsCard extends HookWidget {

@@ -212,7 +212,7 @@ class ClassRoutineWidget extends HookWidget {
                             children: (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty ?
                             state.todaysClassEntity!.classData!.classSchedule!.map((classSchedule){
                               return TeacherItemView(
-                                textColor: background.value,
+                                iconTextColor: background.value,
                                 teacherName: classSchedule.classInfo?.instructor ?? "Sajib Hasan"
                               );
                             }).toList(): [],

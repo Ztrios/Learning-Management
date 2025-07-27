@@ -5,11 +5,14 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
 class TeacherItemView extends StatelessWidget {
   final String teacherName;
-  final Color textColor;
+  final Color iconTextColor;
+  final Color? nameTextColor;
+  
   const TeacherItemView({
     super.key,
+    this.nameTextColor,
     required this.teacherName,
-    required this.textColor
+    required this.iconTextColor,
   });
 
   @override
@@ -20,9 +23,9 @@ class TeacherItemView extends StatelessWidget {
         CircleAvatar(
           radius: 12.r,
           child: Text(
-            teacherName[0],
-            style: AppTextStyles.titleMedium.copyWith(
-              color: textColor
+            teacherName.substring(0,2),
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: iconTextColor
             ),
           ),
         ),
@@ -32,7 +35,7 @@ class TeacherItemView extends StatelessWidget {
         Text(
           teacherName,
           style: AppTextStyles.caption.copyWith(
-              color: Colors.white
+              color: nameTextColor ?? Colors.white
           ),
         )
 
