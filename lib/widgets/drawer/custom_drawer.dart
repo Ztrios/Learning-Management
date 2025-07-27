@@ -125,6 +125,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       onTap: (){
                         context.read<AuthBloc>().add(SignOut());
+                        context.go(SignInPage.path);
                         Navigator.pop(context);
                       },
                     ),
