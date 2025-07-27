@@ -14,6 +14,7 @@ class ApiUrls {
   static const String studentSubjects = "/api/v1/subjects";
   static const String studentTasks = "/api/v1/students/upcoming-task";
   static const String todaysClass = "/api/v1/section-day-schedules/section/";
+  static const String classRoutines = "/api/v1/section-day-schedules/section/";
   static const String announcement = "/api/v1/announcements";
 
 

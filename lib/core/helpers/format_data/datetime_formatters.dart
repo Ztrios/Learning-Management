@@ -33,9 +33,31 @@ class DateTimeFormatters{
   }
 
 
+  static DateTime getStartOfBDWeek() {
+    // Dart: Monday = 1, ..., Saturday = 6, Sunday = 7
+    final DateTime dateTime = DateTime.now();
+    final daysToSubtract = (dateTime.weekday == DateTime.saturday) ? 0 : (dateTime.weekday % 7) + 1;
+    return DateTime(dateTime.year, dateTime.month, dateTime.day).subtract(Duration(days: daysToSubtract));
+  }
+
+
+  static DateTime getEndOfBDWeek() {
+    final start = getStartOfBDWeek();
+    return start.add(const Duration(days: 6));
+  }
+
+
   static String formatDayOfWeek({DateTime? dateTime}) {
     try {
       return DateFormat("EEEE").format(dateTime ?? DateTime.now());
+    } catch (e) {
+      return "Invalid Date"; // Handle invalid date format
+    }
+  }
+
+  static String formatDayOfWeekShort({DateTime? dateTime}) {
+    try {
+      return DateFormat("EEE").format(dateTime ?? DateTime.now()).toUpperCase();
     } catch (e) {
       return "Invalid Date"; // Handle invalid date format
     }
