@@ -145,14 +145,14 @@ class DioClient {
 
   Failure dioExceptionToFailure(DioException e) {
     switch (e.type) {
-      case DioExceptionType.receiveTimeout:
-        return NetworkFailure("Request timeout, please try again.");
       case DioExceptionType.badResponse:
         ToastNotifications.showApiErrorToast(e.response?.statusCode ?? 500,e.response?.data["message"]);
         return ApiFailure(
           e.response?.statusCode ?? 500,
           "${e.response?.data["message"]}",
         );
+      case DioExceptionType.receiveTimeout:
+        return NetworkFailure("Request timeout, please try again.");
       case DioExceptionType.cancel:
         return UnknownFailure("Request was cancelled.");
       case DioExceptionType.unknown:

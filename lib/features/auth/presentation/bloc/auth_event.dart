@@ -67,6 +67,12 @@ class SignUp extends AuthEvent{
 }
 
 
+class SignOut extends AuthEvent{
+  @override
+  List<Object?> get props => [];
+}
+
+
 class GetSections extends AuthEvent{
   final String batchYear;
   GetSections({required this.batchYear});

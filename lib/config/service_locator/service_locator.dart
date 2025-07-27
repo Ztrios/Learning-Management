@@ -10,6 +10,7 @@ import 'package:learning_management/features/auth/domain/usecases/get_signin_ent
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
 import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
@@ -87,6 +88,7 @@ void initServiceLocator(){
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
   sl.registerLazySingleton<GetSignInEntityUseCase>(()=> GetSignInEntityUseCase());
   sl.registerLazySingleton<SaveSignInEntityUseCase>(()=> SaveSignInEntityUseCase());
+  sl.registerLazySingleton<SignOutUseCase>(()=> SignOutUseCase());
   
   /// Home UseCases
   sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());

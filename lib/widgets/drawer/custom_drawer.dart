@@ -8,10 +8,14 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
 import 'package:learning_management/features/profile/presentation/pages/student_profile_page.dart';
 import 'package:learning_management/features/progress/presentation/pages/progress_page.dart';
 import 'package:learning_management/features/routine/presentation/pages/routine_page.dart';
+import 'package:toastification/toastification.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -101,6 +105,28 @@ class CustomDrawer extends StatelessWidget {
                           context.push(PaymentPage.path);
                           Navigator.pop(context);
                         },
+                    ),
+
+                    _drawerItem(
+                      svgImage: "assets/icons/payment_icon.svg",
+                      title: "Payments",
+                      onPressed: (){
+                        context.push(PaymentPage.path);
+                        Navigator.pop(context);
+                      },
+                    ),
+
+
+                    ListTile(
+                      leading: Icon(Icons.logout,color: errorColor),
+                      title: Text(
+                        "Sign Out",
+                        style: AppTextStyles.titleSmall,
+                      ),
+                      onTap: (){
+                        context.read<AuthBloc>().add(SignOut());
+                        Navigator.pop(context);
+                      },
                     ),
 
                   ],

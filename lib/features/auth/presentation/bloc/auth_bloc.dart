@@ -16,6 +16,7 @@ import 'package:learning_management/features/auth/domain/usecases/get_signin_ent
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
 import 'package:equatable/equatable.dart';
@@ -31,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     on<GetSections>(_onGetSections);
     on<GetSignInEntity>(_onGetSignInEntity);
     on<SaveSignInEntity>(_onSaveInEntity);
+    on<SignOut>(_onSignOut);
   }
 
 
@@ -79,6 +81,16 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     result.fold(
             (error) => emit(state.copyWith(signUpStatus: Status.error, message: error.message)),
         (data) => emit(state.copyWith(signUpStatus: Status.success, studentEntity: data))
+    );
+  }
+
+
+  Future<void> _onSignOut(SignOut event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<SignOutUseCase>().call();
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(AuthState.initial())
     );
   }
 

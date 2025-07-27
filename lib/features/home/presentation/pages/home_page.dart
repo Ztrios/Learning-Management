@@ -58,9 +58,10 @@ class HomePage extends HookWidget {
                         AnnouncementWidget(),
                         gap12,
                         ClassRoutineWidget(),
+                        gap12,
+                        SubjectListWidget(),
                         gap6,
                         TaskListWidget(),
-                        SubjectListWidget()
 
 
                       ],

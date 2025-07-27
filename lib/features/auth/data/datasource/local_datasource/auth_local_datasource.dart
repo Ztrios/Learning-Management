@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -9,6 +10,8 @@ import 'package:learning_management/features/auth/domain/entities/sign_in_entity
 sealed class AuthLocalDatasource {
   Future<Either<Failure,bool>> saveSignInEntity({required SignInEntity signInEntity});
   Future<Either<Failure, SignInEntity?>> getSignInEntity();
+
+  Future<Either<Failure, bool>> clearLocalSource();
 }
 
 class AuthLocalDatasourceImpl implements AuthLocalDatasource {
@@ -45,6 +48,22 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
         "auth Local Datasource",
         error: error,
         stackTrace: stackTrace
+      );
+      return Left(LocalDatabaseFailure(error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> clearLocalSource() async {
+    try{
+      Box box = Hive.box(LocalDatabaseKeys.database);
+      box.clear();
+      return Right(true);
+    }catch(error,stackTrace){
+      log(
+          "Auth Local Datasource",
+          error: error,
+          stackTrace: stackTrace
       );
       return Left(LocalDatabaseFailure(error.toString()));
     }
