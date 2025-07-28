@@ -6,6 +6,7 @@ class LocalDatabaseKeys {
 
   /// Local Database Keys
   static String student = "student";
+  static String rememberUser = "remember";
 
 
 }

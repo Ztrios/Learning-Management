@@ -6,7 +6,9 @@ import 'package:learning_management/features/auth/data/datasource/local_datasour
 import 'package:learning_management/features/auth/data/datasource/remote_datasource/auth_remote_datasource.dart';
 import 'package:learning_management/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/remember_user_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
@@ -83,13 +85,15 @@ void initServiceLocator(){
 
 
   /// UseCases
-  /// auth UseCases
+  /// Auth UseCases
   sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
   sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
   sl.registerLazySingleton<ResetPasswordUseCase>(()=> ResetPasswordUseCase());
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
   sl.registerLazySingleton<GetSignInEntityUseCase>(()=> GetSignInEntityUseCase());
   sl.registerLazySingleton<SaveSignInEntityUseCase>(()=> SaveSignInEntityUseCase());
+  sl.registerLazySingleton<RememberUserUseCase>(()=> RememberUserUseCase());
+  sl.registerLazySingleton<CheckUserRememberUseCase>(()=> CheckUserRememberUseCase());
   sl.registerLazySingleton<SignOutUseCase>(()=> SignOutUseCase());
   
   /// Home UseCases

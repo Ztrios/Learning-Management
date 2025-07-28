@@ -12,7 +12,9 @@ import 'package:learning_management/features/auth/domain/entities/sections_entit
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/remember_user_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
@@ -29,6 +31,8 @@ part 'package:learning_management/features/auth/presentation/bloc/auth_state.dar
 class AuthBloc extends Bloc<AuthEvent,AuthState>{
   AuthBloc():super(AuthState.initial()){
     on<SignIn>(_onSignIn);
+    on<RememberUser>(_onRememberUser);
+    on<CheckRememberUser>(_onCheckRememberUser);
     on<SignUp>(_onSignUp);
     on<ResetPassword>(_onResetPassword);
     on<GetSections>(_onGetSections);
@@ -54,10 +58,12 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
               studentEntity: data.signInData?.student != null ?
               StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
           ));
-          if(event.rememberStudent) add(SaveSignInEntity());
+          add(SaveSignInEntity());
+          if(event.rememberStudent) add(RememberUser());
         }
     );
   }
+
 
 
   Future<void> _onSignUp(SignUp event, Emitter<AuthState> emit) async {
@@ -149,6 +155,24 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
             studentEntity: data?.signInData?.student != null ?
             StudentModel.fromJson(data!.signInData!.student!.toJson()).toEntity() : null
         ))
+    );
+    add(CheckRememberUser());
+  }
+
+
+  Future<void> _onRememberUser(RememberUser event, Emitter<AuthState> emit) async {
+    var result = await sl<RememberUserUseCase>().call();
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(rememberUser: true))
+    );
+  }
+
+  Future<void> _onCheckRememberUser(CheckRememberUser event, Emitter<AuthState> emit) async {
+    var result = await sl<CheckUserRememberUseCase>().call();
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(rememberUser: data))
     );
   }
 

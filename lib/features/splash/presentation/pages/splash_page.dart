@@ -20,9 +20,8 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocListener<AuthBloc, AuthState>(
-      listenWhen: (previous, current)=> current.signInEntity == null || current.signInEntity != null,
       listener: (context, state){
-        if(state.signInStatus.isSuccess && state.signInEntity != null){
+        if(state.rememberUser){
           context.go(HomePage.path);
         }else{
           context.go(SignInPage.path);

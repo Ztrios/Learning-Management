@@ -22,7 +22,7 @@ class AuthRepositoryIml implements AuthRepositories{
   @override
   Future<Either<Failure, bool>> resetPassword({required Map<String, dynamic> body}) async =>
       await sl<AuthRemoteDatasource>().resetPassword(body: body);
-  
+
   @override
   Future<Either<Failure, SectionsEntity>> getSections({required String batchYear}) async =>
       await sl<AuthRemoteDatasource>().getSections(batchYear: batchYear);
@@ -35,6 +35,14 @@ class AuthRepositoryIml implements AuthRepositories{
   @override
   Future<Either<Failure, SignInEntity?>> getSignInEntity() async =>
       await sl<AuthLocalDatasource>().getSignInEntity();
+
+  @override
+  Future<Either<Failure, bool>> rememberUser() async =>
+      await sl<AuthLocalDatasource>().rememberUser();
+
+  @override
+  Future<Either<Failure, bool>> userIsRemembered() async =>
+      await sl<AuthLocalDatasource>().isUserRemembered();
 
   @override
   Future<Either<Failure, bool>> signOut() async =>

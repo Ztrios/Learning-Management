@@ -106,3 +106,16 @@ class GetSignInEntity extends AuthEvent{
   @override
   List<Object?> get props => [];
 }
+
+
+
+class RememberUser extends AuthEvent{
+  @override
+  List<Object?> get props => [];
+}
+
+class CheckRememberUser extends AuthEvent{
+  @override
+  List<Object?> get props => [];
+}
+

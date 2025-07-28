@@ -10,7 +10,8 @@ import 'package:learning_management/features/auth/domain/entities/sign_in_entity
 sealed class AuthLocalDatasource {
   Future<Either<Failure,bool>> saveSignInEntity({required SignInEntity signInEntity});
   Future<Either<Failure, SignInEntity?>> getSignInEntity();
-
+  Future<Either<Failure, bool>> rememberUser();
+  Future<Either<Failure, bool>> isUserRemembered();
   Future<Either<Failure, bool>> clearLocalSource();
 }
 
@@ -52,6 +53,43 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       return Left(LocalDatabaseFailure(error.toString()));
     }
   }
+
+
+  @override
+  Future<Either<Failure, bool>> rememberUser() async {
+    try{
+      Box box = Hive.box(LocalDatabaseKeys.database);
+      box.put(LocalDatabaseKeys.rememberUser, true);
+      log("User will keep remember.");
+      return Right(true);
+    }catch(error,stackTrace){
+      log(
+          "Auth Local Datasource",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(LocalDatabaseFailure(error.toString()));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, bool>> isUserRemembered() async {
+    try{
+      Box box = Hive.box(LocalDatabaseKeys.database);
+      bool? isRemembered = box.get(LocalDatabaseKeys.rememberUser);
+      log("Remembered User");
+      return Right(isRemembered ?? false);
+    }catch(error,stackTrace){
+      log(
+          "Auth Local Datasource",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(LocalDatabaseFailure(error.toString()));
+    }
+  }
+
 
   @override
   Future<Either<Failure, bool>> clearLocalSource() async {
