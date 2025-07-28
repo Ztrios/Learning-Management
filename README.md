@@ -1,16 +1,15 @@
-# learning_management
+## 🧪 Development Environment
 
-A new Flutter project.
+This SDK was built and tested with the following environment:
 
-## Getting Started
+```
+[✓] Flutter (Channel stable, 3.32.8, on Microsoft Windows [Version 10.0.26100.4652], locale en-US) [364ms]
+    • Flutter version 3.32.8 on channel stable at C:\src\flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision edada7c56e (3 days ago), 2025-07-25 14:08:03 +0000
+    • Engine revision ef0cd00091
+    • Dart version 3.8.1
+    • DevTools version 2.45.1
+```
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+> ✅ **Note**: It is recommended to use the same or newer version of Flutter and Dart to avoid compatibility issues.
