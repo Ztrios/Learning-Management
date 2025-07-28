@@ -58,6 +58,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
     try{
       Box box = Hive.box(LocalDatabaseKeys.database);
       box.clear();
+      log("Local Database is clear !");
       return Right(true);
     }catch(error,stackTrace){
       log(

@@ -46,14 +46,6 @@ class SignInPage extends HookWidget {
     }
 
 
-    useEffect((){
-      Future.microtask((){
-        context.read<AuthBloc>().add(GetSignInEntity());
-      });
-      return null;
-    },[]);
-
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc, AuthState>(
