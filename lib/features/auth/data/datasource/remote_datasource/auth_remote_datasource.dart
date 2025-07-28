@@ -16,6 +16,7 @@ import 'package:learning_management/features/auth/domain/entities/student_entity
 sealed class AuthRemoteDatasource {
   Future<Either<Failure, SignInEntity>> signIn({required Map<String,dynamic> body});
   Future<Either<Failure, StudentEntity>> signUp({required Map<String,dynamic> body});
+  Future<Either<Failure, bool>> resetPassword({required Map<String,dynamic> body});
   Future<Either<Failure, SectionsEntity>> getSections({required String batchYear});
 }
 
@@ -34,7 +35,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
       return Right(signInEntity);
     }catch(error, stackTrace){
       log(
-        "auth Remote DataSource: ",
+        "Auth Remote DataSource: ",
         error: error,
         stackTrace: stackTrace
       );
@@ -55,13 +56,33 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
       return right(studentEntity);
     }catch(error, stackTrace){
       log(
-          "auth Remote DataSource: ",
+          "Auth Remote DataSource: ",
           error: error,
           stackTrace: stackTrace
       );
       return Left(UnknownFailure(error.toString()));
     }
   }
+
+
+  @override
+  Future<Either<Failure, bool>> resetPassword({required Map<String, dynamic> body}) async {
+    try{
+      Response response = await sl<DioClient>().post(
+          ApiUrls.resetPassword,
+          data: body
+      );
+      return Right(response.statusCode == 200);
+    }catch(error, stackTrace){
+      log(
+          "Auth Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
 
   @override
   Future<Either<Failure, SectionsEntity>> getSections({required String batchYear}) async {
@@ -75,12 +96,13 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
       return Right(sectionEntity);
     }catch(error,stackTrace){
       log(
-          "auth Remote DataSource: ",
+          "Auth Remote DataSource: ",
           error: error,
           stackTrace: stackTrace
       );
       return Left(UnknownFailure(error.toString()));
     }
   }
+
 
 }

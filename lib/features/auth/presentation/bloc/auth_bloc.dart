@@ -13,6 +13,7 @@ import 'package:learning_management/features/auth/domain/entities/sign_in_entity
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
@@ -29,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
   AuthBloc():super(AuthState.initial()){
     on<SignIn>(_onSignIn);
     on<SignUp>(_onSignUp);
+    on<ResetPassword>(_onResetPassword);
     on<GetSections>(_onGetSections);
     on<GetSignInEntity>(_onGetSignInEntity);
     on<SaveSignInEntity>(_onSaveInEntity);
@@ -83,6 +85,25 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
         (data) => emit(state.copyWith(signUpStatus: Status.success, studentEntity: data))
     );
   }
+
+
+
+
+  Future<void> _onResetPassword(ResetPassword event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(resetPasswordStatus: Status.loading));
+    Map<String,dynamic> body = {
+      "username" : event.userName,
+      "phoneNumber": event.phone,
+      "newPassword" : event.password
+    };
+    var result = await sl<ResetPasswordUseCase>().call(params: body);
+    result.fold(
+            (error)=> emit(state.copyWith(resetPasswordStatus: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(resetPasswordStatus: Status.success))
+    );
+  }
+
+
 
 
   Future<void> _onSignOut(SignOut event, Emitter<AuthState> emit) async {

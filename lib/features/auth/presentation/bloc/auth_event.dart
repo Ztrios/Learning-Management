@@ -66,6 +66,20 @@ class SignUp extends AuthEvent{
   ];
 }
 
+class ResetPassword extends AuthEvent{
+  final String userName;
+  final String phone;
+  final String password;
+
+  ResetPassword({
+    required this.userName,
+    required this.password,
+    required this.phone
+  });
+
+  @override
+  List<Object?> get props => [];
+}
 
 class SignOut extends AuthEvent{
   @override

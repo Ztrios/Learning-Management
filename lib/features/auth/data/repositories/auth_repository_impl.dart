@@ -7,6 +7,7 @@ import 'package:learning_management/features/auth/domain/entities/sections_entit
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
 
 class AuthRepositoryIml implements AuthRepositories{
 
@@ -18,6 +19,10 @@ class AuthRepositoryIml implements AuthRepositories{
   Future<Either<Failure, StudentEntity>> signUp({required Map<String,dynamic> body}) async =>
       await sl<AuthRemoteDatasource>().signUp(body: body);
 
+  @override
+  Future<Either<Failure, bool>> resetPassword({required Map<String, dynamic> body}) async =>
+      await sl<AuthRemoteDatasource>().resetPassword(body: body);
+  
   @override
   Future<Either<Failure, SectionsEntity>> getSections({required String batchYear}) async =>
       await sl<AuthRemoteDatasource>().getSections(batchYear: batchYear);
@@ -34,5 +39,6 @@ class AuthRepositoryIml implements AuthRepositories{
   @override
   Future<Either<Failure, bool>> signOut() async =>
       await sl<AuthLocalDatasource>().clearLocalSource();
+
 
 }

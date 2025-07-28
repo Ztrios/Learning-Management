@@ -5,6 +5,7 @@ class AuthState extends Equatable {
   final String? message;
   final Status signInStatus;
   final Status signUpStatus;
+  final Status resetPasswordStatus;
   final SectionsEntity? sectionsEntity;
   final SignInEntity? signInEntity;
   final StudentEntity? studentEntity;
@@ -14,6 +15,7 @@ class AuthState extends Equatable {
     required this.message,
     required this.signInStatus,
     required this.signUpStatus,
+    required this.resetPasswordStatus,
     required this.sectionsEntity,
     required this.studentEntity,
     required this.signInEntity
@@ -25,6 +27,7 @@ class AuthState extends Equatable {
     message: null,
     signInStatus: Status.initial,
     signUpStatus: Status.initial,
+    resetPasswordStatus: Status.initial,
     sectionsEntity: null,
     signInEntity: null,
     studentEntity: null
@@ -36,15 +39,17 @@ class AuthState extends Equatable {
     String? message,
     Status? signInStatus,
     Status? signUpStatus,
+    Status? resetPasswordStatus,
     SectionsEntity? sectionsEntity,
     SignInEntity? signInEntity,
     StudentEntity? studentEntity,
   }) {
     return AuthState(
       status:  status ?? this.status,
+      message: message ?? this.message,
       signInStatus: signInStatus ?? this.signInStatus,
       signUpStatus: signUpStatus ?? this.signUpStatus,
-      message: message ?? this.message,
+      resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       sectionsEntity: sectionsEntity ?? this.sectionsEntity,
       signInEntity: signInEntity ?? this.signInEntity,
       studentEntity: studentEntity ?? this.studentEntity
@@ -58,6 +63,7 @@ class AuthState extends Equatable {
     message,
     signInStatus,
     signUpStatus,
+    resetPasswordStatus,
     sectionsEntity,
     signInEntity,
     studentEntity
