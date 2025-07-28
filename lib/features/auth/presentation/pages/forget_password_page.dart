@@ -9,6 +9,7 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/otp_verification_page.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
 
@@ -21,6 +22,12 @@ class ForgetPasswordPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final formKey = useMemoized(()=> GlobalKey<FormState>());
+    final userNameController = useTextEditingController();
+    final phoneController = useTextEditingController();
+    final passwordController = useTextEditingController();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -64,21 +71,96 @@ class ForgetPasswordPage extends HookWidget {
 
               gap24,
 
-              PrimaryTextFormsFields(
-                title: "Email",
-                hintText: "Enter your email address",
-                textInputType: TextInputType.emailAddress,
-                validator: (value)=> FormValidation(
-                    validationType: ValidationType.email,
-                    formValue: value
-                ).validate(),
+              Form(
+                key: formKey,
+                child: Column(
+                  spacing: 12.w,
+                  children: [
+
+                    PrimaryTextFormsFields(
+                      controller: userNameController,
+                      title: "User Name",
+                      hintText: "Enter your user name",
+                      textInputType: TextInputType.emailAddress,
+                      validator: (value)=> FormValidation(
+                          validationType: ValidationType.required,
+                          formValue: value
+                      ).validate(),
+                    ),
+
+                    PrimaryTextFormsFields(
+                      controller: phoneController,
+                      title: "Phone",
+                      hintText: "Enter your phone number",
+                      textInputType: TextInputType.emailAddress,
+                      validator: (value) =>
+                          FormValidation(
+                              validationType: ValidationType.required,
+                              formValue: value
+                          ).validate(),
+                    ),
+
+
+                    PrimaryTextFormsFields(
+                      controller: passwordController,
+                      title: "Password",
+                      hintText: "Enter your new password",
+                      showObscureButton: true,
+                      textInputType: TextInputType.visiblePassword,
+                      validator: (value)=> FormValidation(
+                          validationType: ValidationType.password,
+                          formValue: value
+                      ).validate(),
+                    ),
+
+                    PrimaryTextFormsFields(
+                      title: "Confirm Password",
+                      hintText: "Confirm your new password",
+                      textInputType: TextInputType.visiblePassword,
+                      showObscureButton: true,
+                      validator: (value){
+                        if(passwordController.text == value) {
+                          return null;
+                        } else {
+                          return"Confirm password doesn't match!";
+                        }
+                      },
+                    ),
+
+                  ],
+                ),
               ),
+
 
               gap24,
 
               PrimaryButton(
-                onPressed: () => context.push(SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path),
+                //onPressed: () => context.push(SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path),
+                onPressed: () => context.pushNamed(SignInPage.name),
                 text: "Reset Password",
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Text(
+                    "Don’t have an account ?",
+                    style: AppTextStyles.titleSmall,
+                  ),
+
+                  TextButton(
+                    onPressed: ()=> context.go(SignUpPage.path),
+                    child: Text(
+                        "Sign Up",
+                        style: AppTextStyles.titleSmall.copyWith(
+                            decoration: TextDecoration.underline,
+                            color: AppColors.deepPurpleAccent
+                        )
+                    ),
+                  )
+
+                ],
               )
 
 
