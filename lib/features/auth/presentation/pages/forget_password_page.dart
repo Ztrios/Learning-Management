@@ -136,7 +136,7 @@ class ForgetPasswordPage extends HookWidget {
 
               PrimaryButton(
                 //onPressed: () => context.push(SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path),
-                onPressed: () => context.pushNamed(SignInPage.name),
+                onPressed: () => context.pushReplacementNamed(SignInPage.name),
                 text: "Reset Password",
               ),
 

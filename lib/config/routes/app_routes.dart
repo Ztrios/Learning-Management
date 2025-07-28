@@ -12,6 +12,7 @@ import 'package:learning_management/features/notifications/notification_routes.d
 import 'package:learning_management/features/payments/payment_routes.dart';
 import 'package:learning_management/features/profile/presentation/profile_routes.dart';
 import 'package:learning_management/features/splash/presentation/pages/splash_page.dart';
+import 'package:learning_management/features/splash/splash_routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -29,38 +30,27 @@ class AppRouter {
       return null;
     },
     routes: [
-      GoRoute(
-        path: SplashPage.path,
-        name: SplashPage.name,
-        pageBuilder: (context,state ){
-          return CustomTransitionPage<void>(
-              key: state.pageKey,
-              child: SplashPage(),
-              transitionsBuilder: routerTransition
-          );
-        },
-        routes: [
+      /// Splash Routes
+      ...SplashRouter.routes,
 
-          /// auth Routes
-          ...AuthRouter.routes,
+      /// auth Routes
+      ...AuthRouter.routes,
 
-          /// Bottom Navigation Routes
-          ...BottomNavigationRouter.routes,
+      /// Bottom Navigation Routes
+      ...BottomNavigationRouter.routes,
 
-          /// Lession Routes
-          ...LessionRouter.routes,
+      /// Lession Routes
+      ...LessionRouter.routes,
 
-          /// Payment Routes
-          ...PaymentRouter.routes,
+      /// Payment Routes
+      ...PaymentRouter.routes,
 
-          /// Profile Routes
-          ...ProfileRouter.routes,
+      /// Profile Routes
+      ...ProfileRouter.routes,
 
-          /// Notification routes
-          ...NotificationsRouter.routes
+      /// Notification routes
+      ...NotificationsRouter.routes
 
-        ],
-      )
     ]
   );
 }
