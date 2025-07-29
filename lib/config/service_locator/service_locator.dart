@@ -34,6 +34,7 @@ import 'package:learning_management/features/payments/domain/repositories/paymen
 import 'package:learning_management/features/profile/data/datasource/remote_datasource/profile_remote_datasource.dart';
 import 'package:learning_management/features/profile/data/repositories/profile_repositories_impl.dart';
 import 'package:learning_management/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:learning_management/features/profile/domain/usecases/get_student_profile_usecase.dart';
 import 'package:learning_management/features/progress/data/datasource/remote_datasource/progress_remote_datasource.dart';
 import 'package:learning_management/features/progress/data/repositories/progress_repositories_impl.dart';
 import 'package:learning_management/features/progress/domain/repositories/progress_repositories.dart';
@@ -110,6 +111,9 @@ void initServiceLocator(){
 
   /// Routine UseCases
   sl.registerLazySingleton<GetClassRoutinesUseCase>(()=> GetClassRoutinesUseCase());
+
+  /// Profile UseCase
+  sl.registerLazySingleton<GetStudentProfileUseCase>(()=> GetStudentProfileUseCase());
 
 
 }
