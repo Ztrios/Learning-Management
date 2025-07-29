@@ -12,3 +12,18 @@ class GetStudentProfile extends ProfileEvent{
   ];
 }
 
+
+class UpdateStudentProfile extends ProfileEvent{
+  final String studentId;
+  final Map<String, dynamic> body;
+  UpdateStudentProfile({
+    required this.studentId,
+    required this.body
+  });
+
+  @override
+  List<Object?> get props => [
+    studentId,
+    body
+  ];
+}

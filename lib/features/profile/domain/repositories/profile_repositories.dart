@@ -4,4 +4,5 @@ import 'package:learning_management/features/profile/domain/entities/student_pro
 
 abstract class ProfileRepositories{
   Future<Either<Failure,StudentProfileEntity>> getStudentProfile({required String studentId});
+  Future<Either<Failure,StudentProfileEntity>> updateStudentProfile({required String studentId, required Map<String,dynamic> body});
 }

@@ -10,7 +10,8 @@ import 'package:learning_management/features/profile/data/models/student_profile
 import 'package:learning_management/features/profile/domain/entities/student_profile_entity.dart';
 
 sealed class ProfileRemoteDatasource {
-  Future<Either<Failure,StudentProfileEntity>> getStudentProfile({required String studentId});
+  Future<Either<Failure, StudentProfileEntity>> getStudentProfile({required String studentId});
+  Future<Either<Failure, StudentProfileEntity>> updateStudentProfile({required String studentId, required Map<String,dynamic> body});
 }
 
 class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource{
@@ -19,6 +20,26 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource{
   Future<Either<Failure, StudentProfileEntity>> getStudentProfile({required String studentId}) async {
     try{
       Response response = await sl<DioClient>().get(ApiUrls.studentProfile + studentId);
+      StudentProfileEntity studentProfileEntity = StudentProfileModel.fromJson(response.data).toEntity();
+      return Right(studentProfileEntity);
+    }catch(error, stackTrace){
+      log(
+          "Profile Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StudentProfileEntity>> updateStudentProfile({required String studentId, required Map<String, dynamic> body}) async {
+    try{
+      Response response = await sl<DioClient>().put(
+          ApiUrls.studentProfile + studentId,
+          options: Options(contentType: "multipart/form-data"),
+          data: FormData.fromMap(body)
+      );
       StudentProfileEntity studentProfileEntity = StudentProfileModel.fromJson(response.data).toEntity();
       return Right(studentProfileEntity);
     }catch(error, stackTrace){

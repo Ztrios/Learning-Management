@@ -11,4 +11,7 @@ class ProfileRepositoriesImpl implements ProfileRepositories{
   Future<Either<Failure, StudentProfileEntity>> getStudentProfile({required String studentId}) async =>
       await sl<ProfileRemoteDatasource>().getStudentProfile(studentId: studentId);
 
+  @override
+  Future<Either<Failure, StudentProfileEntity>> updateStudentProfile({required String studentId, required Map<String, dynamic> body}) async =>
+      await sl<ProfileRemoteDatasource>().updateStudentProfile(studentId: studentId, body: body);
 }
