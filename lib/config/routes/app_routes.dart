@@ -9,6 +9,7 @@ import 'package:learning_management/features/bottom_navigation/bottom_navigation
 import 'package:learning_management/features/home/home_routes.dart';
 import 'package:learning_management/features/lessons/lession_routes.dart';
 import 'package:learning_management/features/notifications/notification_routes.dart';
+import 'package:learning_management/features/onboarding/onboarding_routes.dart';
 import 'package:learning_management/features/payments/payment_routes.dart';
 import 'package:learning_management/features/profile/presentation/profile_routes.dart';
 import 'package:learning_management/features/splash/presentation/pages/splash_page.dart';
@@ -32,6 +33,9 @@ class AppRouter {
     routes: [
       /// Splash Routes
       ...SplashRouter.routes,
+
+      /// Onboarding Routes
+      ...OnboardingRouter.routes,
 
       /// auth Routes
       ...AuthRouter.routes,

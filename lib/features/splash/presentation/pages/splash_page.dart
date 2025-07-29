@@ -9,6 +9,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
+import 'package:learning_management/features/onboarding/presentation/pages/onboarding_page.dart';
 
 class SplashPage extends StatelessWidget {
   static String get path => "/";
@@ -22,9 +23,9 @@ class SplashPage extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state){
         if(state.rememberUser){
-          context.go(HomePage.path);
+          context.go(OnboardingPage.path);
         }else{
-          context.go(SignInPage.path);
+          context.go(OnboardingPage.path);
         }
         FlutterNativeSplash.remove();
       },
