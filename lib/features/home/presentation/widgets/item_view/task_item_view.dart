@@ -61,7 +61,7 @@ class TaskItemView extends StatelessWidget {
                   mainAxisAlignment: mainCenter,
                   children: [
                     SizedBox(
-                      width: 210.w,
+                      width: 205.w,
                       child: Text(
                         title,
                         style: AppTextStyles.titleMedium.copyWith(
