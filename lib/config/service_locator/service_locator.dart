@@ -28,6 +28,11 @@ import 'package:learning_management/features/lessons/domain/repositories/lession
 import 'package:learning_management/features/notifications/data/datasource/remote_datasource/notifications_remote_datasource.dart';
 import 'package:learning_management/features/notifications/data/repositories/notifications_repositories_impl.dart';
 import 'package:learning_management/features/notifications/domain/usecases/notifications_usecases.dart';
+import 'package:learning_management/features/onboarding/data/datasource/local_datasource/onboarding_local_datasource.dart';
+import 'package:learning_management/features/onboarding/data/repositories/onboarding_repositories_impl.dart';
+import 'package:learning_management/features/onboarding/domain/repositories/onboarding_repositories.dart';
+import 'package:learning_management/features/onboarding/domain/usecases/already_onboarded_usecase.dart';
+import 'package:learning_management/features/onboarding/domain/usecases/user_onboarded_usecase.dart';
 import 'package:learning_management/features/payments/data/datasource/remote_datasource/payments_remote_datasource.dart';
 import 'package:learning_management/features/payments/data/repositories/payments_repositories_impl.dart';
 import 'package:learning_management/features/payments/domain/repositories/payments_repositories.dart';
@@ -72,6 +77,7 @@ void initServiceLocator(){
 
   /// Local DataSource
   sl.registerSingleton<AuthLocalDatasource>(AuthLocalDatasourceImpl());
+  sl.registerLazySingleton<OnboardingLocalDatasource>(()=> OnboardingLocalDatasourceImpl());
 
 
   /// Repositories
@@ -84,11 +90,18 @@ void initServiceLocator(){
   sl.registerLazySingleton<ProgressRepositories>(()=> ProgressRepositoriesImpl());
   sl.registerLazySingleton<ResultsRepositories>(()=> ResultsRepositoriesImpl());
   sl.registerLazySingleton<RoutineRepositories>(()=> RoutineRepositoriesImpl());
+  sl.registerLazySingleton<OnboardingRepositories>(()=> OnboardingRepositoryImpl());
 
 
   /// UseCases
+  /// Onboarding UseCases
+  sl.registerLazySingleton<AlreadyOnboardedUseCase>(()=> AlreadyOnboardedUseCase());
+  sl.registerLazySingleton<UserOnboardedUseCase>(()=> UserOnboardedUseCase());
+
+
+
   /// Auth UseCases
-  sl.registerLazySingleton<SignUpUseCase>(()=>SignUpUseCase());
+  sl.registerLazySingleton<SignUpUseCase>(()=> SignUpUseCase());
   sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
   sl.registerLazySingleton<ResetPasswordUseCase>(()=> ResetPasswordUseCase());
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
@@ -97,7 +110,7 @@ void initServiceLocator(){
   sl.registerLazySingleton<RememberUserUseCase>(()=> RememberUserUseCase());
   sl.registerLazySingleton<CheckUserRememberUseCase>(()=> CheckUserRememberUseCase());
   sl.registerLazySingleton<SignOutUseCase>(()=> SignOutUseCase());
-  
+
   /// Home UseCases
   sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());
   sl.registerLazySingleton<GetStudentTasksUseCase>(()=> GetStudentTasksUseCase());
@@ -116,6 +129,7 @@ void initServiceLocator(){
   /// Profile UseCase
   sl.registerLazySingleton<GetStudentProfileUseCase>(()=> GetStudentProfileUseCase());
   sl.registerLazySingleton<UpdateStudentProfileUseCase>(()=> UpdateStudentProfileUseCase());
+
 
 
 }
