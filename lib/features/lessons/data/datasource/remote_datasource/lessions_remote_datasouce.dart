@@ -17,6 +17,7 @@ sealed class LessionsRemoteDataSource {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
+  Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
 }
 
 
@@ -64,6 +65,27 @@ class LessionsRemoteDataSourceImpl extends LessionsRemoteDataSource{
       Response response = await sl<DioClient>().get("${ApiUrls.examDetails}$examId");
       ExamDetailsEntity examDetailsEntity = ExamDetailsModel.fromJson(response.data).toEntity();
       return Right(examDetailsEntity);
+
+    }catch(error, stackTrace){
+      log(
+          "Lessions Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async {
+    try{
+
+      Response response = await sl<DioClient>().post(
+        ApiUrls.submitExam,
+        options: Options(contentType: "multipart/form-data"),
+        data: body
+      );
+      return Right(response.statusCode == 200);
 
     }catch(error, stackTrace){
       log(

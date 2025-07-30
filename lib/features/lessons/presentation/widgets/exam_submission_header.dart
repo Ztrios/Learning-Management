@@ -97,7 +97,7 @@ class _ExamSubmissionHeaderState extends State<ExamSubmissionHeader> {
               Column(
                 crossAxisAlignment: crossStart,
                 children: [
-                  Text("Total Marks: ${widget.totalMarks}",
+                  Text("Marks: ${widget.totalMarks}",
                       style: AppTextStyles.bodyMedium),
                   StreamBuilder<Duration>(
                     stream: countdownStream(),

@@ -2,6 +2,7 @@ part of 'lessions_bloc.dart';
 
 class LessionsState extends Equatable {
   final Status status;
+  final Status examSubmissionStatus;
   final String? message;
   final LessionsListEntity? lessionsListEntity;
   final ExamsListEntity? examsListEntity;
@@ -10,6 +11,7 @@ class LessionsState extends Equatable {
   const LessionsState({
     required this.status,
     required this.message,
+    required this.examSubmissionStatus,
     required this.lessionsListEntity,
     required this.examsListEntity,
     required this.examDetailsEntity
@@ -18,6 +20,7 @@ class LessionsState extends Equatable {
   /// Initial state factory
   factory LessionsState.initial() => const LessionsState(
     status: Status.initial,
+    examSubmissionStatus: Status.initial,
     message: null,
     lessionsListEntity: null,
     examsListEntity: null,
@@ -27,6 +30,7 @@ class LessionsState extends Equatable {
   /// Copy with new values
   LessionsState copyWith({
     Status? status,
+    Status? examSubmissionStatus,
     String? message,
     LessionsListEntity? lessionsListEntity,
     ExamsListEntity? examsListEntity,
@@ -35,6 +39,7 @@ class LessionsState extends Equatable {
     return LessionsState(
       status: status ?? this.status,
       message: message ?? this.message,
+      examSubmissionStatus: examSubmissionStatus ?? this.examSubmissionStatus,
       lessionsListEntity: lessionsListEntity ?? this.lessionsListEntity,
       examsListEntity: examsListEntity ?? this.examsListEntity,
       examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
@@ -45,6 +50,7 @@ class LessionsState extends Equatable {
   @override
   List<Object?> get props => [
     status,
+    examSubmissionStatus,
     message,
     lessionsListEntity,
     examsListEntity,

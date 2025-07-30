@@ -39,3 +39,16 @@ class GetExamsDetails extends LessionsEvent{
     examId
   ];
 }
+
+
+class SubmitExam extends LessionsEvent{
+
+  final Map<String, dynamic> submitExam;
+
+  SubmitExam({required this.submitExam});
+
+  @override
+  List<Object?> get props => [
+    submitExam
+  ];
+}

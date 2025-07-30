@@ -50,6 +50,10 @@ class ExamsSubmissionPage extends HookWidget {
       context.read<LessionsBloc>().add(GetExamsDetails(examId: examId));
     }
 
+    Future<void> examSubmit() async {
+
+    }
+
     useEffect((){
       Future.microtask(()=> getExamDetails());
       return null;
@@ -120,17 +124,16 @@ class ExamsSubmissionPage extends HookWidget {
                     ),
 
 
-                    Container(
-                      width: 1.sw,
-                      height: 100.h,
-                      padding: paddingH24,
-                      child: Center(
-                        child: PrimaryButton(
-                          onPressed: () {},
-                          text: "Submit",
-                          background: AppColors.deepOrange,
-                          textColor: Colors.white,
-                        ),
+                    Padding(
+                      padding: padding24,
+                      child: PrimaryButton(
+                        isLoading: state.examSubmissionStatus.isLoading,
+                        onPressed: examSubmit,
+                        width: 1.sw,
+                        height: 50.h,
+                        text: "Submit",
+                        background: AppColors.deepOrange,
+                        textColor: Colors.white,
                       ),
                     )
 

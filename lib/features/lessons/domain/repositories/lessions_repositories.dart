@@ -8,4 +8,6 @@ abstract class LessionsRepositories {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
+  Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
+
 }
