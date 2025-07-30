@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/html_viewer_widget.dart';
 
 class ContentTabView extends StatelessWidget {
   const ContentTabView({super.key});
@@ -7,25 +8,7 @@ class ContentTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Html(
-        data: content,
-        extensions: [
-          TagExtension(
-            tagsToExtend: {"flutter"},
-            child: const FlutterLogo(),
-          ),
-        ],
-        style: {
-          "p.fancy": Style(
-            textAlign: TextAlign.center,
-            //padding: const EdgeInsets.all(16),
-            backgroundColor: Colors.grey,
-            margin: Margins(left: Margin(50, Unit.px), right: Margin.auto()),
-            width: Width(300, Unit.px),
-            fontWeight: FontWeight.bold,
-          ),
-        },
-      ),
+      child: HtmlViewerWidget(content: content),
     );
   }
 }

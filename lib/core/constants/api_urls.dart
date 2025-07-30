@@ -30,6 +30,7 @@ class ApiUrls {
   // Lessions Page API endpoints
   static const String subjectLessions = "/api/v1/lessons/subjects/";
   static const String subjectExams = "/api/v1/exams/subjects/";
+  static const String examDetails = "/api/v1/exams/";
 
 
   // Public getter to access the base URL

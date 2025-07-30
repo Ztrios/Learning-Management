@@ -5,12 +5,14 @@ class LessionsState extends Equatable {
   final String? message;
   final LessionsListEntity? lessionsListEntity;
   final ExamsListEntity? examsListEntity;
+  final ExamDetailsEntity? examDetailsEntity;
 
   const LessionsState({
     required this.status,
     required this.message,
     required this.lessionsListEntity,
-    required this.examsListEntity
+    required this.examsListEntity,
+    required this.examDetailsEntity
   });
 
   /// Initial state factory
@@ -18,7 +20,8 @@ class LessionsState extends Equatable {
     status: Status.initial,
     message: null,
     lessionsListEntity: null,
-    examsListEntity: null
+    examsListEntity: null,
+    examDetailsEntity: null
   );
 
   /// Copy with new values
@@ -26,13 +29,15 @@ class LessionsState extends Equatable {
     Status? status,
     String? message,
     LessionsListEntity? lessionsListEntity,
-    ExamsListEntity? examsListEntity
+    ExamsListEntity? examsListEntity,
+    ExamDetailsEntity? examDetailsEntity
   }) {
     return LessionsState(
       status: status ?? this.status,
       message: message ?? this.message,
       lessionsListEntity: lessionsListEntity ?? this.lessionsListEntity,
-      examsListEntity: examsListEntity ?? this.examsListEntity
+      examsListEntity: examsListEntity ?? this.examsListEntity,
+      examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
     );
   }
 
@@ -42,6 +47,7 @@ class LessionsState extends Equatable {
     status,
     message,
     lessionsListEntity,
-    examsListEntity
+    examsListEntity,
+    examDetailsEntity
   ];
 }

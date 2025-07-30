@@ -82,14 +82,20 @@ class LessionRouter {
 
           /// Exams Submission page route
           GoRoute(
-            path: ExamsSubmissionPage.path,
+            path: "${ExamsSubmissionPage.path}/:examId",
             name: ExamsSubmissionPage.name,
             pageBuilder: (context,state){
+
+              String examId = state.pathParameters["examId"] ?? "";
+
               return CustomTransitionPage(
                   key: state.pageKey,
-                  child: ExamsSubmissionPage(),
+                  child: ExamsSubmissionPage(
+                    examId: examId,
+                  ),
                   transitionsBuilder: routerTransition
               );
+
             },
           )
 

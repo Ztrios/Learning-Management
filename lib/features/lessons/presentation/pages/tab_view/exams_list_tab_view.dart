@@ -32,8 +32,7 @@ class ExamListTabView extends StatelessWidget {
               Exam exam = state.examsListEntity!.exams![index];
 
               return InkWell(
-                onTap: () =>
-                    context.push(LessionsPage.path + ExamsSubmissionPage.path),
+                onTap: () => context.push("${LessionsPage.path}${ExamsSubmissionPage.path}/${exam.id}"),
                 child: ExamItemView(
                   showStar: false,
                   isCompleted: exam.status == "SUBMITTED",
