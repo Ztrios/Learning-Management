@@ -18,6 +18,7 @@ class LessionRouter {
         name: LessionsPage.name,
         pageBuilder: (context, state){
 
+          final String subjectId = state.uri.queryParameters["subjectId"] ?? "";
           final String subject = state.uri.queryParameters["subject"] ?? "English";
           final String subjectIcon = state.uri.queryParameters["subjectIcon"] ?? "assets/icons/mathematics_icon.svg";
           final LessionPageExtraParams extras = state.extra! as LessionPageExtraParams;
@@ -25,6 +26,7 @@ class LessionRouter {
           return CustomTransitionPage(
               key: state.pageKey,
               child: LessionsPage(
+                subjectId: subjectId,
                 subject: subject,
                 subjectIcon: subjectIcon,
                 shapeColor: extras.shapeColor,

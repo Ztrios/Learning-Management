@@ -18,7 +18,7 @@ class AppBlocProviders {
   /// All Bloc Providers are created here
   static List<BlocProvider> get providers => [
     //BlocProvider<InternetConnectivityCubit>(create: (context)=> InternetConnectivityCubit()..connectivityChecker()),
-    BlocProvider<OnboardingCubit>(create: (context)=> OnboardingCubit()),
+    BlocProvider<OnboardingCubit>(create: (context)=> OnboardingCubit()..userAlreadyOnboarded()),
     BlocProvider<AuthBloc>(create: (context)=> AuthBloc()..add(GetSignInEntity())),
     BlocProvider<HomeBloc>(create: (context)=> HomeBloc()),
     BlocProvider<LessionsBloc>(create: (context)=> LessionsBloc()),

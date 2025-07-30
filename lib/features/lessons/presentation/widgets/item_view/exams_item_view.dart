@@ -7,14 +7,24 @@ import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 class ExamItemView extends StatelessWidget {
   final String title;
   final bool isCompleted;
-
   final bool showStar;
+  final double totalMarks;
+  final double getMarks;
+  final String examDate;
+  final String startTime;
+
+  final String endTime;
 
   const ExamItemView({
     super.key,
     required this.title,
     required this.isCompleted,
-    required this.showStar
+    required this.showStar,
+    required this.totalMarks,
+    required this.getMarks,
+    required this.examDate,
+    required this.startTime,
+    required this.endTime
   });
 
   @override
@@ -37,8 +47,8 @@ class ExamItemView extends StatelessWidget {
             children: [
 
               Container(
-                width: 30.w,
-                height: 30.w,
+                width: 45.w,
+                height: 45.w,
                 decoration: BoxDecoration(
                   color: isCompleted ? AppColors.deepGreen : Color(0xFFDADADA),
                   borderRadius: radius6,
@@ -55,6 +65,8 @@ class ExamItemView extends StatelessWidget {
               Column(
                 crossAxisAlignment: crossStart,
                 children: [
+                  Text("Date: $examDate", style: AppTextStyles.bodyMedium),
+
                   Text(
                     title,
                     style: AppTextStyles.titleMedium.copyWith(
@@ -62,17 +74,12 @@ class ExamItemView extends StatelessWidget {
                     ),
                   ),
 
-                  gap12,
+                  gap4,
 
-                  Row(
-                    children: [
-                      Text("Result: 6/10", style: AppTextStyles.bodyMedium),
-
-                      gap36,
-
-                      Text("Week 1: April 2025", style: AppTextStyles.bodyMedium),
-                    ],
-                  ),
+                  Text("Time: $startTime - $endTime", style: AppTextStyles.caption.copyWith(
+                    color: AppColors.textSecondary
+                  )),
+                  Text("Result: $getMarks/$totalMarks", style: AppTextStyles.caption),
                 ],
               ),
             ],

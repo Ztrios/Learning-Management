@@ -30,12 +30,6 @@ class SplashPage extends HookWidget {
       }
     }
 
-    useEffect((){
-      Future.microtask((){
-        context.read<OnboardingCubit>().userAlreadyOnboarded();
-      });
-      return null;
-    },[]);
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state){

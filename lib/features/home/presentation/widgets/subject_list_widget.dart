@@ -31,13 +31,7 @@ class SubjectListWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    const List<String> subjects = [
-      "Bangla",
-      "English",
-      "Mathematics",
-      "Geography",
-      "History"
-    ];
+
 
     const List<Color> colors = [
       AppColors.deepOrange,
@@ -106,9 +100,10 @@ class SubjectListWidget extends HookWidget {
                         state.subjectsEntity!.subjectsData!.content![index] : null;
                         return InkWell(
                           onTap: () {
-                            Map<String, String> parameters = {
-                              "subject": subjects[index],
-                              "subjectIcon": icons[subjects[index].toLowerCase()]
+                            Map<String, dynamic> parameters = {
+                              "subjectId": subject?.id.toString(),
+                              "subject": subject?.name ?? "English",
+                              "subjectIcon":  icons[(subject?.name ?? "english").toLowerCase()] ?? "assets/icons/history_icon.svg"
                             };
                             context.push(
                                 Uri(path: LessionsPage.path,

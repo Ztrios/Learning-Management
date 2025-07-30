@@ -25,12 +25,14 @@ class LessionsPage extends StatelessWidget {
   static String get name => "lessions";
 
   final String subject;
+  final String subjectId;
   final String subjectIcon;
   final Color shapeColor;
   final Color background;
 
   const LessionsPage({
     super.key,
+    required this.subjectId,
     required this.subject,
     required this.subjectIcon,
     required this.background,
@@ -66,8 +68,10 @@ class LessionsPage extends StatelessWidget {
 
                     gap6,
 
-                    const Expanded(
-                        child: LessionTabBar()
+                    Expanded(
+                        child: LessionTabBar(
+                          subjectId: subjectId,
+                        )
                     ),
                   ],
                 ),
