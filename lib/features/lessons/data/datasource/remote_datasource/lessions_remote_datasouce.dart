@@ -6,12 +6,14 @@ import 'package:learning_management/config/service_locator/service_locator.dart'
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/core/network/dio_client.dart';
+import 'package:learning_management/features/lessons/data/models/assignment_details_model.dart';
 import 'package:learning_management/features/lessons/data/models/assignment_list_model.dart';
 import 'package:learning_management/features/lessons/data/models/exam_details_model.dart';
 import 'package:learning_management/features/lessons/data/models/exams_list_model.dart';
 import 'package:learning_management/features/lessons/data/models/lession_details_model.dart';
 import 'package:learning_management/features/lessons/data/models/lessions_list_model.dart';
 import 'package:learning_management/features/lessons/data/models/quiz_list_model.dart';
+import 'package:learning_management/features/lessons/domain/entities/assignment_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
@@ -23,6 +25,7 @@ sealed class LessionsRemoteDataSource {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
   Future<Either<Failure, LessionDetailsEntity>> getLessionDetails({required String lessionId});
   Future<Either<Failure, AssignmentListEntity>> getAssignmentList({required String lessionId});
+  Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId});
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
@@ -82,6 +85,24 @@ class LessionsRemoteDataSourceImpl extends LessionsRemoteDataSource{
       return Left(UnknownFailure(error.toString()));
     }
   }
+
+
+  @override
+  Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId}) async {
+    try{
+      Response response = await sl<DioClient>().get("${ApiUrls.lessionAssignment}$assignmentId");
+      AssignmentDetailsEntity assignmentDetailsEntity = AssignmentDetailsModel.fromJson(response.data).toEntity();
+      return Right(assignmentDetailsEntity);
+    }catch(error, stackTrace){
+      log(
+          "Lessions Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
 
 
   @override

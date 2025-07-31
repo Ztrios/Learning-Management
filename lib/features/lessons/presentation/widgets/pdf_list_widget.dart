@@ -5,9 +5,9 @@ import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
-class ExamPdfsWidget extends StatelessWidget {
+class PdfListWidget extends StatelessWidget {
   final List<String> pdfUrls;
-  const ExamPdfsWidget({
+  const PdfListWidget({
     super.key,
     required this.pdfUrls
   });

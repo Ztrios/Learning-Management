@@ -2,12 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_management/features/lessons/domain/entities/assignment_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_assignment_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_assignment_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
@@ -24,6 +26,7 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
     on<GetLessionsList>(_onGetLessionsList);
     on<GetLessionDetails>(_onGetLessionDetails);
     on<GetAssignmentList>(_onGetAssignmentList);
+    on<GetAssignmentDetails>(_onGetAssignmentDetails);
     on<GetQuizList>(_onGetQuizList);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
@@ -55,6 +58,15 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(status: Status.success, assignmentListEntity: data))
+    );
+  }
+
+  Future<void> _onGetAssignmentDetails(GetAssignmentDetails event, Emitter<LessionsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetAssignmentDetailsUseCase>().call(params: event.assignmentId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, assignmentDetailsEntity: data))
     );
   }
 

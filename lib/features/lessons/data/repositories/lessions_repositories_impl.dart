@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/features/lessons/data/datasource/remote_datasource/lessions_remote_datasouce.dart';
+import 'package:learning_management/features/lessons/domain/entities/assignment_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
@@ -28,6 +29,14 @@ class LessionsRepositoriesImpl implements LessionsRepositories{
       await sl<LessionsRemoteDataSource>().getExamsList(subjectId: subjectId);
 
   @override
+  Future<Either<Failure, AssignmentListEntity>> getAssignmentList({required String lessionId}) async =>
+      await sl<LessionsRemoteDataSource>().getAssignmentList(lessionId: lessionId);
+
+  @override
+  Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId}) async =>
+      await sl<LessionsRepositories>().getAssignmentDetails(assignmentId: assignmentId);
+
+  @override
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId}) async =>
       await sl<LessionsRemoteDataSource>().getExamsDetails(examId: examId);
 
@@ -35,9 +44,6 @@ class LessionsRepositoriesImpl implements LessionsRepositories{
   Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async =>
       await sl<LessionsRemoteDataSource>().submitExam(body: body);
 
-  @override
-  Future<Either<Failure, AssignmentListEntity>> getAssignmentList({required String lessionId}) async =>
-      await sl<LessionsRemoteDataSource>().getAssignmentList(lessionId: lessionId);
 
 
 

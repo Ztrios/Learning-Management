@@ -24,7 +24,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/lessons/data/models/exam_details_model.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/exam_pdfs_widget.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/pdf_list_widget.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/exam_submission_header.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/html_viewer_widget.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/assignments_item_view.dart';
@@ -115,7 +115,7 @@ class ExamsSubmissionPage extends HookWidget {
                   children: [
 
                     SecondaryAppBar(
-                      title: examDetails?.subject?.name ?? "Examination",
+                      title: "Exam Submission",
                     ),
 
                     Expanded(
@@ -143,7 +143,7 @@ class ExamsSubmissionPage extends HookWidget {
 
                               gap24,
 
-                              ExamPdfsWidget(
+                              PdfListWidget(
                                   pdfUrls: examDetails?.fileUrls ?? []
                               ),
 

@@ -41,6 +41,19 @@ class GetAssignmentList extends LessionsEvent{
 }
 
 
+class GetAssignmentDetails extends LessionsEvent{
+
+  final String assignmentId;
+
+  GetAssignmentDetails({required this.assignmentId});
+
+  @override
+  List<Object?> get props => [
+    assignmentId
+  ];
+}
+
+
 
 class GetQuizList extends LessionsEvent{
 
