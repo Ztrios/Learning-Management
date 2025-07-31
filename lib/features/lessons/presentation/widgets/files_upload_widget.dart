@@ -72,11 +72,14 @@ class FilesUploadWidget extends HookWidget {
                         height: 110.h,
                         child: Visibility(
                           visible: selectedPDF.value == null,
-                          replacement: Row(
+                          replacement: Column(
                             crossAxisAlignment: crossCenter,
                             mainAxisAlignment: mainCenter,
                             children: [
-                              Icon(Icons.file_copy_outlined),
+                              Image.asset(
+                                "assets/icons/pdf_icon.png",
+                                width: 50.w,
+                              ),
                               gap6,
                               Text(
                                 selectedPDF.value != null ? selectedPDF.value!.path.split("/").last : "",

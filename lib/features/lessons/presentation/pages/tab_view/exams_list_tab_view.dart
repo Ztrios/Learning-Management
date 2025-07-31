@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/features/lessons/data/models/exams_list_model.dart';
@@ -32,7 +33,16 @@ class ExamListTabView extends StatelessWidget {
               Exam exam = state.examsListEntity!.exams![index];
 
               return InkWell(
-                onTap: () => context.push("${LessionsPage.path}${ExamsSubmissionPage.path}/${exam.id}"),
+                onTap: () {
+                  if(exam.status != "SUBMITTED"){
+                    context.push("${LessionsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
+                  }else{
+                    ToastNotifications.showErrorToast(
+                        title: "Submitted Exam!",
+                        message: "Your exam is already submitted.",
+                    );
+                  }
+                },
                 child: ExamItemView(
                   showStar: false,
                   isCompleted: exam.status == "SUBMITTED",
@@ -46,6 +56,8 @@ class ExamListTabView extends StatelessWidget {
               );
             },
           );
+
+
         }else{
           return EmptyWidget(
               title: "No Exams Found!",

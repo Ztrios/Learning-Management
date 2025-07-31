@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:defer_pointer/defer_pointer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/format_data/pdf_formatters.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
@@ -15,6 +20,7 @@ import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/lessons/data/models/exam_details_model.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
@@ -46,12 +52,38 @@ class ExamsSubmissionPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
+    final uploadedFile = useState<File?>(null);
+
     void getExamDetails() async {
       context.read<LessionsBloc>().add(GetExamsDetails(examId: examId));
     }
 
     Future<void> examSubmit() async {
+      print(uploadedFile.value);
+      int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
+      if(studentId == null) return;
 
+      if(uploadedFile.value != null){
+        Map<String, dynamic> dto = {
+          "examId" : examId,
+          "studentId" : studentId.toString()
+        };
+
+        Map<String, dynamic> body = {
+          "dto" : jsonEncode(dto),
+          "file" : await MultipartFile.fromFile(uploadedFile.value!.path)
+        };
+
+        context.read<LessionsBloc>().add(SubmitExam(
+            body: body
+        ));
+      }else{
+        ToastNotifications.showErrorToast(
+            title: "Empty File",
+            message: "Need to upload exams photos or pdf",
+            alignment: Alignment.topCenter
+        );
+      }
     }
 
     useEffect((){
@@ -65,7 +97,14 @@ class ExamsSubmissionPage extends HookWidget {
         child: SizedBox(
           width: 1.sw,
           height: 1.sh,
-          child: BlocBuilder<LessionsBloc, LessionsState>(
+          child: BlocConsumer<LessionsBloc, LessionsState>(
+            listenWhen: (previous, current)=> !previous.examSubmissionStatus.isSuccess,
+            listener: (context, state){
+              if(state.examSubmissionStatus.isSuccess){
+                ToastNotifications.showSuccessToast("Exam submitted successfully!");
+                context.pop();
+              }
+            },
             builder: (context, state) {
 
               if(state.status.isLoading){
@@ -113,8 +152,19 @@ class ExamsSubmissionPage extends HookWidget {
                               gap12,
 
                               FilesUploadWidget(
-                                selectedFiles: (List<File>? files,
-                                    UploadType type) {},
+                                selectedFiles: (List<File>? files, UploadType type) async {
+                                  uploadedFile.value = null;
+                                  if(files != null){
+                                    if(type == UploadType.pdf){
+                                      //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
+                                      uploadedFile.value = files.first;
+                                    }else{
+                                      uploadedFile.value =
+                                      await PdfFormatters.convertImagesToPdfFile(files,fileName: "exam-$examId.pdf");
+                                    }
+                                  }
+
+                                },
                               ),
 
                             ],

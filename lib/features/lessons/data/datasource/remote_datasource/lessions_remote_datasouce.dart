@@ -83,7 +83,7 @@ class LessionsRemoteDataSourceImpl extends LessionsRemoteDataSource{
       Response response = await sl<DioClient>().post(
         ApiUrls.submitExam,
         options: Options(contentType: "multipart/form-data"),
-        data: body
+        data: FormData.fromMap(body)
       );
       return Right(response.statusCode == 200);
 

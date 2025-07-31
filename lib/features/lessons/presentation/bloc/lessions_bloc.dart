@@ -52,7 +52,7 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
 
   Future<void> _onSubmitExam(SubmitExam event, Emitter<LessionsState> emit) async {
     emit(state.copyWith(examSubmissionStatus: Status.loading));
-    var result = await sl<SubmitExamUseCase>().call(params: {});
+    var result = await sl<SubmitExamUseCase>().call(params: event.body);
     result.fold(
             (error)=> emit(state.copyWith(examSubmissionStatus: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(examSubmissionStatus: Status.success))
