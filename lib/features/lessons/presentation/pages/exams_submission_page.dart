@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/helpers/format_data/pdf_formatters.dart';
 import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
@@ -25,7 +26,7 @@ import 'package:learning_management/features/lessons/data/models/exam_details_mo
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/pdf_list_widget.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/exam_submission_header.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/submission_header.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/html_viewer_widget.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/assignments_item_view.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/submission_types_selection.dart';
@@ -128,9 +129,9 @@ class ExamsSubmissionPage extends HookWidget {
                             crossAxisAlignment: crossStart,
                             children: [
 
-                              ExamSubmissionHeader(
+                              SubmissionHeader(
                                   title: examDetails?.title ?? "Not Found",
-                                  endTime: examDetails?.endTime ?? "Not Found!",
+                                  endTime: DateTimeFormatters.timeToDateTime(examDetails?.endTime ?? "12:94:29"),
                                   totalMarks: (examDetails?.marks ?? 0).floor()
                               ),
 

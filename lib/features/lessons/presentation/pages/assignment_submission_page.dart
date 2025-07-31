@@ -26,7 +26,7 @@ import 'package:learning_management/features/lessons/data/models/exam_details_mo
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/pdf_list_widget.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/exam_submission_header.dart';
+import 'package:learning_management/features/lessons/presentation/widgets/submission_header.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/html_viewer_widget.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/item_view/assignments_item_view.dart';
 import 'package:learning_management/features/lessons/presentation/widgets/submission_types_selection.dart';
@@ -76,11 +76,10 @@ class AssignmentSubmissionPage extends HookWidget {
           ).toList()
         };
 
-        print(body);
+        context.read<LessionsBloc>().add(AssignmentSubmit(
+            body: body
+        ));
 
-        // context.read<LessionsBloc>().add(SubmitExam(
-        //     body: body
-        // ));
       }else{
         ToastNotifications.showErrorToast(
             title: "Empty File",
@@ -132,11 +131,11 @@ class AssignmentSubmissionPage extends HookWidget {
                             crossAxisAlignment: crossStart,
                             children: [
 
-                              // ExamSubmissionHeader(
-                              //     title: assignmentDetails?.title ?? "Not Found",
-                              //     endTime: assignmentDetails?.endTime ?? "Not Found!",
-                              //     totalMarks: (examDetails?.marks ?? 0).floor()
-                              // ),
+                              SubmissionHeader(
+                                  title: assignmentDetails?.title ?? "Not Found",
+                                  endTime: assignmentDetails?.deadline ?? DateTime.now(),
+                                  totalMarks: (assignmentDetails?.marks ?? 0).floor()
+                              ),
 
                               gap24,
 

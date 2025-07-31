@@ -6,8 +6,6 @@ class DateTimeFormatters{
   const DateTimeFormatters._();
 
 
-
-
   static String formatTimeRange( BuildContext context, TimeRange timeRange){
     final localizations = MaterialLocalizations.of(context);
     String formattedStart = localizations.formatTimeOfDay(timeRange.startTime);
@@ -98,6 +96,23 @@ class DateTimeFormatters{
     } catch (e) {
       return timeString; // fallback if parsing fails
     }
+  }
+
+
+
+  /// Parse the target end time to DateTime today
+  /// // Format: "HH:mm:ss"
+  static DateTime timeToDateTime(String time) {
+    final now = DateTime.now();
+    final parts = time.split(':');
+    return DateTime(
+      now.year,
+      now.month,
+      now.day,
+      int.parse(parts[0]),
+      int.parse(parts[1]),
+      int.parse(parts[2]),
+    );
   }
 
 

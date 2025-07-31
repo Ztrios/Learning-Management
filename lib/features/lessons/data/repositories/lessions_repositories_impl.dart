@@ -37,6 +37,10 @@ class LessionsRepositoriesImpl implements LessionsRepositories{
       await sl<LessionsRepositories>().getAssignmentDetails(assignmentId: assignmentId);
 
   @override
+  Future<Either<Failure, bool>> assignmentSubmit({required Map<String, dynamic> body}) async =>
+      await sl<LessionsRepositories>().assignmentSubmit(body: body);
+
+  @override
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId}) async =>
       await sl<LessionsRemoteDataSource>().getExamsDetails(examId: examId);
 

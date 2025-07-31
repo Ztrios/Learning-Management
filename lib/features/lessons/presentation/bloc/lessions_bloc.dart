@@ -9,6 +9,7 @@ import 'package:learning_management/features/lessons/domain/entities/exams_list_
 import 'package:learning_management/features/lessons/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/usecases/assignment_submission_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_assignment_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_assignment_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
@@ -27,6 +28,7 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
     on<GetLessionDetails>(_onGetLessionDetails);
     on<GetAssignmentList>(_onGetAssignmentList);
     on<GetAssignmentDetails>(_onGetAssignmentDetails);
+    on<AssignmentSubmit>(_onAssignmentSubmit);
     on<GetQuizList>(_onGetQuizList);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
@@ -69,6 +71,17 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
             (data)=> emit(state.copyWith(status: Status.success, assignmentDetailsEntity: data))
     );
   }
+
+
+  Future<void> _onAssignmentSubmit(AssignmentSubmit event, Emitter<LessionsState> emit) async {
+    emit(state.copyWith(assignmentSubmissionStatus: Status.loading));
+    var result = await sl<AssignmentSubmissionUseCase>().call(params: event.body);
+    result.fold(
+            (error)=> emit(state.copyWith(assignmentSubmissionStatus: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(assignmentSubmissionStatus: Status.success))
+    );
+  }
+
 
   Future<void> _onGetQuizList(GetQuizList event, Emitter<LessionsState> emit) async {
     emit(state.copyWith(status: Status.loading));

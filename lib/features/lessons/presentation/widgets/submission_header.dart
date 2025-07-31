@@ -5,12 +5,12 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 
-class ExamSubmissionHeader extends StatefulWidget {
+class SubmissionHeader extends StatefulWidget {
   final int totalMarks;
   final String title;
-  final String endTime; // Format: "HH:mm:ss"
+  final DateTime endTime;
 
-  const ExamSubmissionHeader({
+  const SubmissionHeader({
     super.key,
     required this.title,
     required this.totalMarks,
@@ -18,30 +18,16 @@ class ExamSubmissionHeader extends StatefulWidget {
   });
 
   @override
-  State<ExamSubmissionHeader> createState() => _ExamSubmissionHeaderState();
+  State<SubmissionHeader> createState() => _SubmissionHeaderState();
 }
 
-class _ExamSubmissionHeaderState extends State<ExamSubmissionHeader> {
-
-  /// Parse the target end time to DateTime today
-  DateTime getTargetTime() {
-    final now = DateTime.now();
-    final parts = widget.endTime.split(':');
-    return DateTime(
-      now.year,
-      now.month,
-      now.day,
-      int.parse(parts[0]),
-      int.parse(parts[1]),
-      int.parse(parts[2]),
-    );
-  }
+class _SubmissionHeaderState extends State<SubmissionHeader> {
 
   /// Returns a countdown stream until the end time
   Stream<Duration> countdownStream() async* {
     while (true) {
       await Future.delayed(const Duration(seconds: 1));
-      final remaining = getTargetTime().difference(DateTime.now());
+      final remaining = widget.endTime.difference(DateTime.now());
       if (remaining.inSeconds <= 0) {
         yield Duration.zero;
         break;

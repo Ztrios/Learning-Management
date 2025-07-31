@@ -55,6 +55,19 @@ class GetAssignmentDetails extends LessionsEvent{
 
 
 
+class AssignmentSubmit extends LessionsEvent{
+
+  final Map<String, dynamic> body;
+
+  AssignmentSubmit({required this.body});
+
+  @override
+  List<Object?> get props => [
+    body
+  ];
+}
+
+
 class GetQuizList extends LessionsEvent{
 
   final String lessionId;

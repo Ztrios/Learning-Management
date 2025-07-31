@@ -13,6 +13,7 @@ abstract class LessionsRepositories {
   Future<Either<Failure, LessionDetailsEntity>> getLessionDetails({required String lessionId});
   Future<Either<Failure, AssignmentListEntity>> getAssignmentList({required String lessionId});
   Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId});
+  Future<Either<Failure, bool>> assignmentSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
