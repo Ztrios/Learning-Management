@@ -49,7 +49,7 @@ class LessionsPage extends StatelessWidget {
           children: [
 
             const SecondaryAppBar(
-              title: "Lesson 1: Integration",
+              title: "Subject",
             ),
 
             Expanded(

@@ -27,6 +27,7 @@ import 'package:learning_management/features/lessons/data/repositories/lessions_
 import 'package:learning_management/features/lessons/domain/repositories/lessions_repositories.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_lession_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_lessions_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/notifications/data/datasource/remote_datasource/notifications_remote_datasource.dart';
@@ -136,6 +137,7 @@ void initServiceLocator(){
 
   /// Lessions UseCase
   sl.registerLazySingleton<GetLessionsUseCase>(()=> GetLessionsUseCase());
+  sl.registerLazySingleton<GetLessionDetailsUseCase>(()=> GetLessionDetailsUseCase());
   sl.registerLazySingleton<GetExamsListUseCase>(()=> GetExamsListUseCase());
   sl.registerLazySingleton<GetExamDetailsUseCase>(()=> GetExamDetailsUseCase());
   sl.registerLazySingleton<SubmitExamUseCase>(()=> SubmitExamUseCase());

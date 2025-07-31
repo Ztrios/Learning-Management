@@ -8,13 +8,16 @@ import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/core/network/dio_client.dart';
 import 'package:learning_management/features/lessons/data/models/exam_details_model.dart';
 import 'package:learning_management/features/lessons/data/models/exams_list_model.dart';
+import 'package:learning_management/features/lessons/data/models/lession_details_model.dart';
 import 'package:learning_management/features/lessons/data/models/lessions_list_model.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lessions_list_entity.dart';
 
 sealed class LessionsRemoteDataSource {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
+  Future<Either<Failure, LessionDetailsEntity>> getLessionDetails({required String lessionId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
@@ -41,6 +44,27 @@ class LessionsRemoteDataSourceImpl extends LessionsRemoteDataSource{
       return Left(UnknownFailure(error.toString()));
     }
   }
+
+
+  @override
+  Future<Either<Failure, LessionDetailsEntity>> getLessionDetails({required String lessionId}) async {
+    try{
+
+      Response response = await sl<DioClient>().get("${ApiUrls.lessionDetails}$lessionId/progress");
+      LessionDetailsEntity lessionDetailsEntity = LessionDetailsModel.fromJson(response.data).toEntity();
+      return Right(lessionDetailsEntity);
+
+    }catch(error, stackTrace){
+      log(
+          "Lessions Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+
 
   @override
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId}) async {

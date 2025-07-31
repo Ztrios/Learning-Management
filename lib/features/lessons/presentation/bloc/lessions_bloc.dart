@@ -4,9 +4,11 @@ import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_lession_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_lessions_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
@@ -16,6 +18,7 @@ part 'lessions_state.dart';
 class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
   LessionsBloc():super(LessionsState.initial()){
     on<GetLessionsList>(_onGetLessionsList);
+    on<GetLessionDetails>(_onGetLessionDetails);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
     on<SubmitExam>(_onSubmitExam);
@@ -27,6 +30,16 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(status: Status.success, lessionsListEntity: data))
+    );
+  }
+
+
+  Future<void> _onGetLessionDetails(GetLessionDetails event, Emitter<LessionsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetLessionDetailsUseCase>().call(params: event.lessionId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, lessionDetailsEntity: data))
     );
   }
 

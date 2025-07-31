@@ -15,6 +15,19 @@ class GetLessionsList extends LessionsEvent{
 }
 
 
+class GetLessionDetails extends LessionsEvent{
+
+  final String lessionId;
+
+  GetLessionDetails({required this.lessionId});
+
+  @override
+  List<Object?> get props => [
+    lessionId
+  ];
+}
+
+
 class GetExamsList extends LessionsEvent{
 
   final String subjectId;

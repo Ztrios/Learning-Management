@@ -31,8 +31,9 @@ class LessionListTabView extends HookWidget {
               Lesson  lession = state.lessionsListEntity!.lessionsData!.lessonList![index];
 
               return InkWell(
-                onTap: () =>
-                    context.push(LessionsPage.path + LessionDetailsPage.path),
+                onTap: (){
+                  context.push("${LessionsPage.path}${LessionDetailsPage.path}/${lession.lessonId}");
+                },
                 child: LessionItemView(
                   title: lession.title ?? "",
                   isCompleted: lession.completeStatus == "COMPLETE",

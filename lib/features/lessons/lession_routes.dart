@@ -39,14 +39,18 @@ class LessionRouter {
 
           /// Lessions Details page routes
           GoRoute(
-            path: LessionDetailsPage.path,
+            path: "${LessionDetailsPage.path}/:lessionId",
             name: LessionDetailsPage.name,
             pageBuilder: (context,state){
+
+              String lessionId = state.pathParameters["lessionId"] ?? "";
+
               return CustomTransitionPage(
                   key: state.pageKey,
-                  child: LessionDetailsPage(),
+                  child: LessionDetailsPage(lessionId: lessionId),
                   transitionsBuilder: routerTransition
               );
+
             },
             routes: [
 

@@ -5,6 +5,7 @@ class LessionsState extends Equatable {
   final Status examSubmissionStatus;
   final String? message;
   final LessionsListEntity? lessionsListEntity;
+  final LessionDetailsEntity? lessionDetailsEntity;
   final ExamsListEntity? examsListEntity;
   final ExamDetailsEntity? examDetailsEntity;
 
@@ -13,6 +14,7 @@ class LessionsState extends Equatable {
     required this.message,
     required this.examSubmissionStatus,
     required this.lessionsListEntity,
+    required this.lessionDetailsEntity,
     required this.examsListEntity,
     required this.examDetailsEntity
   });
@@ -23,6 +25,7 @@ class LessionsState extends Equatable {
     examSubmissionStatus: Status.initial,
     message: null,
     lessionsListEntity: null,
+    lessionDetailsEntity: null,
     examsListEntity: null,
     examDetailsEntity: null
   );
@@ -33,6 +36,7 @@ class LessionsState extends Equatable {
     Status? examSubmissionStatus,
     String? message,
     LessionsListEntity? lessionsListEntity,
+    LessionDetailsEntity? lessionDetailsEntity,
     ExamsListEntity? examsListEntity,
     ExamDetailsEntity? examDetailsEntity
   }) {
@@ -41,6 +45,7 @@ class LessionsState extends Equatable {
       message: message ?? this.message,
       examSubmissionStatus: examSubmissionStatus ?? this.examSubmissionStatus,
       lessionsListEntity: lessionsListEntity ?? this.lessionsListEntity,
+      lessionDetailsEntity: lessionDetailsEntity ?? this.lessionDetailsEntity,
       examsListEntity: examsListEntity ?? this.examsListEntity,
       examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
     );
@@ -53,6 +58,7 @@ class LessionsState extends Equatable {
     examSubmissionStatus,
     message,
     lessionsListEntity,
+    lessionDetailsEntity,
     examsListEntity,
     examDetailsEntity
   ];
