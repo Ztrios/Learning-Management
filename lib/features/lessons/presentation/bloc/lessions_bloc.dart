@@ -2,14 +2,18 @@ import 'package:equatable/equatable.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_management/features/lessons/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exam_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/exams_list_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/lessons/domain/entities/lessions_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_assignment_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_lession_details_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/get_lessions_list_usecase.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_quiz_list_usecase.dart';
 import 'package:learning_management/features/lessons/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
 
@@ -19,6 +23,8 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
   LessionsBloc():super(LessionsState.initial()){
     on<GetLessionsList>(_onGetLessionsList);
     on<GetLessionDetails>(_onGetLessionDetails);
+    on<GetAssignmentList>(_onGetAssignmentList);
+    on<GetQuizList>(_onGetQuizList);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
     on<SubmitExam>(_onSubmitExam);
@@ -40,6 +46,24 @@ class LessionsBloc extends Bloc<LessionsEvent, LessionsState>{
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(status: Status.success, lessionDetailsEntity: data))
+    );
+  }
+
+  Future<void> _onGetAssignmentList(GetAssignmentList event, Emitter<LessionsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetAssignmentListUseCase>().call(params: event.lessionId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, assignmentListEntity: data))
+    );
+  }
+
+  Future<void> _onGetQuizList(GetQuizList event, Emitter<LessionsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetQuizListUseCase>().call(params: event.lessionId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, quizListEntity: data))
     );
   }
 

@@ -51,7 +51,9 @@ class AssignmentSubmissionPage extends StatelessWidget {
                         AssignmentItemView(
                             title: "Assignment 1: Trigonometry",
                             status: "Remaining: 12.30",
-                            isCompleted: true
+                            isCompleted: true,
+                            totalMarks: 0,
+                            getMarks: 0,
                         ),
                     
                         gap24,

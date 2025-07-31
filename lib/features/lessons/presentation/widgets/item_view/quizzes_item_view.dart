@@ -5,12 +5,16 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 
 class QuizzesItemView extends StatelessWidget {
+  final double totalMarks;
+  final double getMarks;
   final String title;
   final String status;
   final bool isCompleted;
 
   const QuizzesItemView({
     super.key,
+    required this.totalMarks,
+    required this.getMarks,
     required this.title,
     required this.status,
     required this.isCompleted,
@@ -52,10 +56,13 @@ class QuizzesItemView extends StatelessWidget {
           Column(
             crossAxisAlignment: crossStart,
             children: [
-              Text(
-                title,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.w900,
+              SizedBox(
+                width: 250.w,
+                child: Text(
+                  title,
+                  style: AppTextStyles.titleMedium.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
 
@@ -63,14 +70,14 @@ class QuizzesItemView extends StatelessWidget {
 
               Row(
                 children: [
-                  Text("Result: 8/10", style: AppTextStyles.bodyMedium),
+                  Text("Result: $getMarks/$totalMarks", style: AppTextStyles.bodyMedium),
 
                   gap36,
 
                   Text(
                       status,
                       style: AppTextStyles.bodyMedium.copyWith(
-                          color: status == "Missed" ? AppColors.errorRed : null
+                          color: status == "MISSED" ? AppColors.errorRed : null
                       )
                   ),
                 ],

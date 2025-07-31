@@ -48,6 +48,8 @@ class QuizSubmissionPage extends StatelessWidget {
                     children: [
 
                       QuizzesItemView(
+                          totalMarks: 0,
+                          getMarks: 0,
                           title: "Assignment 2: Trigonometry",
                           status: "Remaining: 01:20",
                           isCompleted: true

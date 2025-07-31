@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/lessons/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
+import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_view/assignments_tab_view.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_view/content_tab_view.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_view/materials_tab_view.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_view/quizzes_tab_view.dart';
 
-class LessionContentTabBar extends StatelessWidget {
-  const LessionContentTabBar({super.key});
+class LessionDetailsTabBar extends HookWidget {
+  final String lessionId;
+  const LessionDetailsTabBar({super.key, required this.lessionId});
 
   @override
   Widget build(BuildContext context) {
+
+    void getAssignmentAndQuizList(int index){
+      if(index == 2){
+        context.read<LessionsBloc>().add(GetAssignmentList(lessionId: lessionId));
+      }else if(index == 3){
+        context.read<LessionsBloc>().add(GetQuizList(lessionId: lessionId));
+      }
+    }
+
     return DefaultTabController(
       length: 4,
       initialIndex: 0,
@@ -36,6 +51,7 @@ class LessionContentTabBar extends StatelessWidget {
               Tab(text: "Assignment"),
               Tab(text: "Quizzes"),
             ],
+            onTap: getAssignmentAndQuizList,
           ),
 
           gap12,

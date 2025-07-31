@@ -47,7 +47,7 @@ class LessionTabBar extends HookWidget {
               Tab(text: "Lessions"),
               Tab(text: "Exams"),
             ],
-            onTap: (index)=> getLessionsAndExamsList(index),
+            onTap: getLessionsAndExamsList,
           ),
 
           gap12,

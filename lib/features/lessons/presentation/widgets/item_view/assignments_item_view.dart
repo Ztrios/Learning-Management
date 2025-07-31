@@ -8,12 +8,16 @@ class AssignmentItemView extends StatelessWidget {
   final String title;
   final String status;
   final bool isCompleted;
+  final double totalMarks;
+  final double getMarks;
 
   const AssignmentItemView({
     super.key,
     required this.title,
     required this.status,
     required this.isCompleted,
+    required this.totalMarks,
+    required this.getMarks
   });
 
   @override
@@ -52,10 +56,13 @@ class AssignmentItemView extends StatelessWidget {
           Column(
             crossAxisAlignment: crossStart,
             children: [
-              Text(
-                title,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.w900,
+              SizedBox(
+                width: 250.w,
+                child: Text(
+                  title,
+                  style: AppTextStyles.titleMedium.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
 
@@ -63,14 +70,14 @@ class AssignmentItemView extends StatelessWidget {
 
               Row(
                 children: [
-                  Text("Result: 8/10", style: AppTextStyles.bodyMedium),
+                  Text("Result: $getMarks/$totalMarks", style: AppTextStyles.bodyMedium),
 
                   gap36,
 
                   Text(
                   status,
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: status == "Missed" ? AppColors.errorRed : null
+                        color: status == "MISSED" ? AppColors.errorRed : null
                       )
                   ),
                 ],

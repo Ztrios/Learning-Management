@@ -61,7 +61,9 @@ class LessionDetailsPage extends HookWidget {
                       ),
 
                       Expanded(
-                        child: LessionContentTabBar(),
+                        child: LessionDetailsTabBar(
+                          lessionId: lessionId,
+                        )
                       )
 
                     ],
