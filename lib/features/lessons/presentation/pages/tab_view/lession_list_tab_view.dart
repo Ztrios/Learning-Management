@@ -37,6 +37,10 @@ class LessionListTabView extends HookWidget {
                 child: LessionItemView(
                   title: lession.title ?? "",
                   isCompleted: lession.completeStatus == "COMPLETE",
+                  totalAssignments: lession.totalAssignments ?? 0,
+                  assignmentSubmitted: lession.assignmentSubmits ?? 0,
+                  totalQuizzes: lession.totalQuizzes ?? 0,
+                  quizAttends: lession.quizAttends ?? 0,
                 ),
               );
 

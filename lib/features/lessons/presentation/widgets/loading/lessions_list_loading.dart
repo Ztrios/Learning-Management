@@ -18,6 +18,10 @@ class LessionsListLoading extends HookWidget {
           return LessionItemView(
             title: "Lesson $index: Integration",
             isCompleted: index < 3,
+            totalQuizzes: 0,
+            quizAttends: 0,
+            totalAssignments: 0,
+            assignmentSubmitted: 0,
           );
         },
       ),

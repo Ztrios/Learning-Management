@@ -7,11 +7,19 @@ import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 class LessionItemView extends StatelessWidget {
   final String title;
   final bool isCompleted;
+  final int totalAssignments;
+  final int assignmentSubmitted;
+  final int totalQuizzes;
+  final int quizAttends;
 
   const LessionItemView({
     super.key,
     required this.title,
     required this.isCompleted,
+    required this.totalAssignments,
+    required this.assignmentSubmitted,
+    required this.totalQuizzes,
+    required this.quizAttends
   });
 
   @override
@@ -61,11 +69,11 @@ class LessionItemView extends StatelessWidget {
 
               Row(
                 children: [
-                  Text("0/2 Assignments", style: AppTextStyles.bodyMedium),
+                  Text("$assignmentSubmitted/$totalAssignments Assignments", style: AppTextStyles.bodyMedium),
 
                   gap36,
 
-                  Text("0/0 quizzes", style: AppTextStyles.bodyMedium),
+                  Text("$quizAttends/$totalQuizzes quizzes", style: AppTextStyles.bodyMedium),
                 ],
               ),
             ],
