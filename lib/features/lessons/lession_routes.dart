@@ -56,12 +56,17 @@ class LessionRouter {
 
               /// Assignment Submission page route
               GoRoute(
-                path: AssignmentSubmissionPage.path,
+                path: "${AssignmentSubmissionPage.path}/:assignmentId",
                 name: AssignmentSubmissionPage.name,
                 pageBuilder: (context,state){
+
+                  final String assignmentId = state.pathParameters["assignmentId"] ?? "";
+
                   return CustomTransitionPage(
                       key: state.pageKey,
-                      child: AssignmentSubmissionPage(),
+                      child: AssignmentSubmissionPage(
+                        assignmentId: assignmentId,
+                      ),
                       transitionsBuilder: routerTransition
                   );
                 },

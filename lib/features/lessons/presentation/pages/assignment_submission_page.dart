@@ -21,7 +21,8 @@ class AssignmentSubmissionPage extends StatelessWidget {
   static String get path => "/assignment-submission";
   static String get name => "assignment-submission";
 
-  const AssignmentSubmissionPage({super.key});
+  final String assignmentId;
+  const AssignmentSubmissionPage({super.key, required this.assignmentId});
 
   @override
   Widget build(BuildContext context) {
