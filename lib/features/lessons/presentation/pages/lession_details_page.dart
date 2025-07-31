@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
+import 'package:learning_management/features/lessons/data/models/lession_details_model.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
 import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
 import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_details_tab_bar.dart';
@@ -59,15 +60,16 @@ class LessionDetailsPage extends HookWidget {
 
                       BlocBuilder<LessionsBloc, LessionsState>(
                         builder: (context, state) {
+                          LessionDetails? lessionDetails = state.lessionDetailsEntity?.lessionDetails;
                           return Skeletonizer(
                             enabled: state.status.isLoading,
                             child: LessionItemView(
-                                title: state.lessionDetailsEntity?.lessionDetails?.title ?? "Not Found!",
+                                title: lessionDetails?.title ?? "Not Found!",
                                 isCompleted: true,
-                                totalAssignments: state.lessionDetailsEntity?.lessionDetails?.totalAssignments ?? 0,
-                                assignmentSubmitted: state.lessionDetailsEntity?.lessionDetails?.assignmentSubmits ?? 0,
-                                totalQuizzes: state.lessionDetailsEntity?.lessionDetails?.totalQuizzes ?? 0,
-                                quizAttends: state.lessionDetailsEntity?.lessionDetails?.quizAttends ?? 0,
+                                totalAssignments: lessionDetails?.totalAssignments ?? 0,
+                                assignmentSubmitted: lessionDetails?.assignmentSubmits ?? 0,
+                                totalQuizzes: lessionDetails?.totalQuizzes ?? 0,
+                                quizAttends: lessionDetails?.quizAttends ?? 0,
                             ),
                           );
                         },
