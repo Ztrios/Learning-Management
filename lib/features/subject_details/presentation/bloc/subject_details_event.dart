@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:learning_management/core/utils/enums/enums.dart';
+import 'package:learning_management/features/subject_details/domain/entities/answer_entity.dart';
 
 sealed class SubjectDetailsEvent extends Equatable{}
 
@@ -89,6 +91,30 @@ class GetQuestionsList extends SubjectDetailsEvent{
   @override
   List<Object?> get props => [
     quizId
+  ];
+}
+
+
+
+class SelectOrUpdateAnswer extends SubjectDetailsEvent{
+  final int questionId;
+  final int? selectedIndex;
+  final String? writtenAnswer;
+
+  final QuestionType questionType;
+  SelectOrUpdateAnswer({
+    this.selectedIndex,
+    this.writtenAnswer,
+    required this.questionId,
+    required this.questionType
+  });
+
+  @override
+  List<Object?> get props => [
+    questionId,
+    selectedIndex,
+    writtenAnswer,
+    questionType
   ];
 }
 

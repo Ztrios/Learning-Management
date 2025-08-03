@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_management/features/subject_details/data/models/answer_model.dart';
+import 'package:learning_management/features/subject_details/domain/entities/answer_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/assignment_details_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/exam_details_entity.dart';
@@ -33,6 +36,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     on<AssignmentSubmit>(_onAssignmentSubmit);
     on<GetQuizList>(_onGetQuizList);
     on<GetQuestionsList>(_onGetQuestionsList);
+    on<SelectOrUpdateAnswer>(_onSelectOrUpdateAnswer);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
     on<SubmitExam>(_onSubmitExam);
@@ -102,6 +106,28 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(status: Status.success, questionsListEntity: data))
     );
+  }
+
+
+
+  void _onSelectOrUpdateAnswer(SelectOrUpdateAnswer event, Emitter<SubjectDetailsState> emit) {
+
+
+    AnswerEntity answerEntity = AnswerEntity(
+        questionId: event.questionId,
+        writtenAnswer: event.writtenAnswer,
+    );
+
+    List<AnswerEntity> answers = state.selectedAnswerEntities.map((answer){
+      if(answer.questionId == event.questionId){
+        return answer.copyWith(
+          selectedOptionIndexes: []
+        );
+      }else{
+        return answer;
+      }
+    }).toList();
+
   }
 
 

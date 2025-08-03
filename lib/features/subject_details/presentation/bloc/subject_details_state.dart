@@ -10,9 +10,11 @@ class SubjectDetailsState extends Equatable {
   final AssignmentListEntity? assignmentListEntity;
   final AssignmentDetailsEntity? assignmentDetailsEntity;
   final QuizListEntity? quizListEntity;
+  final List<AnswerEntity> selectedAnswerEntities;
   final QuestionsListEntity? questionsListEntity;
   final ExamsListEntity? examsListEntity;
   final ExamDetailsEntity? examDetailsEntity;
+
 
   const SubjectDetailsState({
     required this.status,
@@ -24,6 +26,7 @@ class SubjectDetailsState extends Equatable {
     required this.assignmentDetailsEntity,
     required this.quizListEntity,
     required this.questionsListEntity,
+    required this.selectedAnswerEntities,
     required this.lessionDetailsEntity,
     required this.examsListEntity,
     required this.examDetailsEntity
@@ -38,6 +41,7 @@ class SubjectDetailsState extends Equatable {
     lessionsListEntity: null,
     quizListEntity: null,
     questionsListEntity: null,
+    selectedAnswerEntities: [],
     lessionDetailsEntity: null,
     assignmentListEntity: null,
     assignmentDetailsEntity: null,
@@ -57,6 +61,7 @@ class SubjectDetailsState extends Equatable {
     AssignmentDetailsEntity? assignmentDetailsEntity,
     QuizListEntity? quizListEntity,
     QuestionsListEntity? questionsListEntity,
+    List<AnswerEntity>? selectedAnswerEntities,
     ExamsListEntity? examsListEntity,
     ExamDetailsEntity? examDetailsEntity
   }) {
@@ -71,6 +76,7 @@ class SubjectDetailsState extends Equatable {
       assignmentDetailsEntity: assignmentDetailsEntity ?? this.assignmentDetailsEntity,
       quizListEntity: quizListEntity ?? this.quizListEntity,
       questionsListEntity: questionsListEntity ?? this.questionsListEntity,
+      selectedAnswerEntities: selectedAnswerEntities ?? this.selectedAnswerEntities,
       examsListEntity: examsListEntity ?? this.examsListEntity,
       examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
     );
@@ -88,7 +94,8 @@ class SubjectDetailsState extends Equatable {
     assignmentListEntity,
     assignmentDetailsEntity,
     quizListEntity,
-    quizListEntity,
+    questionsListEntity,
+    selectedAnswerEntities,
     examsListEntity,
     examDetailsEntity
   ];

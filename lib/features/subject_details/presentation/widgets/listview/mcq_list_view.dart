@@ -31,6 +31,7 @@ class McqListView extends StatelessWidget {
                   Question question = state.questionsListEntity!.questionsData!.content!.questions![index];
 
                   return MCQItemView(
+                    questionId: question.id ?? 0,
                     questionType: question.answerType == "SINGLE" ? QuestionType.singleChoice
                         : question.answerType == "MULTIPLE" ? QuestionType.multipleChoice
                         : QuestionType.shortAnswer,

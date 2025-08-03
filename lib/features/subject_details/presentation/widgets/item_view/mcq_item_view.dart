@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:learning_management/core/utils/extensions/question_type_extenstion.dart';
@@ -10,15 +11,20 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/subject_details/data/models/questions_list_model.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class MCQItemView extends StatelessWidget {
-  final QuestionType questionType;
- // final String? image;
+  // final String? image;
+  final int questionId;
   final String question;
   final List<Option>? options;
+  final QuestionType questionType;
+
   const MCQItemView({
     super.key,
+    required this.questionId,
     required this.questionType,
     //required this.image,
     required this.options,
@@ -37,50 +43,61 @@ class MCQItemView extends StatelessWidget {
               color: AppColors.deepOrange
           )
       ),
-      child: Column(
-        crossAxisAlignment: crossStart,
-        children: [
+      child: BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: crossStart,
+            children: [
 
-          Text(
-            "• $question",
-            style: AppTextStyles.titleSmall.copyWith(
-                fontWeight: FontWeight.w900
-            ),
-          ),
-          //
-          // if(image != null)
-          //   NetworkImageWidget(
-          //     image ?? "",
-          //   ),
+              Text(
+                "• $question",
+                style: AppTextStyles.titleSmall.copyWith(
+                    fontWeight: FontWeight.w900
+                ),
+              ),
+              //
+              // if(image != null)
+              //   NetworkImageWidget(
+              //     image ?? "",
+              //   ),
 
-          gap16,
+              gap16,
 
-          if(!questionType.isShortAnswer)
-          ...(options ?? []).map((option){
-            return CheckboxListTile(
-              value: false,
-              onChanged: (value) {},
-              controlAffinity: ListTileControlAffinity
-                  .leading,
-              title: Text(option.text ?? ""),
-              activeColor: AppColors.deepGreen,
-              contentPadding: padding0,
-            );
-          })
+              if(!questionType.isShortAnswer)
+                ...List.generate(options?.length ?? 0, (index) {
+                  return CheckboxListTile(
+                    value: state.selectedAnswerEntities.any(
+                            (answer) => answer.selectedOptionIndexes != null &&
+                        answer.selectedOptionIndexes!.contains(index)),
+                    onChanged: (value) {
+                      context.read<SubjectDetailsBloc>().add(SelectOrUpdateAnswer(
+                          questionId: questionId,
+                          questionType: questionType,
+                          selectedIndex: index
+                      ));
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(options?[index].text ?? ""),
+                    activeColor: AppColors.deepGreen,
+                    contentPadding: padding0,
+                  );
+                })
 
-          else TextField(
-            minLines: 3,
-            maxLines: 5,
-            decoration: InputDecoration(
-              hintText: "Write your answer...",
-              border: OutlineInputBorder(
-              )
-            ),
-          )
+              else
+                TextField(
+                  minLines: 3,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      hintText: "Write your answer...",
+                      border: OutlineInputBorder(
+                      )
+                  ),
+                )
 
 
-
-        ],
+            ],
+          );
+        },
       ),
     );
   }
