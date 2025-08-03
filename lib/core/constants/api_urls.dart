@@ -2,7 +2,7 @@ class ApiUrls {
   // Private constructor to prevent instantiation
   ApiUrls._();
 
-  static const String _baseURL = "http://192.168.20.249:9090";
+  static const String _baseURL = "http://192.168.5.2:9090";
   static const String _imageBaseURL = "";
 
   // auth API endpoints
@@ -28,8 +28,8 @@ class ApiUrls {
 
 
   // Lessions Page API endpoints
-  static const String subjectLessions = "/api/v1/subject_details/subjects/";
-  static const String lessionDetails = "/api/v1/subject_details/";
+  static const String subjectLessions = "/api/v1/lessons/subjects/";
+  static const String lessionDetails = "/api/v1/lessons/";
   static const String lessionAssignment = "/api/v1/assignments/lesson/";
   static const String assignmentDetails = "/api/v1/assignments/";
   static const String assignmentSubmit = "/api/v1/assignment-submissions";
@@ -44,4 +44,3 @@ class ApiUrls {
   static String get imageBaseURL => _imageBaseURL;
 
 }
-

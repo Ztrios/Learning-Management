@@ -96,7 +96,7 @@ class AnnouncementItemView extends StatelessWidget {
           Wrap(
             spacing: 8.w,
             runSpacing: 8.h,
-            children: (attachedFiles ?? ["Hello", "Hello", ""]).map((file) {
+            children: (attachedFiles ?? ["Hello", "Hello"]).map((file) {
               return GestureDetector(
                 onTap: (){},
                 child: Container(
