@@ -31,8 +31,7 @@ class QuizzesTabView extends StatelessWidget {
 
                 return InkWell(
                   onTap: () =>
-                      context.push(SubjectDetailsPage.path + LessionDetailsPage.path +
-                          QuizSubmissionPage.path),
+                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}"),
                   child: QuizzesItemView(
                     totalMarks: quiz.totalMarks ?? 0,
                     getMarks: quiz.earnedMarks ?? 0,

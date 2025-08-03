@@ -19,7 +19,13 @@ class QuizSubmissionPage extends StatelessWidget {
   static String get path => "/quiz-submission";
   static String get name => "quiz-submission";
 
-  const QuizSubmissionPage({super.key});
+
+  final String quizId;
+
+  const QuizSubmissionPage({
+    super.key,
+    required this.quizId
+  });
 
   @override
   Widget build(BuildContext context) {
