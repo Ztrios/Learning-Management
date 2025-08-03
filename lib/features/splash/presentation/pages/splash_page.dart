@@ -8,6 +8,7 @@ import 'package:learning_management/core/utils/extensions/status_extension.dart'
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
+import 'package:learning_management/features/home/presentation/pages/announcements_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:learning_management/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -47,7 +48,7 @@ class SplashPage extends HookWidget {
       )
     );*/
 
-    return QuizSubmissionPage();
+    return AnnouncementsPage();
 
   }
 }

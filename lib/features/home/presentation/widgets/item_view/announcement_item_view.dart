@@ -8,10 +8,12 @@ class AnnouncementItemView extends StatelessWidget {
   final String title;
   final String content;
   final Color backgroundColor;
+  final List<String>? attachedFiles;
   final VoidCallback onPressed;
 
   const AnnouncementItemView({
     super.key,
+    this.attachedFiles,
     required this.title,
     required this.content,
     required this.backgroundColor,
@@ -85,35 +87,43 @@ class AnnouncementItemView extends StatelessWidget {
             ],
           ),
 
-          /// Footer
-          Row(
-            mainAxisAlignment: mainSpaceBetween,
-            children: [
 
-              Container(
-                padding: padding6,
-                decoration: BoxDecoration(
-                  color: AppColors.blueLight,
-                  borderRadius: radius6,
-                ),
-                child: Text(
-                  "View More",
-                  style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white
+          Text(
+            "📎 Attached Files:",
+            style: AppTextStyles.caption.copyWith(color: Colors.white),
+          ),
+          gap8,
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.h,
+            children: (attachedFiles ?? ["Hello", "Hello", ""]).map((file) {
+              return GestureDetector(
+                onTap: (){},
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.blueLight,
+                    borderRadius: radius6,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.download, size: 16.sp, color: Colors.white),
+                      gap4,
+                      Text(
+                        "exam-routine.pdf",
+                        style: AppTextStyles.caption.copyWith(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-
-              const Spacer(),
-
-              Text(
-                "— Academic Office",
-                style: AppTextStyles.caption.copyWith(
-                    color: Colors.white
-                ),
-              ),
-            ],
+              );
+            }).toList(),
           ),
+
+
+
+
         ],
       ),
     );
