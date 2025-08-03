@@ -7,7 +7,7 @@ import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 import 'package:learning_management/features/subject_details/data/models/lession_details_model.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_bar/lession_details_tab_bar.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_bar/lession_details_tab_bar.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/item_view/lession_item_view.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';

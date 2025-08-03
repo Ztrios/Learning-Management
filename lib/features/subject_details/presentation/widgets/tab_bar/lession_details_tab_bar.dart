@@ -9,10 +9,10 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/assignments_tab_view.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/content_tab_view.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/materials_tab_view.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/quizzes_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/assignments_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/content_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/materials_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/quizzes_tab_view.dart';
 
 class LessionDetailsTabBar extends HookWidget {
   final String lessionId;

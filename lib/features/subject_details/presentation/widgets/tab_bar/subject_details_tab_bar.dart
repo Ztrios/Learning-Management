@@ -8,8 +8,8 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_exams_list_usecase.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/exams_list_tab_view.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/lession_list_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/exams_list_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/tab_view/lession_list_tab_view.dart';
 
 class SubjectDetailsTabBar extends HookWidget {
   final String subjectId;

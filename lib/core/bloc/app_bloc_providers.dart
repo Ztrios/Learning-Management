@@ -3,7 +3,6 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/tab_view/content_tab_view.dart';
 import 'package:learning_management/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:learning_management/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:learning_management/features/payments/presentation/bloc/payment_bloc.dart';

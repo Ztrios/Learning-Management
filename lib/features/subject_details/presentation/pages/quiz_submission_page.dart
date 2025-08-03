@@ -8,7 +8,7 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/item_view/quizzes_item_view.dart';
-import 'package:learning_management/features/subject_details/presentation/pages/listview/mcq_list_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/listview/mcq_list_view.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
