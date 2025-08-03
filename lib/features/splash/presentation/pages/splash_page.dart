@@ -33,8 +33,7 @@ class SplashPage extends HookWidget {
       }
     }
 
-
- /*   return BlocListener<AuthBloc, AuthState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state){
         if(state.rememberUser){
           context.go(HomePage.path);
@@ -46,9 +45,7 @@ class SplashPage extends HookWidget {
       child: Scaffold(
         body: SizedBox.shrink(),
       )
-    );*/
-
-    return AnnouncementsPage();
+    );
 
   }
 }
