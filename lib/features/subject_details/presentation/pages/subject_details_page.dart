@@ -3,26 +3,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_tab_bar.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/lession_header_widget.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/tab_bar/subject_details_tab_bar.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/lession_header_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 
 
-class LessionPageExtraParams{
+class SubjectDetailsPageExtraParams{
   final Color shapeColor;
   final Color background;
 
-  const LessionPageExtraParams({
+  const SubjectDetailsPageExtraParams({
     required this.background,
     required this.shapeColor
   });
 
 }
 
-class LessionsPage extends StatelessWidget {
-  static String get path => "/lessions";
-  static String get name => "lessions";
+class SubjectDetailsPage extends StatelessWidget {
+  static String get path => "/subject-details";
+  static String get name => "subject-details";
 
   final String subject;
   final String subjectId;
@@ -30,7 +30,7 @@ class LessionsPage extends StatelessWidget {
   final Color shapeColor;
   final Color background;
 
-  const LessionsPage({
+  const SubjectDetailsPage({
     super.key,
     required this.subjectId,
     required this.subject,
@@ -69,7 +69,7 @@ class LessionsPage extends StatelessWidget {
                     gap6,
 
                     Expanded(
-                        child: LessionTabBar(
+                        child: SubjectDetailsTabBar(
                           subjectId: subjectId,
                         )
                     ),

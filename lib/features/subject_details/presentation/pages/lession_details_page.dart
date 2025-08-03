@@ -4,11 +4,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
-import 'package:learning_management/features/lessons/data/models/lession_details_model.dart';
-import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
-import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
-import 'package:learning_management/features/lessons/presentation/pages/tab_bar/lession_details_tab_bar.dart';
-import 'package:learning_management/features/lessons/presentation/widgets/item_view/lession_item_view.dart';
+import 'package:learning_management/features/subject_details/data/models/lession_details_model.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/tab_bar/lession_details_tab_bar.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/item_view/lession_item_view.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -29,7 +29,7 @@ class LessionDetailsPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     void getLessionDetails() {
-      context.read<LessionsBloc>().add(GetLessionDetails(lessionId: lessionId));
+      context.read<SubjectDetailsBloc>().add(GetLessionDetails(lessionId: lessionId));
     }
 
     useEffect(() {
@@ -58,7 +58,7 @@ class LessionDetailsPage extends HookWidget {
                   child: Column(
                     children: [
 
-                      BlocBuilder<LessionsBloc, LessionsState>(
+                      BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
                         builder: (context, state) {
                           LessionDetails? lessionDetails = state.lessionDetailsEntity?.lessionDetails;
                           return Skeletonizer(

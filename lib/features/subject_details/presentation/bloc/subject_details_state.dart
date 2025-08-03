@@ -1,6 +1,6 @@
-part of 'lessions_bloc.dart';
+part of 'subject_details_bloc.dart';
 
-class LessionsState extends Equatable {
+class SubjectDetailsState extends Equatable {
   final Status status;
   final Status examSubmissionStatus;
   final Status assignmentSubmissionStatus;
@@ -13,7 +13,7 @@ class LessionsState extends Equatable {
   final ExamsListEntity? examsListEntity;
   final ExamDetailsEntity? examDetailsEntity;
 
-  const LessionsState({
+  const SubjectDetailsState({
     required this.status,
     required this.message,
     required this.examSubmissionStatus,
@@ -28,7 +28,7 @@ class LessionsState extends Equatable {
   });
 
   /// Initial state factory
-  factory LessionsState.initial() => const LessionsState(
+  factory SubjectDetailsState.initial() => const SubjectDetailsState(
     status: Status.initial,
     examSubmissionStatus: Status.initial,
     assignmentSubmissionStatus: Status.initial,
@@ -43,7 +43,7 @@ class LessionsState extends Equatable {
   );
 
   /// Copy with new values
-  LessionsState copyWith({
+  SubjectDetailsState copyWith({
     Status? status,
     Status? examSubmissionStatus,
     Status? assignmentSubmissionStatus,
@@ -56,7 +56,7 @@ class LessionsState extends Equatable {
     ExamsListEntity? examsListEntity,
     ExamDetailsEntity? examDetailsEntity
   }) {
-    return LessionsState(
+    return SubjectDetailsState(
       status: status ?? this.status,
       message: message ?? this.message,
       examSubmissionStatus: examSubmissionStatus ?? this.examSubmissionStatus,

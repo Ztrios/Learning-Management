@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-sealed class LessionsEvent extends Equatable{}
+sealed class SubjectDetailsEvent extends Equatable{}
 
-class GetLessionsList extends LessionsEvent{
+class GetLessionsList extends SubjectDetailsEvent{
 
   final String subjectId;
 
@@ -15,7 +15,7 @@ class GetLessionsList extends LessionsEvent{
 }
 
 
-class GetLessionDetails extends LessionsEvent{
+class GetLessionDetails extends SubjectDetailsEvent{
 
   final String lessionId;
 
@@ -28,7 +28,7 @@ class GetLessionDetails extends LessionsEvent{
 }
 
 
-class GetAssignmentList extends LessionsEvent{
+class GetAssignmentList extends SubjectDetailsEvent{
 
   final String lessionId;
 
@@ -41,7 +41,7 @@ class GetAssignmentList extends LessionsEvent{
 }
 
 
-class GetAssignmentDetails extends LessionsEvent{
+class GetAssignmentDetails extends SubjectDetailsEvent{
 
   final String assignmentId;
 
@@ -55,7 +55,7 @@ class GetAssignmentDetails extends LessionsEvent{
 
 
 
-class AssignmentSubmit extends LessionsEvent{
+class AssignmentSubmit extends SubjectDetailsEvent{
 
   final Map<String, dynamic> body;
 
@@ -68,7 +68,7 @@ class AssignmentSubmit extends LessionsEvent{
 }
 
 
-class GetQuizList extends LessionsEvent{
+class GetQuizList extends SubjectDetailsEvent{
 
   final String lessionId;
 
@@ -81,7 +81,7 @@ class GetQuizList extends LessionsEvent{
 }
 
 
-class GetExamsList extends LessionsEvent{
+class GetExamsList extends SubjectDetailsEvent{
 
   final String subjectId;
 
@@ -94,7 +94,7 @@ class GetExamsList extends LessionsEvent{
 }
 
 
-class GetExamsDetails extends LessionsEvent{
+class GetExamsDetails extends SubjectDetailsEvent{
 
   final String examId;
 
@@ -107,7 +107,7 @@ class GetExamsDetails extends LessionsEvent{
 }
 
 
-class SubmitExam extends LessionsEvent{
+class SubmitExam extends SubjectDetailsEvent{
 
   final Map<String, dynamic> body;
 

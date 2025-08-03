@@ -1,31 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/router_transition.dart';
-import 'package:learning_management/features/lessons/presentation/pages/assignment_submission_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/exams_submission_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/assignment_submission_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/exams_submission_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/lession_details_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/subject_details_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/quiz_submission_page.dart';
 
-class LessionRouter {
-  const LessionRouter._();
+class SubjectDetailsRouter {
+  const SubjectDetailsRouter._();
 
   static final List<GoRoute> routes = [
 
-    /// Lession page route
+    /// Subject Details page route
     GoRoute(
-        path: LessionsPage.path,
-        name: LessionsPage.name,
+        path: SubjectDetailsPage.path,
+        name: SubjectDetailsPage.name,
         pageBuilder: (context, state){
 
           final String subjectId = state.uri.queryParameters["subjectId"] ?? "";
           final String subject = state.uri.queryParameters["subject"] ?? "English";
           final String subjectIcon = state.uri.queryParameters["subjectIcon"] ?? "assets/icons/mathematics_icon.svg";
-          final LessionPageExtraParams extras = state.extra! as LessionPageExtraParams;
+          final SubjectDetailsPageExtraParams extras = state.extra! as SubjectDetailsPageExtraParams;
 
           return CustomTransitionPage(
               key: state.pageKey,
-              child: LessionsPage(
+              child: SubjectDetailsPage(
                 subjectId: subjectId,
                 subject: subject,
                 subjectIcon: subjectIcon,

@@ -5,24 +5,24 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
-import 'package:learning_management/features/lessons/presentation/bloc/lessions_bloc.dart';
-import 'package:learning_management/features/lessons/presentation/bloc/lessions_event.dart';
-import 'package:learning_management/features/lessons/presentation/pages/tab_view/exams_list_tab_view.dart';
-import 'package:learning_management/features/lessons/presentation/pages/tab_view/lession_list_tab_view.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_exams_list_usecase.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/tab_view/exams_list_tab_view.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/tab_view/lession_list_tab_view.dart';
 
-class LessionTabBar extends HookWidget {
+class SubjectDetailsTabBar extends HookWidget {
   final String subjectId;
-  const LessionTabBar({super.key, required this.subjectId});
+  const SubjectDetailsTabBar({super.key, required this.subjectId});
 
   @override
   Widget build(BuildContext context) {
 
     void getLessionsAndExamsList(int tabIndex){
       if(tabIndex == 0){
-        context.read<LessionsBloc>().add(GetLessionsList(subjectId: subjectId));
+        context.read<SubjectDetailsBloc>().add(GetLessionsList(subjectId: subjectId));
       }else{
-        context.read<LessionsBloc>().add(GetExamsList(subjectId: subjectId));
+        context.read<SubjectDetailsBloc>().add(GetExamsList(subjectId: subjectId));
       }
     }
 
