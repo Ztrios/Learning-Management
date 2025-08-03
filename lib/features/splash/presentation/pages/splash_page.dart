@@ -11,6 +11,8 @@ import 'package:learning_management/features/auth/presentation/pages/sign_in_pag
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:learning_management/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/lession_details_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/quiz_submission_page.dart';
 
 class SplashPage extends HookWidget {
   static String get path => "/";
@@ -31,7 +33,7 @@ class SplashPage extends HookWidget {
     }
 
 
-    return BlocListener<AuthBloc, AuthState>(
+ /*   return BlocListener<AuthBloc, AuthState>(
       listener: (context, state){
         if(state.rememberUser){
           context.go(HomePage.path);
@@ -43,6 +45,9 @@ class SplashPage extends HookWidget {
       child: Scaffold(
         body: SizedBox.shrink(),
       )
-    );
+    );*/
+
+    return QuizSubmissionPage();
+
   }
 }

@@ -11,7 +11,10 @@ class McqListView extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (context,index) =>
               MCQItemView(
-                image: index.isEven ? "https://media.geeksforgeeks.org/wp-content/uploads/20220905181228/FormationofMagnesiumChloride.jpg" : null
+                isMCQ: index % 3 == 0,
+                image: index.isOdd ? "https://media.geeksforgeeks.org/wp-content/uploads/20220905181228/FormationofMagnesiumChloride.jpg" : null,
+                question: "Which trigonometric ratio should be used to find the length of the adjacent side?",
+                options: [],
               )
       ),
     );

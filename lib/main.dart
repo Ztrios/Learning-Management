@@ -9,7 +9,7 @@ import 'package:learning_management/learning_management_app.dart';
 
 void main()async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   initServiceLocator();
   await Hive.initFlutter();

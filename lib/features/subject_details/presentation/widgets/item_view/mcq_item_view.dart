@@ -5,13 +5,20 @@ import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
+import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class MCQItemView extends StatelessWidget {
+  final bool isMCQ;
   final String? image;
+  final String question;
+  final List<String>? options;
   const MCQItemView({
     super.key,
-    this.image
+    required this.isMCQ,
+    required this.image,
+    required this.options,
+    required this.question,
   });
 
   @override
@@ -30,7 +37,7 @@ class MCQItemView extends StatelessWidget {
         children: [
 
           Text(
-            "Which trigonometric ratio should be used to find the length of the adjacent side?",
+            question,
             style: AppTextStyles.titleSmall.copyWith(
                 fontWeight: FontWeight.w900
             ),
@@ -41,6 +48,9 @@ class MCQItemView extends StatelessWidget {
               image ?? "",
             ),
 
+          gap16,
+
+          if(isMCQ)
           ...List.generate(4, (index){
             return CheckboxListTile(
               value: index == 1,
@@ -51,7 +61,17 @@ class MCQItemView extends StatelessWidget {
               activeColor: AppColors.deepGreen,
               contentPadding: padding0,
             );
-          }),
+          })
+
+          else TextField(
+            minLines: 3,
+            maxLines: 5,
+            decoration: InputDecoration(
+              hintText: "Write your answer...",
+              border: OutlineInputBorder(
+              )
+            ),
+          )
 
 
 

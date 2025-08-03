@@ -33,7 +33,7 @@ class QuizSubmissionPage extends StatelessWidget {
             children: [
 
               const SecondaryAppBar(
-                title: "Lesson 1: Integration",
+                title: "Quiz Submission",
               ),
 
               gap12,
