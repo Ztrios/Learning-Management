@@ -7,7 +7,7 @@ import 'package:learning_management/features/auth/presentation/pages/sign_in_pag
 import 'package:learning_management/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:learning_management/features/bottom_navigation/bottom_navigation_routes.dart';
 import 'package:learning_management/features/home/home_routes.dart';
-import 'package:learning_management/features/lessons/lession_routes.dart';
+import 'package:learning_management/features/subject_details/subject_details_routes.dart';
 import 'package:learning_management/features/notifications/notification_routes.dart';
 import 'package:learning_management/features/onboarding/onboarding_routes.dart';
 import 'package:learning_management/features/payments/payment_routes.dart';
@@ -44,7 +44,7 @@ class AppRouter {
       ...BottomNavigationRouter.routes,
 
       /// Lession Routes
-      ...LessionRouter.routes,
+      ...SubjectDetailsRouter.routes,
 
       /// Payment Routes
       ...PaymentRouter.routes,

@@ -28,8 +28,8 @@ class ApiUrls {
 
 
   // Lessions Page API endpoints
-  static const String subjectLessions = "/api/v1/lessons/subjects/";
-  static const String lessionDetails = "/api/v1/lessons/";
+  static const String subjectLessions = "/api/v1/subject_details/subjects/";
+  static const String lessionDetails = "/api/v1/subject_details/";
   static const String lessionAssignment = "/api/v1/assignments/lesson/";
   static const String assignmentDetails = "/api/v1/assignments/";
   static const String assignmentSubmit = "/api/v1/assignment-submissions";

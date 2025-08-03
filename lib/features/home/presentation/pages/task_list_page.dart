@@ -10,10 +10,10 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/task_item_view.dart';
 import 'package:learning_management/features/home/presentation/widgets/loading_widgets/tasks_loading_widget.dart';
-import 'package:learning_management/features/lessons/presentation/pages/assignment_submission_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lession_details_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
-import 'package:learning_management/features/lessons/presentation/pages/quiz_submission_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/assignment_submission_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/lession_details_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/subject_details_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/quiz_submission_page.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/empty_widget.dart';
 
@@ -67,10 +67,10 @@ class TaskListPage extends StatelessWidget {
                                   "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
                                   onTap: () {
                                     if(state.tasksEntity!.taskData![index].type == "QUIZ"){
-                                      context.push(LessionsPage.path + LessionDetailsPage.path +
+                                      context.push(SubjectDetailsPage.path + LessionDetailsPage.path +
                                           QuizSubmissionPage.path);
                                     }else{
-                                      context.push(LessionsPage.path + LessionDetailsPage.path +
+                                      context.push(SubjectDetailsPage.path + LessionDetailsPage.path +
                                           AssignmentSubmissionPage.path);
                                     }
                                   },

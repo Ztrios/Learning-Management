@@ -21,7 +21,7 @@ import 'package:learning_management/features/home/presentation/bloc/home_bloc.da
 import 'package:learning_management/features/home/presentation/bloc/home_event.dart';
 import 'package:learning_management/features/home/presentation/widgets/item_view/subject_item_view.dart';
 import 'package:learning_management/features/home/presentation/widgets/loading_widgets/subjects_loading_widget.dart';
-import 'package:learning_management/features/lessons/presentation/pages/lessions_page.dart';
+import 'package:learning_management/features/subject_details/presentation/pages/subject_details_page.dart';
 import 'package:learning_management/widgets/error_widget/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -106,9 +106,9 @@ class SubjectListWidget extends HookWidget {
                               "subjectIcon":  icons[(subject?.name ?? "english").toLowerCase()] ?? "assets/icons/history_icon.svg"
                             };
                             context.push(
-                                Uri(path: LessionsPage.path,
+                                Uri(path: SubjectDetailsPage.path,
                                     queryParameters: parameters).toString(),
-                                extra: LessionPageExtraParams(
+                                extra: SubjectDetailsPageExtraParams(
                                   background: colors[index % colors.length]
                                       .withValues(alpha: 0.9),
                                   shapeColor: colors[index % colors.length],

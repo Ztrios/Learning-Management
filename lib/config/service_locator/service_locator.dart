@@ -22,18 +22,18 @@ import 'package:learning_management/features/home/domain/usecases/get_announceme
 import 'package:learning_management/features/home/domain/usecases/get_student_subjects_usecase.dart';
 import 'package:learning_management/features/home/domain/usecases/get_students_tasks_usecase.dart';
 import 'package:learning_management/features/home/domain/usecases/get_today_class_usecase.dart';
-import 'package:learning_management/features/lessons/data/datasource/remote_datasource/lessions_remote_datasouce.dart';
-import 'package:learning_management/features/lessons/data/repositories/lessions_repositories_impl.dart';
-import 'package:learning_management/features/lessons/domain/repositories/lessions_repositories.dart';
-import 'package:learning_management/features/lessons/domain/usecases/assignment_submission_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_assignment_details_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_assignment_list_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_exam_details_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_exams_list_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_lession_details_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_lessions_list_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/get_quiz_list_usecase.dart';
-import 'package:learning_management/features/lessons/domain/usecases/submit_exam_usecase.dart';
+import 'package:learning_management/features/subject_details/data/datasource/remote_datasource/subject_details_remote_datasource.dart';
+import 'package:learning_management/features/subject_details/data/repositories/subject_details_repositories_impl.dart';
+import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/assignment_submission_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_exam_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_exams_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_lession_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/notifications/data/datasource/remote_datasource/notifications_remote_datasource.dart';
 import 'package:learning_management/features/notifications/data/repositories/notifications_repositories_impl.dart';
 import 'package:learning_management/features/notifications/domain/usecases/notifications_usecases.dart';
@@ -75,7 +75,7 @@ void initServiceLocator(){
   /// Remote DataSource
   sl.registerLazySingleton<AuthRemoteDatasource>(()=> AuthRemoteDatasourceImpl());
   sl.registerLazySingleton<HomeRemoteDataSource>(()=>HomeRemoteDataSourceImpl());
-  sl.registerLazySingleton<LessionsRemoteDataSource>(()=>LessionsRemoteDataSourceImpl());
+  sl.registerLazySingleton<SubjectDetailsRemoteDataSource>(()=>SubjectDetailsRemoteDataSourceImpl());
   sl.registerLazySingleton<NotificationsRemoteDatasource>(()=>NotificationsRemoteDatasourceImpl());
   sl.registerLazySingleton<PaymentsRemoteDatasource>(()=>PaymentsRemoteDatasourceImpl());
   sl.registerLazySingleton<ProfileRemoteDatasource>(()=>ProfileRemoteDatasourceImpl());
@@ -92,7 +92,7 @@ void initServiceLocator(){
   /// Repositories
   sl.registerLazySingleton<AuthRepositories>(()=> AuthRepositoryIml());
   sl.registerLazySingleton<HomeRepositories>(()=> HomeRepositoriesImpl());
-  sl.registerLazySingleton<LessionsRepositories>(()=> LessionsRepositoriesImpl());
+  sl.registerLazySingleton<SubjectDetailsRepositories>(()=> SubjectDetailsRepositoriesImpl());
   sl.registerLazySingleton<NotificationsRepositories>(()=> NotificationsRepositoriesImpl());
   sl.registerLazySingleton<PaymentsRepositories>(()=> PaymentsRepositoriesImpl());
   sl.registerLazySingleton<ProfileRepositories>(()=> ProfileRepositoriesImpl());
