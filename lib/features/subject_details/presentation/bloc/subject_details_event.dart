@@ -81,6 +81,18 @@ class GetQuizList extends SubjectDetailsEvent{
 }
 
 
+class GetQuestionsList extends SubjectDetailsEvent{
+  final String quizId;
+
+  GetQuestionsList({required this.quizId});
+
+  @override
+  List<Object?> get props => [
+    quizId
+  ];
+}
+
+
 class GetExamsList extends SubjectDetailsEvent{
 
   final String subjectId;

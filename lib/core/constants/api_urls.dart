@@ -34,6 +34,7 @@ class ApiUrls {
   static const String assignmentDetails = "/api/v1/assignments/";
   static const String assignmentSubmit = "/api/v1/assignment-submissions";
   static const String lessionQuiz = "/api/v1/quizzes/lesson/";
+  static const String quizQuestions = "/api/v1/quizzes/";
   static const String subjectExams = "/api/v1/exams/subjects/";
   static const String examDetails = "/api/v1/exams/";
   static const String submitExam = "/api/v1/exam-submissions";

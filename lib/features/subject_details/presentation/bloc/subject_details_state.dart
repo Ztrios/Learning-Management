@@ -10,6 +10,7 @@ class SubjectDetailsState extends Equatable {
   final AssignmentListEntity? assignmentListEntity;
   final AssignmentDetailsEntity? assignmentDetailsEntity;
   final QuizListEntity? quizListEntity;
+  final QuestionsListEntity? questionsListEntity;
   final ExamsListEntity? examsListEntity;
   final ExamDetailsEntity? examDetailsEntity;
 
@@ -22,6 +23,7 @@ class SubjectDetailsState extends Equatable {
     required this.assignmentListEntity,
     required this.assignmentDetailsEntity,
     required this.quizListEntity,
+    required this.questionsListEntity,
     required this.lessionDetailsEntity,
     required this.examsListEntity,
     required this.examDetailsEntity
@@ -35,6 +37,7 @@ class SubjectDetailsState extends Equatable {
     message: null,
     lessionsListEntity: null,
     quizListEntity: null,
+    questionsListEntity: null,
     lessionDetailsEntity: null,
     assignmentListEntity: null,
     assignmentDetailsEntity: null,
@@ -53,6 +56,7 @@ class SubjectDetailsState extends Equatable {
     AssignmentListEntity? assignmentListEntity,
     AssignmentDetailsEntity? assignmentDetailsEntity,
     QuizListEntity? quizListEntity,
+    QuestionsListEntity? questionsListEntity,
     ExamsListEntity? examsListEntity,
     ExamDetailsEntity? examDetailsEntity
   }) {
@@ -66,6 +70,7 @@ class SubjectDetailsState extends Equatable {
       assignmentListEntity: assignmentListEntity ?? this.assignmentListEntity,
       assignmentDetailsEntity: assignmentDetailsEntity ?? this.assignmentDetailsEntity,
       quizListEntity: quizListEntity ?? this.quizListEntity,
+      questionsListEntity: questionsListEntity ?? this.questionsListEntity,
       examsListEntity: examsListEntity ?? this.examsListEntity,
       examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
     );
@@ -82,6 +87,7 @@ class SubjectDetailsState extends Equatable {
     lessionDetailsEntity,
     assignmentListEntity,
     assignmentDetailsEntity,
+    quizListEntity,
     quizListEntity,
     examsListEntity,
     examDetailsEntity

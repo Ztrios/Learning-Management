@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/utils/enums/enums.dart';
+import 'package:learning_management/core/utils/extensions/question_type_extenstion.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
+import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/subject_details/data/models/questions_list_model.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class MCQItemView extends StatelessWidget {
-  final bool isMCQ;
-  final String? image;
+  final QuestionType questionType;
+ // final String? image;
   final String question;
-  final List<String>? options;
+  final List<Option>? options;
   const MCQItemView({
     super.key,
-    required this.isMCQ,
-    required this.image,
+    required this.questionType,
+    //required this.image,
     required this.options,
     required this.question,
   });
@@ -34,30 +38,31 @@ class MCQItemView extends StatelessWidget {
           )
       ),
       child: Column(
+        crossAxisAlignment: crossStart,
         children: [
 
           Text(
-            question,
+            "• $question",
             style: AppTextStyles.titleSmall.copyWith(
                 fontWeight: FontWeight.w900
             ),
           ),
-
-          if(image != null)
-            NetworkImageWidget(
-              image ?? "",
-            ),
+          //
+          // if(image != null)
+          //   NetworkImageWidget(
+          //     image ?? "",
+          //   ),
 
           gap16,
 
-          if(isMCQ)
-          ...List.generate(4, (index){
+          if(!questionType.isShortAnswer)
+          ...(options ?? []).map((option){
             return CheckboxListTile(
-              value: index == 1,
+              value: false,
               onChanged: (value) {},
               controlAffinity: ListTileControlAffinity
                   .leading,
-              title: Text("Option ${index + 1}"),
+              title: Text(option.text ?? ""),
               activeColor: AppColors.deepGreen,
               contentPadding: padding0,
             );

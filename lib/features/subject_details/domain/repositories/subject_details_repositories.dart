@@ -6,6 +6,7 @@ import 'package:learning_management/features/subject_details/domain/entities/exa
 import 'package:learning_management/features/subject_details/domain/entities/exams_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
 
 abstract class SubjectDetailsRepositories {
@@ -15,6 +16,7 @@ abstract class SubjectDetailsRepositories {
   Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId});
   Future<Either<Failure, bool>> assignmentSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId});
+  Future<Either<Failure, QuestionsListEntity>> getQuestionsList({required String quizId});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});

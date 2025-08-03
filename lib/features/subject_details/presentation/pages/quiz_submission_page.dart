@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
-import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
-import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
+import 'package:learning_management/features/subject_details/data/models/questions_list_model.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
+import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/item_view/quizzes_item_view.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/listview/mcq_list_view.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/submission_header.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
-import 'package:learning_management/widgets/network_image_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class QuizSubmissionPage extends StatelessWidget {
+class QuizSubmissionPage extends HookWidget {
 
   static String get path => "/quiz-submission";
+
   static String get name => "quiz-submission";
 
 
@@ -24,11 +31,20 @@ class QuizSubmissionPage extends StatelessWidget {
 
   const QuizSubmissionPage({
     super.key,
-    required this.quizId
+    required this.quizId,
   });
 
   @override
   Widget build(BuildContext context) {
+    void getQuizQuestionsList() {
+      context.read<SubjectDetailsBloc>().add(GetQuestionsList(quizId: quizId));
+    }
+
+    useEffect(() {
+      Future.microtask(() => getQuizQuestionsList());
+      return null;
+    }, []);
+
     return Scaffold(
       endDrawer: CustomDrawer(),
       body: SafeArea(
@@ -53,12 +69,20 @@ class QuizSubmissionPage extends StatelessWidget {
                     crossAxisAlignment: crossCenter,
                     children: [
 
-                      QuizzesItemView(
-                          totalMarks: 0,
-                          getMarks: 0,
-                          title: "Assignment 2: Trigonometry",
-                          status: "Remaining: 01:20",
-                          isCompleted: true
+                      BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
+                        builder: (context, state) {
+
+                          QuestionsData? questionData = state.questionsListEntity?.questionsData;
+
+                          return Skeletonizer(
+                            enabled: state.status.isLoading,
+                            child: SubmissionHeader(
+                                title: questionData?.title ?? "",
+                                totalMarks: (questionData?.totalMarks ?? 0).floor(),
+                                endTime: DateTimeFormatters.timeToDateTime(questionData?.endTime ?? "12:94:29")
+                            ),
+                          );
+                        },
                       ),
 
                       gap12,
@@ -66,7 +90,7 @@ class QuizSubmissionPage extends StatelessWidget {
                       Text(
                         "Questions",
                         style: AppTextStyles.titleLarge.copyWith(
-                          color: AppColors.deepOrange
+                            color: AppColors.deepOrange
                         ),
                       ),
 
@@ -82,7 +106,6 @@ class QuizSubmissionPage extends StatelessWidget {
                   ),
                 ),
               )
-
 
 
             ],
@@ -106,7 +129,7 @@ class QuizSubmissionPage extends StatelessWidget {
         ),
         child: Center(
           child: PrimaryButton(
-            onPressed: (){},
+            onPressed: () {},
             text: "Submit",
             background: AppColors.deepOrange,
             textColor: Colors.white,

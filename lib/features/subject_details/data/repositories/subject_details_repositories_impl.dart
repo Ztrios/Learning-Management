@@ -8,6 +8,7 @@ import 'package:learning_management/features/subject_details/domain/entities/exa
 import 'package:learning_management/features/subject_details/domain/entities/exams_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
 
@@ -23,6 +24,10 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
   @override
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId}) async =>
       await sl<SubjectDetailsRemoteDataSource>().getQuizList(lessionId: lessionId);
+
+  @override
+  Future<Either<Failure, QuestionsListEntity>> getQuestionsList({required String quizId}) async =>
+      await sl<SubjectDetailsRemoteDataSource>().getQuestionsList(quizId: quizId);
 
   @override
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId}) async =>
@@ -47,7 +52,6 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
   @override
   Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async =>
       await sl<SubjectDetailsRemoteDataSource>().submitExam(body: body);
-
 
 
 

@@ -8,6 +8,7 @@ import 'package:learning_management/features/subject_details/domain/entities/exa
 import 'package:learning_management/features/subject_details/domain/entities/exams_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lession_details_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/assignment_submission_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_details_usecase.dart';
@@ -16,6 +17,7 @@ import 'package:learning_management/features/subject_details/domain/usecases/get
 import 'package:learning_management/features/subject_details/domain/usecases/get_exams_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_lession_details_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_quesions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
@@ -30,6 +32,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     on<GetAssignmentDetails>(_onGetAssignmentDetails);
     on<AssignmentSubmit>(_onAssignmentSubmit);
     on<GetQuizList>(_onGetQuizList);
+    on<GetQuestionsList>(_onGetQuestionsList);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
     on<SubmitExam>(_onSubmitExam);
@@ -89,6 +92,15 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
             (data)=> emit(state.copyWith(status: Status.success, quizListEntity: data))
+    );
+  }
+
+  Future<void> _onGetQuestionsList(GetQuestionsList event, Emitter<SubjectDetailsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetQuestionsListUseCase>().call(params: event.quizId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, questionsListEntity: data))
     );
   }
 
