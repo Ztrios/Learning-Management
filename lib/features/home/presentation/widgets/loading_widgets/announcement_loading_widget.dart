@@ -20,6 +20,7 @@ class AnnouncementLoadingWidget extends StatelessWidget {
           ),
 
           AnnouncementItemView(
+            isExpanded: false,
             backgroundColor: AppColors.deepPurpleAccent,
             title: "Notice for Change in Exam Schedule",
             content:

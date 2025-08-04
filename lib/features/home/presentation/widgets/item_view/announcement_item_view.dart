@@ -5,15 +5,15 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 
 class AnnouncementItemView extends StatelessWidget {
+  final bool isExpanded;
   final String title;
   final String content;
   final Color backgroundColor;
-  final List<String>? attachedFiles;
   final VoidCallback onPressed;
 
   const AnnouncementItemView({
     super.key,
-    this.attachedFiles,
+    required this.isExpanded,
     required this.title,
     required this.content,
     required this.backgroundColor,
@@ -30,7 +30,7 @@ class AnnouncementItemView extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE0E6ED)),
       ),
       child: Column(
-        crossAxisAlignment: crossStart,
+        crossAxisAlignment: crossEnd,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           /// Header Row
@@ -78,8 +78,8 @@ class AnnouncementItemView extends StatelessWidget {
               /// Message
               Text(
                 content,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+                maxLines: !isExpanded ? 3 : null,
+                overflow: !isExpanded ? TextOverflow.ellipsis : null,
                 style: AppTextStyles.caption.copyWith(
                     color: Colors.white
                 ),
@@ -88,38 +88,70 @@ class AnnouncementItemView extends StatelessWidget {
           ),
 
 
-          Text(
-            "📎 Attached Files:",
-            style: AppTextStyles.caption.copyWith(color: Colors.white),
-          ),
-          gap8,
-          Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
-            children: (attachedFiles ?? ["Hello", "Hello"]).map((file) {
-              return GestureDetector(
-                onTap: (){},
+
+          //gap8,
+          // Wrap(
+          //   spacing: 8.w,
+          //   runSpacing: 8.h,
+          //   children: (attachedFiles ?? ["Hello", "Hello"]).map((file) {
+          //     return GestureDetector(
+          //       onTap: (){},
+          //       child: Container(
+          //         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+          //         decoration: BoxDecoration(
+          //           color: AppColors.blueLight,
+          //           borderRadius: radius6,
+          //         ),
+          //         child: Row(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             Icon(Icons.download, size: 16.sp, color: Colors.white),
+          //             gap4,
+          //             Text(
+          //               "exam-routine.pdf",
+          //               style: AppTextStyles.caption.copyWith(color: Colors.white),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     );
+          //   }).toList(),
+          // ),
+
+
+          gap12,
+
+          Column(
+            crossAxisAlignment: crossEnd,
+            children: [
+              // Text(
+              //   "📎 Attached Files:",
+              //   style: AppTextStyles.caption.copyWith(color: Colors.white),
+              // ),
+              // gap6,
+              GestureDetector(
+                onTap: onPressed,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                   decoration: BoxDecoration(
-                    color: AppColors.blueLight,
+                    color: Colors.white,
                     borderRadius: radius6,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.download, size: 16.sp, color: Colors.white),
-                      gap4,
+                      // Icon(Icons.download, size: 16.sp, color: Colors.white),
+                      // gap4,
                       Text(
-                        "exam-routine.pdf",
-                        style: AppTextStyles.caption.copyWith(color: Colors.white),
+                        "📎 Attached Files",
+                        style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
                       ),
                     ],
                   ),
                 ),
-              );
-            }).toList(),
-          ),
+              )
+            ],
+          )
 
 
 
