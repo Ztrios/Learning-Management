@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/features/subject_details/data/models/quiz_list_model.dart';
@@ -30,8 +31,16 @@ class QuizzesTabView extends StatelessWidget {
                 Quiz quiz = state.quizListEntity!.quizzes![index];
 
                 return InkWell(
-                  onTap: () =>
-                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}"),
+                  onTap: (){
+                    if(quiz.status != "SUBMITTED"){
+                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}");
+                    }else{
+                      ToastNotifications.showErrorToast(
+                          title: "Already Submitted.",
+                          message : "You have already submitted this quiz."
+                      );
+                    }
+                  },
                   child: QuizzesItemView(
                     totalMarks: quiz.totalMarks ?? 0,
                     getMarks: quiz.earnedMarks ?? 0,
