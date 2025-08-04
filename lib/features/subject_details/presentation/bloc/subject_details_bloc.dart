@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_management/core/utils/extensions/question_type_extenstion.dart';
 import 'package:learning_management/features/subject_details/data/models/answer_model.dart';
 import 'package:learning_management/features/subject_details/domain/entities/answer_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/assignment_details_entity.dart';
@@ -112,23 +113,46 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
 
   void _onSelectOrUpdateAnswer(SelectOrUpdateAnswer event, Emitter<SubjectDetailsState> emit) {
 
+    bool hasData = state.selectedAnswerEntities.any((answer)=> answer.questionId == event.questionId);
 
-    AnswerEntity answerEntity = AnswerEntity(
+    if(hasData){
+      List<AnswerEntity> answers = state.selectedAnswerEntities.map((answer){
+        if(answer.questionId == event.questionId){
+
+          List<int> selectedAnswerIndexes = List.from(answer.selectedOptionIndexes ?? []);
+
+          if(selectedAnswerIndexes.contains(event.selectedIndex)){
+            selectedAnswerIndexes.remove(event.selectedIndex);
+          }else{
+            if(event.questionType.isMultipleChoice){
+              selectedAnswerIndexes.add(event.selectedIndex!);
+            }else if(event.questionType.isSingleChoice){
+              selectedAnswerIndexes = [?event.selectedIndex];
+            }
+          }
+          return answer.copyWith(
+            writtenAnswer: event.writtenAnswer,
+            selectedOptionIndexes: selectedAnswerIndexes
+          );
+        }else{
+          return answer;
+        }
+      }).toList();
+
+      emit(state.copyWith(selectedAnswerEntities: answers));
+
+    }else{
+      AnswerEntity answerEntity = AnswerEntity(
         questionId: event.questionId,
         writtenAnswer: event.writtenAnswer,
-    );
-
-    List<AnswerEntity> answers = state.selectedAnswerEntities.map((answer){
-      if(answer.questionId == event.questionId){
-        return answer.copyWith(
-          selectedOptionIndexes: []
-        );
-      }else{
-        return answer;
-      }
-    }).toList();
-
+        selectedOptionIndexes: [?event.selectedIndex]
+      );
+      List<AnswerEntity> selectedAnswers = [...state.selectedAnswerEntities, answerEntity];
+      emit(state.copyWith(selectedAnswerEntities: selectedAnswers));
+    }
   }
+
+
 
 
   Future<void> _onGetExamsList(GetExamsList event, Emitter<SubjectDetailsState> emit) async {

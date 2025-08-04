@@ -65,10 +65,14 @@ class MCQItemView extends StatelessWidget {
 
               if(!questionType.isShortAnswer)
                 ...List.generate(options?.length ?? 0, (index) {
+
+                  bool isSelected = state.selectedAnswerEntities.any((answer) =>
+                      answer.questionId == questionId
+                      && answer.selectedOptionIndexes != null
+                      && answer.selectedOptionIndexes!.contains(index));
+
                   return CheckboxListTile(
-                    value: state.selectedAnswerEntities.any(
-                            (answer) => answer.selectedOptionIndexes != null &&
-                        answer.selectedOptionIndexes!.contains(index)),
+                    value: isSelected,
                     onChanged: (value) {
                       context.read<SubjectDetailsBloc>().add(SelectOrUpdateAnswer(
                           questionId: questionId,

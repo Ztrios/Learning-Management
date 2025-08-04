@@ -2,7 +2,7 @@ class ApiUrls {
   // Private constructor to prevent instantiation
   ApiUrls._();
 
-  static const String _baseURL = "http://192.168.5.2:9090";
+  static const String _baseURL = "http://192.168.20.244:9090";
   static const String _imageBaseURL = "";
 
   // auth API endpoints
