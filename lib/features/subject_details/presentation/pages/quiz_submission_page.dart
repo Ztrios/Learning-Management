@@ -68,7 +68,7 @@ class QuizSubmissionPage extends HookWidget {
     }, []);
 
     return BlocConsumer<SubjectDetailsBloc, SubjectDetailsState>(
-      listenWhen: (previous, current)=> previous.quizSubmissionStatus.isInitial,
+      listenWhen: (previous, current)=> previous.quizSubmissionStatus.isLoading,
       listener: (context, state) {
         if(state.quizSubmissionStatus.isSuccess){
           ToastNotifications.showSuccessToast("Quiz successfully submit.");
