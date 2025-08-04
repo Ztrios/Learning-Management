@@ -96,6 +96,13 @@ class MCQItemView extends StatelessWidget {
                       border: OutlineInputBorder(
                       )
                   ),
+                  onChanged: (value){
+                    context.read<SubjectDetailsBloc>().add(SelectOrUpdateAnswer(
+                        questionId: questionId,
+                        questionType: questionType,
+                        writtenAnswer: value
+                    ));
+                  },
                 )
 
 

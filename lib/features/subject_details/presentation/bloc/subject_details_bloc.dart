@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/question_type_extenstion.dart';
 import 'package:learning_management/features/subject_details/data/models/answer_model.dart';
 import 'package:learning_management/features/subject_details/domain/entities/answer_entity.dart';
@@ -138,9 +139,8 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
           return answer;
         }
       }).toList();
-
+      answers.retainWhere((answer)=> answer.selectedOptionIndexes.isNotNullAndNotEmpty || answer.writtenAnswer.isNotNullAndNotEmpty);
       emit(state.copyWith(selectedAnswerEntities: answers));
-
     }else{
       AnswerEntity answerEntity = AnswerEntity(
         questionId: event.questionId,
@@ -150,6 +150,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
       List<AnswerEntity> selectedAnswers = [...state.selectedAnswerEntities, answerEntity];
       emit(state.copyWith(selectedAnswerEntities: selectedAnswers));
     }
+
   }
 
 
