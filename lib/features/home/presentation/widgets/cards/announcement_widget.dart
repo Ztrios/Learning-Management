@@ -91,11 +91,11 @@ class AnnouncementWidget extends HookWidget {
               ),
             ],
           );
-        }else if(state.status.isError){
+        }/*else if(state.status.isError){
           return ErrorViewWidget(
               message: state.message ?? "Not Found"
           );
-        }else{
+        }*/else{
           return SizedBox.shrink();
         }
 

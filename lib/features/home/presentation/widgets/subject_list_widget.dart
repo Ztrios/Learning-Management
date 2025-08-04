@@ -128,11 +128,11 @@ class SubjectListWidget extends HookWidget {
                 ),
               ],
             );
-          }else if(state.status.isError){
+          }/*else if(state.status.isError){
             return ErrorViewWidget(
                 message: state.message ?? "Unknown"
             );
-          }else{
+          }*/else{
             return SubjectsLoadingWidget();
           }
         },

@@ -81,7 +81,8 @@ class ClassRoutineWidget extends HookWidget {
 
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if(state.status.isLoading || state.status.isSuccess){
+        if (state.status.isLoading || (state.status.isSuccess &&
+            (state.todaysClassEntity?.classData).isNotNullAndNotEmpty)) {
           return Skeletonizer(
             enabled: state.status.isLoading,
             child: Column(
@@ -238,11 +239,11 @@ class ClassRoutineWidget extends HookWidget {
               ],
             ),
           );
-        }else if(state.status.isError){
+        }/*else if(state.status.isError){
           return ErrorViewWidget(
               message: state.message ?? "Not Found!"
           );
-        }else{
+        }*/else{
           return SizedBox.shrink();
         }
 

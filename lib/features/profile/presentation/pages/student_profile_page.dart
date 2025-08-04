@@ -288,7 +288,7 @@ class StudentProfilePage extends HookWidget {
                       );
                     }else if(state.status.isError){
                       return ErrorViewWidget(
-                          message: state.message.toString()
+                          message: "Something Went Wrong!"
                       );
                     }else{
                       return SizedBox.shrink();
