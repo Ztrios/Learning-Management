@@ -95,6 +95,23 @@ class GetQuestionsList extends SubjectDetailsEvent{
 }
 
 
+class QuizSubmit extends SubjectDetailsEvent{
+
+  final String studentId;
+  final String quizId;
+
+  QuizSubmit({
+    required this.studentId,
+    required this.quizId
+  });
+
+  @override
+  List<Object?> get props => [
+    studentId,
+    quizId
+  ];
+}
+
 
 class SelectOrUpdateAnswer extends SubjectDetailsEvent{
   final int questionId;

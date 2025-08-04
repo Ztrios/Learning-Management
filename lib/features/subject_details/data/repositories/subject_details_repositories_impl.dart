@@ -30,6 +30,10 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
       await sl<SubjectDetailsRemoteDataSource>().getQuestionsList(quizId: quizId);
 
   @override
+  Future<Either<Failure, bool>> quizSubmit({required Map<String, dynamic> body}) async =>
+      await sl<SubjectDetailsRemoteDataSource>().quizSubmit(body: body);
+
+  @override
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId}) async =>
       await sl<SubjectDetailsRemoteDataSource>().getExamsList(subjectId: subjectId);
 
@@ -52,6 +56,7 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
   @override
   Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async =>
       await sl<SubjectDetailsRemoteDataSource>().submitExam(body: body);
+
 
 
 

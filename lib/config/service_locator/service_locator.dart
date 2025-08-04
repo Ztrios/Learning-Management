@@ -34,6 +34,7 @@ import 'package:learning_management/features/subject_details/domain/usecases/get
 import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quesions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/quiz_submit_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/notifications/data/datasource/remote_datasource/notifications_remote_datasource.dart';
 import 'package:learning_management/features/notifications/data/repositories/notifications_repositories_impl.dart';
@@ -148,6 +149,7 @@ void initServiceLocator(){
   sl.registerLazySingleton<AssignmentSubmissionUseCase>(()=> AssignmentSubmissionUseCase());
   sl.registerLazySingleton<GetQuizListUseCase>(()=> GetQuizListUseCase());
   sl.registerLazySingleton<GetQuestionsListUseCase>(()=> GetQuestionsListUseCase());
+  sl.registerLazySingleton<QuizSubmitUseCase>(()=> QuizSubmitUseCase());
   sl.registerLazySingleton<GetExamsListUseCase>(()=> GetExamsListUseCase());
   sl.registerLazySingleton<GetExamDetailsUseCase>(()=> GetExamDetailsUseCase());
   sl.registerLazySingleton<SubmitExamUseCase>(()=> SubmitExamUseCase());

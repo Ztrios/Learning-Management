@@ -4,6 +4,7 @@ class SubjectDetailsState extends Equatable {
   final Status status;
   final Status examSubmissionStatus;
   final Status assignmentSubmissionStatus;
+  final Status quizSubmissionStatus;
   final String? message;
   final LessionsListEntity? lessionsListEntity;
   final LessionDetailsEntity? lessionDetailsEntity;
@@ -21,6 +22,7 @@ class SubjectDetailsState extends Equatable {
     required this.message,
     required this.examSubmissionStatus,
     required this.assignmentSubmissionStatus,
+    required this.quizSubmissionStatus,
     required this.lessionsListEntity,
     required this.assignmentListEntity,
     required this.assignmentDetailsEntity,
@@ -37,6 +39,7 @@ class SubjectDetailsState extends Equatable {
     status: Status.initial,
     examSubmissionStatus: Status.initial,
     assignmentSubmissionStatus: Status.initial,
+    quizSubmissionStatus: Status.initial,
     message: null,
     lessionsListEntity: null,
     quizListEntity: null,
@@ -54,6 +57,7 @@ class SubjectDetailsState extends Equatable {
     Status? status,
     Status? examSubmissionStatus,
     Status? assignmentSubmissionStatus,
+    Status? quizSubmissionStatus,
     String? message,
     LessionsListEntity? lessionsListEntity,
     LessionDetailsEntity? lessionDetailsEntity,
@@ -70,6 +74,7 @@ class SubjectDetailsState extends Equatable {
       message: message ?? this.message,
       examSubmissionStatus: examSubmissionStatus ?? this.examSubmissionStatus,
       assignmentSubmissionStatus: assignmentSubmissionStatus ?? this.assignmentSubmissionStatus,
+      quizSubmissionStatus: quizSubmissionStatus ?? this.quizSubmissionStatus,
       lessionsListEntity: lessionsListEntity ?? this.lessionsListEntity,
       lessionDetailsEntity: lessionDetailsEntity ?? this.lessionDetailsEntity,
       assignmentListEntity: assignmentListEntity ?? this.assignmentListEntity,
@@ -88,6 +93,7 @@ class SubjectDetailsState extends Equatable {
     status,
     examSubmissionStatus,
     assignmentSubmissionStatus,
+    quizSubmissionStatus,
     message,
     lessionsListEntity,
     lessionDetailsEntity,

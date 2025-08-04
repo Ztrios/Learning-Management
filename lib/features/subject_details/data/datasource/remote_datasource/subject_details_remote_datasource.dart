@@ -31,6 +31,7 @@ sealed class SubjectDetailsRemoteDataSource {
   Future<Either<Failure, bool>> assignmentSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId});
   Future<Either<Failure, QuestionsListEntity>> getQuestionsList({required String quizId});
+  Future<Either<Failure, bool>> quizSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
@@ -164,6 +165,25 @@ class SubjectDetailsRemoteDataSourceImpl extends SubjectDetailsRemoteDataSource{
     }
   }
 
+
+  @override
+  Future<Either<Failure, bool>> quizSubmit({required Map<String,dynamic> body}) async {
+    try{
+      Response response = await sl<DioClient>().post(
+        ApiUrls.quizSubmit,
+        options: Options(contentType: "multipart/form-data"),
+        data: FormData.fromMap(body),
+      );
+      return Right(response.statusCode == 200);
+    }catch(error, stackTrace){
+      log(
+          "Lessions Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
 
 
   @override

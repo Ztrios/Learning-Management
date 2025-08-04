@@ -17,6 +17,7 @@ abstract class SubjectDetailsRepositories {
   Future<Either<Failure, bool>> assignmentSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, QuizListEntity>> getQuizList({required String lessionId});
   Future<Either<Failure, QuestionsListEntity>> getQuestionsList({required String quizId});
+  Future<Either<Failure, bool>> quizSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});

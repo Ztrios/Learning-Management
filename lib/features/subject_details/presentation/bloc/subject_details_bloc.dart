@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
@@ -24,6 +27,7 @@ import 'package:learning_management/features/subject_details/domain/usecases/get
 import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quesions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/quiz_submit_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
 
@@ -39,6 +43,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     on<GetQuizList>(_onGetQuizList);
     on<GetQuestionsList>(_onGetQuestionsList);
     on<SelectOrUpdateAnswer>(_onSelectOrUpdateAnswer);
+    on<QuizSubmit>(_onQuizSubmit);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
     on<SubmitExam>(_onSubmitExam);
@@ -154,6 +159,32 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
   }
 
 
+  Future<void> _onQuizSubmit(QuizSubmit event, Emitter<SubjectDetailsState> emit) async {
+    emit(state.copyWith(quizSubmissionStatus: Status.loading));
+
+    List<Map<String,dynamic>> answers = state.selectedAnswerEntities.map((answer){
+      return AnswerModel.fromEntity(answer).toJson();
+    }).toList();
+
+
+    Map<String, dynamic> dto = {
+      "studentId" : event.studentId,
+      "quizId" : event.quizId,
+      "answers" : {
+        "answers" : answers
+      }
+    };
+
+    Map<String,dynamic> body = {
+      "dto" : jsonEncode(dto),
+    };
+
+    var result = await sl<QuizSubmitUseCase>().call(params: body);
+    result.fold(
+            (error)=> emit(state.copyWith(quizSubmissionStatus: Status.error, message: error.message)),
+        (success)=> emit(state.copyWith(quizSubmissionStatus: success ? Status.success : Status.failure, selectedAnswerEntities: []))
+    );
+  }
 
 
   Future<void> _onGetExamsList(GetExamsList event, Emitter<SubjectDetailsState> emit) async {
