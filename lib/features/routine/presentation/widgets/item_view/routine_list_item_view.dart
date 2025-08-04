@@ -90,18 +90,36 @@ class RoutineListItemView extends StatelessWidget {
                         ),
                       ),
 
-                      IconButton(
-                          onPressed: (){},
-                          icon: Icon(
-                            Icons.more_vert,
-                            color: isActive ? Colors.white : null,
-                          )
-                      ),
-
-
+                      // IconButton(
+                      //     onPressed: (){},
+                      //     icon: Icon(
+                      //       Icons.more_vert,
+                      //       color: isActive ? Colors.white : null,
+                      //     )
+                      // ),
+                      //
+                      if(isActive)
+                        InkWell(
+                          onTap: ()=> Helpers.launchUri(uri: meetingLink),
+                          child: Container(
+                            width: 85.w,
+                            height: 30.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: radius6,
+                                color: Colors.white
+                            ),
+                            child: Text(
+                              "Join Class",
+                              style: AppTextStyles.caption,
+                            ),
+                          ),
+                        ),
 
                     ],
                   ),
+
+                  gap6,
 
                   Text(
                     topic,
@@ -184,24 +202,6 @@ class RoutineListItemView extends StatelessWidget {
                       ),
 
                       const Spacer(),
-
-                      if(isActive)
-                        InkWell(
-                          onTap: ()=> Helpers.launchUri(uri: meetingLink),
-                          child: Container(
-                            width: 85.w,
-                            height: 30.h,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: radius6,
-                                color: Colors.white
-                            ),
-                            child: Text(
-                              "Join Class",
-                              style: AppTextStyles.caption,
-                            ),
-                          ),
-                        ),
 
 
                       gap12,
