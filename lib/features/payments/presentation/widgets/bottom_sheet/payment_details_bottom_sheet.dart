@@ -3,23 +3,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
+import 'package:learning_management/features/payments/data/models/payment_history_model.dart';
 import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet_title.dart';
 import 'package:learning_management/features/payments/presentation/widgets/column_text_widget.dart';
 import 'package:learning_management/features/payments/presentation/widgets/payment_row_widget.dart';
 
 
-void showPaymentDetailsBottomSheet(BuildContext context){
+void showPaymentDetailsBottomSheet({required BuildContext context, required Content content}){
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context){
-        return PaymentDetailsBottomSheet();
+        return PaymentDetailsBottomSheet(
+          content: content,
+        );
       }
   );
 }
 
 class PaymentDetailsBottomSheet extends StatelessWidget {
-  const PaymentDetailsBottomSheet({super.key});
+  final Content content;
+  const PaymentDetailsBottomSheet({
+    super.key,
+    required this.content
+  });
 
   @override
   Widget build(BuildContext context) {

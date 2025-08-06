@@ -5,7 +5,18 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 
 class PaymentItemView extends StatelessWidget {
-  const PaymentItemView({super.key});
+  final String invoiceId;
+  final String description;
+  final String paymentDate;
+  final String totalAmount;
+
+  const PaymentItemView({
+    super.key,
+    required this.invoiceId,
+    required this.description,
+    required this.paymentDate,
+    required this.totalAmount
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +27,28 @@ class PaymentItemView extends StatelessWidget {
           gap4,
 
           Text(
-            "2343456",
+            invoiceId,
             style: AppTextStyles.bodyMedium,
           ),
 
           gap28,
 
           Text(
-            "Monthly",
+            description,
             style: AppTextStyles.bodyMedium,
           ),
 
           gap24,
 
           Text(
-            "06.12.2025",
+            paymentDate,
             style: AppTextStyles.bodyMedium,
           ),
 
           gap12,
 
           Text(
-            "1200/-",
+            "$totalAmount/-",
             style: AppTextStyles.bodyMedium,
           ),
 

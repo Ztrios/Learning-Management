@@ -14,3 +14,17 @@ class GetInvoice extends PaymentEvent{
   ];
 
 }
+
+
+class GetPaymentHistory extends PaymentEvent{
+
+  final Map<String, dynamic> query;
+
+  GetPaymentHistory({required this.query});
+
+  @override
+  List<Object?> get props => [
+    query
+  ];
+
+}

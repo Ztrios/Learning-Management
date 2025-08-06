@@ -43,6 +43,7 @@ class ApiUrls {
 
   // Payments Page API endpoints
   static const String invoice = "/api/v1/student-payments/payable/student/";
+  static const String paymentHistory = "/api/v1/student-payments";
 
 
   // Public getter to access the base URL
