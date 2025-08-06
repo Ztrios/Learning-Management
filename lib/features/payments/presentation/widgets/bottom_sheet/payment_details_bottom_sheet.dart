@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
@@ -43,7 +45,9 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
         children: [
 
           /// Header Row
-          BottomSheetTitle(),
+          BottomSheetTitle(
+            title: "Invoice ID: ${(content.invoiceId ?? 0).toString().substring(4)}",
+          ),
 
           gap12,
 
@@ -57,16 +61,23 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
 
           gap12,
 
-          Text(
-            "Payment for Month:",
-            style: AppTextStyles.titleMedium.copyWith(
-                fontWeight: FontWeight.w900,
-            ),
-          ),
+          if(content.paymentMonth.isNotNullAndNotEmpty)
+          Column(
+            crossAxisAlignment: crossStart,
+            children: [
+              Text(
+                "Payment for Month:",
+                style: AppTextStyles.titleMedium.copyWith(
+                    fontWeight: FontWeight.w900,
+                ),
+              ),
 
-          Text(
-            "September 2025 - November 2025",
-            style: AppTextStyles.bodyMedium,
+              Text(
+                "${DateTimeFormatters.formatMonthYear(content.paymentMonth!.first)} - "
+                    "${DateTimeFormatters.formatMonthYear(content.paymentMonth!.last)}",
+                style: AppTextStyles.bodyMedium,
+              ),
+            ],
           ),
 
 
@@ -82,7 +93,7 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
 
               LabelValueColumn(
                   label: "Payment For:",
-                  value: "3 Months"
+                  value: "${content.noOfMonth} Months"
               ),
             ],
           ),
@@ -98,12 +109,12 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
             children: [
               LabelValueColumn(
                   label: "Payment Method:",
-                  value: "Bkash"
+                  value: content.paymentMethod ?? "Unknown"
               ),
 
               LabelValueColumn(
                   label: "Payment Date:",
-                  value: "02/07/2025"
+                  value: DateTimeFormatters.formatDate(dateTime: content.paymentDate)
               ),
             ],
           ),
@@ -111,24 +122,24 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
 
           gap12,
 
-          const Divider(),
-
-          gap12,
-
-          Row(
-            spacing: 120.w,
-            children: [
-              LabelValueColumn(
-                  label: "Coupon:",
-                  value: "DIS20"
-              ),
-
-              LabelValueColumn(
-                  label: "Discount:",
-                  value: "20%"
-              ),
-            ],
-          ),
+          // const Divider(),
+          //
+          // gap12,
+          //
+          // Row(
+          //   spacing: 120.w,
+          //   children: [
+          //     LabelValueColumn(
+          //         label: "Coupon:",
+          //         value: "DIS20"
+          //     ),
+          //
+          //     LabelValueColumn(
+          //         label: "Discount:",
+          //         value: "20%"
+          //     ),
+          //   ],
+          // ),
 
 
           gap12,
@@ -136,9 +147,19 @@ class PaymentDetailsBottomSheet extends StatelessWidget {
           gap12,
 
           /// Payment Summary
-          PaymentRowWidget(label: "Payment Amount",value:  "6000/-"),
-          PaymentRowWidget(label: "Discount", value:  "400/-"),
-          PaymentRowWidget(label: "Total", value: "5600/-", highlight: true),
+          PaymentRowWidget(
+              label: "Payment Amount",
+              value:  "${content.paidAmount}/-"
+          ),
+          PaymentRowWidget(
+              label: "Discount",
+              value:  "${content.totalDiscount}/-"
+          ),
+          PaymentRowWidget(
+              label: "Total",
+              value: "${content.totalAmount}/-",
+              highlight: true
+          ),
 
 
           gap12,

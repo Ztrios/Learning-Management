@@ -55,23 +55,30 @@ class PaymentList extends HookWidget {
                 Row(
                   mainAxisAlignment: mainSpaceBetween,
                   children: [
+
+                    gap6,
+
                     Text(
                       "Invoice ID",
                       style: AppTextStyles.titleSmall,
                       textAlign: TextAlign.center,
                     ),
 
-                    Text(
-                      "Description",
-                      style: AppTextStyles.titleSmall,
-                      textAlign: TextAlign.center,
-                    ),
+                    // Text(
+                    //   "Description",
+                    //   style: AppTextStyles.titleSmall,
+                    //   textAlign: TextAlign.center,
+                    // ),
+
+                    gap12,
 
                     Text(
                       "Paid At",
                       style: AppTextStyles.titleSmall,
                       textAlign: TextAlign.center,
                     ),
+
+                    gap24,
 
                     Text(
                       "Amount",
@@ -94,7 +101,7 @@ class PaymentList extends HookWidget {
                   child: BlocBuilder<PaymentBloc, PaymentState>(
                     builder: (context, state) {
                       return ListView.separated(
-                        itemCount: 7,
+                        itemCount: state.paymentHistoryEntity?.paymentHistoryData?.content?.length ?? 0,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           Content content = state.paymentHistoryEntity!.paymentHistoryData!.content![index];
@@ -102,13 +109,10 @@ class PaymentList extends HookWidget {
                           return InkWell(
                               onTap: () => showPaymentDetailsBottomSheet(context: context, content: content),
                               child: PaymentItemView(
-                                invoiceId: content.invoiceId ?? "--",
+                                invoiceId: (content.invoiceId ?? "--").substring(5),
                                 description: "",
-                                paymentDate: DateTimeFormatters.formatDateV2(
-                                    dateTime: content.paymentDate ??
-                                        DateTime.now()),
-                                totalAmount: (content.totalAmount ?? 00)
-                                    .toString(),
+                                paymentDate: (content.paymentDate ?? DateTime.now()).toString().substring(0,11).replaceAll("-", "."),
+                                totalAmount: (content.totalAmount ?? 00).toString(),
                               )
                           );
                         },

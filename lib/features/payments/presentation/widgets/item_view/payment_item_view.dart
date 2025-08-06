@@ -31,21 +31,21 @@ class PaymentItemView extends StatelessWidget {
             style: AppTextStyles.bodyMedium,
           ),
 
-          gap28,
-
-          Text(
-            description,
-            style: AppTextStyles.bodyMedium,
-          ),
-
-          gap24,
+          //gap28,
+          //
+          // Text(
+          //   description,
+          //   style: AppTextStyles.bodyMedium,
+          // ),
+          //
+          gap20,
 
           Text(
             paymentDate,
             style: AppTextStyles.bodyMedium,
           ),
 
-          gap12,
+          gap36,
 
           Text(
             "$totalAmount/-",

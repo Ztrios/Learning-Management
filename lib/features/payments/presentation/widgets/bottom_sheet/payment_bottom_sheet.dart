@@ -55,7 +55,9 @@ class PaymentBottomSheet extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Header Row
-          BottomSheetTitle(),
+          BottomSheetTitle(
+            title: '',
+          ),
 
           gap12,
 
