@@ -5,14 +5,18 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 
-class PaymentNoticeCard extends StatelessWidget {
+class PaymentInvoiceCard extends StatelessWidget {
   final bool isRedNotice;
+  final bool registrationFeeInclude;
   final String message;
+  final String totalAmount;
   final VoidCallback onPressed;
-  const PaymentNoticeCard({
+  const PaymentInvoiceCard({
     super.key,
     this.isRedNotice = false,
+    required this.registrationFeeInclude,
     required this.message,
+    required this.totalAmount,
     required this.onPressed
   });
 
@@ -38,16 +42,27 @@ class PaymentNoticeCard extends StatelessWidget {
             ),
           ),
 
-          gap4,
+          gap6,
 
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
 
               if(isRedNotice == false)
-              Text(
-                "Amount: 2000/-",
-                style: AppTextStyles.titleMedium,
+              Column(
+                crossAxisAlignment: crossStart,
+                children: [
+                  Text(
+                    "Amount: $totalAmount/-",
+                    style: AppTextStyles.titleMedium,
+                  ),
+
+                  if(registrationFeeInclude)
+                  Text(
+                    "(Registration fee included)",
+                    style: AppTextStyles.caption,
+                  )
+                ],
               ),
 
               const Spacer(),

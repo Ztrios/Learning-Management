@@ -116,4 +116,18 @@ class DateTimeFormatters{
   }
 
 
+  static String formatMonthYear(String yearMonth) {
+    // Parse the input string like "2025-08"
+    final parts = yearMonth.split('-');
+    final year = int.parse(parts[0]);
+    final month = int.parse(parts[1]);
+
+    // Add 1 month (Dart auto-rolls over December → January next year)
+    final nextMonth = DateTime(year, month + 1);
+
+    // Format the output as "September 2025"
+    return DateFormat('MMMM yyyy').format(nextMonth);
+  }
+
+
 }

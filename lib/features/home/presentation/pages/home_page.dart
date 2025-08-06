@@ -16,7 +16,7 @@ import 'package:learning_management/features/home/presentation/widgets/section_h
 import 'package:learning_management/features/home/presentation/widgets/subject_list_widget.dart';
 import 'package:learning_management/features/home/presentation/widgets/task_list_widget.dart';
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
-import 'package:learning_management/features/payments/presentation/widgets/payment_notice_card.dart';
+import 'package:learning_management/features/payments/presentation/widgets/payment_invoice_card.dart';
 import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 
 class HomePage extends HookWidget {
@@ -47,10 +47,12 @@ class HomePage extends HookWidget {
                       crossAxisAlignment: crossStart,
                       children: [
 
-                        PaymentNoticeCard(
+                        PaymentInvoiceCard(
                             message: "Your email couldn't be renewed because your payment didn’t work",
                             isRedNotice: false,
-                            onPressed: ()=> context.push(PaymentPage.path)
+                            registrationFeeInclude: true,
+                            totalAmount: '',
+                            onPressed: ()=> context.push(PaymentPage.path),
                         ),
 
                         gap6,

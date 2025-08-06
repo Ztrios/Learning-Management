@@ -22,6 +22,7 @@ import 'package:learning_management/features/home/domain/usecases/get_announceme
 import 'package:learning_management/features/home/domain/usecases/get_student_subjects_usecase.dart';
 import 'package:learning_management/features/home/domain/usecases/get_students_tasks_usecase.dart';
 import 'package:learning_management/features/home/domain/usecases/get_today_class_usecase.dart';
+import 'package:learning_management/features/payments/domain/usecases/get_invoice_usecase.dart';
 import 'package:learning_management/features/subject_details/data/datasource/remote_datasource/subject_details_remote_datasource.dart';
 import 'package:learning_management/features/subject_details/data/repositories/subject_details_repositories_impl.dart';
 import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
@@ -153,6 +154,9 @@ void initServiceLocator(){
   sl.registerLazySingleton<GetExamsListUseCase>(()=> GetExamsListUseCase());
   sl.registerLazySingleton<GetExamDetailsUseCase>(()=> GetExamDetailsUseCase());
   sl.registerLazySingleton<SubmitExamUseCase>(()=> SubmitExamUseCase());
+
+  /// Payment Page UseCase
+  sl.registerLazySingleton<GetInvoiceUseCase>(()=> GetInvoiceUseCase());
 
 
 }

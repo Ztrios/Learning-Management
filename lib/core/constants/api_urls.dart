@@ -41,6 +41,10 @@ class ApiUrls {
   static const String submitExam = "/api/v1/exam-submissions";
 
 
+  // Payments Page API endpoints
+  static const String invoice = "/api/v1/student-payments/payable/student/";
+
+
   // Public getter to access the base URL
   static String get baseURL => _baseURL;
   static String get imageBaseURL => _imageBaseURL;

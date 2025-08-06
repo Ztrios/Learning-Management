@@ -6,7 +6,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
-import 'package:learning_management/features/payments/presentation/pages/bottom_sheet/payment_details_bottom_sheet.dart';
+import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet/payment_details_bottom_sheet.dart';
 import 'package:learning_management/features/payments/presentation/widgets/fee_type_selection.dart';
 import 'package:learning_management/features/payments/presentation/widgets/item_view/payment_item_view.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';

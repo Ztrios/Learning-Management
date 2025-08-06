@@ -98,14 +98,6 @@ class CustomDrawer extends StatelessWidget {
                         }
                     ),
 
-                    _drawerItem(
-                        svgImage: "assets/icons/payment_icon.svg",
-                        title: "Payments",
-                        onPressed: (){
-                          context.push(PaymentPage.path);
-                          Navigator.pop(context);
-                        },
-                    ),
 
                     _drawerItem(
                       svgImage: "assets/icons/payment_icon.svg",
