@@ -4,12 +4,14 @@ class PaymentState extends Equatable {
   final Status status;
   final String? message;
   final InvoiceEntity? invoiceEntity;
+  final PaymentEntity? paymentEntity;
   final PaymentHistoryEntity? paymentHistoryEntity;
 
   const PaymentState({
     required this.status,
     required this.message,
     required this.invoiceEntity,
+    required this.paymentEntity,
     required this.paymentHistoryEntity
   });
 
@@ -18,6 +20,7 @@ class PaymentState extends Equatable {
     status: Status.initial,
     message: null,
     invoiceEntity: null,
+    paymentEntity: null,
     paymentHistoryEntity: null
   );
 
@@ -26,12 +29,14 @@ class PaymentState extends Equatable {
     Status? status,
     String? message,
     InvoiceEntity? invoiceEntity,
+    PaymentEntity? paymentEntity,
     PaymentHistoryEntity? paymentHistoryEntity
   }) {
     return PaymentState(
       status: status ?? this.status,
       message: message ?? this.message,
       invoiceEntity: invoiceEntity ?? this.invoiceEntity,
+      paymentEntity: paymentEntity ?? this.paymentEntity,
       paymentHistoryEntity: paymentHistoryEntity ?? this.paymentHistoryEntity
     );
   }
@@ -42,6 +47,7 @@ class PaymentState extends Equatable {
     status,
     message,
     invoiceEntity,
+    paymentEntity,
     paymentHistoryEntity
   ];
 }

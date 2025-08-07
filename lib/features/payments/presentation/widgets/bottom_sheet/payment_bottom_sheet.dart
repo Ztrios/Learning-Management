@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/payments/data/models/invoice_model.dart';
 import 'package:learning_management/features/payments/presentation/bloc/payment_bloc.dart';
+import 'package:learning_management/features/payments/presentation/bloc/payment_event.dart';
 import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet_title.dart';
 import 'package:learning_management/features/payments/presentation/widgets/fee_type_selection.dart';
 import 'package:learning_management/features/payments/presentation/widgets/month_selection_dropdown.dart';
@@ -30,27 +32,34 @@ class PaymentBottomSheet extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final paymentDuration = useState<int>(1);
+    final monthlyFee = useState<double>(0);
     final paymentAmount = useState<double>(0);
     final totalDiscount = useState<double>(0);
     final totalAmount = useState<double>(0);
 
 
     void paymentCalculation({required Invoice? invoice, required int paymentDuration}){
-      paymentAmount.value = (invoice?.monthlyFee ?? 0) * paymentDuration;
-      totalDiscount.value = (invoice?.monthlyDiscount ?? 0) * paymentDuration;
-      totalAmount.value = (invoice?.monthlyAmountExcludeDiscount ?? 0) * paymentDuration;
+      monthlyFee.value = (invoice?.monthlyFee ?? 0) * paymentDuration;
+      paymentAmount.value = (invoice?.monthlyFee ?? 0) * paymentDuration + (invoice?.registrationFee ?? 0);
+      totalDiscount.value = (invoice?.monthlyDiscount ?? 0) * paymentDuration + (invoice?.regDiscount ?? 0);
+      totalAmount.value = (invoice?.monthlyAmountExcludeDiscount ?? 0) * paymentDuration + (invoice?.registrationAmountExcludeDiscount ?? 0);
     }
 
-    final outlineBorder = OutlineInputBorder(
-      borderRadius: radius12,
-      borderSide: BorderSide(width: 1.5.w, color: AppColors.blueLight),
-    );
 
-    Widget titleText(String text, {Color? color}) =>
-        Text(
-          text,
-          style: AppTextStyles.titleMedium.copyWith(color: color),
-        );
+    void createPayment(){
+      int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
+      if(studentId != null){
+        Map<String,dynamic> body = {
+          "studentId": studentId,
+          "noOfMonth": paymentDuration,
+          //"registrationFee": 0,
+          //"monthlyFee": 2000,
+          //"totalAmount": 2000,
+          "paidAmount": totalAmount,
+        };
+        context.read<PaymentBloc>().add(CreatePayment(body: body));
+      }
+    }
 
 
     return Container(
@@ -85,6 +94,7 @@ class PaymentBottomSheet extends HookWidget {
                   MonthSelectionDropdown(
                     months: [1,2,3,6,12],
                     onMonthSelected: (selectedMonth) {
+                      paymentDuration.value = selectedMonth;
                       paymentCalculation(invoice: invoice, paymentDuration: selectedMonth);
                     },
                   ),
@@ -141,19 +151,28 @@ class PaymentBottomSheet extends HookWidget {
               gap12,
 
               /// Payment Summary
+
               if(invoice?.isRegistrationDone == false)
+                PaymentRowWidget(
+                    label: "Registration Fee",
+                    value: "${invoice?.registrationFee ?? 0}/-"
+                ),
+
               PaymentRowWidget(
-                  label: "Registration Fee",
-                  value: "${paymentAmount.value}/-"
+                  label: "Monthly Fee",
+                  value: "${monthlyFee.value}/-"
               ),
+
               PaymentRowWidget(
                   label: "Payment Amount",
                   value: "${paymentAmount.value}/-"
               ),
+
               PaymentRowWidget(
-                  label: "Discount",
+                  label: "Total Discount",
                   value: "${totalDiscount.value}/-"
               ),
+
               PaymentRowWidget(
                   label: "Total",
                   value: "${totalAmount.value}/-",
@@ -175,3 +194,15 @@ class PaymentBottomSheet extends HookWidget {
 
 
 }
+
+
+final outlineBorder = OutlineInputBorder(
+  borderRadius: radius12,
+  borderSide: BorderSide(width: 1.5.w, color: AppColors.blueLight),
+);
+
+Widget titleText(String text, {Color? color}) =>
+    Text(
+      text,
+      style: AppTextStyles.titleMedium.copyWith(color: color),
+    );

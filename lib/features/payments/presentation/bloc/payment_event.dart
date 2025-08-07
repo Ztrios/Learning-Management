@@ -16,6 +16,20 @@ class GetInvoice extends PaymentEvent{
 }
 
 
+class CreatePayment extends PaymentEvent{
+
+  final Map<String, dynamic> body;
+
+  CreatePayment({required this.body});
+
+  @override
+  List<Object?> get props => [
+    body
+  ];
+
+}
+
+
 class GetPaymentHistory extends PaymentEvent{
 
   final Map<String, dynamic> query;
