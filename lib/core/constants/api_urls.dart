@@ -44,6 +44,7 @@ class ApiUrls {
   // Payments Page API endpoints
   static const String invoice = "/api/v1/student-payments/payable/student/";
   static const String createPayment = "/api/v1/student-payments/initiate";
+  static const String verifyPayment = "/api/v1/student-payments/verify";
   static const String paymentHistory = "/api/v1/student-payments";
 
 

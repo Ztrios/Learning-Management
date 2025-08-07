@@ -13,7 +13,6 @@ class PaymentsRepositoriesImpl implements PaymentsRepositories{
       await sl<PaymentsRemoteDatasource>().getInvoice(studentId: studentId);
 
 
-
   @override
   Future<Either<Failure, PaymentEntity>> createPayment({required Map<String, dynamic> body}) async =>
       await sl<PaymentsRemoteDatasource>().createPayment(body: body);

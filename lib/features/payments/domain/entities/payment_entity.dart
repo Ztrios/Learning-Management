@@ -1,15 +1,14 @@
+import 'package:learning_management/features/payments/data/models/payment_model.dart';
+
 class PaymentEntity {
-  final String? paymentUrl;
-  final String? status;
-  final String? invoiceId;
-  final String? gateway;
-  final String? paymentId;
+  final int? statusCode;
+  final String? message;
+  final PaymentData? paymentData;
 
   PaymentEntity({
-    this.paymentUrl,
-    this.status,
-    this.invoiceId,
-    this.gateway,
-    this.paymentId,
+    this.statusCode,
+    this.message,
+    this.paymentData,
   });
+
 }

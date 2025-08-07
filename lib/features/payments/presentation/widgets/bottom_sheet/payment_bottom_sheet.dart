@@ -80,7 +80,7 @@ class PaymentBottomSheet extends HookWidget {
           Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(
               builder: (context) => BkashPaymentPage(
-                  bkashUrl: state.paymentEntity?.paymentUrl ?? ""
+                  bkashUrl: state.paymentEntity?.paymentData?.paymentUrl ?? ""
               )
           ));
         },
