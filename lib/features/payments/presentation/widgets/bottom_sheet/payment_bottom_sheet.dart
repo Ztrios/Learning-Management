@@ -34,13 +34,6 @@ class PaymentBottomSheet extends HookWidget {
     final totalDiscount = useState<double>(0);
     final totalAmount = useState<double>(0);
 
-    final List<String> months = [
-      "1 Month",
-      "2 Months",
-      "3 Months",
-      "6 Months",
-      "12 Months"
-    ];
 
     void paymentCalculation({required Invoice? invoice, required int paymentDuration}){
       paymentAmount.value = (invoice?.monthlyFee ?? 0) * paymentDuration;
@@ -90,10 +83,9 @@ class PaymentBottomSheet extends HookWidget {
                   ),
 
                   MonthSelectionDropdown(
-                    months: months,
-                    initialIndex: 0,
-                    onMonthSelected: (index) {
-                      paymentCalculation(invoice: invoice, paymentDuration: index + 1);
+                    months: [1,2,3,6,12],
+                    onMonthSelected: (selectedMonth) {
+                      paymentCalculation(invoice: invoice, paymentDuration: selectedMonth);
                     },
                   ),
                 ],

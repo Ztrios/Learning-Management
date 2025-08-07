@@ -7,27 +7,22 @@ import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 
 class MonthSelectionDropdown extends HookWidget {
-  final List<String> months;
-  final void Function(int selectedIndex) onMonthSelected;
-  final int? initialIndex;
+  final List<int> months;
+  final void Function(int selectedMonth) onMonthSelected;
 
   const MonthSelectionDropdown({
     super.key,
     required this.months,
     required this.onMonthSelected,
-    this.initialIndex,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    final selectedMonth = useState<String>(
-      initialIndex != null ? months[initialIndex!] : months.first,
-    );
-
+    final selectedMonth = useState<int>(months.first);
 
     useEffect((){
-      Future.microtask(()=> onMonthSelected(initialIndex ?? 0));
+      Future.microtask(()=> onMonthSelected(months.first));
       return null;
     },[]);
 
@@ -39,7 +34,7 @@ class MonthSelectionDropdown extends HookWidget {
         border: Border.all(width: 1.w, color: AppColors.blueLight),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
+        child: DropdownButton<int>(
           value: selectedMonth.value,
           icon: Icon(Icons.keyboard_arrow_down,
               color: AppColors.deepBlue, size: 25.sp),
@@ -49,13 +44,13 @@ class MonthSelectionDropdown extends HookWidget {
           onChanged: (value) {
             if (value != null) {
               selectedMonth.value = value;
-              onMonthSelected(months.indexOf(value));
+              onMonthSelected(selectedMonth.value);
             }
           },
           items: months.map((item) {
-            return DropdownMenuItem<String>(
+            return DropdownMenuItem<int>(
               value: item,
-              child: Text(item),
+              child: Text("$item ${item > 1 ? "Month" : "Months"}"),
             );
           }).toList(),
         ),
