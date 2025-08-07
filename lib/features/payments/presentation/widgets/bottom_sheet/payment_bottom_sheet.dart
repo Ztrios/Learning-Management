@@ -77,12 +77,12 @@ class PaymentBottomSheet extends HookWidget {
           return previous.createPaymentStatus.isLoading && current.createPaymentStatus.isSuccess;
         },
         listener: (context, state){
+          Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(
               builder: (context) => BkashPaymentPage(
                   bkashUrl: state.paymentEntity?.paymentUrl ?? ""
               )
           ));
-          context.pop();
         },
         builder: (context, state) {
 
@@ -200,6 +200,7 @@ class PaymentBottomSheet extends HookWidget {
               /// Final Button
               PrimaryButton(
                 onPressed: createPayment,
+                isLoading: state.createPaymentStatus.isLoading,
                 text: "Pay ${totalAmount.value} Tk",
               ),
 
