@@ -30,23 +30,6 @@ class PaymentPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    void getPayment(){
-      int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
-      if(studentId != null){
-        context.read<PaymentBloc>().add(GetInvoice(studentId: studentId.toString()));
-      }
-    }
-
-    useEffect((){
-      Future.microtask((){
-        getPayment();
-      });
-      // if(true){
-      //   Future.microtask(()=> showPaymentBottomSheet(context));
-      // }
-      return null;
-    },[]);
 
     return Scaffold(
       endDrawer: CustomDrawer(),
@@ -72,22 +55,8 @@ class PaymentPage extends HookWidget {
                   child: Column(
                     children: [
 
-                      BlocBuilder<PaymentBloc, PaymentState>(
-                        builder: (context, state) {
-
-                          Invoice? invoice = state.invoiceEntity?.invoice;
-
-                          return Skeletonizer(
-                            enabled: state.status.isLoading,
-                            child: PaymentInvoiceCard(
-                              isRedNotice: false,
-                              registrationFeeInclude: invoice?.isRegistrationDone == false,
-                              totalAmount: (invoice?.totalAmount ?? 0).toString(),
-                              message: "Monthly Payment of ${DateTimeFormatters.formatMonthYear(invoice?.toPayableMonth ?? "2025-08")} Invoice.",
-                              onPressed: () => showPaymentBottomSheet(context),
-                            ),
-                          );
-                        },
+                      PaymentInvoiceCard(
+                        isRedNotice: false,
                       ),
 
                       gap48,

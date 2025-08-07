@@ -48,11 +48,7 @@ class HomePage extends HookWidget {
                       children: [
 
                         PaymentInvoiceCard(
-                            message: "Your email couldn't be renewed because your payment didn’t work",
                             isRedNotice: false,
-                            registrationFeeInclude: true,
-                            totalAmount: '',
-                            onPressed: ()=> context.push(PaymentPage.path),
                         ),
 
                         gap6,
