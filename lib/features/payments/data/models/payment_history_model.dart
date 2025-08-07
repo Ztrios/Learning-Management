@@ -128,7 +128,7 @@ class Content {
   final dynamic transactionId;
   final dynamic bankTransactionId;
   final String? currency;
-  final double? registrationDiscountAmount;
+  final num? registrationDiscountAmount;
   final double? monthlyFeeDiscountAmount;
   final String? invoiceId;
   final dynamic paymentId;
@@ -173,7 +173,7 @@ class Content {
     dynamic transactionId,
     dynamic bankTransactionId,
     String? currency,
-    double? registrationDiscountAmount,
+    num? registrationDiscountAmount,
     double? monthlyFeeDiscountAmount,
     String? invoiceId,
     dynamic paymentId,

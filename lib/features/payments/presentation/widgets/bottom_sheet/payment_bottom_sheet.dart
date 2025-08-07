@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
@@ -9,6 +11,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/payments/data/models/invoice_model.dart';
 import 'package:learning_management/features/payments/presentation/bloc/payment_bloc.dart';
 import 'package:learning_management/features/payments/presentation/bloc/payment_event.dart';
+import 'package:learning_management/features/payments/presentation/pages/bkash_payment_page.dart';
 import 'package:learning_management/features/payments/presentation/widgets/bottom_sheet_title.dart';
 import 'package:learning_management/features/payments/presentation/widgets/fee_type_selection.dart';
 import 'package:learning_management/features/payments/presentation/widgets/month_selection_dropdown.dart';
@@ -47,15 +50,17 @@ class PaymentBottomSheet extends HookWidget {
 
 
     void createPayment(){
+      print("Hello");
       int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
       if(studentId != null){
         Map<String,dynamic> body = {
           "studentId": studentId,
-          "noOfMonth": paymentDuration,
+          "noOfMonth": paymentDuration.value,
           //"registrationFee": 0,
           //"monthlyFee": 2000,
           //"totalAmount": 2000,
-          "paidAmount": totalAmount,
+          "paymentMethod": "BKASH",
+          "paidAmount": totalAmount.value,
         };
         context.read<PaymentBloc>().add(CreatePayment(body: body));
       }
@@ -67,7 +72,18 @@ class PaymentBottomSheet extends HookWidget {
       height: 600.h,
       padding: padding24,
       decoration: BoxDecoration(borderRadius: radius16),
-      child: BlocBuilder<PaymentBloc, PaymentState>(
+      child: BlocConsumer<PaymentBloc, PaymentState>(
+        listenWhen: (previous, current){
+          return previous.createPaymentStatus.isLoading && current.createPaymentStatus.isSuccess;
+        },
+        listener: (context, state){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => BkashPaymentPage(
+                  bkashUrl: state.paymentEntity?.paymentUrl ?? ""
+              )
+          ));
+          context.pop();
+        },
         builder: (context, state) {
 
           Invoice? invoice = state.invoiceEntity?.invoice;
@@ -141,7 +157,7 @@ class PaymentBottomSheet extends HookWidget {
                     width: 100.w,
                     height: 40.h,
                     child: PrimaryButton(
-                      onPressed: () {},
+                      onPressed: (){},
                       text: "Apply",
                     ),
                   ),
@@ -182,7 +198,10 @@ class PaymentBottomSheet extends HookWidget {
               const Spacer(),
 
               /// Final Button
-              PrimaryButton(text: "Pay ${totalAmount.value} Tk"),
+              PrimaryButton(
+                onPressed: createPayment,
+                text: "Pay ${totalAmount.value} Tk",
+              ),
 
               gap12,
             ],

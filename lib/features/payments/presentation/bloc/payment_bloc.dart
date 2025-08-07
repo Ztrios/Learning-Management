@@ -30,11 +30,11 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState>{
 
 
   Future<void> _onCreatePayment(CreatePayment event, Emitter<PaymentState> emit) async {
-    emit(state.copyWith(status: Status.loading));
+    emit(state.copyWith(createPaymentStatus: Status.loading));
     var result = await sl<CreatePaymentUseCase>().call(params: event.body);
     result.fold(
-            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
-            (data)=> emit(state.copyWith(status: Status.success, paymentEntity: data))
+            (error)=> emit(state.copyWith(createPaymentStatus: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(createPaymentStatus: Status.success, paymentEntity: data))
     );
   }
 
