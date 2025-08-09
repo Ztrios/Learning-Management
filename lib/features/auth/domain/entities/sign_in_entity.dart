@@ -13,6 +13,15 @@ class SignInEntity {
     this.signInData,
   });
 
+  SignInEntity copyWith({
+    int? statusCode,
+    String? message,
+    SignInData? signInData
+  }) => SignInEntity(
+    statusCode: statusCode ?? this.statusCode,
+    message: message ?? this.message,
+    signInData: signInData ?? this.signInData
+  );
 
   factory SignInEntity.fromRawJson(String str)=> SignInEntity.fromJson(jsonDecode(str));
 
