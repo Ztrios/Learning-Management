@@ -6,6 +6,7 @@ import 'package:learning_management/config/service_locator/service_locator.dart'
 import 'package:learning_management/core/constants/local_database_keys.dart';
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/refresh_token_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
@@ -43,28 +44,40 @@ class AuthInterceptor extends Interceptor {
           if(!isRefreshing){
             isRefreshing = true;
 
-            String newToken = "";
+            Map<String, dynamic> body = {"refreshToken" : refreshToken};
 
-            SignInEntity updateSignInEntity = signInEntity.copyWith(
-                signInData: signInEntity.signInData?.copyWith(token: newToken)
+            var refreshResult = await sl<RefreshTokenUseCase>().call(params: body);
+
+            refreshResult.fold(
+                    (_) async {
+                        queuedRequests.clear();
+                        navigatorKey.currentState?.context.goNamed(SignInPage.path);
+                        await sl<SignOutUseCase>().call();
+                        return handler.reject(err);
+                    },
+                    (signInEntity) async {
+
+                        await sl<SaveSignInEntityUseCase>().call(params: signInEntity);
+                        String? newToken = signInEntity.signInData?.token;
+
+                        Dio dio = Dio();
+
+                        // Retry queued requests
+                        for (var request in queuedRequests) {
+                          request.headers["Authorization"] = "Bearer $newToken";
+                          handler.resolve(await dio.fetch(request));
+                        }
+                        queuedRequests.clear();
+
+                        err.requestOptions.headers["Authorization"] =
+                        "Bearer $newToken";
+                        Response response = await dio.fetch(err.requestOptions);
+                        isRefreshing = false;
+                        return handler.resolve(response);
+
+                    }
             );
-            await sl<SaveSignInEntityUseCase>().call(params: updateSignInEntity);
 
-            Dio dio = Dio();
-
-            // Retry queued requests
-            for (var request in queuedRequests) {
-              request.headers["Authorization"] = "Bearer $newToken";
-              handler.resolve(await dio.fetch(request));
-            }
-            queuedRequests.clear();
-
-            err.requestOptions.headers["Authorization"] = "Bearer $newToken";
-            Response response = await dio.fetch(err.requestOptions);
-
-            isRefreshing = false;
-
-            return handler.resolve(response);
           }else{
             queuedRequests.add(err.requestOptions);
           }
@@ -74,7 +87,6 @@ class AuthInterceptor extends Interceptor {
           navigatorKey.currentState?.context.goNamed(SignInPage.path);
           await sl<SignOutUseCase>().call();
           return handler.reject(err);
-
         }
       });
     }

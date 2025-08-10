@@ -17,6 +17,7 @@ sealed class AuthRemoteDatasource {
   Future<Either<Failure, SignInEntity>> signIn({required Map<String,dynamic> body});
   Future<Either<Failure, StudentEntity>> signUp({required Map<String,dynamic> body});
   Future<Either<Failure, bool>> resetPassword({required Map<String,dynamic> body});
+  Future<Either<Failure, SignInEntity>> refreshToken({required Map<String,dynamic> body});
   Future<Either<Failure, SectionsEntity>> getSections({required String batchYear});
 }
 
@@ -73,6 +74,26 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
           data: body
       );
       return Right(response.statusCode == 200);
+    }catch(error, stackTrace){
+      log(
+          "Auth Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, SignInEntity>> refreshToken({required Map<String,dynamic> body}) async {
+    try{
+      Response response = await sl<DioClient>().post(
+          ApiUrls.refreshToken,
+          data: body
+      );
+      SignInEntity signInEntity = SignInModel.fromJson(response.data).toEntity();
+      return Right(signInEntity);
     }catch(error, stackTrace){
       log(
           "Auth Remote DataSource: ",
