@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_management/core/helpers/helpers.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -150,7 +151,7 @@ class RoutineListItemView extends StatelessWidget {
                       gap12,
 
                       InkWell(
-                        onTap: (){},
+                        onTap: ()=> Clipboard.setData(ClipboardData(text: meetingId)),
                           child: Icon(
                               Icons.copy_rounded,
                             color: Colors.white,
@@ -181,7 +182,7 @@ class RoutineListItemView extends StatelessWidget {
                       gap12,
 
                       InkWell(
-                          onTap: (){},
+                          onTap: ()=> Clipboard.setData(ClipboardData(text: meetingPassword)),
                           child: Icon(
                             Icons.copy_rounded,
                             color: Colors.white,

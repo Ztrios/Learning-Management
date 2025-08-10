@@ -22,8 +22,7 @@ class AuthInterceptor extends Interceptor {
     result.map((signInEntity) {
       if (signInEntity != null) {
         if (signInEntity.signInData?.token != null) {
-          options.headers["Authorization"] =
-          "Bearer ${signInEntity.signInData?.token}";
+          options.headers["Authorization"] = "Bearer ${signInEntity.signInData?.token}";
         }
       }
     });
@@ -33,65 +32,68 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if(err.response?.statusCode == 401){
-
+    if (err.response?.statusCode == 401) {
       var result = await sl<GetSignInEntityUseCase>().call();
 
       result.map((signInEntity) async {
         if (signInEntity?.signInData?.refreshToken != null) {
           String refreshToken = signInEntity!.signInData!.refreshToken!;
 
-          if(!isRefreshing){
+          if (!isRefreshing) {
             isRefreshing = true;
 
-            Map<String, dynamic> body = {"refreshToken" : refreshToken};
+            Map<String, dynamic> body = {"refreshToken": refreshToken};
 
-            var refreshResult = await sl<RefreshTokenUseCase>().call(params: body);
+            var refreshResult =
+            await sl<RefreshTokenUseCase>().call(params: body);
 
-            refreshResult.fold(
-                    (_) async {
-                        queuedRequests.clear();
-                        navigatorKey.currentState?.context.goNamed(SignInPage.path);
-                        await sl<SignOutUseCase>().call();
-                        return handler.reject(err);
-                    },
-                    (signInEntity) async {
+            await refreshResult.fold(
+                  (_) async {
+                queuedRequests.clear();
+                navigatorKey.currentState?.context.goNamed(SignInPage.path);
+                await sl<SignOutUseCase>().call();
+                handler.reject(err);
+              },
+                  (newSignInEntity) async {
+                await sl<SaveSignInEntityUseCase>()
+                    .call(params: newSignInEntity);
+                String? newToken = newSignInEntity.signInData?.token;
 
-                        await sl<SaveSignInEntityUseCase>().call(params: signInEntity);
-                        String? newToken = signInEntity.signInData?.token;
+                Dio dio = Dio();
 
-                        Dio dio = Dio();
+                // Retry queued requests (no handler here)
+                for (var request in queuedRequests) {
+                  request.headers["Authorization"] = "Bearer $newToken";
+                  dio.fetch(request);
+                }
+                queuedRequests.clear();
 
-                        // Retry queued requests
-                        for (var request in queuedRequests) {
-                          request.headers["Authorization"] = "Bearer $newToken";
-                          handler.resolve(await dio.fetch(request));
-                        }
-                        queuedRequests.clear();
+                // Retry the original failed request
+                err.requestOptions.headers["Authorization"] =
+                "Bearer $newToken";
+                Response response = await dio.fetch(err.requestOptions);
 
-                        err.requestOptions.headers["Authorization"] =
-                        "Bearer $newToken";
-                        Response response = await dio.fetch(err.requestOptions);
-                        isRefreshing = false;
-                        return handler.resolve(response);
-
-                    }
+                isRefreshing = false;
+                handler.resolve(response); // ✅ Only call once here
+              },
             );
-
-          }else{
+          } else {
             queuedRequests.add(err.requestOptions);
           }
-
-        }else{
+        } else {
           queuedRequests.clear();
           navigatorKey.currentState?.context.goNamed(SignInPage.path);
           await sl<SignOutUseCase>().call();
-          return handler.reject(err);
+          handler.reject(err);
         }
       });
+
+      return; // ✅ Prevents calling handler.next(err)
     }
-    return handler.next(err);
+
+    handler.next(err); // Only for non-403 errors
   }
+
 
 
 }

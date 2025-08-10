@@ -34,9 +34,7 @@ class PaymentInvoiceCard extends HookWidget {
     }
 
     useEffect((){
-      Future.microtask((){
-        getPayment();
-      });
+      Future.microtask(()=> getPayment());
       return null;
     },[]);
 
@@ -62,6 +60,7 @@ class PaymentInvoiceCard extends HookWidget {
                 )
             ),
             child: Column(
+              crossAxisAlignment: crossStart,
               children: [
                 Text(
                   "Monthly Payment of ${DateTimeFormatters.formatMonthYear(invoice?.toPayableMonth ?? "2025-08")} Invoice.",
@@ -77,7 +76,7 @@ class PaymentInvoiceCard extends HookWidget {
                   mainAxisAlignment: mainSpaceBetween,
                   children: [
 
-                    if(1 == 2)
+                    if(isRedNotice == false)
                       Column(
                         crossAxisAlignment: crossStart,
                         children: [
