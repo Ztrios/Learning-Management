@@ -16,11 +16,19 @@ class DioClient {
       responseType: ResponseType.json,
       sendTimeout: const Duration(seconds: 20),
       receiveTimeout: const Duration(seconds: 20),
+      validateStatus: (status){
+
+        if (status == null) return false;
+        return status == 404 || (status >= 200 && status < 300);
+
+      }
     ),
-  )..interceptors.addAll([
-    AuthInterceptor(),
-    LoggerInterceptor(),
-  ]);
+  ){
+    _dio.interceptors.addAll([
+      AuthInterceptor(dio: _dio),
+      LoggerInterceptor(),
+    ]);
+  }
 
   Future<Response<T>> get<T>(
       String url, {

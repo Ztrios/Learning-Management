@@ -52,7 +52,7 @@ class InvoiceModel {
 class Invoice {
   final bool? isRegistrationDone;
   final String? toPayableMonth;
-  final int? registrationFee;
+  final double? registrationFee;
   final int? regDiscount;
   final String? regDiscountType;
   final int? registrationAmountExcludeDiscount;
@@ -79,7 +79,7 @@ class Invoice {
   Invoice copyWith({
     bool? isRegistrationDone,
     String? toPayableMonth,
-    int? registrationFee,
+    double? registrationFee,
     int? regDiscount,
     String? regDiscountType,
     int? registrationAmountExcludeDiscount,

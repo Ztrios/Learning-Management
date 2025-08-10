@@ -45,7 +45,7 @@ class PaymentItemView extends StatelessWidget {
             style: AppTextStyles.bodyMedium,
           ),
 
-          gap36,
+          gap28,
 
           Text(
             "$totalAmount/-",

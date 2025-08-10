@@ -53,10 +53,10 @@ class PaymentList extends HookWidget {
               children: [
 
                 Row(
-                  mainAxisAlignment: mainSpaceBetween,
+                  //mainAxisAlignment: mainSpaceBetween,
                   children: [
 
-                    gap6,
+                    gap24,
 
                     Text(
                       "Invoice ID",
@@ -70,7 +70,7 @@ class PaymentList extends HookWidget {
                     //   textAlign: TextAlign.center,
                     // ),
 
-                    gap12,
+                    gap48,
 
                     Text(
                       "Paid At",
@@ -78,7 +78,7 @@ class PaymentList extends HookWidget {
                       textAlign: TextAlign.center,
                     ),
 
-                    gap24,
+                    gap48,
 
                     Text(
                       "Amount",
