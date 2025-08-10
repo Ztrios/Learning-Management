@@ -53,7 +53,7 @@ class Invoice {
   final bool? isRegistrationDone;
   final String? toPayableMonth;
   final double? registrationFee;
-  final int? regDiscount;
+  final double? regDiscount;
   final String? regDiscountType;
   final int? registrationAmountExcludeDiscount;
   final double? monthlyFee;
@@ -80,7 +80,7 @@ class Invoice {
     bool? isRegistrationDone,
     String? toPayableMonth,
     double? registrationFee,
-    int? regDiscount,
+    double? regDiscount,
     String? regDiscountType,
     int? registrationAmountExcludeDiscount,
     double? monthlyFee,
