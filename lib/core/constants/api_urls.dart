@@ -4,6 +4,7 @@ class ApiUrls {
 
   //static const String _baseURL = "https://lms.shaheen.edu.bd";
   static const String _baseURL = "http://192.168.20.244:9090";
+
   static const String _imageBaseURL = "";
 
   // auth API endpoints
