@@ -55,7 +55,7 @@ class Invoice {
   final double? registrationFee;
   final double? regDiscount;
   final String? regDiscountType;
-  final int? registrationAmountExcludeDiscount;
+  final double? registrationAmountExcludeDiscount;
   final double? monthlyFee;
   final double? monthlyDiscount;
   final String? monthlyDiscountType;
@@ -82,7 +82,7 @@ class Invoice {
     double? registrationFee,
     double? regDiscount,
     String? regDiscountType,
-    int? registrationAmountExcludeDiscount,
+    double? registrationAmountExcludeDiscount,
     double? monthlyFee,
     double? monthlyDiscount,
     String? monthlyDiscountType,
