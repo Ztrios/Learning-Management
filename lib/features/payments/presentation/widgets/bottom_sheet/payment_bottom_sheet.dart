@@ -35,10 +35,10 @@ class PaymentBottomSheet extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final paymentDuration = useState<int>(1);
-    final monthlyFee = useState<double>(0);
-    final paymentAmount = useState<double>(0);
-    final totalDiscount = useState<double>(0);
-    final totalAmount = useState<double>(0);
+    final monthlyFee = useState<num>(0);
+    final paymentAmount = useState<num>(0);
+    final totalDiscount = useState<num>(0);
+    final totalAmount = useState<num>(0);
 
 
     void paymentCalculation({required Invoice? invoice, required int paymentDuration}){

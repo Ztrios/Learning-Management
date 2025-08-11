@@ -52,15 +52,15 @@ class InvoiceModel {
 class Invoice {
   final bool? isRegistrationDone;
   final String? toPayableMonth;
-  final double? registrationFee;
-  final double? regDiscount;
+  final num? registrationFee;
+  final num? regDiscount;
   final String? regDiscountType;
-  final double? registrationAmountExcludeDiscount;
-  final double? monthlyFee;
-  final double? monthlyDiscount;
+  final num? registrationAmountExcludeDiscount;
+  final num? monthlyFee;
+  final num? monthlyDiscount;
   final String? monthlyDiscountType;
-  final double? monthlyAmountExcludeDiscount;
-  final double? totalAmount;
+  final num? monthlyAmountExcludeDiscount;
+  final num? totalAmount;
 
   Invoice({
     this.isRegistrationDone,
@@ -79,15 +79,15 @@ class Invoice {
   Invoice copyWith({
     bool? isRegistrationDone,
     String? toPayableMonth,
-    double? registrationFee,
-    double? regDiscount,
+    num? registrationFee,
+    num? regDiscount,
     String? regDiscountType,
-    double? registrationAmountExcludeDiscount,
-    double? monthlyFee,
-    double? monthlyDiscount,
+    num? registrationAmountExcludeDiscount,
+    num? monthlyFee,
+    num? monthlyDiscount,
     String? monthlyDiscountType,
-    double? monthlyAmountExcludeDiscount,
-    double? totalAmount,
+    num? monthlyAmountExcludeDiscount,
+    num? totalAmount,
   }) =>
       Invoice(
         isRegistrationDone: isRegistrationDone ?? this.isRegistrationDone,

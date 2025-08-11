@@ -138,7 +138,7 @@ class DateTimeFormatters{
 
     if (hour >= 5 && hour < 12) {
       return "Good Morning";      // 5 AM to 11:59 AM
-    } else if (hour >= 12 && hour < 15) {
+    } else if (hour >= 12 && hour <= 18) {
       return "Good Afternoon";    // 12 PM to 2:59 PM
     } else {
       return "Good Evening";
@@ -154,7 +154,7 @@ class DateTimeFormatters{
 
     if (hour >= 5 && hour < 12) {
       return Icons.wb_sunny;
-    } else if (hour >= 12 && hour < 15) {
+    } else if (hour >= 12 && hour < 18) {
       return Icons.wb_sunny_outlined;
     } else {
       return Icons.bedtime; // Sleep icon

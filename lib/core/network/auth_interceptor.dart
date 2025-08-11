@@ -11,103 +11,90 @@ import 'package:learning_management/features/auth/domain/usecases/save_signin_en
 import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 
-class AuthInterceptor extends Interceptor {
 
-   bool isRefreshing = false;
+class AuthInterceptor extends Interceptor {
+  bool isRefreshing = false;
   final List<RequestOptions> queuedRequests = [];
   final Dio dio;
+
   AuthInterceptor({required this.dio});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     var result = await sl<GetSignInEntityUseCase>().call();
     result.map((signInEntity) {
-      if (signInEntity != null) {
-        if (signInEntity.signInData?.token != null) {
-          options.headers["Authorization"] = "Bearer ${signInEntity.signInData?.token}";
-        }
+      if (signInEntity?.signInData?.token != null) {
+        options.headers["Authorization"] = "Bearer ${signInEntity!.signInData!.token}";
       }
     });
-    return handler.next(options);
+    handler.next(options);
   }
-
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode == 401) {
+      var result = await sl<GetSignInEntityUseCase>().call();
 
-    if(err.response?.statusCode == 401){
-      queuedRequests.clear();
-      navigatorKey.currentContext?.pushReplacementNamed(SignInPage.name);
-      await sl<SignOutUseCase>().call();
-      return handler.reject(err);
+      return result.fold(
+            (failure) async {
+          await _forceSignOut();
+          return handler.reject(err);
+        },
+            (signInEntity) async {
+          if (signInEntity?.signInData?.refreshToken == null) {
+            await _forceSignOut();
+            return handler.reject(err);
+          }
+
+          String refreshToken = signInEntity!.signInData!.refreshToken!;
+
+          // If already refreshing, queue the request
+          if (isRefreshing) {
+            queuedRequests.add(err.requestOptions);
+            return;
+          }
+
+          isRefreshing = true;
+
+          Map<String, dynamic> body = {"refreshToken": refreshToken};
+          var refreshResult = await sl<RefreshTokenUseCase>().call(params: body);
+
+          return refreshResult.fold(
+                (failure) async {
+              await _forceSignOut();
+              isRefreshing = false;
+              return handler.reject(err);
+            },
+                (newSignInEntity) async {
+              await sl<SaveSignInEntityUseCase>().call(params: newSignInEntity);
+              String? newToken = newSignInEntity.signInData?.token;
+
+              // Retry queued requests
+              for (var request in queuedRequests) {
+                request.headers["Authorization"] = "Bearer $newToken";
+                dio.fetch(request);
+              }
+              queuedRequests.clear();
+
+              // Retry original failed request
+              err.requestOptions.headers["Authorization"] = "Bearer $newToken";
+              Response response = await dio.fetch(err.requestOptions);
+
+              isRefreshing = false;
+              return handler.resolve(response);
+            },
+          );
+        },
+      );
     }
 
-    // if (err.response?.statusCode == 401) {
-    //   var result = await sl<GetSignInEntityUseCase>().call();
-    //
-    //   return result.fold(
-    //         (failure) async {
-    //       // Handle failure (e.g., no sign-in entity)
-    //       queuedRequests.clear();
-    //       navigatorKey.currentContext?.pushReplacementNamed(SignInPage.name);
-    //       await sl<SignOutUseCase>().call();
-    //       return handler.reject(err);
-    //     },
-    //         (signInEntity) async {
-    //       if (signInEntity?.signInData?.refreshToken == null) {
-    //         queuedRequests.clear();
-    //         navigatorKey.currentContext?.pushReplacementNamed(SignInPage.name);
-    //         await sl<SignOutUseCase>().call();
-    //         return handler.reject(err);
-    //       }
-    //
-    //       String refreshToken = signInEntity!.signInData!.refreshToken!;
-    //
-    //       if (!isRefreshing) {
-    //         isRefreshing = true;
-    //
-    //         Map<String, dynamic> body = {"refreshToken": refreshToken};
-    //         var refreshResult = await sl<RefreshTokenUseCase>().call(params: body);
-    //
-    //         return refreshResult.fold(
-    //               (failure) async {
-    //             queuedRequests.clear();
-    //             navigatorKey.currentContext?.pushReplacementNamed(SignInPage.name);
-    //             await sl<SignOutUseCase>().call();
-    //             isRefreshing = false;
-    //             return handler.reject(err);
-    //           },
-    //               (newSignInEntity) async {
-    //             //await sl<SaveSignInEntityUseCase>().call(params: newSignInEntity);
-    //             String? newToken = newSignInEntity.signInData?.token;
-    //
-    //
-    //             // Retry queued requests
-    //             for (var request in queuedRequests) {
-    //               request.headers["Authorization"] = "Bearer $newToken";
-    //               await dio.fetch(request); // Note: Consider handling response
-    //             }
-    //             queuedRequests.clear();
-    //
-    //             // Retry the original failed request
-    //             err.requestOptions.headers["Authorization"] = "Bearer $newToken";
-    //             Response response = await dio.fetch(err.requestOptions);
-    //
-    //             isRefreshing = false;
-    //             return handler.resolve(response);
-    //           },
-    //         );
-    //       } else {
-    //         queuedRequests.add(err.requestOptions);
-    //         return; // Wait for refresh to complete
-    //       }
-    //     },
-    //   );
-    // }
-
-    return handler.next(err); // For non-401 errors
+    handler.next(err); // non-401 errors
   }
 
-
-
+  Future<void> _forceSignOut() async {
+    queuedRequests.clear();
+    await sl<SignOutUseCase>().call();
+    navigatorKey.currentContext?.goNamed(SignInPage.name);
+  }
 }
+
