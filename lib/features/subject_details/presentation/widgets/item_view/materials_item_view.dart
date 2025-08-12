@@ -1,65 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_management/core/helpers/helpers.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
+import 'package:learning_management/core/utils/ui_helpers/margins.dart';
+import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
+import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class MaterialsItemView extends StatelessWidget {
-  const MaterialsItemView({super.key});
+  final String title;
+
+  const MaterialsItemView({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 1.sw,
-      child: Column(
+      padding: padding12,
+      decoration: BoxDecoration(
+        borderRadius: radius4,
+          border: Border.all(
+              width: 1,
+              color: AppColors.grey,
+          )
+      ),
+      child: Row(
         children: [
 
-          gap6,
+          Icon(Icons.file_copy_outlined),
 
-          Row(
-            children: [
+          gap12,
 
-              NetworkImageWidget(
-                "https://i.ytimg.com/vi/NcoRlvM1dmg/sddefault.jpg",
-                width: 130.w,
-                height: 80.h,
-                showPlayButton: true,
-              ),
-
-              gap12,
-
-              Column(
-                crossAxisAlignment: crossStart,
-                children: [
-                  Text(
-                    "Integration Formula",
-                    style: AppTextStyles.titleSmall.copyWith(
-                        fontWeight: FontWeight.w900,
-                        color: AppColors.textPrimary
-                    ),
-                  ),
-
-                  Text(
-                    "Lecture by Susant Kumar",
-                    style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textSecondary
-                    ),
-                  ),
-
-                  Text(
-                    "2:34",
-                    style: AppTextStyles.caption,
-                  )
-
-                ],
-              )
-
-            ],
+          Expanded(
+            child: Text(
+                title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-
-          gap6
         ],
       ),
     );
