@@ -40,21 +40,25 @@ class RoutineListItemView extends StatelessWidget {
     return IntrinsicHeight(
       child: Row(
         children: [
-          Column(
-            crossAxisAlignment: crossStart,
-            children: [
-              Text(
-                startTime,
-                style: AppTextStyles.titleMedium,
-              ),
 
-              Text(
-                endTime,
-                style: AppTextStyles.titleMedium.copyWith(
-                    color: AppColors.textGreyLight
+          SizedBox(
+            width: 70.w,
+            child: Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                Text(
+                  startTime,
+                  style: AppTextStyles.titleMedium,
                 ),
-              ),
-            ],
+
+                Text(
+                  endTime,
+                  style: AppTextStyles.titleMedium.copyWith(
+                      color: AppColors.textGreyLight
+                  ),
+                ),
+              ],
+            ),
           ),
 
 
@@ -84,10 +88,13 @@ class RoutineListItemView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: mainSpaceBetween,
                     children: [
-                      Text(
-                        subject,
-                        style: AppTextStyles.titleLarge.copyWith(
-                            color: isActive ? Colors.white : null
+
+                      Expanded(
+                        child: Text(
+                          subject,
+                          style: AppTextStyles.titleLarge.copyWith(
+                              color: isActive ? Colors.white : null
+                          ),
                         ),
                       ),
 
@@ -99,33 +106,35 @@ class RoutineListItemView extends StatelessWidget {
                       //     )
                       // ),
                       //
-                      if(isActive)
-                        InkWell(
-                          onTap: ()=> Helpers.launchUri(uri: meetingLink),
-                          child: Container(
-                            width: 85.w,
-                            height: 30.h,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: radius6,
-                                color: Colors.white
-                            ),
-                            child: Text(
-                              "Join Class",
-                              style: AppTextStyles.caption,
-                            ),
-                          ),
-                        ),
+                      // if(isActive)
+                      //   InkWell(
+                      //     onTap: ()=> Helpers.launchUri(uri: meetingLink),
+                      //     child: Container(
+                      //       width: 85.w,
+                      //       height: 30.h,
+                      //       alignment: Alignment.center,
+                      //       decoration: BoxDecoration(
+                      //           borderRadius: radius6,
+                      //           color: Colors.white
+                      //       ),
+                      //       child: Text(
+                      //         "Join Class",
+                      //         style: AppTextStyles.caption,
+                      //       ),
+                      //     ),
+                      //   ),
 
                     ],
                   ),
 
                   gap6,
 
-                  Text(
-                    topic,
-                    style: AppTextStyles.bodyLarge.copyWith(
-                        color: isActive ? Colors.white : null
+                  Expanded(
+                    child: Text(
+                      topic,
+                      style: AppTextStyles.bodyLarge.copyWith(
+                          color: isActive ? Colors.white : null
+                      ),
                     ),
                   ),
 
@@ -192,7 +201,41 @@ class RoutineListItemView extends StatelessWidget {
                     ],
                   ),
 
-                  gap12,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.link,
+                        color: isActive ? Colors.white : null,
+                      ),
+
+                      gap12,
+
+                      Expanded( // ✅ Makes it take available space & wrap/shrink
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis, // ✅ Trim with "..."
+                          maxLines: 1, // ✅ Keep it in one line
+                          text: TextSpan(
+                            text: meetingLink,
+                            style: AppTextStyles.caption.copyWith(
+                              fontSize: 14.sp, // ✅ Responsive text size
+                              color: isActive ? Colors.white : null,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      InkWell(
+                        onTap: () => Clipboard.setData(ClipboardData(text: meetingLink)),
+                        child: Icon(
+                          Icons.copy_rounded,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+              gap12,
 
                   Row(
                     children: [

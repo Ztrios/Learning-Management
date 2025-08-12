@@ -85,7 +85,10 @@ class _LanguageDropdown extends HookWidget {
                       subjectProgress) {
                     return DropdownMenuItem<int>(
                       value: subjectProgress.subjectId,
-                      child: Text(subjectProgress.subjectName ?? ""),
+                      child: Text(
+                          (subjectProgress.subjectName?.length ?? 0) > 20 ?
+                              "${subjectProgress.subjectName!.substring(0,20)}..." : subjectProgress.subjectName ?? ""
+                      ),
                     );
                   }).toList(),
                 ),
@@ -108,13 +111,13 @@ class _ProgressText extends StatelessWidget {
           "You have Completed ",
           style: AppTextStyles.titleLarge.copyWith(fontWeight: FontWeight.bold),
         ),
-        Text(
-          "37% of your full course!",
-          style: AppTextStyles.titleLarge.copyWith(
-            fontWeight: FontWeight.w900,
-            color: AppColors.deepPurpleAccent,
-          ),
-        ),
+        // Text(
+        //   "37% of your full course!",
+        //   style: AppTextStyles.titleLarge.copyWith(
+        //     fontWeight: FontWeight.w900,
+        //     color: AppColors.deepPurpleAccent,
+        //   ),
+        // ),
       ],
     );
   }

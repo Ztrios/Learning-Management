@@ -47,6 +47,8 @@ class SubjectItemView extends StatelessWidget {
 
                   Text(
                     subject,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.titleMedium.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold

@@ -93,8 +93,10 @@ class _LanguageDropdown extends HookWidget {
                       subjectProgress) {
                     return DropdownMenuItem<int>(
                       value: subjectProgress.subjectId,
-                      child: Text(subjectProgress.subjectName ?? ""),
-                    );
+                      child: Text(
+                          (subjectProgress.subjectName?.length ?? 0) > 20 ?
+                          "${subjectProgress.subjectName!.substring(0,20)}..." : subjectProgress.subjectName ?? ""
+                      ),                    );
                   }).toList(),
                 ),
               ),
