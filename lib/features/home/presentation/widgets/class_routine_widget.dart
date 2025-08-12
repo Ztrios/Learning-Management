@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/helpers/helpers.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -172,24 +174,55 @@ class ClassRoutineWidget extends HookWidget {
 
                           gap24,
 
-                          Text(
-                            "Zoom ID : ${state.todaysClassEntity?.classData?.meetingId ?? "Not Found"}",
-                            style: AppTextStyles.caption.copyWith(
-                                color: Colors.white
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                "Zoom ID : ${state.todaysClassEntity?.classData?.meetingId ?? "Not Found"}",
+                                style: AppTextStyles.caption.copyWith(
+                                    color: Colors.white
+                                ),
+                              ),
+
+                              gap12,
+
+                              InkWell(
+                                  onTap: ()=> Clipboard.setData(ClipboardData(text: state.todaysClassEntity?.classData?.meetingId ?? "")),
+                                  child: Icon(
+                                    Icons.copy_rounded,
+                                    color: Colors.white,
+                                  )
+                              )
+
+                            ],
                           ),
 
-                          Text(
-                            "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
-                            style: AppTextStyles.caption.copyWith(
-                                color: Colors.white
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                "Password : ${state.todaysClassEntity?.classData?.meetingPass ?? "Not Found"}",
+                                style: AppTextStyles.caption.copyWith(
+                                    color: Colors.white
+                                ),
+                              ),
+
+
+                              gap12,
+
+                              InkWell(
+                                  onTap: ()=> Clipboard.setData(ClipboardData(text: state.todaysClassEntity?.classData?.meetingPass ?? "")),
+                                  child: Icon(
+                                    Icons.copy_rounded,
+                                    color: Colors.white,
+                                  )
+                              )
+
+                            ],
                           ),
 
                           gap12,
 
                           InkWell(
-                            onTap: (){},
+                            onTap: ()=> Helpers.launchUri(uri: state.todaysClassEntity?.classData?.meetingLink ?? ""),
                             child: Container(
                               width: 85.w,
                               height: 30.h,
