@@ -85,7 +85,7 @@ class ResultsCard extends HookWidget {
             ),
           );
         }else {
-          return EmptyResultsWidget();
+          return SizedBox.shrink();
         }
       },
     );

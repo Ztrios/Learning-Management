@@ -5,13 +5,20 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/core/utils/ui_helpers/ui_helpers.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResultsGraphLoading extends StatelessWidget {
   const ResultsGraphLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final dummyResults = const [
+      DummyResult(subject: "English", marks: 70, color: Colors.red),
+      DummyResult(subject: "Bangla", marks: 50, color: Colors.yellow),
+      DummyResult(subject: "Geography", marks: 63, color: Colors.pink),
+      DummyResult(subject: "History", marks: 55, color: Colors.white),
+    ];
+
     return Skeletonizer(
       enabled: true,
       child: Container(
@@ -43,17 +50,7 @@ class ResultsGraphLoading extends StatelessWidget {
               style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
             ),
             gap6,
-            SizedBox(
-              width: 1.sw,
-              child: ResultBarChartLoading(
-                  results: [
-                    const DummyResult(subject: "English", marks: 70, color: Colors.red),
-                    const DummyResult(subject: "Bangla", marks: 50, color: Colors.yellow),
-                    const DummyResult(subject: "Geography", marks: 63, color: Colors.pink),
-                    const DummyResult(subject: "History", marks: 55, color: Colors.white),
-                  ]
-              ),
-            ),
+            _StaticBarChart(results: dummyResults), // 👈 Fake chart that looks real
           ],
         ),
       ),
@@ -61,48 +58,38 @@ class ResultsGraphLoading extends StatelessWidget {
   }
 }
 
-
-
-class ResultBarChartLoading extends StatelessWidget {
+class _StaticBarChart extends StatelessWidget {
   final List<DummyResult> results;
-  const ResultBarChartLoading({super.key, required this.results});
+  const _StaticBarChart({required this.results});
 
   @override
   Widget build(BuildContext context) {
-    return Skeletonizer(
-      enabled: true,
-      child: SfCartesianChart(
-        plotAreaBorderWidth: 0,
-        primaryXAxis: CategoryAxis(
-          axisLine: const AxisLine(width: 0),
-          labelStyle: const TextStyle(color: Colors.white),
-          majorTickLines: const MajorTickLines(width: 0),
-          majorGridLines: const MajorGridLines(width: 0),
-        ),
-        primaryYAxis: NumericAxis(
-          isVisible: false,
-          minimum: 0,
-          maximum: 100,
-        ),
-        series: [
-          ColumnSeries<DummyResult, String>(
-            dataSource: results,
-            width: 0.7,
-            borderRadius: BorderRadius.circular(8),
-            xValueMapper: (res, _) => res.subject,
-            yValueMapper: (res, _) => res.marks,
-            pointColorMapper: (res, _) => Colors.white,
-            dataLabelMapper: (res, _) => "${res.marks.toInt()}%",
-            dataLabelSettings: const DataLabelSettings(
-              isVisible: true,
-              textStyle: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+    return SizedBox(
+      height: 250.h,
+      child: Row(
+        crossAxisAlignment: crossEnd,
+        mainAxisAlignment: mainSpaceEven,
+        children: results.map((res) {
+          final heightFactor = res.marks / 100; // Scale based on marks
+          return Column(
+            mainAxisAlignment: mainEnd,
+            children: [
+              Container(
+                width: 40.w,
+                height: 240.h * heightFactor,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  borderRadius: radius8,
+                ),
               ),
-              labelAlignment: ChartDataLabelAlignment.outer,
-            ),
-          )
-        ],
+              SizedBox(height: 8.h),
+              Text(
+                res.subject,
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ],
+          );
+        }).toList(),
       ),
     );
   }
@@ -119,3 +106,4 @@ class DummyResult {
     required this.color,
   });
 }
+

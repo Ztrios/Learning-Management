@@ -16,8 +16,8 @@ class EmptyResultsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 380.h,
-      padding: padding24,
+      height: 285.h,
+     // padding: padding24,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: radius16,
