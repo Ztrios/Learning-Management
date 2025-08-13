@@ -43,11 +43,11 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
 
   @override
   Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId}) async =>
-      await sl<SubjectDetailsRepositories>().getAssignmentDetails(assignmentId: assignmentId);
+      await sl<SubjectDetailsRemoteDataSource>().getAssignmentDetails(assignmentId: assignmentId);
 
   @override
   Future<Either<Failure, bool>> assignmentSubmit({required Map<String, dynamic> body}) async =>
-      await sl<SubjectDetailsRepositories>().assignmentSubmit(body: body);
+      await sl<SubjectDetailsRemoteDataSource>().assignmentSubmit(body: body);
 
   @override
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId}) async =>

@@ -74,9 +74,11 @@ class TaskListWidget extends HookWidget {
                             "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
                             onTap: () {
                               if(state.tasksEntity!.taskData![index].type == "QUIZ"){
-                                context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/0${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
+                                context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
+                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> QuizSubmissionPage(quizId: state.tasksEntity!.taskData![index].id.toString())));
                               }else{
-                                context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/0${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
+                                context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
+                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> AssignmentSubmissionPage(assignmentId: state.tasksEntity!.taskData![index].id.toString())));
                               }
                             },
                           ),

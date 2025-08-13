@@ -31,7 +31,7 @@ class AssignmentDetailsModel {
   factory AssignmentDetailsModel.fromJson(Map<String, dynamic> json) => AssignmentDetailsModel(
     statusCode: json["statusCode"],
     message: json["message"],
-    assignmentDetails: json["data"] == null ? null : AssignmentDetails.fromJson(json["data"]),
+    assignmentDetails: json["data"] == null && json["data"] ? null : AssignmentDetails.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -54,7 +54,7 @@ class AssignmentDetails {
   final DateTime? deadline;
   final DateTime? startTime;
   final String? description;
-  final int? marks;
+  final double? marks;
   final int? lessonId;
   final List<String>? fileUrls;
 
@@ -75,7 +75,7 @@ class AssignmentDetails {
     DateTime? deadline,
     DateTime? startTime,
     String? description,
-    int? marks,
+    double? marks,
     int? lessonId,
     List<String>? fileUrls,
   }) =>

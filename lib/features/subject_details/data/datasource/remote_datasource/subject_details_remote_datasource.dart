@@ -95,7 +95,7 @@ class SubjectDetailsRemoteDataSourceImpl extends SubjectDetailsRemoteDataSource{
   @override
   Future<Either<Failure, AssignmentDetailsEntity>> getAssignmentDetails({required String assignmentId}) async {
     try{
-      Response response = await sl<DioClient>().get("${ApiUrls.lessionAssignment}$assignmentId");
+      Response response = await sl<DioClient>().get("${ApiUrls.assignmentDetails}$assignmentId");
       AssignmentDetailsEntity assignmentDetailsEntity = AssignmentDetailsModel.fromJson(response.data).toEntity();
       return Right(assignmentDetailsEntity);
     }catch(error, stackTrace){
