@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:share_plus/share_plus.dart';
+//import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Helpers{
@@ -21,10 +21,10 @@ class Helpers{
   }
 
 
-  static void shareLink(String url, {String? message}) {
-    final content = message != null ? "$message\n$url" : url;
-    Share.share(content);
-  }
+  // static void shareLink(String url, {String? message}) {
+  //   final content = message != null ? "$message\n$url" : url;
+  //   Share.share(content);
+  // }
 
 
   static Future<String?> pasteFromClipboard(TextEditingController controller) async {

@@ -76,7 +76,7 @@ void initServiceLocator(){
 
   sl.registerSingleton<DioClient>(DioClient());
   sl.registerSingleton<InternetConnectionChecker>(InternetConnectionChecker.instance);
-  sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
+  //sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
 
   /// Remote DataSource
   sl.registerLazySingleton<AuthRemoteDatasource>(()=> AuthRemoteDatasourceImpl());

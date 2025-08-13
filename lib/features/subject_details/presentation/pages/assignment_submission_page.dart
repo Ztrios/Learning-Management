@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:defer_pointer/defer_pointer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,29 +13,22 @@ import 'package:learning_management/core/utils/enums/enums.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
-import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
-import 'package:learning_management/core/utils/ui_helpers/margins.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
-import 'package:learning_management/core/utils/ui_helpers/radius.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/subject_details/data/models/assignment_details_model.dart';
-import 'package:learning_management/features/subject_details/data/models/exam_details_model.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/files_upload_widget.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/html_viewer_widget.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/pdf_list_widget.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/submission_header.dart';
-import 'package:learning_management/features/subject_details/presentation/widgets/html_viewer_widget.dart';
-import 'package:learning_management/features/subject_details/presentation/widgets/item_view/assignments_item_view.dart';
-import 'package:learning_management/features/subject_details/presentation/widgets/submission_types_selection.dart';
-import 'package:learning_management/features/subject_details/presentation/widgets/files_upload_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/circle_loading.dart';
 import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 import 'package:learning_management/widgets/empty_widget.dart';
-import 'package:learning_management/widgets/network_image_widget.dart';
 
 class AssignmentSubmissionPage extends HookWidget {
 
