@@ -27,7 +27,7 @@ import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/dialogs/time_range_picker_dialog.dart';
 import 'package:learning_management/widgets/text_forms/dropdown_text_form_fields.dart';
 import 'package:learning_management/widgets/text_forms/primary_text_forms_fields.dart';
-import 'package:time_range_picker/time_range_picker.dart';
+//import 'package:time_range_picker/time_range_picker.dart';
 
 
 class SignUpPage extends HookWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/ui_helpers/radius.dart';
@@ -32,17 +33,16 @@ class NetworkImageWidget extends StatelessWidget {
             width: width,
             height: height,
             fit: BoxFit.cover,
-            placeholder: (context, url) =>
-                Center(
-                  child: SizedBox(
-                      width: 40.w,
-                      height: 40.w,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                  ),
-                ),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+            placeholder: (context, url) {
+              return SvgPicture.asset(
+                  "assets/icons/avatar_icon.svg"
+              );
+            },
+            errorWidget: (context, url, error) {
+              return SvgPicture.asset(
+                "assets/icons/avatar_icon.svg"
+              );
+            },
           ),
 
           if(showPlayButton)

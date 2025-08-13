@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:time_range_picker/time_range_picker.dart';
+//import 'package:time_range_picker/time_range_picker.dart';
 import 'package:timeago/timeago.dart' as timeago;
 class DateTimeFormatters{
   const DateTimeFormatters._();
 
 
-  static String formatTimeRange( BuildContext context, TimeRange timeRange){
-    final localizations = MaterialLocalizations.of(context);
-    String formattedStart = localizations.formatTimeOfDay(timeRange.startTime);
-    String formattedEnd = localizations.formatTimeOfDay(timeRange.endTime);
-    return "$formattedStart - $formattedEnd";
-  }
+  // static String formatTimeRange( BuildContext context, TimeRange timeRange){
+  //   final localizations = MaterialLocalizations.of(context);
+  //   String formattedStart = localizations.formatTimeOfDay(timeRange.startTime);
+  //   String formattedEnd = localizations.formatTimeOfDay(timeRange.endTime);
+  //   return "$formattedStart - $formattedEnd";
+  // }
 
 
   static String formatDate({DateTime? dateTime}) {
