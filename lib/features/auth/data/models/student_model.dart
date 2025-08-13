@@ -3,6 +3,53 @@ import 'dart:convert';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 
 class StudentModel {
+  final int? statusCode;
+  final String? message;
+  final Student? student;
+
+  StudentModel({
+    this.statusCode,
+    this.message,
+    this.student,
+  });
+
+  StudentModel copyWith({
+    int? statusCode,
+    String? message,
+    Student? student,
+  }) =>
+      StudentModel(
+        statusCode: statusCode ?? this.statusCode,
+        message: message ?? this.message,
+        student: student ?? this.student,
+      );
+
+  factory StudentModel.fromRawJson(String str) => StudentModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory StudentModel.fromJson(Map<String, dynamic> json) => StudentModel(
+    statusCode: json["statusCode"],
+    message: json["message"],
+    student: json["data"] == null ? null : Student.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "statusCode": statusCode,
+    "message": message,
+    "data": student?.toJson(),
+  };
+
+  StudentEntity toEntity()=> StudentEntity(
+    statusCode: statusCode,
+    message: message,
+    student: student,
+  );
+
+}
+
+
+class Student {
   final int? id;
   final String? username;
   final String? email;
@@ -25,7 +72,7 @@ class StudentModel {
   final bool? isRegistrationDone;
   final DateTime? subscriptionExpiry;
 
-  StudentModel({
+  Student({
     this.id,
     this.username,
     this.email,
@@ -49,7 +96,7 @@ class StudentModel {
     this.subscriptionExpiry,
   });
 
-  StudentModel copyWith({
+  Student copyWith({
     int? id,
     String? username,
     String? email,
@@ -72,7 +119,7 @@ class StudentModel {
     bool? isRegistrationDone,
     DateTime? subscriptionExpiry,
   }) =>
-      StudentModel(
+      Student(
         id: id ?? this.id,
         username: username ?? this.username,
         email: email ?? this.email,
@@ -96,11 +143,11 @@ class StudentModel {
         subscriptionExpiry: subscriptionExpiry ?? this.subscriptionExpiry,
       );
 
-  factory StudentModel.fromRawJson(String str) => StudentModel.fromJson(json.decode(str));
+  factory Student.fromRawJson(String str) => Student.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory StudentModel.fromJson(Map<String, dynamic> json) => StudentModel(
+  factory Student.fromJson(Map<String, dynamic> json) => Student(
     id: json["id"],
     username: json["username"],
     email: json["email"],
@@ -147,31 +194,6 @@ class StudentModel {
     "isRegistrationDone": isRegistrationDone,
     "subscriptionExpiry": subscriptionExpiry?.toIso8601String(),
   };
-
-
-  StudentEntity toEntity()=> StudentEntity(
-    id: id,
-    username: username ,
-    email: email,
-    fullName: fullName,
-    phone: phone,
-    imageDeletePath: imageDeletePath,
-    imagePath: imagePath,
-    gender: gender,
-    address: address,
-    rollNumber: rollNumber,
-    fathersName: fathersName,
-    mothersName: mothersName,
-    emergencyContact: emergencyContact,
-    remarks: remarks,
-    deviceId: deviceId,
-    deviceExpTime: deviceExpTime,
-    prevClassGrade: prevClassGrade,
-    section: section,
-    enrollmentDate: enrollmentDate,
-    isRegistrationDone: isRegistrationDone,
-    subscriptionExpiry: subscriptionExpiry,
-  );
 
 }
 

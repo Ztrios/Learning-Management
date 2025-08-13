@@ -55,8 +55,8 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
           emit(state.copyWith(
               signInStatus: Status.success,
               signInEntity: data,
-              studentEntity: data.signInData?.student != null ?
-              StudentModel.fromJson(data.signInData!.student!.toJson()).toEntity() : null
+              // studentEntity: data.signInData?.student != null ?
+              // Student.fromJson(data.signInData!.student!.toJson()).toEntity() : null
           ));
           add(SaveSignInEntity());
           if(event.rememberStudent) add(RememberUser());
@@ -88,7 +88,14 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     var result = await sl<SignUpUseCase>().call(params: body);
     result.fold(
             (error) => emit(state.copyWith(signUpStatus: Status.error, message: error.message)),
-        (data) => emit(state.copyWith(signUpStatus: Status.success, studentEntity: data))
+        (data){
+          emit(state.copyWith(signUpStatus: Status.success, studentEntity: data));
+          add(SignIn(
+              rememberStudent: false,
+              userName: data.student?.username ?? "",
+              password: event.password
+          ));
+        }
     );
   }
 
@@ -152,8 +159,8 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
             (data)=> emit(state.copyWith(
               signInStatus: Status.success,
             signInEntity: data,
-            studentEntity: data?.signInData?.student != null ?
-            StudentModel.fromJson(data!.signInData!.student!.toJson()).toEntity() : null
+            // studentEntity: data?.signInData?.student != null ?
+            // Student.fromJson(data!.signInData!.student!.toJson()).toEntity() : null
         ))
     );
     add(CheckRememberUser());

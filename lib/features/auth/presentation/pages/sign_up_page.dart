@@ -91,8 +91,29 @@ class SignUpPage extends HookWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc,AuthState>(
+        listenWhen: (previous, current)=> previous.signInStatus.isLoading,
         listener: (context, state){
-          if(state.signUpStatus.isSuccess) context.go(SignInPage.path);
+
+          if(state.signUpStatus.isError){
+            ToastNotifications.showErrorToast(
+                title: "Failed.Try again!",
+                message: "You can't accomplish sign up."
+            );
+          }
+
+          if(state.signInStatus.isError){
+            ToastNotifications.showErrorToast(
+                title: "Failed.Try again!",
+                message: "Your sign in is failed."
+            );
+          }
+
+          if(state.signUpStatus.isSuccess && state.signInStatus.isSuccess){
+            context.go(HomePage.path);
+          }else if(state.signUpStatus.isSuccess){
+            context.go(SignInPage.path);
+          }
+
         },
         builder: (context,state) {
           return SafeArea(
