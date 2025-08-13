@@ -57,7 +57,7 @@ class PdfListWidget extends StatelessWidget {
                           gap6,
 
                           Text(
-                           "$title pdf ${index+1}"
+                           "${title.length > 10 ? "${title.substring(0,10)}.." : title} pdf ${index+1}"
                           )
 
                         ],

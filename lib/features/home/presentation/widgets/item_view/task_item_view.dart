@@ -61,16 +61,18 @@ class TaskItemView extends StatelessWidget {
                   mainAxisAlignment: mainCenter,
                   children: [
                     SizedBox(
-                      width: 205.w,
+                      width: 200.w,
                       child: Text(
                         title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.titleMedium.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     Text(
-                      "$subject • $quantity $type",
+                      "${subject.length > 7 ? "${subject.substring(0, 7)}.." : subject} • $quantity $type",
                       style: AppTextStyles.titleSmall.copyWith(
                         color: AppColors.textGrey,
                       ),

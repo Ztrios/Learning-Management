@@ -104,6 +104,12 @@ class AssignmentSubmissionPage extends HookWidget {
               if(state.assignmentSubmissionStatus.isSuccess){
                 ToastNotifications.showSuccessToast("Assignment submitted successfully!");
                 context.pop();
+              }else if(state.assignmentSubmissionStatus.isError){
+                ToastNotifications.showErrorToast(
+                    title: "Failed Try Again.",
+                    message: "Quiz isn't submitted successfully. Please try again!",
+                    alignment: Alignment.topCenter
+                );
               }
             },
             builder: (context, state) {

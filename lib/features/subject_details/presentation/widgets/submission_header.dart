@@ -71,44 +71,48 @@ class _SubmissionHeaderState extends State<SubmissionHeader> {
             ),
           ),
           gap12,
-          Column(
-            crossAxisAlignment: crossStart,
-            children: [
-              Text(
-                widget.title,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: crossStart,
-                children: [
-                  Text("Total Marks: ${widget.totalMarks}",
-                      style: AppTextStyles.bodyMedium),
-                  StreamBuilder<Duration>(
-                    stream: countdownStream(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Text("Loading...",
-                            style: AppTextStyles.caption.copyWith(
-                                color: AppColors.errorRed));
-                      }
-
-                      final remaining = snapshot.data!;
-                      return Text(
-                        remaining.inSeconds <= 0
-                            ? "Time's up"
-                            : "Remaining: ${formatDuration(remaining)}",
-                        style: AppTextStyles.caption.copyWith(
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.errorRed,
-                        ),
-                      );
-                    },
+          Expanded(
+            child: Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                Text(
+                  widget.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.titleMedium.copyWith(
+                    fontWeight: FontWeight.w900,
                   ),
-                ],
-              ),
-            ],
+                ),
+                Column(
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    Text("Total Marks: ${widget.totalMarks}",
+                        style: AppTextStyles.bodyMedium),
+                    StreamBuilder<Duration>(
+                      stream: countdownStream(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Text("Loading...",
+                              style: AppTextStyles.caption.copyWith(
+                                  color: AppColors.errorRed));
+                        }
+
+                        final remaining = snapshot.data!;
+                        return Text(
+                          remaining.inSeconds <= 0
+                              ? "Time's up"
+                              : "Remaining: ${formatDuration(remaining)}",
+                          style: AppTextStyles.caption.copyWith(
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.errorRed,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

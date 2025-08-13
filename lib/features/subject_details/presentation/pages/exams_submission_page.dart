@@ -104,6 +104,12 @@ class ExamsSubmissionPage extends HookWidget {
               if(state.examSubmissionStatus.isSuccess){
                 ToastNotifications.showSuccessToast("Exam submitted successfully!");
                 context.pop();
+              }else if(state.examSubmissionStatus.isError){
+                ToastNotifications.showErrorToast(
+                    title: "Failed Try Again.",
+                    message: "Exam isn't submitted successfully. Please try again!",
+                    alignment: Alignment.topCenter
+                );
               }
             },
             builder: (context, state) {
