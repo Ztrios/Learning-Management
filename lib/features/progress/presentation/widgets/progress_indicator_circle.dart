@@ -22,15 +22,15 @@ class ProgressIndicatorCircle extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: 160.w,
-          height: 160.w,
+          width: 130.w,
+          height: 130.w,
           child: TweenAnimationBuilder(
             tween: IntTween(begin: 0, end: percentage),
             duration: Duration(seconds: 1),
             builder: (context,value, child) {
               return CircularProgressIndicator(
                 value: value / 100,
-                strokeWidth: 12.w,
+                strokeWidth: 10.w,
                 color: progressColor,
                 backgroundColor: Colors.white,
                 strokeCap: StrokeCap.round,
@@ -66,7 +66,7 @@ class ProgressIndicatorCircle extends StatelessWidget {
             ),
             Text(
               message,
-              style: AppTextStyles.bodyLarge.copyWith(
+              style: AppTextStyles.bodySmall.copyWith(
                   color: isForQuiz == true ? AppColors.greyLight : Colors.white
               ),
             ),

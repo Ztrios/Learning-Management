@@ -109,7 +109,7 @@ class _ProgressText extends StatelessWidget {
       children: [
         Text(
           "You have Completed ",
-          style: AppTextStyles.titleLarge.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
         // Text(
         //   "37% of your full course!",
@@ -171,7 +171,7 @@ class _StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 130.h,
+        height: 120.h,
         padding: padding12,
         decoration: BoxDecoration(
           borderRadius: radius16,

@@ -67,11 +67,9 @@ class TaskListPage extends StatelessWidget {
                                   "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
                                   onTap: () {
                                     if(state.tasksEntity!.taskData![index].type == "QUIZ"){
-                                      context.push(SubjectDetailsPage.path + LessionDetailsPage.path +
-                                          QuizSubmissionPage.path);
+                                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/0${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
                                     }else{
-                                      context.push(SubjectDetailsPage.path + LessionDetailsPage.path +
-                                          AssignmentSubmissionPage.path);
+                                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/0${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
                                     }
                                   },
                                 ),

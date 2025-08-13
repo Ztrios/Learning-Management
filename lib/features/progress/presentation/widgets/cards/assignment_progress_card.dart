@@ -36,7 +36,7 @@ class AssignmentProgressCard extends HookWidget {
               gap12,
               Text(
                 "Your result ",
-                style: AppTextStyles.titleLarge.copyWith(
+                style: AppTextStyles.titleMedium.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold
                 ),
@@ -157,7 +157,7 @@ class _StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 130.h,
+        height: 120.h,
         padding: padding12,
         decoration: BoxDecoration(
           borderRadius: radius16,

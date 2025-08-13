@@ -11,6 +11,7 @@ import 'package:learning_management/features/results/presentation/bloc/results_b
 import 'package:learning_management/features/results/presentation/bloc/results_event.dart';
 import 'package:learning_management/features/results/presentation/widgets/cards/result_cards.dart';
 import 'package:learning_management/features/results/presentation/widgets/result_graph.dart';
+import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -35,31 +36,40 @@ class ResultsPage extends HookWidget {
       child: Container(
         width: 1.sw,
         height: 1.sh,
-        padding: padding20,
         color: AppColors.background,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
+
+              PrimaryAppBar(),
+
               gap12,
 
-              BlocBuilder<ResultsBloc, ResultsState>(
-                builder: (context, state) {
-                  return Skeletonizer(
-                    enabled: state.status.isLoading,
-                    child: StatsHeader(
-                      grade: state.resultsEntity?.resultsData?.overallGrade ?? "0.00",
-                      totalRank: (state.resultsEntity?.resultsData?.standardRank ?? 00).toString(),
-                      classRank: (state.resultsEntity?.resultsData?.sectionRank ?? 00).toString(),
-                      background: AppColors.deepGreen,
+              Padding(
+                padding: padding20,
+                child: Column(
+                  children: [
+                    BlocBuilder<ResultsBloc, ResultsState>(
+                      builder: (context, state) {
+                        return Skeletonizer(
+                          enabled: state.status.isLoading,
+                          child: StatsHeader(
+                            grade: state.resultsEntity?.resultsData?.overallGrade ?? "0.00",
+                            totalRank: (state.resultsEntity?.resultsData?.standardRank ?? 00).toString(),
+                            classRank: (state.resultsEntity?.resultsData?.sectionRank ?? 00).toString(),
+                            background: AppColors.deepGreen,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+
+                    gap48,
+
+                    ResultsCard(),
+                  ],
+                ),
               ),
-
-              gap48,
-
-              ResultsCard(),
             ],
           ),
         ),

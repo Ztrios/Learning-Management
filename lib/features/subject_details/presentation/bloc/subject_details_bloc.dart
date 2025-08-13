@@ -79,6 +79,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
 
   Future<void> _onGetAssignmentDetails(GetAssignmentDetails event, Emitter<SubjectDetailsState> emit) async {
     emit(state.copyWith(status: Status.loading));
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     var result = await sl<GetAssignmentDetailsUseCase>().call(params: event.assignmentId);
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),

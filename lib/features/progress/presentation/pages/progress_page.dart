@@ -16,6 +16,7 @@ import 'package:learning_management/features/progress/presentation/widgets/stats
 import 'package:learning_management/features/progress/presentation/widgets/tab_bar/progress_tab_bar.dart';
 import 'package:learning_management/features/results/presentation/bloc/results_bloc.dart';
 import 'package:learning_management/features/results/presentation/bloc/results_event.dart';
+import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProgressPage extends HookWidget {
@@ -52,47 +53,56 @@ class ProgressPage extends HookWidget {
       child: Container(
         width: 1.sw,
         height: 1.sh,
-        padding: paddingH20,
         color: AppColors.background,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
+
+              PrimaryAppBar(),
+
               gap24,
 
-              BlocBuilder<ResultsBloc, ResultsState>(
-                builder: (context, state) {
-                  return Skeletonizer(
-                    enabled: state.status.isLoading,
-                    child: StatsHeader(
-                      grade: state.resultsEntity?.resultsData?.overallGrade ?? "0.00",
-                      totalRank: (state.resultsEntity?.resultsData?.standardRank ?? 00).toString(),
-                      classRank: (state.resultsEntity?.resultsData?.sectionRank ?? 00).toString(),
-                      background: selectedIndex.value == 0
-                          ? AppColors.blueLight
-                          : selectedIndex.value == 1 ?
-                      AppColors.deepPurpleAccent : AppColors.tealBlue,
+              Padding(
+                padding: paddingH20,
+                child: Column(
+                  children: [
+                    BlocBuilder<ResultsBloc, ResultsState>(
+                      builder: (context, state) {
+                        return Skeletonizer(
+                          enabled: state.status.isLoading,
+                          child: StatsHeader(
+                            grade: state.resultsEntity?.resultsData?.overallGrade ?? "0.00",
+                            totalRank: (state.resultsEntity?.resultsData?.standardRank ?? 00).toString(),
+                            classRank: (state.resultsEntity?.resultsData?.sectionRank ?? 00).toString(),
+                            background: selectedIndex.value == 0
+                                ? AppColors.blueLight
+                                : selectedIndex.value == 1 ?
+                            AppColors.deepPurpleAccent : AppColors.tealBlue,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
 
-              BlocBuilder<ProgressBloc, ProgressState>(
-                builder: (context, state) {
-                  return Skeletonizer(
-                    enabled: state.status.isLoading,
-                    child: Column(
-                      children: [
-                        ProgressTabBar(
-                          selectedIndex: selectedIndex.value,
-                          tabs: ["Exams", "Quiz", "Assignment"],
-                          onChanged: (int value) => selectedIndex.value = value,
-                        ),
-                        progressCads[selectedIndex.value],
-                      ],
+                    BlocBuilder<ProgressBloc, ProgressState>(
+                      builder: (context, state) {
+                        return Skeletonizer(
+                          enabled: state.status.isLoading,
+                          child: Column(
+                            children: [
+                              ProgressTabBar(
+                                selectedIndex: selectedIndex.value,
+                                tabs: ["Exams", "Quiz", "Assignment"],
+                                onChanged: (int value) => selectedIndex.value = value,
+                              ),
+                              progressCads[selectedIndex.value],
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ],
+                ),
               )
 
 
