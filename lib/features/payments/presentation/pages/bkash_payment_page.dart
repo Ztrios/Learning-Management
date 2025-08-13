@@ -42,18 +42,19 @@ class BkashPaymentPage extends HookWidget {
 
                   log("Navigation: ${request.url}");
 
-                  if(request.url.startsWith(ApiUrls.baseURL + ApiUrls.verifyPayment)){
+                  //if(request.url.startsWith(ApiUrls.baseURL + ApiUrls.verifyPayment)){
                     final queryParams = Uri.parse(request.url).queryParameters;
                     if(queryParams["status"] == "success"){
                       ToastNotifications.showSuccessToast("Thank you! Your payment is completed.");
+                      context.pushReplacementNamed(PaymentPage.name);
                     }else if(queryParams["status"] == "cancel"){
                       ToastNotifications.showErrorToast(
                         title: "Incomplete Payment",
                         message: "Your payment is not completed."
                       );
+                      context.pushReplacementNamed(PaymentPage.name);
                     }
-                    context.pushReplacementNamed(PaymentPage.name);
-                  }
+                  //}
 
                   return NavigationDecision.navigate;
                 },
@@ -70,7 +71,7 @@ class BkashPaymentPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: (){},
+            onPressed: ()=> Navigator.pop(context),
             icon: Icon(Icons.arrow_back_ios, color: Colors.white)
         ),
         title: Text("Bkash Payment", style: TextStyle(color: Colors.white)),

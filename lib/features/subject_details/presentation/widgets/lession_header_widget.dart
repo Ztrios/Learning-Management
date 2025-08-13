@@ -34,7 +34,7 @@ class HeaderCard extends StatelessWidget {
         children: [
           Container(
             width: 1.sw,
-            height: 120.h,
+            //height: 130.h,
             padding: padding16,
             color: background,
             child: Column(
