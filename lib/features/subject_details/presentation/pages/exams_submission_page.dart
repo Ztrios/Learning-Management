@@ -145,6 +145,7 @@ class ExamsSubmissionPage extends HookWidget {
                               gap24,
 
                               PdfListWidget(
+                                  title: examDetails?.title ?? "",
                                   pdfUrls: examDetails?.fileUrls ?? []
                               ),
 

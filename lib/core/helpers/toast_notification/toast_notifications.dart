@@ -15,14 +15,14 @@ class ToastNotifications{
   const ToastNotifications._();
 
 
-  static void showSuccessToast(String message) {
+  static void showSuccessToast(String message, {AlignmentGeometry? alignment}) {
     toastification.show(
       overlayState: navigatorKey.currentState?.overlay,
       type: ToastificationType.success,
       style: ToastificationStyle.minimal,
       title: Text('Success'),
       description: Text(message),
-      alignment: Alignment.bottomCenter,
+      alignment: alignment ??  Alignment.bottomCenter,
       autoCloseDuration: Duration(seconds: 3),
       icon: Icon(Icons.check_circle, color: Colors.green),
     );

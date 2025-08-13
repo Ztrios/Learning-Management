@@ -182,7 +182,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     var result = await sl<QuizSubmitUseCase>().call(params: body);
     result.fold(
             (error)=> emit(state.copyWith(quizSubmissionStatus: Status.error, message: error.message)),
-        (success)=> emit(state.copyWith(quizSubmissionStatus: success ? Status.success : Status.failure, selectedAnswerEntities: []))
+        (success)=> emit(state.copyWith(quizSubmissionStatus: success ? Status.success : Status.failure))
     );
   }
 

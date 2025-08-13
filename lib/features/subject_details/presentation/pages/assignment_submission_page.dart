@@ -53,7 +53,7 @@ class AssignmentSubmissionPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final uploadedFile = useState<List<File>?>(null);
+    final uploadedFile = useState<File?>(null);
 
     void getAssignmentDetails() async {
       context.read<SubjectDetailsBloc>().add(GetAssignmentDetails(assignmentId: assignmentId));
@@ -71,9 +71,7 @@ class AssignmentSubmissionPage extends HookWidget {
 
         Map<String, dynamic> body = {
           "dto": jsonEncode(dto),
-          "files": uploadedFile.value!.map(
-                  (file) async => await MultipartFile.fromFile(file.path)
-          ).toList()
+          "file" : await MultipartFile.fromFile(uploadedFile.value!.path)
         };
 
         context.read<SubjectDetailsBloc>().add(AssignmentSubmit(
@@ -147,7 +145,8 @@ class AssignmentSubmissionPage extends HookWidget {
                               gap24,
 
                               PdfListWidget(
-                                  pdfUrls: assignmentDetails?.fileUrls ?? []
+                                title: assignmentDetails?.title ?? "",
+                                pdfUrls: assignmentDetails?.fileUrls ?? []
                               ),
 
                               Divider(thickness: 2),
@@ -155,8 +154,19 @@ class AssignmentSubmissionPage extends HookWidget {
                               gap12,
 
                               FilesUploadWidget(
-                                selectedFiles: (List<File>? files, UploadType type) =>
-                                uploadedFile.value = files,
+                                selectedFiles: (List<File>? files, UploadType type) async {
+                                  uploadedFile.value = null;
+                                  if(files != null){
+                                    if(type == UploadType.pdf){
+                                      //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
+                                      uploadedFile.value = files.first;
+                                    }else{
+                                      uploadedFile.value =
+                                      await PdfFormatters.convertImagesToPdfFile(files,fileName: "assignment-$assignmentId.pdf");
+                                    }
+                                  }
+
+                                },
                               ),
 
                             ],

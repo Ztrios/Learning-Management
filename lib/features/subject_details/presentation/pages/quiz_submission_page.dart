@@ -71,8 +71,17 @@ class QuizSubmissionPage extends HookWidget {
       listenWhen: (previous, current)=> previous.quizSubmissionStatus.isLoading,
       listener: (context, state) {
         if(state.quizSubmissionStatus.isSuccess){
-          ToastNotifications.showSuccessToast("Quiz successfully submit.");
+          ToastNotifications.showSuccessToast(
+              "Quiz successfully submit.",
+            alignment: Alignment.topCenter
+          );
           Navigator.pop(context);
+        }if(state.quizSubmissionStatus.isError){
+          ToastNotifications.showErrorToast(
+            title: "Failed Try Again.",
+            message: "Quiz isn't submitted successfully. Please try again!",
+            alignment: Alignment.topCenter
+          );
         }
       },
       builder: (context, state) {
