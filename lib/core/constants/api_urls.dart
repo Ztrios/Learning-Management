@@ -2,8 +2,8 @@ class ApiUrls {
   // Private constructor to prevent instantiation
   ApiUrls._();
 
-  static const String _baseURL = "https://lms.shaheen.edu.bd";
-  //static const String _baseURL = "http://192.168.20.243:9090";
+  //static const String _baseURL = "https://lms.shaheen.edu.bd";
+  static const String _baseURL = "http://192.168.20.243:9090";
 
   static const String _imageBaseURL = "";
 
@@ -40,8 +40,8 @@ class ApiUrls {
   static const String quizQuestions = "/api/v1/quizzes/";
   static const String quizSubmit = "/api/v1/quiz-submissions";
   static const String subjectExams = "/api/v1/exams/subjects/";
-  static const String examDetails = "/api/v1/exams/";
-  static const String submitExam = "/api/v1/exam-submissions";
+  static const String examDetails = "/api/v1/exams2/";
+  static const String submitExam = "/api/v1/exam-submissions2";
 
 
   // Payments Page API endpoints

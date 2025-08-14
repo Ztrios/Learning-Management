@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
 import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
@@ -154,7 +155,10 @@ class DioClient {
   Failure dioExceptionToFailure(DioException e) {
     switch (e.type) {
       case DioExceptionType.badResponse:
-        //ToastNotifications.showApiErrorToast(e.response?.statusCode ?? 500,e.response?.data["message"]);
+        if(kDebugMode){
+          ToastNotifications.showApiErrorToast(
+              e.response?.statusCode ?? 500, e.response?.data["message"]);
+        }
         return ApiFailure(
           e.response?.statusCode ?? 500,
           "${e.response?.data["message"]}",
