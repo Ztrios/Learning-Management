@@ -67,7 +67,8 @@ class ExamsSubmissionPage extends HookWidget {
       if(uploadedFile.value != null){
         Map<String, dynamic> dto = {
           "examId" : examId,
-          "studentId" : studentId.toString()
+          "studentId" : studentId.toString(),
+          "submittedAt" : DateTime.now()
         };
 
         Map<String, dynamic> body = {

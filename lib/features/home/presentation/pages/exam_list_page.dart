@@ -117,17 +117,17 @@ class ExamsListPage extends HookWidget {
             builder: (context, state) {
               if(state.status.isLoading){
                 return LessionsListLoading();
-              }else if(state.status.isSuccess && (state.examsListEntity?.exams).isNotNullAndNotEmpty){
+              }else if(state.status.isSuccess && (state.examsListEntity?.examData?.exams).isNotNullAndNotEmpty){
                 return ListView.builder(
-                  itemCount: state.examsListEntity?.exams?.length,
+                  itemCount: state.examsListEntity?.examData?.exams?.length,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
 
-                    Exam exam = state.examsListEntity!.exams![index];
+                    Exam exam = state.examsListEntity!.examData!.exams![index];
 
                     return InkWell(
                       onTap: () {
-                        if(exam.status != "SUBMITTED"){
+                        if(exam.examStatus != "SUBMITTED"){
                           context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
                         }else{
                           ToastNotifications.showErrorToast(
@@ -138,10 +138,10 @@ class ExamsListPage extends HookWidget {
                       },
                       child: ExamItemView(
                         showStar: false,
-                        isCompleted: exam.status == "SUBMITTED",
+                        isCompleted: exam.examStatus == "SUBMITTED",
                         title: exam.title ?? "",
-                        totalMarks: exam.marks ?? 0,
-                        getMarks: exam.earnedMarks ?? 0,
+                        totalMarks: exam.fullMarks ?? 0,
+                        getMarks: 0,
                         examDate: DateTimeFormatters.formatDateV2(dateTime: exam.examDate),
                         startTime: DateTimeFormatters.formatLocalTime(exam.startTime?? ""),
                         endTime: DateTimeFormatters.formatLocalTime(exam.endTime?? ""),

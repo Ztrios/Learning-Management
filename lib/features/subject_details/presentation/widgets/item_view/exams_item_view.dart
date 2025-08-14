@@ -79,7 +79,7 @@ class ExamItemView extends StatelessWidget {
                   Text("Time: $startTime - $endTime", style: AppTextStyles.caption.copyWith(
                     color: AppColors.textSecondary
                   )),
-                  Text("Result: $getMarks/$totalMarks", style: AppTextStyles.caption),
+                  Text("Total Marks: $totalMarks", style: AppTextStyles.caption),
                 ],
               ),
             ],

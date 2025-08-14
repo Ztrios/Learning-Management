@@ -3,11 +3,11 @@ import 'package:learning_management/features/subject_details/data/models/exams_l
 class ExamsListEntity {
   final int? statusCode;
   final String? message;
-  final List<Exam>? exams;
+  final ExamData? examData;
 
   ExamsListEntity({
     this.statusCode,
     this.message,
-    this.exams,
+    this.examData,
   });
 }
