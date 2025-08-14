@@ -1,0 +1,3 @@
+import 'package:learning_management/features/notifications/domain/usecases/notifications_usecases.dart';
+
+class NotificationsRepositoriesImpl implements NotificationsRepositories{}

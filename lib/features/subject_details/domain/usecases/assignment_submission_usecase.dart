@@ -1,0 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:learning_management/config/service_locator/service_locator.dart';
+import 'package:learning_management/core/error/failure.dart';
+import 'package:learning_management/core/usecase/usecase.dart';
+import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
+
+class AssignmentSubmissionUseCase extends UseCase<bool, Map<String,dynamic>>{
+  @override
+  Future<Either<Failure, bool>> call({Map<String, dynamic>? params}) async =>
+      await sl<SubjectDetailsRepositories>().assignmentSubmit(body: params ?? {});
+}

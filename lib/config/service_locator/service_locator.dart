@@ -1,0 +1,168 @@
+import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:learning_management/core/network/dio_client.dart';
+import 'package:learning_management/core/services/firebase_services/push_notification/push_notification_service.dart';
+import 'package:learning_management/features/auth/data/datasource/local_datasource/auth_local_datasource.dart';
+import 'package:learning_management/features/auth/data/datasource/remote_datasource/auth_remote_datasource.dart';
+import 'package:learning_management/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/refresh_token_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/remember_user_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
+import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
+import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
+import 'package:learning_management/features/home/domain/usecases/get_announcements_usecase.dart';
+import 'package:learning_management/features/home/domain/usecases/get_student_subjects_usecase.dart';
+import 'package:learning_management/features/home/domain/usecases/get_students_tasks_usecase.dart';
+import 'package:learning_management/features/home/domain/usecases/get_today_class_usecase.dart';
+import 'package:learning_management/features/payments/domain/usecases/create_payment_usecase.dart';
+import 'package:learning_management/features/payments/domain/usecases/get_invoice_usecase.dart';
+import 'package:learning_management/features/payments/domain/usecases/get_payment_history_usecase.dart';
+import 'package:learning_management/features/subject_details/data/datasource/remote_datasource/subject_details_remote_datasource.dart';
+import 'package:learning_management/features/subject_details/data/repositories/subject_details_repositories_impl.dart';
+import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/assignment_submission_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_exam_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_exams_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_lession_details_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_quesions_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/quiz_submit_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
+import 'package:learning_management/features/notifications/data/datasource/remote_datasource/notifications_remote_datasource.dart';
+import 'package:learning_management/features/notifications/data/repositories/notifications_repositories_impl.dart';
+import 'package:learning_management/features/notifications/domain/usecases/notifications_usecases.dart';
+import 'package:learning_management/features/onboarding/data/datasource/local_datasource/onboarding_local_datasource.dart';
+import 'package:learning_management/features/onboarding/data/repositories/onboarding_repositories_impl.dart';
+import 'package:learning_management/features/onboarding/domain/repositories/onboarding_repositories.dart';
+import 'package:learning_management/features/onboarding/domain/usecases/already_onboarded_usecase.dart';
+import 'package:learning_management/features/onboarding/domain/usecases/user_onboarded_usecase.dart';
+import 'package:learning_management/features/payments/data/datasource/remote_datasource/payments_remote_datasource.dart';
+import 'package:learning_management/features/payments/data/repositories/payments_repositories_impl.dart';
+import 'package:learning_management/features/payments/domain/repositories/payments_repositories.dart';
+import 'package:learning_management/features/profile/data/datasource/remote_datasource/profile_remote_datasource.dart';
+import 'package:learning_management/features/profile/data/repositories/profile_repositories_impl.dart';
+import 'package:learning_management/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:learning_management/features/profile/domain/usecases/get_student_profile_usecase.dart';
+import 'package:learning_management/features/profile/domain/usecases/update_student_profile_usecase.dart';
+import 'package:learning_management/features/progress/data/datasource/remote_datasource/progress_remote_datasource.dart';
+import 'package:learning_management/features/progress/data/repositories/progress_repositories_impl.dart';
+import 'package:learning_management/features/progress/domain/repositories/progress_repositories.dart';
+import 'package:learning_management/features/progress/domain/usecases/progress_usecases.dart';
+import 'package:learning_management/features/results/data/datasource/remote_datasource/results_remote_datasource.dart';
+import 'package:learning_management/features/results/data/repositories/results_repositories_impl.dart';
+import 'package:learning_management/features/results/domain/repositories/results_repositories.dart';
+import 'package:learning_management/features/results/domain/usecases/student_results_usecases.dart';
+import 'package:learning_management/features/results/presentation/bloc/results_event.dart';
+import 'package:learning_management/features/routine/data/datasource/remote_datasource/routine_remote_datasource.dart';
+import 'package:learning_management/features/routine/data/repositories/routine_repositories_impl.dart';
+import 'package:learning_management/features/routine/domain/repositories/routine_repositories.dart';
+import 'package:learning_management/features/routine/domain/usecases/get_class_routines_usecase.dart';
+
+final sl = GetIt.instance;
+
+void initServiceLocator(){
+
+  sl.registerSingleton<DioClient>(DioClient());
+  sl.registerSingleton<InternetConnectionChecker>(InternetConnectionChecker.instance);
+  sl.registerSingleton<PushNotificationService>(PushNotificationServiceImpl());
+
+  /// Remote DataSource
+  sl.registerLazySingleton<AuthRemoteDatasource>(()=> AuthRemoteDatasourceImpl());
+  sl.registerLazySingleton<HomeRemoteDataSource>(()=>HomeRemoteDataSourceImpl());
+  sl.registerLazySingleton<SubjectDetailsRemoteDataSource>(()=>SubjectDetailsRemoteDataSourceImpl());
+  sl.registerLazySingleton<NotificationsRemoteDatasource>(()=>NotificationsRemoteDatasourceImpl());
+  sl.registerLazySingleton<PaymentsRemoteDatasource>(()=>PaymentsRemoteDatasourceImpl());
+  sl.registerLazySingleton<ProfileRemoteDatasource>(()=>ProfileRemoteDatasourceImpl());
+  sl.registerLazySingleton<ProgressRemoteDataSource>(()=>ProgressRemoteDatasourceImpl());
+  sl.registerLazySingleton<ResultsRemoteDatasource>(()=>ResultsRemoteDatasourceImpl());
+  sl.registerLazySingleton<RoutineRemoteDatasource>(()=>RoutineRemoteDatasourceImpl());
+
+
+  /// Local DataSource
+  sl.registerSingleton<AuthLocalDatasource>(AuthLocalDatasourceImpl());
+  sl.registerLazySingleton<OnboardingLocalDatasource>(()=> OnboardingLocalDatasourceImpl());
+
+
+  /// Repositories
+  sl.registerLazySingleton<AuthRepositories>(()=> AuthRepositoryIml());
+  sl.registerLazySingleton<HomeRepositories>(()=> HomeRepositoriesImpl());
+  sl.registerLazySingleton<SubjectDetailsRepositories>(()=> SubjectDetailsRepositoriesImpl());
+  sl.registerLazySingleton<NotificationsRepositories>(()=> NotificationsRepositoriesImpl());
+  sl.registerLazySingleton<PaymentsRepositories>(()=> PaymentsRepositoriesImpl());
+  sl.registerLazySingleton<ProfileRepositories>(()=> ProfileRepositoriesImpl());
+  sl.registerLazySingleton<ProgressRepositories>(()=> ProgressRepositoriesImpl());
+  sl.registerLazySingleton<ResultsRepositories>(()=> ResultsRepositoriesImpl());
+  sl.registerLazySingleton<RoutineRepositories>(()=> RoutineRepositoriesImpl());
+  sl.registerLazySingleton<OnboardingRepositories>(()=> OnboardingRepositoryImpl());
+
+
+  /// UseCases
+  /// Onboarding UseCases
+  sl.registerLazySingleton<AlreadyOnboardedUseCase>(()=> AlreadyOnboardedUseCase());
+  sl.registerLazySingleton<UserOnboardedUseCase>(()=> UserOnboardedUseCase());
+
+
+
+  /// Auth UseCases
+  sl.registerLazySingleton<SignUpUseCase>(()=> SignUpUseCase());
+  sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
+  sl.registerLazySingleton<ResetPasswordUseCase>(()=> ResetPasswordUseCase());
+  sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
+  sl.registerLazySingleton<GetSignInEntityUseCase>(()=> GetSignInEntityUseCase());
+  sl.registerLazySingleton<SaveSignInEntityUseCase>(()=> SaveSignInEntityUseCase());
+  sl.registerLazySingleton<RememberUserUseCase>(()=> RememberUserUseCase());
+  sl.registerLazySingleton<CheckUserRememberUseCase>(()=> CheckUserRememberUseCase());
+  sl.registerLazySingleton<SignOutUseCase>(()=> SignOutUseCase());
+  sl.registerLazySingleton<RefreshTokenUseCase>(()=> RefreshTokenUseCase());
+
+  /// Home UseCases
+  sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());
+  sl.registerLazySingleton<GetStudentTasksUseCase>(()=> GetStudentTasksUseCase());
+  sl.registerLazySingleton<GetTodayClassUseCase>(()=> GetTodayClassUseCase());
+  sl.registerLazySingleton<GetAnnouncementsUseCase>(()=> GetAnnouncementsUseCase());
+
+  /// Results UseCases
+  sl.registerLazySingleton<StudentResultsUseCase>(()=> StudentResultsUseCase());
+
+  /// Progress UseCases
+  sl.registerLazySingleton<ProgressUseCase>(()=> ProgressUseCase());
+
+  /// Routine UseCases
+  sl.registerLazySingleton<GetClassRoutinesUseCase>(()=> GetClassRoutinesUseCase());
+
+  /// Profile UseCase
+  sl.registerLazySingleton<GetStudentProfileUseCase>(()=> GetStudentProfileUseCase());
+  sl.registerLazySingleton<UpdateStudentProfileUseCase>(()=> UpdateStudentProfileUseCase());
+
+  /// Subject Details UseCase
+  sl.registerLazySingleton<GetLessionsUseCase>(()=> GetLessionsUseCase());
+  sl.registerLazySingleton<GetLessionDetailsUseCase>(()=> GetLessionDetailsUseCase());
+  sl.registerLazySingleton<GetAssignmentListUseCase>(()=> GetAssignmentListUseCase());
+  sl.registerLazySingleton<GetAssignmentDetailsUseCase>(()=> GetAssignmentDetailsUseCase());
+  sl.registerLazySingleton<AssignmentSubmissionUseCase>(()=> AssignmentSubmissionUseCase());
+  sl.registerLazySingleton<GetQuizListUseCase>(()=> GetQuizListUseCase());
+  sl.registerLazySingleton<GetQuestionsListUseCase>(()=> GetQuestionsListUseCase());
+  sl.registerLazySingleton<QuizSubmitUseCase>(()=> QuizSubmitUseCase());
+  sl.registerLazySingleton<GetExamsListUseCase>(()=> GetExamsListUseCase());
+  sl.registerLazySingleton<GetExamDetailsUseCase>(()=> GetExamDetailsUseCase());
+  sl.registerLazySingleton<SubmitExamUseCase>(()=> SubmitExamUseCase());
+
+  /// Payment Page UseCase
+  sl.registerLazySingleton<GetInvoiceUseCase>(()=> GetInvoiceUseCase());
+  sl.registerLazySingleton<CreatePaymentUseCase>(()=> CreatePaymentUseCase());
+  sl.registerLazySingleton<GetPaymentHistoryUseCase>(()=> GetPaymentHistoryUseCase());
+
+
+}
