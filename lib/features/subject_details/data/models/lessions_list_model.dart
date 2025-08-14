@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
-import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
 
 class LessionsListModel {
   final int? statusCode;

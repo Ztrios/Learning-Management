@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 //import 'package:time_range_picker/time_range_picker.dart';
-import 'package:timeago/timeago.dart' as timeago;
+//import 'package:timeago/timeago.dart' as timeago;
 class DateTimeFormatters{
   const DateTimeFormatters._();
 
@@ -67,9 +67,9 @@ class DateTimeFormatters{
   }
 
 
-  static String timeAgoFromDate(DateTime dateTime, {String locale = 'en'}) {
-    return timeago.format(dateTime, locale: locale);
-  }
+  // static String timeAgoFromDate(DateTime dateTime, {String locale = 'en'}) {
+  //   return timeago.format(dateTime, locale: locale);
+  // }
 
 
   static String convertTo24HourFormat(String time12h) {

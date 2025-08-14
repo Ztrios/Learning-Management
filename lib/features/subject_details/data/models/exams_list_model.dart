@@ -5,23 +5,23 @@ import 'package:learning_management/features/subject_details/domain/entities/exa
 class ExamsListModel {
   final int? statusCode;
   final String? message;
-  final List<Exam>? exams;
+  final ExamData? examData;
 
   ExamsListModel({
     this.statusCode,
     this.message,
-    this.exams,
+    this.examData,
   });
 
   ExamsListModel copyWith({
     int? statusCode,
     String? message,
-    List<Exam>? exams,
+    ExamData? examData,
   }) =>
       ExamsListModel(
         statusCode: statusCode ?? this.statusCode,
         message: message ?? this.message,
-        exams: exams ?? this.exams,
+        examData: examData ?? this.examData,
       );
 
   factory ExamsListModel.fromRawJson(String str) => ExamsListModel.fromJson(json.decode(str));
@@ -31,71 +31,170 @@ class ExamsListModel {
   factory ExamsListModel.fromJson(Map<String, dynamic> json) => ExamsListModel(
     statusCode: json["statusCode"],
     message: json["message"],
-    exams: json["data"] == null ? [] : List<Exam>.from(json["data"]!.map((x) => Exam.fromJson(x))),
+    examData: json["data"] == null ? null : ExamData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "statusCode": statusCode,
     "message": message,
-    "data": exams == null ? [] : List<dynamic>.from(exams!.map((x) => x.toJson())),
+    "data": examData?.toJson(),
   };
 
-  ExamsListEntity toEntity() => ExamsListEntity(
+  ExamsListEntity toEntity()=> ExamsListEntity(
     statusCode: statusCode,
     message: message,
-    exams: exams,
+    examData: examData,
   );
 
 }
 
+class ExamData {
+  final List<Exam>? exams;
+  final int? pageNumber;
+  final int? pageSize;
+  final int? totalElements;
+  final int? totalPages;
+  final bool? first;
+  final bool? last;
+
+  ExamData({
+    this.exams,
+    this.pageNumber,
+    this.pageSize,
+    this.totalElements,
+    this.totalPages,
+    this.first,
+    this.last,
+  });
+
+  ExamData copyWith({
+    List<Exam>? content,
+    int? pageNumber,
+    int? pageSize,
+    int? totalElements,
+    int? totalPages,
+    bool? first,
+    bool? last,
+  }) =>
+      ExamData(
+        exams: content ?? this.exams,
+        pageNumber: pageNumber ?? this.pageNumber,
+        pageSize: pageSize ?? this.pageSize,
+        totalElements: totalElements ?? this.totalElements,
+        totalPages: totalPages ?? this.totalPages,
+        first: first ?? this.first,
+        last: last ?? this.last,
+      );
+
+  factory ExamData.fromRawJson(String str) => ExamData.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ExamData.fromJson(Map<String, dynamic> json) => ExamData(
+    exams: json["content"] == null ? [] : List<Exam>.from(json["content"]!.map((x) => Exam.fromJson(x))),
+    pageNumber: json["pageNumber"],
+    pageSize: json["pageSize"],
+    totalElements: json["totalElements"],
+    totalPages: json["totalPages"],
+    first: json["first"],
+    last: json["last"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "content": exams == null ? [] : List<dynamic>.from(exams!.map((x) => x.toJson())),
+    "pageNumber": pageNumber,
+    "pageSize": pageSize,
+    "totalElements": totalElements,
+    "totalPages": totalPages,
+    "first": first,
+    "last": last,
+  };
+}
+
 class Exam {
   final int? id;
-  final dynamic examSubmissionId;
   final String? title;
+  final String? description;
   final String? examType;
   final DateTime? examDate;
   final String? startTime;
   final String? endTime;
-  final double? marks;
-  final dynamic earnedMarks;
-  final String? status;
+  final double? fullMarks;
+  final DateTime? markingDeadline;
+  final String? examStatus;
+  final bool? allSubjects;
+  final bool? allSections;
+  final bool? questionLocked;
+  final List<String>? fileUrls;
+  final Standard? standard;
+  final List<int>? sectionIds;
+  final List<Standard>? sections;
+  final List<Subject>? subjects;
+  final String? yearBatch;
 
   Exam({
     this.id,
-    this.examSubmissionId,
     this.title,
+    this.description,
     this.examType,
     this.examDate,
     this.startTime,
     this.endTime,
-    this.marks,
-    this.earnedMarks,
-    this.status,
+    this.fullMarks,
+    this.markingDeadline,
+    this.examStatus,
+    this.allSubjects,
+    this.allSections,
+    this.questionLocked,
+    this.fileUrls,
+    this.standard,
+    this.sectionIds,
+    this.sections,
+    this.subjects,
+    this.yearBatch,
   });
 
   Exam copyWith({
     int? id,
-    dynamic examSubmissionId,
     String? title,
+    String? description,
     String? examType,
     DateTime? examDate,
     String? startTime,
     String? endTime,
-    double? marks,
-    dynamic earnedMarks,
-    String? status,
+    double? fullMarks,
+    DateTime? markingDeadline,
+    String? examStatus,
+    bool? allSubjects,
+    bool? allSections,
+    bool? questionLocked,
+    List<String>? fileUrls,
+    Standard? standard,
+    List<int>? sectionIds,
+    List<Standard>? sections,
+    List<Subject>? subjects,
+    String? yearBatch,
   }) =>
       Exam(
         id: id ?? this.id,
-        examSubmissionId: examSubmissionId ?? this.examSubmissionId,
         title: title ?? this.title,
+        description: description ?? this.description,
         examType: examType ?? this.examType,
         examDate: examDate ?? this.examDate,
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
-        marks: marks ?? this.marks,
-        earnedMarks: earnedMarks ?? this.earnedMarks,
-        status: status ?? this.status,
+        fullMarks: fullMarks ?? this.fullMarks,
+        markingDeadline: markingDeadline ?? this.markingDeadline,
+        examStatus: examStatus ?? this.examStatus,
+        allSubjects: allSubjects ?? this.allSubjects,
+        allSections: allSections ?? this.allSections,
+        questionLocked: questionLocked ?? this.questionLocked,
+        fileUrls: fileUrls ?? this.fileUrls,
+        standard: standard ?? this.standard,
+        sectionIds: sectionIds ?? this.sectionIds,
+        sections: sections ?? this.sections,
+        subjects: subjects ?? this.subjects,
+        yearBatch: yearBatch ?? this.yearBatch,
       );
 
   factory Exam.fromRawJson(String str) => Exam.fromJson(json.decode(str));
@@ -104,27 +203,123 @@ class Exam {
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
     id: json["id"],
-    examSubmissionId: json["examSubmissionId"],
     title: json["title"],
+    description: json["description"],
     examType: json["examType"],
     examDate: json["examDate"] == null ? null : DateTime.parse(json["examDate"]),
     startTime: json["startTime"],
     endTime: json["endTime"],
-    marks: json["marks"],
-    earnedMarks: json["earnedMarks"],
-    status: json["status"],
+    fullMarks: json["fullMarks"]?.toDouble(),
+    markingDeadline: json["markingDeadline"] == null ? null : DateTime.parse(json["markingDeadline"]),
+    examStatus: json["examStatus"],
+    allSubjects: json["allSubjects"],
+    allSections: json["allSections"],
+    questionLocked: json["questionLocked"],
+    fileUrls: json["fileUrls"] == null ? [] : List<String>.from(json["fileUrls"]!.map((x) => x)),
+    standard: json["standard"] == null ? null : Standard.fromJson(json["standard"]),
+    sectionIds: json["sectionIds"] == null ? [] : List<int>.from(json["sectionIds"]!.map((x) => x)),
+    sections: json["sections"] == null ? [] : List<Standard>.from(json["sections"]!.map((x) => Standard.fromJson(x))),
+    subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
+    yearBatch: json["yearBatch"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "examSubmissionId": examSubmissionId,
     "title": title,
+    "description": description,
     "examType": examType,
     "examDate": "${examDate!.year.toString().padLeft(4, '0')}-${examDate!.month.toString().padLeft(2, '0')}-${examDate!.day.toString().padLeft(2, '0')}",
     "startTime": startTime,
     "endTime": endTime,
-    "marks": marks,
-    "earnedMarks": earnedMarks,
-    "status": status,
+    "fullMarks": fullMarks,
+    "markingDeadline": markingDeadline?.toIso8601String(),
+    "examStatus": examStatus,
+    "allSubjects": allSubjects,
+    "allSections": allSections,
+    "questionLocked": questionLocked,
+    "fileUrls": fileUrls == null ? [] : List<dynamic>.from(fileUrls!.map((x) => x)),
+    "standard": standard?.toJson(),
+    "sectionIds": sectionIds == null ? [] : List<dynamic>.from(sectionIds!.map((x) => x)),
+    "sections": sections == null ? [] : List<dynamic>.from(sections!.map((x) => x.toJson())),
+    "subjects": subjects == null ? [] : List<dynamic>.from(subjects!.map((x) => x.toJson())),
+    "yearBatch": yearBatch,
+  };
+}
+
+class Standard {
+  final int? id;
+  final String? name;
+
+  Standard({
+    this.id,
+    this.name,
+  });
+
+  Standard copyWith({
+    int? id,
+    String? name,
+  }) =>
+      Standard(
+        id: id ?? this.id,
+        name: name ?? this.name,
+      );
+
+  factory Standard.fromRawJson(String str) => Standard.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Standard.fromJson(Map<String, dynamic> json) => Standard(
+    id: json["id"],
+    name: json["name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+  };
+}
+
+class Subject {
+  final int? subjectId;
+  final String? subjectName;
+  final String? subjectCode;
+  final int? totalMarks;
+
+  Subject({
+    this.subjectId,
+    this.subjectName,
+    this.subjectCode,
+    this.totalMarks,
+  });
+
+  Subject copyWith({
+    int? subjectId,
+    String? subjectName,
+    String? subjectCode,
+    int? totalMarks,
+  }) =>
+      Subject(
+        subjectId: subjectId ?? this.subjectId,
+        subjectName: subjectName ?? this.subjectName,
+        subjectCode: subjectCode ?? this.subjectCode,
+        totalMarks: totalMarks ?? this.totalMarks,
+      );
+
+  factory Subject.fromRawJson(String str) => Subject.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Subject.fromJson(Map<String, dynamic> json) => Subject(
+    subjectId: json["subjectId"],
+    subjectName: json["subjectName"],
+    subjectCode: json["subjectCode"],
+    totalMarks: json["totalMarks"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "subjectId": subjectId,
+    "subjectName": subjectName,
+    "subjectCode": subjectCode,
+    "totalMarks": totalMarks,
   };
 }

@@ -67,7 +67,8 @@ class ExamsSubmissionPage extends HookWidget {
       if(uploadedFile.value != null){
         Map<String, dynamic> dto = {
           "examId" : examId,
-          "studentId" : studentId.toString()
+          "studentId" : studentId.toString(),
+          //"submittedAt" : DateTime.now().toString()
         };
 
         Map<String, dynamic> body = {
@@ -138,7 +139,7 @@ class ExamsSubmissionPage extends HookWidget {
                               SubmissionHeader(
                                   title: examDetails?.title ?? "Not Found",
                                   endTime: DateTimeFormatters.timeToDateTime(examDetails?.endTime ?? "12:94:29"),
-                                  totalMarks: (examDetails?.marks ?? 0).floor()
+                                  totalMarks: (examDetails?.fullMarks ?? 0).floor()
                               ),
 
                               gap24,

@@ -17,7 +17,6 @@ import 'package:learning_management/features/routine/presentation/bloc/routine_e
 import 'package:learning_management/features/routine/presentation/widgets/routine_date_selection_widget.dart';
 import 'package:learning_management/features/routine/presentation/widgets/routine_list_widget.dart';
 import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class RoutinePage extends HookWidget {
   static String get path => "/routine";

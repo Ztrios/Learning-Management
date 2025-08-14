@@ -38,7 +38,11 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+
+    const refreshEndpoint = "/api/v1/auth/refresh";
+
+
+    if (err.response?.statusCode == 401 && err.requestOptions.path != refreshEndpoint) {
       var result = await sl<GetSignInEntityUseCase>().call();
 
       return result.fold(

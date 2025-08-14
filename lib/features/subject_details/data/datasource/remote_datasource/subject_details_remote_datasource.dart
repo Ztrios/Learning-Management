@@ -189,7 +189,12 @@ class SubjectDetailsRemoteDataSourceImpl extends SubjectDetailsRemoteDataSource{
   @override
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId}) async {
     try{
-      Response response = await sl<DioClient>().get("${ApiUrls.subjectExams}$subjectId");
+      Response response = await sl<DioClient>().get(
+          ApiUrls.subjectExams,
+        queryParameters: {
+            "subjectId" : subjectId
+        }
+      );
       ExamsListEntity examsListEntity = ExamsListModel.fromJson(response.data).toEntity();
       return Right(examsListEntity);
     }catch(error, stackTrace){

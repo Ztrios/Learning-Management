@@ -39,9 +39,9 @@ class ApiUrls {
   static const String lessionQuiz = "/api/v1/quizzes/lesson/";
   static const String quizQuestions = "/api/v1/quizzes/";
   static const String quizSubmit = "/api/v1/quiz-submissions";
-  static const String subjectExams = "/api/v1/exams/subjects/";
-  static const String examDetails = "/api/v1/exams/";
-  static const String submitExam = "/api/v1/exam-submissions";
+  static const String subjectExams = "/api/v1/exams2";
+  static const String examDetails = "/api/v1/exams2/";
+  static const String submitExam = "/api/v1/exam-submissions2";
 
 
   // Payments Page API endpoints
