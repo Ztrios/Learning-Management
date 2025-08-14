@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/config/routes/router_transition.dart';
 import 'package:learning_management/features/home/presentation/pages/announcements_page.dart';
+import 'package:learning_management/features/home/presentation/pages/exam_list_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/home/presentation/pages/task_list_page.dart';
 import 'package:learning_management/features/notifications/notification_routes.dart';
@@ -37,6 +38,20 @@ class HomeRouter {
         ),
 
 
+        /// Exams List Page
+        GoRoute(
+            path: ExamsListPage.path,
+            name: ExamsListPage.name,
+            pageBuilder: (context, state){
+              return CustomTransitionPage(
+                  key: state.pageKey,
+                  child: ExamsListPage(),
+                  transitionsBuilder: routerTransition
+              );
+            }
+        ),
+
+        /// Announcement Page
         GoRoute(
             path: AnnouncementsPage.path,
             name: AnnouncementsPage.name,
@@ -48,6 +63,9 @@ class HomeRouter {
               );
             }
         ),
+
+
+
 
 
       ]

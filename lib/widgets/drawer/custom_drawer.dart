@@ -12,6 +12,8 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
+import 'package:learning_management/features/home/presentation/pages/exam_list_page.dart';
+import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
 import 'package:learning_management/features/profile/data/models/student_profile_model.dart';
 import 'package:learning_management/features/profile/presentation/bloc/profile_bloc.dart';
@@ -114,6 +116,14 @@ class CustomDrawer extends StatelessWidget {
                         }
                     ),
 
+                    _drawerItem(
+                        svgImage: "assets/icons/mathematics_icon.svg",
+                        title: "Exams",
+                        onPressed: () {
+                          context.push(HomePage.path + ExamsListPage.path);
+                          Navigator.pop(context);
+                        }
+                    ),
 
                     _drawerItem(
                       svgImage: "assets/icons/payment_icon.svg",
