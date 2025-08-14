@@ -40,10 +40,11 @@ class ExamDetailsModel {
     "data": examDetails?.toJson(),
   };
 
-  ExamDetailsEntity toEntity() => ExamDetailsEntity(
-    message: message,
+
+  ExamDetailsEntity toEntity()=> ExamDetailsEntity(
     statusCode: statusCode,
-    examDetails: examDetails
+    message: message,
+    examDetails: examDetails,
   );
 
 }
@@ -52,58 +53,90 @@ class ExamDetails {
   final int? id;
   final String? title;
   final String? description;
+  final int? currentStudentSubmissionId;
   final String? examType;
   final DateTime? examDate;
   final String? startTime;
   final String? endTime;
-  final double? marks;
-  final List<dynamic>? fileDeletePaths;
+  final int? fullMarks;
+  final DateTime? markingDeadline;
+  final String? examStatus;
+  final bool? allSubjects;
+  final bool? allSections;
+  final bool? questionLocked;
   final List<String>? fileUrls;
-  final Section? section;
-  final Subject? subject;
+  final Standard? standard;
+  final List<int>? sectionIds;
+  final List<Standard>? sections;
+  final List<Subject>? subjects;
+  final String? yearBatch;
 
   ExamDetails({
     this.id,
     this.title,
     this.description,
+    this.currentStudentSubmissionId,
     this.examType,
     this.examDate,
     this.startTime,
     this.endTime,
-    this.marks,
-    this.fileDeletePaths,
+    this.fullMarks,
+    this.markingDeadline,
+    this.examStatus,
+    this.allSubjects,
+    this.allSections,
+    this.questionLocked,
     this.fileUrls,
-    this.section,
-    this.subject,
+    this.standard,
+    this.sectionIds,
+    this.sections,
+    this.subjects,
+    this.yearBatch,
   });
 
   ExamDetails copyWith({
     int? id,
     String? title,
     String? description,
+    int? currentStudentSubmissionId,
     String? examType,
     DateTime? examDate,
     String? startTime,
     String? endTime,
-    double? marks,
-    List<dynamic>? fileDeletePaths,
+    int? fullMarks,
+    DateTime? markingDeadline,
+    String? examStatus,
+    bool? allSubjects,
+    bool? allSections,
+    bool? questionLocked,
     List<String>? fileUrls,
-    Section? section,
-    Subject? subject,
+    Standard? standard,
+    List<int>? sectionIds,
+    List<Standard>? sections,
+    List<Subject>? subjects,
+    String? yearBatch,
   }) =>
       ExamDetails(
         id: id ?? this.id,
         title: title ?? this.title,
         description: description ?? this.description,
+        currentStudentSubmissionId: currentStudentSubmissionId ?? this.currentStudentSubmissionId,
         examType: examType ?? this.examType,
         examDate: examDate ?? this.examDate,
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
-        marks: marks ?? this.marks,
-        fileDeletePaths: fileDeletePaths ?? this.fileDeletePaths,
+        fullMarks: fullMarks ?? this.fullMarks,
+        markingDeadline: markingDeadline ?? this.markingDeadline,
+        examStatus: examStatus ?? this.examStatus,
+        allSubjects: allSubjects ?? this.allSubjects,
+        allSections: allSections ?? this.allSections,
+        questionLocked: questionLocked ?? this.questionLocked,
         fileUrls: fileUrls ?? this.fileUrls,
-        section: section ?? this.section,
-        subject: subject ?? this.subject,
+        standard: standard ?? this.standard,
+        sectionIds: sectionIds ?? this.sectionIds,
+        sections: sections ?? this.sections,
+        subjects: subjects ?? this.subjects,
+        yearBatch: yearBatch ?? this.yearBatch,
       );
 
   factory ExamDetails.fromRawJson(String str) => ExamDetails.fromJson(json.decode(str));
@@ -114,75 +147,46 @@ class ExamDetails {
     id: json["id"],
     title: json["title"],
     description: json["description"],
+    currentStudentSubmissionId: json["currentStudentSubmissionId"],
     examType: json["examType"],
     examDate: json["examDate"] == null ? null : DateTime.parse(json["examDate"]),
     startTime: json["startTime"],
     endTime: json["endTime"],
-    marks: json["marks"],
-    fileDeletePaths: json["fileDeletePaths"] == null ? [] : List<dynamic>.from(json["fileDeletePaths"]!.map((x) => x)),
+    fullMarks: json["fullMarks"],
+    markingDeadline: json["markingDeadline"] == null ? null : DateTime.parse(json["markingDeadline"]),
+    examStatus: json["examStatus"],
+    allSubjects: json["allSubjects"],
+    allSections: json["allSections"],
+    questionLocked: json["questionLocked"],
     fileUrls: json["fileUrls"] == null ? [] : List<String>.from(json["fileUrls"]!.map((x) => x)),
-    section: json["section"] == null ? null : Section.fromJson(json["section"]),
-    subject: json["subject"] == null ? null : Subject.fromJson(json["subject"]),
+    standard: json["standard"] == null ? null : Standard.fromJson(json["standard"]),
+    sectionIds: json["sectionIds"] == null ? [] : List<int>.from(json["sectionIds"]!.map((x) => x)),
+    sections: json["sections"] == null ? [] : List<Standard>.from(json["sections"]!.map((x) => Standard.fromJson(x))),
+    subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
+    yearBatch: json["yearBatch"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "title": title,
     "description": description,
+    "currentStudentSubmissionId": currentStudentSubmissionId,
     "examType": examType,
     "examDate": "${examDate!.year.toString().padLeft(4, '0')}-${examDate!.month.toString().padLeft(2, '0')}-${examDate!.day.toString().padLeft(2, '0')}",
     "startTime": startTime,
     "endTime": endTime,
-    "marks": marks,
-    "fileDeletePaths": fileDeletePaths == null ? [] : List<dynamic>.from(fileDeletePaths!.map((x) => x)),
+    "fullMarks": fullMarks,
+    "markingDeadline": markingDeadline?.toIso8601String(),
+    "examStatus": examStatus,
+    "allSubjects": allSubjects,
+    "allSections": allSections,
+    "questionLocked": questionLocked,
     "fileUrls": fileUrls == null ? [] : List<dynamic>.from(fileUrls!.map((x) => x)),
-    "section": section?.toJson(),
-    "subject": subject?.toJson(),
-  };
-}
-
-class Section {
-  final int? id;
-  final String? sectionName;
-  final String? yearBatch;
-  final Standard? standard;
-
-  Section({
-    this.id,
-    this.sectionName,
-    this.yearBatch,
-    this.standard,
-  });
-
-  Section copyWith({
-    int? id,
-    String? sectionName,
-    String? yearBatch,
-    Standard? standard,
-  }) =>
-      Section(
-        id: id ?? this.id,
-        sectionName: sectionName ?? this.sectionName,
-        yearBatch: yearBatch ?? this.yearBatch,
-        standard: standard ?? this.standard,
-      );
-
-  factory Section.fromRawJson(String str) => Section.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Section.fromJson(Map<String, dynamic> json) => Section(
-    id: json["id"],
-    sectionName: json["sectionName"],
-    yearBatch: json["yearBatch"],
-    standard: json["standard"] == null ? null : Standard.fromJson(json["standard"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "sectionName": sectionName,
-    "yearBatch": yearBatch,
     "standard": standard?.toJson(),
+    "sectionIds": sectionIds == null ? [] : List<dynamic>.from(sectionIds!.map((x) => x)),
+    "sections": sections == null ? [] : List<dynamic>.from(sections!.map((x) => x.toJson())),
+    "subjects": subjects == null ? [] : List<dynamic>.from(subjects!.map((x) => x.toJson())),
+    "yearBatch": yearBatch,
   };
 }
 
@@ -220,29 +224,29 @@ class Standard {
 }
 
 class Subject {
-  final int? id;
-  final String? code;
-  final String? name;
-  final dynamic imagePath;
+  final int? subjectId;
+  final String? subjectName;
+  final String? subjectCode;
+  final int? totalMarks;
 
   Subject({
-    this.id,
-    this.code,
-    this.name,
-    this.imagePath,
+    this.subjectId,
+    this.subjectName,
+    this.subjectCode,
+    this.totalMarks,
   });
 
   Subject copyWith({
-    int? id,
-    String? code,
-    String? name,
-    dynamic imagePath,
+    int? subjectId,
+    String? subjectName,
+    String? subjectCode,
+    int? totalMarks,
   }) =>
       Subject(
-        id: id ?? this.id,
-        code: code ?? this.code,
-        name: name ?? this.name,
-        imagePath: imagePath ?? this.imagePath,
+        subjectId: subjectId ?? this.subjectId,
+        subjectName: subjectName ?? this.subjectName,
+        subjectCode: subjectCode ?? this.subjectCode,
+        totalMarks: totalMarks ?? this.totalMarks,
       );
 
   factory Subject.fromRawJson(String str) => Subject.fromJson(json.decode(str));
@@ -250,16 +254,16 @@ class Subject {
   String toRawJson() => json.encode(toJson());
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(
-    id: json["id"],
-    code: json["code"],
-    name: json["name"],
-    imagePath: json["imagePath"],
+    subjectId: json["subjectId"],
+    subjectName: json["subjectName"],
+    subjectCode: json["subjectCode"],
+    totalMarks: json["totalMarks"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "code": code,
-    "name": name,
-    "imagePath": imagePath,
+    "subjectId": subjectId,
+    "subjectName": subjectName,
+    "subjectCode": subjectCode,
+    "totalMarks": totalMarks,
   };
 }
