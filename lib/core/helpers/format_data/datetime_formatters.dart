@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 class DateTimeFormatters{
   const DateTimeFormatters._();
 
-
   // static String formatTimeRange( BuildContext context, TimeRange timeRange){
   //   final localizations = MaterialLocalizations.of(context);
   //   String formattedStart = localizations.formatTimeOfDay(timeRange.startTime);
@@ -102,18 +101,41 @@ class DateTimeFormatters{
 
   /// Parse the target end time to DateTime today
   /// // Format: "HH:mm:ss"
-  static DateTime timeToDateTime(String time) {
-    final now = DateTime.now();
+  static DateTime timeToDateTime({DateTime? date, String? time}) {
+    if(date == null || time == null) return DateTime.now();
     final parts = time.split(':');
     return DateTime(
-      now.year,
-      now.month,
-      now.day,
+      date.year,
+      date.month,
+      date.day,
       int.parse(parts[0]),
       int.parse(parts[1]),
       int.parse(parts[2]),
     );
   }
+
+
+  /// Format: "HH:mm:ss"
+  static bool isTimeValid({DateTime? date, String? targetTime}) {
+    if(date == null || targetTime == null) return false;
+    // Parse input "HH:mm:ss"
+    final parts = targetTime.split(':');
+    final target = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      int.parse(parts[0]),
+      int.parse(parts[1]),
+      int.parse(parts[2]),
+    );
+
+    // Current time + 3 hours
+    final adjustedNow = DateTime.now().add(const Duration(hours: 3));
+
+    // Return true if still valid (not expired), false otherwise
+    return adjustedNow.isBefore(target);
+  }
+
 
 
   static String formatMonthYear(String yearMonth) {

@@ -11,6 +11,7 @@ import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
 import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/subject_details/data/models/questions_list_model.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
@@ -121,7 +122,8 @@ class QuizSubmissionPage extends HookWidget {
                                   totalMarks: (questionData?.totalMarks ?? 0)
                                       .floor(),
                                   endTime: DateTimeFormatters.timeToDateTime(
-                                    questionData?.endTime ?? "12:94:29",
+                                    date: questionData?.quizDate,
+                                    time: questionData?.endTime ,
                                   ),
                                 ),
                               ),
@@ -148,32 +150,43 @@ class QuizSubmissionPage extends HookWidget {
               );
             },
           ),
-          bottomNavigationBar: quizStatus != "SUBMITTED" ?
-          Container(
-            width: 1.sw,
-            height: 100.h,
-            padding: paddingH24,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x26000000),
-                  blurRadius: 20,
-                  offset: Offset(0, -2),
-                  spreadRadius: 4,
-                ),
-              ],
-            ),
-            child: Center(
-              child: PrimaryButton(
-                isLoading: state.quizSubmissionStatus.isLoading,
-                onPressed: quizSubmit,
-                text: "Submit",
-                background: AppColors.deepOrange,
-                textColor: Colors.white,
-              ),
-            ),
-          ) : null,
+          bottomNavigationBar: BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
+            builder: (context, state) {
+              QuestionsData? questionData = state.questionsListEntity?.questionsData;
+              if(quizStatus != "SUBMITTED" && DateTimeFormatters.isTimeValid(
+                date: questionData?.quizDate,
+                targetTime: questionData?.endTime ,
+              )) {
+                return Container(
+                  width: 1.sw,
+                  height: 100.h,
+                  padding: paddingH24,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x26000000),
+                        blurRadius: 20,
+                        offset: Offset(0, -2),
+                        spreadRadius: 4,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: PrimaryButton(
+                      isLoading: state.quizSubmissionStatus.isLoading,
+                      onPressed: quizSubmit,
+                      text: "Submit",
+                      background: AppColors.deepOrange,
+                      textColor: Colors.white,
+                    ),
+                  ),
+                );
+              }else {
+                return SizedBox.shrink();
+              }
+            }
+          ),
         );
       },
     );

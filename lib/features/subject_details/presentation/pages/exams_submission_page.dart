@@ -70,7 +70,7 @@ class ExamsSubmissionPage extends HookWidget {
         Map<String, dynamic> dto = {
           "examId" : examId,
           "studentId" : studentId.toString(),
-          "submittedAt" : DateTime.now().toString()
+          "submittedAt" : null
         };
 
         Map<String, dynamic> body = {
@@ -140,7 +140,10 @@ class ExamsSubmissionPage extends HookWidget {
 
                               SubmissionHeader(
                                   title: examDetails?.title ?? "Not Found",
-                                  endTime: DateTimeFormatters.timeToDateTime(examDetails?.endTime ?? "12:94:29"),
+                                  endTime: DateTimeFormatters.timeToDateTime(
+                                     date: examDetails?.examDate,
+                                     time: examDetails?.endTime
+                                  ),
                                   totalMarks: (examDetails?.fullMarks ?? 0).floor()
                               ),
 
@@ -185,8 +188,12 @@ class ExamsSubmissionPage extends HookWidget {
                     ),
 
 
-                    if(examStatus != "SUBMITTED")
-                    Padding(
+                    if(examStatus != "SUBMITTED" &&
+                        DateTimeFormatters.isTimeValid(
+                          date: examDetails?.examDate,
+                          targetTime: examDetails?.endTime
+                        )
+                    )Padding(
                       padding: padding24,
                       child: PrimaryButton(
                         isLoading: state.examSubmissionStatus.isLoading,
