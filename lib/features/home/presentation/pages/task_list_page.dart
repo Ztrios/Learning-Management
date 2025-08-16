@@ -69,7 +69,7 @@ class TaskListPage extends StatelessWidget {
                                     if(state.tasksEntity!.taskData![index].type == "QUIZ"){
                                       context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
                                     }else{
-                                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}");
+                                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/UPCOMING");
                                     }
                                   },
                                 ),

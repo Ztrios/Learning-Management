@@ -36,10 +36,12 @@ class AssignmentSubmissionPage extends HookWidget {
   static String get name => "assignment-submission";
 
   final String assignmentId;
+  final String assignmentStatus;
 
   const AssignmentSubmissionPage({
     super.key,
-    required this.assignmentId
+    required this.assignmentId,
+    required this.assignmentStatus
   });
 
   @override
@@ -174,6 +176,7 @@ class AssignmentSubmissionPage extends HookWidget {
                     ),
 
 
+                    if(assignmentStatus != "SUBMITTED")
                     Padding(
                       padding: padding24,
                       child: PrimaryButton(
