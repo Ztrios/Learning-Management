@@ -36,14 +36,14 @@ class SubjectItemView extends StatelessWidget {
               color: background,
               child: Column(
                 crossAxisAlignment: crossStart,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: mainEnd,
                 children: [
 
-                  SvgPicture.asset(
-                      svgIcon,
-                    width: 30.w,
-                    height: 30.w,
-                  ),
+                  // SvgPicture.asset(
+                  //     svgIcon,
+                  //   width: 30.w,
+                  //   height: 30.w,
+                  // ),
 
                   Text(
                     subject,
@@ -73,11 +73,12 @@ class SubjectItemView extends StatelessWidget {
             ),
 
             Positioned(
-                top: 10,
-                right: 10,
-                child: IconButton(
-                    onPressed: (){},
-                    icon: Icon(Icons.more_vert,color: Colors.white)
+                top: 15,
+                right: 20,
+                child: SvgPicture.asset(
+                  svgIcon,
+                  width: 30.w,
+                  height: 30.w,
                 ),
             ),
 
