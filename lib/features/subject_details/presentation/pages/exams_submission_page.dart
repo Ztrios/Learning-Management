@@ -44,10 +44,12 @@ class ExamsSubmissionPage extends HookWidget {
   static String get name => "exam-submission";
 
   final String examId;
+  final String examStatus;
 
   const ExamsSubmissionPage({
     super.key,
-    required this.examId
+    required this.examId,
+    required this.examStatus
   });
 
   @override
@@ -183,6 +185,7 @@ class ExamsSubmissionPage extends HookWidget {
                     ),
 
 
+                    if(examStatus != "SUBMITTED")
                     Padding(
                       padding: padding24,
                       child: PrimaryButton(

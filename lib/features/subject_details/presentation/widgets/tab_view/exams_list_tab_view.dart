@@ -34,14 +34,15 @@ class ExamListTabView extends StatelessWidget {
 
               return InkWell(
                 onTap: () {
-                  if(exam.examStatus != "SUBMITTED"){
-                    context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
-                  }else{
-                    ToastNotifications.showErrorToast(
-                        title: "Submitted Exam!",
-                        message: "Your exam is already submitted.",
-                    );
-                  }
+                  context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}/${exam.examStatus}");
+                  // if(exam.examStatus != "SUBMITTED"){
+                  //   context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
+                  // }else{
+                  //   ToastNotifications.showErrorToast(
+                  //       title: "Submitted Exam!",
+                  //       message: "Your exam is already submitted.",
+                  //   );
+                  // }
                 },
                 child: ExamItemView(
                   showStar: false,

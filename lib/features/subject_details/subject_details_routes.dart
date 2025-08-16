@@ -93,16 +93,18 @@ class SubjectDetailsRouter {
 
           /// Exams Submission page route
           GoRoute(
-            path: "${ExamsSubmissionPage.path}/:examId",
+            path: "${ExamsSubmissionPage.path}/:examId/:status",
             name: ExamsSubmissionPage.name,
             pageBuilder: (context,state){
 
               String examId = state.pathParameters["examId"] ?? "";
+              String status = state.pathParameters["status"] ?? "";
 
               return CustomTransitionPage(
                   key: state.pageKey,
                   child: ExamsSubmissionPage(
                     examId: examId,
+                    examStatus: status,
                   ),
                   transitionsBuilder: routerTransition
               );
