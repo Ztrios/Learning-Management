@@ -2,8 +2,8 @@ class ApiUrls {
   // Private constructor to prevent instantiation
   ApiUrls._();
 
-  //static const String _baseURL = "https://lms.shaheen.edu.bd";
-  static const String _baseURL = "http://192.168.20.243:9090";
+  static const String _baseURL = "https://lms.shaheen.edu.bd";
+  //static const String _baseURL = "http://192.168.20.243:9090";
 
   static const String _imageBaseURL = "";
 

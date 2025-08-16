@@ -12,6 +12,8 @@ import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
 import 'package:learning_management/core/utils/ui_helpers/alignments.dart';
 import 'package:learning_management/core/utils/ui_helpers/paddings.dart';
+import 'package:learning_management/core/utils/ui_helpers/radius.dart';
+import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/home/presentation/bloc/home_bloc.dart';
 import 'package:learning_management/features/home/data/models/subjects_model.dart';
 import 'package:learning_management/features/subject_details/data/models/exams_list_model.dart';
@@ -21,6 +23,9 @@ import 'package:learning_management/features/subject_details/presentation/pages/
 import 'package:learning_management/features/subject_details/presentation/pages/subject_details_page.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/item_view/exams_item_view.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/loading/lessions_list_loading.dart';
+import 'package:learning_management/widgets/app_bars/primary_app_bars.dart';
+import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
+import 'package:learning_management/widgets/drawer/custom_drawer.dart';
 import 'package:learning_management/widgets/empty_widget.dart';
 
 class ExamsListPage extends HookWidget {
@@ -38,127 +43,137 @@ class ExamsListPage extends HookWidget {
       context.read<SubjectDetailsBloc>().add(GetExamsList(subjectId: subjectId));
     }
 
-    void getInitialExamList(){
-      List<Content>? subjects = context.read<HomeBloc>().state.subjectsEntity?.subjectsData?.content;
-      int? subjectId = subjects.isNotNullAndNotEmpty ? subjects!.first.id : null;
-      getExamsList(subjectId.toString());
-    }
-
-    void showDropDownMenu(List<Content> subjects) async {
-      await showMenu<int>(
-        context: context,
-        color: Colors.white,
-        position: RelativeRect.fromLTRB(
-          MediaQuery
-              .of(context)
-              .size
-              .width, // right side
-          kToolbarHeight, // below the app bar
-          0,
-          0,
-        ),
-        items: subjects.map((subject){
-          return PopupMenuItem(
-            onTap: ()=> getExamsList(subject.id.toString()),
-            value: subject.id,
-            child: Text(subject.name ?? ""),
-          );
-        }).toList(),
-      );
-    }
-
 
     useEffect((){
-      Future.microtask(()=> getInitialExamList());
+      Future.microtask(()=> getExamsList(""));
       return null;
     },[]);
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 75.w,
-        actionsPadding: padding12,
-        centerTitle: true,
-        title: Text(
-          "Exams",
-          style: AppTextStyles.titleMedium.copyWith(
-              color: AppColors.blueLight,
-              fontWeight: FontWeight.w900
-          ),
-        ),
-        leading: IconButton(
-          onPressed: ()=> context.pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.blueLight
-          )
-        ),
-        actions: [
-          BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return IconButton(
-                onPressed: (){
-                  showDropDownMenu(state.subjectsEntity?.subjectsData?.content ?? []);
-                },
-                icon: Icon(
-                  Icons.more_vert,
-                  color: AppColors.blueLight,
-                ),
-              );
-            },
-          )
-        ],
-      ),
+      endDrawer: CustomDrawer(),
+      backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: 1.sw,
           height: 1.sh,
-          padding: padding12,
-          child: BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
-            builder: (context, state) {
-              if(state.status.isLoading){
-                return LessionsListLoading();
-              }else if(state.status.isSuccess && (state.examsListEntity?.examData?.exams).isNotNullAndNotEmpty){
-                return ListView.builder(
-                  itemCount: state.examsListEntity?.examData?.exams?.length,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
+          child: Column(
+            children: [
 
-                    Exam exam = state.examsListEntity!.examData!.exams![index];
+              gap12,
 
-                    return InkWell(
-                      onTap: () {
-                        if(exam.examStatus != "SUBMITTED"){
-                          context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
-                        }else{
-                          ToastNotifications.showErrorToast(
-                            title: "Submitted Exam!",
-                            message: "Your exam is already submitted.",
-                          );
-                        }
-                      },
-                      child: ExamItemView(
-                        showStar: false,
-                        isCompleted: exam.examStatus == "SUBMITTED",
-                        title: exam.title ?? "",
-                        totalMarks: exam.fullMarks ?? 0,
-                        getMarks: 0,
-                        examDate: DateTimeFormatters.formatDateV2(dateTime: exam.examDate),
-                        startTime: DateTimeFormatters.formatLocalTime(exam.startTime?? ""),
-                        endTime: DateTimeFormatters.formatLocalTime(exam.endTime?? ""),
-                      ),
-                    );
-                  },
-                );
+              PrimaryAppBar(),
+
+              gap12,
+
+              Padding(
+                padding: paddingLeft20,
+                child: BlocBuilder<HomeBloc, HomeState>(
+                  builder: (context, state) {
+                    if(state.status.isSuccess && (state.subjectsEntity?.subjectsData?.content).isNotNullAndNotEmpty){
+                      return DefaultTabController(
+                        initialIndex: 0,
+                        length: (state.subjectsEntity?.subjectsData?.content?.length ?? 0) + 1,
+                        child: TabBar(
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          physics: BouncingScrollPhysics(),
+                          indicatorColor: AppColors.deepOrange,
+                          splashBorderRadius: radius6,
+                          labelStyle: AppTextStyles.bodyMedium.copyWith(
+                              fontWeight: FontWeight.w900,
+                              color: Colors.deepOrange
+                          ),
+                          tabs: [
+                            Container(
+                              height: 45.h,
+                              alignment: Alignment.center,
+                              child: Text(
+                                  "All"
+                              ),
+                            ),
+                            ...(state.subjectsEntity?.subjectsData?.content ?? []).map(
+                                    (subject){
+                                  return Container(
+                                    height: 45.h,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        subject.name ?? ""
+                                    ),
+                                  );
+                                }),
+                          ],
+                          onTap: (index){
+                            if(index > 0){
+                              int? subjectId = state.subjectsEntity!.subjectsData!.content![index].id;
+                              if(subjectId != null){
+                                getExamsList((subjectId + 1).toString());
+                              }
+                            }
+                          },
+                        ),
+                      );
+                    }else{
+                      return SizedBox.shrink();
+                    }
+                  }
+                ),
+              ),
+
+              gap12,
+
+              Expanded(
+                child: Padding(
+                  padding: paddingH20,
+                  child: BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
+                    builder: (context, state) {
+                      if(state.status.isLoading){
+                        return LessionsListLoading();
+                      }else if(state.status.isSuccess && (state.examsListEntity?.examData?.exams).isNotNullAndNotEmpty){
+                        return ListView.builder(
+                          itemCount: state.examsListEntity?.examData?.exams?.length,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+
+                            Exam exam = state.examsListEntity!.examData!.exams![index];
+
+                            return InkWell(
+                              onTap: () {
+                                if(exam.examStatus != "SUBMITTED"){
+                                  context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}");
+                                }else{
+                                  ToastNotifications.showErrorToast(
+                                    title: "Submitted Exam!",
+                                    message: "Your exam is already submitted.",
+                                  );
+                                }
+                              },
+                              child: ExamItemView(
+                                showStar: false,
+                                isCompleted: exam.examStatus == "SUBMITTED",
+                                title: exam.title ?? "",
+                                totalMarks: exam.fullMarks ?? 0,
+                                getMarks: 0,
+                                examDate: DateTimeFormatters.formatDateV2(dateTime: exam.examDate),
+                                startTime: DateTimeFormatters.formatLocalTime(exam.startTime?? ""),
+                                endTime: DateTimeFormatters.formatLocalTime(exam.endTime?? ""),
+                              ),
+                            );
+                          },
+                        );
 
 
-              }else{
-                return EmptyWidget(
-                    title: "No Exams Found!",
-                    message: "Exams are not available at this moment."
-                );
-              }
-            },
-                      ),
+                      }else{
+                        return EmptyWidget(
+                            title: "No Exams Found!",
+                            message: "Exams are not available at this moment."
+                        );
+                      }
+                    },
+                              ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -102,16 +102,16 @@ class PrimaryAppBar extends HookWidget {
 
           const Spacer(),
 
-          IconButton(
-              onPressed: ()=> context.push(NotificationsPage.path),
-              icon: Icon(
-                Icons.notifications,
-                size: 30.sp,
-                color: AppColors.deepPurpleAccent
-              )
-          ),
+          // IconButton(
+          //     onPressed: ()=> context.push(NotificationsPage.path),
+          //     icon: Icon(
+          //       Icons.notifications,
+          //       size: 30.sp,
+          //       color: AppColors.deepPurpleAccent
+          //     )
+          // ),
 
-          gap12,
+          gap6,
 
           Builder(
             builder: (context) {
