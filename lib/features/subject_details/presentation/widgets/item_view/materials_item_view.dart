@@ -11,9 +11,9 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 
 class MaterialsItemView extends StatelessWidget {
-  final String title;
+  final String url;
 
-  const MaterialsItemView({super.key, required this.title});
+  const MaterialsItemView({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MaterialsItemView extends StatelessWidget {
 
           Expanded(
             child: Text(
-                title,
+              Uri.parse(url).path.split("/").last,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

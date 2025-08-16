@@ -28,7 +28,7 @@ class MaterialsTabView extends StatelessWidget {
                   // }
                 },
                 child: MaterialsItemView(
-                  title: state.lessionDetailsEntity!.lessionDetails!.attachments![index],
+                  url: state.lessionDetailsEntity!.lessionDetails!.attachments![index],
                 )
             );
           },
