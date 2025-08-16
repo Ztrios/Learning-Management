@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
@@ -32,15 +33,19 @@ class QuizzesTabView extends StatelessWidget {
 
                 return InkWell(
                   onTap: (){
-                    context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}/${quiz.status}");
-                    // if(quiz.status != "SUBMITTED"){
-                    //   context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}");
-                    // }else{
-                    //   ToastNotifications.showErrorToast(
-                    //       title: "Already Submitted.",
-                    //       message : "You have already submitted this quiz."
-                    //   );
-                    // }
+                    bool startExam = DateTimeFormatters.isTimeValid(
+                        date: quiz.quizDate,
+                        targetTime: quiz.startTime,
+                        isBefore: false
+                    );
+                    if(startExam){
+                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}/${quiz.status}");
+                    }else{
+                      ToastNotifications.showErrorToast(
+                          title: "Quiz isn't start!",
+                          message : "Your quiz submission isn't start yet"
+                      );
+                    }
                   },
                   child: QuizzesItemView(
                     totalMarks: quiz.totalMarks ?? 0,

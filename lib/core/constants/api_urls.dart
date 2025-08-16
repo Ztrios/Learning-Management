@@ -3,7 +3,7 @@ class ApiUrls {
   ApiUrls._();
 
   //static const String _baseURL = "https://lms.shaheen.edu.bd";
-  static const String _baseURL = "https://7731f192d9ac.ngrok-free.app";
+  static const String _baseURL = "https://f2383454bfaf.ngrok-free.app";
   //static const String _baseURL = "http://192.168.20.243:9090";
 
   static const String _imageBaseURL = "";

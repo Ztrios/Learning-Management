@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/features/subject_details/data/models/assignment_list_model.dart';
@@ -30,6 +31,7 @@ class AssignmentsTabView extends StatelessWidget {
 
                 return InkWell(
                   onTap: (){
+
                     context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${assignment.id}/${assignment.status}");
 
                     // if(assignment.status != "SUBMITTED"){

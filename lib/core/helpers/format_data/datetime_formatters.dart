@@ -116,7 +116,7 @@ class DateTimeFormatters{
 
 
   /// Format: "HH:mm:ss"
-  static bool isTimeValid({DateTime? date, String? targetTime}) {
+  static bool isTimeValid({DateTime? date, String? targetTime, bool isBefore = true}) {
     if(date == null || targetTime == null) return false;
     // Parse input "HH:mm:ss"
     final parts = targetTime.split(':');
@@ -133,7 +133,7 @@ class DateTimeFormatters{
     final adjustedNow = DateTime.now().add(const Duration(hours: 3));
 
     // Return true if still valid (not expired), false otherwise
-    return adjustedNow.isBefore(target);
+    return isBefore ? adjustedNow.isBefore(target) : adjustedNow.isAfter(target);
   }
 
 

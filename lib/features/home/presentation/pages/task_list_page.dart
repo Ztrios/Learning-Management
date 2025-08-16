@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
@@ -67,7 +68,14 @@ class TaskListPage extends StatelessWidget {
                                   "assets/images/english_quiz.svg" : "assets/images/math_assignment.svg",
                                   onTap: () {
                                     if(state.tasksEntity!.taskData![index].type == "QUIZ"){
-                                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/UPCOMING");
+                                      if(state.tasksEntity!.taskData![index].startTime!.isAfter(DateTime.now())){
+                                        context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/UPCOMING");
+                                      }else{
+                                        ToastNotifications.showErrorToast(
+                                            title: "Not Yet!",
+                                            message : "Your Quiz isn't start yet"
+                                        );
+                                      }
                                     }else{
                                       context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/UPCOMING");
                                     }
