@@ -28,8 +28,13 @@ class QuizSubmissionPage extends HookWidget {
   static String get name => "quiz-submission";
 
   final String quizId;
+  final String quizStatus;
 
-  const QuizSubmissionPage({super.key, required this.quizId});
+  const QuizSubmissionPage({
+    super.key,
+    required this.quizId,
+    required this.quizStatus
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +148,8 @@ class QuizSubmissionPage extends HookWidget {
               );
             },
           ),
-          bottomNavigationBar: Container(
+          bottomNavigationBar: quizStatus != "SUBMITTED" ?
+          Container(
             width: 1.sw,
             height: 100.h,
             padding: paddingH24,
@@ -167,7 +173,7 @@ class QuizSubmissionPage extends HookWidget {
                 textColor: Colors.white,
               ),
             ),
-          ),
+          ) : null,
         );
       },
     );

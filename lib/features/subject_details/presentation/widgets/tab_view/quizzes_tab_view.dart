@@ -32,14 +32,15 @@ class QuizzesTabView extends StatelessWidget {
 
                 return InkWell(
                   onTap: (){
-                    if(quiz.status != "SUBMITTED"){
-                      context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}");
-                    }else{
-                      ToastNotifications.showErrorToast(
-                          title: "Already Submitted.",
-                          message : "You have already submitted this quiz."
-                      );
-                    }
+                    context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}/${quiz.status}");
+                    // if(quiz.status != "SUBMITTED"){
+                    //   context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${QuizSubmissionPage.path}/${quiz.id}");
+                    // }else{
+                    //   ToastNotifications.showErrorToast(
+                    //       title: "Already Submitted.",
+                    //       message : "You have already submitted this quiz."
+                    //   );
+                    // }
                   },
                   child: QuizzesItemView(
                     totalMarks: quiz.totalMarks ?? 0,

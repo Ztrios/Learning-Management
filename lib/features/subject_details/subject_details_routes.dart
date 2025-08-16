@@ -77,13 +77,18 @@ class SubjectDetailsRouter {
 
               /// Quiz Submission page route
               GoRoute(
-                path: "${QuizSubmissionPage.path}/:quizId",
+                path: "${QuizSubmissionPage.path}/:quizId/:quizStatus",
                 name: QuizSubmissionPage.name,
                 pageBuilder: (context,state){
+
+                  String quizId = state.pathParameters["quizId"] ?? "";
+                  String quizStatus = state.pathParameters["quizStatus"] ?? "";
+
                   return CustomTransitionPage(
                       key: state.pageKey,
                       child: QuizSubmissionPage(
-                        quizId: state.pathParameters["quizId"] ?? "",
+                        quizId: quizId,
+                        quizStatus: quizStatus,
                       ),
                       transitionsBuilder: routerTransition
                   );
