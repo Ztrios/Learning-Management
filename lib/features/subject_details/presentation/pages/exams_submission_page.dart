@@ -70,7 +70,7 @@ class ExamsSubmissionPage extends HookWidget {
         Map<String, dynamic> dto = {
           "examId" : examId,
           "studentId" : studentId.toString(),
-          //"submittedAt" : DateTime.now().toString()
+          "submittedAt" : DateTime.now().toString()
         };
 
         Map<String, dynamic> body = {
