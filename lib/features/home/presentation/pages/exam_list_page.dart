@@ -106,8 +106,10 @@ class ExamsListPage extends HookWidget {
                             if(index > 0){
                               int? subjectId = state.subjectsEntity!.subjectsData!.content![index].id;
                               if(subjectId != null){
-                                getExamsList((subjectId + 1).toString());
+                                getExamsList((subjectId).toString());
                               }
+                            }else{
+                              getExamsList("");
                             }
                           },
                         ),
