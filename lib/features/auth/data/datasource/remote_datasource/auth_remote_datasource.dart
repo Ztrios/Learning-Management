@@ -95,7 +95,6 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
       SignInEntity signInEntity = SignInModel.fromJson(response.data).toEntity();
       return Right(signInEntity);
     }catch(error, stackTrace){
-      print("<<<<<<<<<<<<Hello<<<<<<<<<<<<<<<<<<<<<<}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       log(
           "Auth Remote DataSource: ",
           error: error,
