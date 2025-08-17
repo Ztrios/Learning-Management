@@ -156,7 +156,12 @@ class ExamsSubmissionPage extends HookWidget {
 
                               gap24,
 
-                              PdfListWidget(
+                              if(DateTime.now().isBefore(
+                                  DateTimeFormatters.timeToDateTime(
+                                      date: examDetails?.examDate,
+                                      time: examDetails?.endTime
+                                  )
+                              )) PdfListWidget(
                                   title: examDetails?.title ?? "",
                                   pdfUrls: examDetails?.fileUrls ?? []
                               ),

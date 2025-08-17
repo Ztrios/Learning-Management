@@ -145,6 +145,7 @@ class AssignmentSubmissionPage extends HookWidget {
 
                               gap24,
 
+                              if(DateTime.now().isBefore(assignmentDetails?.deadline ?? DateTime.now()))
                               PdfListWidget(
                                 title: assignmentDetails?.title ?? "",
                                 pdfUrls: assignmentDetails?.fileUrls ?? []
