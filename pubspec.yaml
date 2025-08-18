@@ -70,10 +70,10 @@ dependencies:
   flutter_html: ^3.0.0
   #better_player_plus: ^1.0.8
   pdf: ^3.11.3
-  flutter_cached_pdfview: ^0.4.3
-  path_provider: ^2.1.5
+  #flutter_cached_pdfview: ^0.4.3
+  #path_provider: ^2.1.5
   permission_handler: ^12.0.1
-  flutter_file_downloader: ^2.1.0
+  #flutter_file_downloader: ^2.1.0
   #time_range_picker: ^2.3.0
   webview_flutter: ^4.13.0
 
