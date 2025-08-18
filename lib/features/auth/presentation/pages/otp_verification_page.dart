@@ -12,7 +12,7 @@ import 'package:learning_management/features/auth/presentation/pages/forget_pass
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
-import 'package:pinput/pinput.dart';
+//import 'package:pinput/pinput.dart';
 
 class OTPVerificationPage extends HookWidget {
 
@@ -83,31 +83,31 @@ class OTPVerificationPage extends HookWidget {
               ),
 
               gap48,
-
-              Pinput(
-                length: 5,
-                separatorBuilder: (index) => const SizedBox(width: 8),
-                hapticFeedbackType: HapticFeedbackType.lightImpact,
-                keyboardType: TextInputType.number,
-                defaultPinTheme: defaultPinTheme,
-                submittedPinTheme: submittedPinTheme,
-                //focusedPinTheme: focusedPinTheme,
-                onCompleted: (pin) {
-                  debugPrint('onCompleted: $pin');
-                },
-                onChanged: (value) {
-                  debugPrint('onChanged: $value');
-                },
-                validator: (value)=> FormValidation(
-                    validationType: ValidationType.otp,
-                    formValue: value
-                ).validate(),
-                cursor: Container(
-                  width: 2.5.w,
-                  margin: margin12,
-                  color: AppColors.blueLight,
-                ),
-              ),
+              //
+              // Pinput(
+              //   length: 5,
+              //   separatorBuilder: (index) => const SizedBox(width: 8),
+              //   hapticFeedbackType: HapticFeedbackType.lightImpact,
+              //   keyboardType: TextInputType.number,
+              //   defaultPinTheme: defaultPinTheme,
+              //   submittedPinTheme: submittedPinTheme,
+              //   //focusedPinTheme: focusedPinTheme,
+              //   onCompleted: (pin) {
+              //     debugPrint('onCompleted: $pin');
+              //   },
+              //   onChanged: (value) {
+              //     debugPrint('onChanged: $value');
+              //   },
+              //   validator: (value)=> FormValidation(
+              //       validationType: ValidationType.otp,
+              //       formValue: value
+              //   ).validate(),
+              //   cursor: Container(
+              //     width: 2.5.w,
+              //     margin: margin12,
+              //     color: AppColors.blueLight,
+              //   ),
+              // ),
 
               gap24,
 
@@ -152,21 +152,21 @@ class OTPVerificationPage extends HookWidget {
 }
 
 
-final defaultPinTheme = PinTheme(
-  width: 56,
-  height: 56,
-  textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
-  decoration: BoxDecoration(
-    border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
-    borderRadius: BorderRadius.circular(20),
-  ),
-);
+// final defaultPinTheme = PinTheme(
+//   width: 56,
+//   height: 56,
+//   textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+//   decoration: BoxDecoration(
+//     border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+//     borderRadius: BorderRadius.circular(20),
+//   ),
+// );
 
-final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-  border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
-  borderRadius: BorderRadius.circular(8),
-);
-
-final submittedPinTheme = defaultPinTheme.copyWith(
-  decoration: defaultPinTheme.decoration,
-);
+// final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+//   border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+//   borderRadius: BorderRadius.circular(8),
+// );
+//
+// final submittedPinTheme = defaultPinTheme.copyWith(
+//   decoration: defaultPinTheme.decoration,
+// );
