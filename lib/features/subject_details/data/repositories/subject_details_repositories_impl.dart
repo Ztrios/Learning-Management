@@ -10,6 +10,7 @@ import 'package:learning_management/features/subject_details/domain/entities/les
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/submitted_exam_entity.dart';
 import 'package:learning_management/features/subject_details/domain/repositories/subject_details_repositories.dart';
 
 class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
@@ -54,10 +55,12 @@ class SubjectDetailsRepositoriesImpl implements SubjectDetailsRepositories{
       await sl<SubjectDetailsRemoteDataSource>().getExamsDetails(examId: examId);
 
   @override
+  Future<Either<Failure, SubmittedExamEntity>> getSubmittedExamData({required String submissionId}) async =>
+      await sl<SubjectDetailsRemoteDataSource>().getSubmittedExamData(submissionId: submissionId);
+
+  @override
   Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async =>
       await sl<SubjectDetailsRemoteDataSource>().submitExam(body: body);
-
-
 
 
 }

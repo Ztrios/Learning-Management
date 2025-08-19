@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
 import 'package:learning_management/core/helpers/format_data/pdf_formatters.dart';
 import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/utils/enums/enums.dart';
@@ -155,6 +154,10 @@ class AssignmentSubmissionPage extends HookWidget {
 
                               gap12,
 
+                              if(assignmentStatus != "SUBMITTED" &&
+                                  DateTime.now().add(const Duration(hours: 3)).isBefore(
+                                      assignmentDetails?.deadline ?? DateTime.now())
+                              )
                               FilesUploadWidget(
                                 selectedFiles: (List<File>? files, UploadType type) async {
                                   uploadedFile.value = null;

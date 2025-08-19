@@ -25,12 +25,14 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.da
 import 'package:learning_management/features/subject_details/data/models/exam_details_model.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_bloc.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/item_view/materials_item_view.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/pdf_list_widget.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/submission_header.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/html_viewer_widget.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/item_view/assignments_item_view.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/submission_types_selection.dart';
 import 'package:learning_management/features/subject_details/presentation/widgets/files_upload_widget.dart';
+import 'package:learning_management/features/subject_details/presentation/widgets/submitted_exam_data_widget.dart';
 import 'package:learning_management/widgets/app_bars/secondary_app_bar.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:learning_management/widgets/circle_loading.dart';
@@ -147,43 +149,54 @@ class ExamsSubmissionPage extends HookWidget {
                                   totalMarks: (examDetails?.fullMarks ?? 0).floor()
                               ),
 
-                              gap24,
+                              gap12,
 
 
                               HtmlViewerWidget(
                                   content: examDetails?.description ?? ""
                               ),
 
-                              gap24,
 
                               if(DateTime.now().isBefore(
                                   DateTimeFormatters.timeToDateTime(
                                       date: examDetails?.examDate,
                                       time: examDetails?.endTime
                                   )
-                              )) PdfListWidget(
-                                  title: examDetails?.title ?? "",
-                                  pdfUrls: examDetails?.fileUrls ?? []
+                              )) Column(
+                                children: [
+                                  gap24,
+                                  PdfListWidget(
+                                      title: examDetails?.title ?? "",
+                                      pdfUrls: examDetails?.fileUrls ?? []
+                                  ),
+                                ],
                               ),
 
                               Divider(thickness: 2),
 
                               gap12,
 
-                              FilesUploadWidget(
-                                selectedFiles: (List<File>? files, UploadType type) async {
-                                  uploadedFile.value = null;
-                                  if(files != null){
-                                    if(type == UploadType.pdf){
-                                      //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
-                                      uploadedFile.value = files.first;
-                                    }else{
-                                      uploadedFile.value =
-                                      await PdfFormatters.convertImagesToPdfFile(files,fileName: "exam-$examId.pdf");
+                              Visibility(
+                                visible: examStatus != "SUBMITTED" && DateTimeFormatters.isTimeValid(
+                                    date: examDetails?.examDate,
+                                    targetTime: examDetails?.endTime
+                                ),
+                                replacement: SubmittedExamDataWidget(),
+                                child: FilesUploadWidget(
+                                  selectedFiles: (List<File>? files, UploadType type) async {
+                                    uploadedFile.value = null;
+                                    if(files != null && files.isNotEmpty){
+                                      if(type == UploadType.pdf){
+                                        //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
+                                        uploadedFile.value = files.first;
+                                      }else{
+                                        uploadedFile.value =
+                                        await PdfFormatters.convertImagesToPdfFile(files,fileName: "exam-$examId.pdf");
+                                      }
                                     }
-                                  }
 
-                                },
+                                  },
+                                ),
                               ),
 
                             ],

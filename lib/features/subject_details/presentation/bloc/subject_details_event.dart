@@ -162,6 +162,20 @@ class GetExamsDetails extends SubjectDetailsEvent{
 }
 
 
+class GetSubmittedExamData extends SubjectDetailsEvent{
+
+  final String submissionId;
+
+  GetSubmittedExamData({required this.submissionId});
+
+  @override
+  List<Object?> get props => [
+    submissionId
+  ];
+}
+
+
+
 class SubmitExam extends SubjectDetailsEvent{
 
   final Map<String, dynamic> body;

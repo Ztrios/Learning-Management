@@ -15,6 +15,7 @@ class SubjectDetailsState extends Equatable {
   final QuestionsListEntity? questionsListEntity;
   final ExamsListEntity? examsListEntity;
   final ExamDetailsEntity? examDetailsEntity;
+  final SubmittedExamEntity? submittedExamEntity;
 
 
   const SubjectDetailsState({
@@ -31,7 +32,8 @@ class SubjectDetailsState extends Equatable {
     required this.selectedAnswerEntities,
     required this.lessionDetailsEntity,
     required this.examsListEntity,
-    required this.examDetailsEntity
+    required this.examDetailsEntity,
+    required this.submittedExamEntity
   });
 
   /// Initial state factory
@@ -49,7 +51,8 @@ class SubjectDetailsState extends Equatable {
     assignmentListEntity: null,
     assignmentDetailsEntity: null,
     examsListEntity: null,
-    examDetailsEntity: null
+    examDetailsEntity: null,
+    submittedExamEntity: null
   );
 
   /// Copy with new values
@@ -67,7 +70,8 @@ class SubjectDetailsState extends Equatable {
     QuestionsListEntity? questionsListEntity,
     List<AnswerEntity>? selectedAnswerEntities,
     ExamsListEntity? examsListEntity,
-    ExamDetailsEntity? examDetailsEntity
+    ExamDetailsEntity? examDetailsEntity,
+    SubmittedExamEntity? submittedExamEntity
   }) {
     return SubjectDetailsState(
       status: status ?? this.status,
@@ -83,7 +87,8 @@ class SubjectDetailsState extends Equatable {
       questionsListEntity: questionsListEntity ?? this.questionsListEntity,
       selectedAnswerEntities: selectedAnswerEntities ?? this.selectedAnswerEntities,
       examsListEntity: examsListEntity ?? this.examsListEntity,
-      examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity
+      examDetailsEntity: examDetailsEntity ?? this.examDetailsEntity,
+      submittedExamEntity: submittedExamEntity ?? this.submittedExamEntity
     );
   }
 
@@ -103,6 +108,7 @@ class SubjectDetailsState extends Equatable {
     questionsListEntity,
     selectedAnswerEntities,
     examsListEntity,
-    examDetailsEntity
+    examDetailsEntity,
+    submittedExamEntity
   ];
 }

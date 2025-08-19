@@ -8,6 +8,7 @@ import 'package:learning_management/features/subject_details/domain/entities/les
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/submitted_exam_entity.dart';
 
 abstract class SubjectDetailsRepositories {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
@@ -20,6 +21,7 @@ abstract class SubjectDetailsRepositories {
   Future<Either<Failure, bool>> quizSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
+  Future<Either<Failure, SubmittedExamEntity>> getSubmittedExamData({required String submissionId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
 
 }

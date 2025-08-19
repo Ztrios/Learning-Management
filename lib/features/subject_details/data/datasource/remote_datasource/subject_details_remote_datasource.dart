@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:learning_management/config/service_locator/service_locator.dart';
 import 'package:learning_management/core/constants/api_urls.dart';
 import 'package:learning_management/core/error/failure.dart';
@@ -14,6 +15,7 @@ import 'package:learning_management/features/subject_details/data/models/lession
 import 'package:learning_management/features/subject_details/data/models/lessions_list_model.dart';
 import 'package:learning_management/features/subject_details/data/models/questions_list_model.dart';
 import 'package:learning_management/features/subject_details/data/models/quiz_list_model.dart';
+import 'package:learning_management/features/subject_details/data/models/submitted_exam_model.dart';
 import 'package:learning_management/features/subject_details/domain/entities/assignment_details_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/assignment_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/exam_details_entity.dart';
@@ -22,6 +24,7 @@ import 'package:learning_management/features/subject_details/domain/entities/les
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/submitted_exam_entity.dart';
 
 sealed class SubjectDetailsRemoteDataSource {
   Future<Either<Failure, LessionsListEntity>> getLessionsList({required String subjectId});
@@ -34,6 +37,7 @@ sealed class SubjectDetailsRemoteDataSource {
   Future<Either<Failure, bool>> quizSubmit({required Map<String,dynamic> body});
   Future<Either<Failure, ExamsListEntity>> getExamsList({required String subjectId});
   Future<Either<Failure, ExamDetailsEntity>> getExamsDetails({required String examId});
+  Future<Either<Failure, SubmittedExamEntity>> getSubmittedExamData({required String submissionId});
   Future<Either<Failure, bool>> submitExam({required Map<String,dynamic> body});
 }
 
@@ -225,6 +229,28 @@ class SubjectDetailsRemoteDataSourceImpl extends SubjectDetailsRemoteDataSource{
     }
   }
 
+
+  @override
+  Future<Either<Failure, SubmittedExamEntity>> getSubmittedExamData({required String submissionId}) async {
+    try{
+
+      Response response = await sl<DioClient>().get("${ApiUrls.examSubmittedData}$submissionId");
+      SubmittedExamEntity submittedExamEntity = SubmittedExamModel.fromJson(response.data).toEntity();
+      return Right(submittedExamEntity);
+
+    }catch(error, stackTrace){
+      log(
+          "Lessions Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
+
+
+
   @override
   Future<Either<Failure, bool>> submitExam({required Map<String, dynamic> body}) async {
     try{
@@ -245,7 +271,6 @@ class SubjectDetailsRemoteDataSourceImpl extends SubjectDetailsRemoteDataSource{
       return Left(UnknownFailure(error.toString()));
     }
   }
-
 
 
 }

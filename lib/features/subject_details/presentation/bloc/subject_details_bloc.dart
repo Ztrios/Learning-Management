@@ -18,6 +18,7 @@ import 'package:learning_management/features/subject_details/domain/entities/les
 import 'package:learning_management/features/subject_details/domain/entities/lessions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/questions_list_entity.dart';
 import 'package:learning_management/features/subject_details/domain/entities/quiz_list_entity.dart';
+import 'package:learning_management/features/subject_details/domain/entities/submitted_exam_entity.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/assignment_submission_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_details_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_assignment_list_usecase.dart';
@@ -27,6 +28,7 @@ import 'package:learning_management/features/subject_details/domain/usecases/get
 import 'package:learning_management/features/subject_details/domain/usecases/get_lessions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quesions_list_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/get_quiz_list_usecase.dart';
+import 'package:learning_management/features/subject_details/domain/usecases/get_submitted_exam_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/quiz_submit_usecase.dart';
 import 'package:learning_management/features/subject_details/domain/usecases/submit_exam_usecase.dart';
 import 'package:learning_management/features/subject_details/presentation/bloc/subject_details_event.dart';
@@ -46,6 +48,7 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     on<QuizSubmit>(_onQuizSubmit);
     on<GetExamsList>(_onGetExamsList);
     on<GetExamsDetails>(_onGetExamsDetails);
+    on<GetSubmittedExamData>(_onGetSubmittedExamData);
     on<SubmitExam>(_onSubmitExam);
   }
 
@@ -201,7 +204,22 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
     var result = await sl<GetExamDetailsUseCase>().call(params: event.examId);
     result.fold(
             (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
-            (data)=> emit(state.copyWith(status: Status.success, examDetailsEntity: data))
+            (data){
+              emit(state.copyWith(status: Status.success, examDetailsEntity: data));
+              int? submissionId = state.examDetailsEntity?.examDetails?.currentStudentSubmissionId;
+              if(submissionId != null){
+                add(GetSubmittedExamData(submissionId: submissionId.toString()));
+              }
+            }
+    );
+  }
+
+  Future<void> _onGetSubmittedExamData(GetSubmittedExamData event, Emitter<SubjectDetailsState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetSubmittedExamUseCase>().call(params: event.submissionId);
+    result.fold(
+            (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+            (data)=> emit(state.copyWith(status: Status.success, submittedExamEntity: data))
     );
   }
 
