@@ -114,7 +114,7 @@ class ClassRoutineWidget extends HookWidget {
                             crossAxisAlignment: crossStart,
                             children: [
                               Text(
-                                (state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty
+                                ((state.todaysClassEntity?.classData?.classSchedule).isNotNullAndNotEmpty && state.todaysClassEntity!.classData!.classSchedule![0].classInfo?.className != null)
                                     ? state.todaysClassEntity!.classData!.classSchedule![0].classInfo!.className!
                                     : "Not Found",
                                 style: AppTextStyles.titleSmall.copyWith(

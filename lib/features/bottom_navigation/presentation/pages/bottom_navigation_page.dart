@@ -87,7 +87,7 @@ class BottomNavigationPage extends HookWidget {
       endDrawer: CustomDrawer(),
       body: child,
       bottomNavigationBar: Container(
-        height: 80.h,
+        height: 90.h,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

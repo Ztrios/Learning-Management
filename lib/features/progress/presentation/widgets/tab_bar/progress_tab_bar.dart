@@ -21,14 +21,14 @@ class ProgressTabBar extends HookWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: 80.h,
+      height: 70.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: crossCenter,
         children: List.generate(tabs.length, (index) {
           final isActive = selectedIndex == index;
           return Padding(
-            padding: padding24,
+            padding: padding16,
             child: InkResponse(
               onTap: () => onChanged(index),
               splashColor: AppColors.blueLight,
