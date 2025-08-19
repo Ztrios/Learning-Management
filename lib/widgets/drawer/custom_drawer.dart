@@ -134,6 +134,18 @@ class CustomDrawer extends StatelessWidget {
                       },
                     ),
 
+                    ListTile(
+                      leading: Icon(Icons.privacy_tip, color: AppColors.blueLight),
+                      title: Text(
+                        "Privacy Policy",
+                        style: AppTextStyles.titleSmall,
+                      ),
+                      onTap: () {
+
+                      },
+                    ),
+
+                    Divider(),
 
                     ListTile(
                       leading: Icon(Icons.logout, color: errorColor),
