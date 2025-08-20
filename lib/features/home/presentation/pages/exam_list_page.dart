@@ -152,7 +152,7 @@ class ExamsListPage extends HookWidget {
                               },
                               child: ExamItemView(
                                 showStar: false,
-                                isCompleted: exam.examStatus == "SUBMITTED",
+                                isCompleted: exam.currentStudentSubmissionId != null,
                                 title: exam.title ?? "",
                                 totalMarks: exam.fullMarks ?? 0,
                                 getMarks: 0,

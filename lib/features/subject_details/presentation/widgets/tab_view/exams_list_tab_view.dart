@@ -39,7 +39,6 @@ class ExamListTabView extends StatelessWidget {
                     targetTime: exam.startTime,
                     isBefore: false
                   );
-                  print(startExam);
                   if(startExam){
                     context.push("${SubjectDetailsPage.path}${ExamsSubmissionPage.path}/${exam.id}/${exam.examStatus}");
                   }else{
@@ -51,7 +50,7 @@ class ExamListTabView extends StatelessWidget {
                 },
                 child: ExamItemView(
                   showStar: false,
-                  isCompleted: exam.examStatus == "SUBMITTED",
+                  isCompleted: exam.currentStudentSubmissionId != null,
                   title: exam.title ?? "",
                   totalMarks: exam.fullMarks ?? 0,
                   getMarks: 0,

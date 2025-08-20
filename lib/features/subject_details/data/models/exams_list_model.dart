@@ -115,6 +115,7 @@ class Exam {
   final int? id;
   final String? title;
   final String? description;
+  final int? currentStudentSubmissionId;
   final String? examType;
   final DateTime? examDate;
   final String? startTime;
@@ -136,6 +137,7 @@ class Exam {
     this.id,
     this.title,
     this.description,
+    this.currentStudentSubmissionId,
     this.examType,
     this.examDate,
     this.startTime,
@@ -158,6 +160,7 @@ class Exam {
     int? id,
     String? title,
     String? description,
+    int? currentStudentSubmissionId,
     String? examType,
     DateTime? examDate,
     String? startTime,
@@ -179,6 +182,7 @@ class Exam {
         id: id ?? this.id,
         title: title ?? this.title,
         description: description ?? this.description,
+        currentStudentSubmissionId: currentStudentSubmissionId ?? this.currentStudentSubmissionId,
         examType: examType ?? this.examType,
         examDate: examDate ?? this.examDate,
         startTime: startTime ?? this.startTime,
@@ -205,6 +209,7 @@ class Exam {
     id: json["id"],
     title: json["title"],
     description: json["description"],
+    currentStudentSubmissionId: json["currentStudentSubmissionId"],
     examType: json["examType"],
     examDate: json["examDate"] == null ? null : DateTime.parse(json["examDate"]),
     startTime: json["startTime"],
@@ -227,6 +232,7 @@ class Exam {
     "id": id,
     "title": title,
     "description": description,
+    "currentStudentSubmissionId": description,
     "examType": examType,
     "examDate": "${examDate!.year.toString().padLeft(4, '0')}-${examDate!.month.toString().padLeft(2, '0')}-${examDate!.day.toString().padLeft(2, '0')}",
     "startTime": startTime,
