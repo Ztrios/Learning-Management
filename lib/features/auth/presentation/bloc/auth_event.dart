@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 
 sealed class AuthEvent extends Equatable{}
 
@@ -36,6 +35,7 @@ class SignUp extends AuthEvent{
   final String phone;
   final String batchYear;
   final String section;
+  final String gender;
   final String password;
 
   SignUp({
@@ -48,6 +48,7 @@ class SignUp extends AuthEvent{
     required this.phone,
     required this.batchYear,
     required this.section,
+    required this.gender,
     required this.password
   });
 
@@ -88,14 +89,23 @@ class SignOut extends AuthEvent{
 
 
 class GetSections extends AuthEvent{
-  final String batchYear;
-  GetSections({required this.batchYear});
+  Map<String,dynamic> query;
+  GetSections({required this.query});
 
   @override
   List<Object?> get props => [
-    batchYear
+    query
   ];
 }
+
+
+class GetStandards extends AuthEvent{
+  GetStandards();
+
+  @override
+  List<Object?> get props => [];
+}
+
 
 class SaveSignInEntity extends AuthEvent{
   @override

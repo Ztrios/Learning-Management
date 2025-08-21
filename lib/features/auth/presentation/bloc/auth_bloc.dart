@@ -10,10 +10,12 @@ import 'package:learning_management/core/utils/extensions/null_empty_extension.d
 import 'package:learning_management/features/auth/data/models/student_model.dart';
 import 'package:learning_management/features/auth/domain/entities/sections_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
+import 'package:learning_management/features/auth/domain/entities/standards_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/get_standards_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/remember_user_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
@@ -36,6 +38,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     on<SignUp>(_onSignUp);
     on<ResetPassword>(_onResetPassword);
     on<GetSections>(_onGetSections);
+    on<GetStandards>(_onGetStandards);
     on<GetSignInEntity>(_onGetSignInEntity);
     on<SaveSignInEntity>(_onSaveInEntity);
     on<SignOut>(_onSignOut);
@@ -79,6 +82,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
             "mothersName": event.mothersName,
             "address": event.district,
             "phone": event.phone,
+            "gender": event.gender,
             "yearBatch": event.batchYear,
             "sectionId": event.section,
             "password": event.password,
@@ -131,10 +135,20 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
   Future<void> _onGetSections(GetSections event, Emitter<AuthState> emit) async {
     emit(state.copyWith(status: Status.loading));
-    var result = await sl<SectionsUseCase>().call(params: event.batchYear);
+    var result = await sl<SectionsUseCase>().call(params: event.query);
     result.fold(
         (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
         (data)=> emit(state.copyWith(status: Status.success, sectionsEntity: data))
+    );
+  }
+
+
+  Future<void> _onGetStandards(GetStandards event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    var result = await sl<GetStandardsUseCase>().call();
+    result.fold(
+        (error)=> emit(state.copyWith(status: Status.error, message: error.message)),
+        (data)=> emit(state.copyWith(status: Status.success, standardsEntity: data))
     );
   }
 

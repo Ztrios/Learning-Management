@@ -134,6 +134,23 @@ class CustomDrawer extends StatelessWidget {
                       },
                     ),
 
+
+
+                    ListTile(
+                      leading: Icon(Icons.support_agent, color: AppColors.blueLight),
+                      title: Text(
+                        "Support",
+                        style: AppTextStyles.titleSmall,
+                      ),
+                      onTap: () {
+
+                      },
+                    ),
+
+
+                    Divider(),
+
+
                     ListTile(
                       leading: Icon(Icons.privacy_tip, color: AppColors.blueLight),
                       title: Text(

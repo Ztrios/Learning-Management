@@ -2,9 +2,9 @@ class ApiUrls {
   // Private constructor to prevent instantiation
   ApiUrls._();
 
-  static const String _baseURL = "https://lms.shaheen.edu.bd";
+  //static const String _baseURL = "https://lms.shaheen.edu.bd";
   //static const String _baseURL = "https://f2383454bfaf.ngrok-free.app";
-  //static const String _baseURL = "http://192.168.20.243:9090";
+  static const String _baseURL = "http://192.168.20.244:9090";
 
   static const String _imageBaseURL = "";
 
@@ -14,6 +14,7 @@ class ApiUrls {
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String refreshToken = "/api/v1/auth/refresh";
   static const String sections = "/api/v1/sections";
+  static const String standards = "/api/v1/standards";
 
   // Home page API endpoints
   static const String studentSubjects = "/api/v1/subjects";

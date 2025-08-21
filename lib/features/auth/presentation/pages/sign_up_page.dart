@@ -49,11 +49,14 @@ class SignUpPage extends HookWidget {
     final mothersNameController = useTextEditingController();
     final districtController = useTextEditingController();
     final phoneController = useTextEditingController();
+    final genderController = useMemoized(() => SingleValueDropDownController());
     final batchYearController = useMemoized(() => SingleValueDropDownController());
+    final standardsController = useMemoized(() => SingleValueDropDownController());
     final sectionController = useMemoized(() => SingleValueDropDownController());
     final passwordController = useTextEditingController();
 
 
+    final selectedStandardsID = useState<int?>(null);
     final selectedSectionID = useState<int?>(null);
     final picture = useState<File?>(null);
 
@@ -73,6 +76,7 @@ class SignUpPage extends HookWidget {
               mothersName: mothersNameController.text,
               district: districtController.text,
               phone: phoneController.text,
+              gender: genderController.dropDownValue!.name.toUpperCase(),
               batchYear: batchYearController.dropDownValue!.name,
               section: selectedSectionID.value!.toString(),
               password: passwordController.text
@@ -87,6 +91,15 @@ class SignUpPage extends HookWidget {
         );
       }
     }
+
+
+    useEffect((){
+      Future.microtask((){
+        context.read<AuthBloc>().add(GetStandards());
+      });
+      return null;
+    },[]);
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -264,33 +277,69 @@ class SignUpPage extends HookWidget {
 
 
                           DropdownTextFormFields(
+                            controller: genderController,
+                            title: "Gender",
+                            hintText: "Select Gender",
+                            dropDownList: [
+                              "Male",
+                              "Female",
+                              "Other"
+                            ],
+                            onChanged: (value){
+
+                            },
+                          ),
+
+
+                          DropdownTextFormFields(
+                            controller: standardsController,
+                            title: "Class",
+                            hintText: "Select Class",
+                            dropDownList: (state.standardsEntity?.standardsData?.content).isNotNullAndNotEmpty ?
+                            state.standardsEntity!.standardsData!.content!.map((standard){
+                              return standard.name ?? "";
+                            }).toList(): [],
+                            onChanged: (value){
+                              selectedStandardsID.value = (state.standardsEntity?.standardsData?.content).isNotNullAndNotEmpty ?
+                              state.standardsEntity!.standardsData!.content!.singleWhereOrNull((standard) =>
+                              standard.name == standardsController.dropDownValue?.name)?.id : null;
+                              batchYearController.clearDropDown();
+                              sectionController.clearDropDown();
+                            },
+                          ),
+
+
+                          if(selectedStandardsID.value != null)
+                          DropdownTextFormFields(
                             controller: batchYearController,
                             title: "Batch Year",
                             hintText: "Select Year",
                             dropDownList: List.generate(15, (year) =>
                                 (2020 + year).toString()),
                             onChanged: (value){
-                              context.read<AuthBloc>().add(
-                                  GetSections(batchYear: batchYearController
-                                      .dropDownValue!.name));
-                              sectionController.clearDropDown();
+                              if(batchYearController.dropDownValue?.name != null){
+                                Map<String,dynamic> query = {
+                                  "yearBatch" : batchYearController.dropDownValue?.name ?? "",
+                                  "standardId" : selectedStandardsID.value
+                                };
+                                context.read<AuthBloc>().add(GetSections(query: query));
+                                sectionController.clearDropDown();
+                              }
                             },
                           ),
 
-
-                          DropdownTextFormFields(
+                          if(batchYearController.dropDownValue?.name != null && (state.sectionsEntity?.sectionsData?.content).isNotNullAndNotEmpty)
+                            DropdownTextFormFields(
                             isLoading: state.status.isLoading,
                             controller: sectionController,
                             title: "Section",
                             hintText: "Select Section",
-                            dropDownList: (state.sectionsEntity?.sectionsData?.content).isNotNullAndNotEmpty ?
-                            state.sectionsEntity!.sectionsData!.content!.map((section){
+                            dropDownList: state.sectionsEntity!.sectionsData!.content!.map((section){
                               return section.sectionName ?? "";
-                            }).toList(): [],
+                            }).toList(),
                             onChanged: (value){
-                              selectedSectionID.value = (state.sectionsEntity?.sectionsData?.content).isNotNullAndNotEmpty ?
-                              state.sectionsEntity!.sectionsData!.content!.singleWhereOrNull((section) =>
-                              section.sectionName == sectionController.dropDownValue?.name)?.id : null;
+                              selectedSectionID.value = state.sectionsEntity!.sectionsData!.content!.singleWhereOrNull((section) =>
+                              section.sectionName == sectionController.dropDownValue?.name)?.id;
                             },
                           ),
 
@@ -326,6 +375,66 @@ class SignUpPage extends HookWidget {
                       ),
                     ),
 
+                    Row(
+                      children: [
+                        Checkbox(
+                            value: true,
+                            checkColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: AppColors.grey),
+                              borderRadius: BorderRadius.circular(6), // Rounded corners
+                            ),
+                            activeColor: AppColors.blueLight,
+                            onChanged: (value){}
+                        ),
+
+
+                        RichText(
+                          text: TextSpan(
+                            text: "I agree to the ",
+                              style: AppTextStyles.caption.copyWith(
+                                  color: AppColors.textPrimary
+                              ),
+                            children: [
+                              WidgetSpan(
+                                child: InkWell(
+                                  onTap: (){},
+                                  child: Text(
+                                    "Terms of use",
+                                    style: AppTextStyles.caption.copyWith(
+                                        color: AppColors.blueLight,
+                                        decoration: TextDecoration.underline
+                                    ),
+                                  ),
+                                )
+                              ),
+
+                              TextSpan(
+                                text: " And ",
+                                style: AppTextStyles.caption.copyWith(
+                                    color: AppColors.textPrimary
+                                ),
+                              ),
+
+                              WidgetSpan(
+                                  child: InkWell(
+                                    onTap: (){},
+                                    child: Text(
+                                      "Privacy Policy.",
+                                      style: AppTextStyles.caption.copyWith(
+                                          color: AppColors.blueLight,
+                                          decoration: TextDecoration.underline
+                                      ),
+                                    ),
+                                  )
+                              )
+
+                            ]
+                          )
+                        )
+                      ],
+                    ),
+
                     gap24,
 
                     PrimaryButton(
@@ -342,9 +451,7 @@ class SignUpPage extends HookWidget {
 
                         Text(
                           "Already have an account? ",
-                          style: AppTextStyles.titleSmall.copyWith(
-                              decoration: TextDecoration.underline
-                          ),
+                          style: AppTextStyles.titleSmall,
                         ),
 
                         TextButton(

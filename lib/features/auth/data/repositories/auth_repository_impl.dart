@@ -5,6 +5,7 @@ import 'package:learning_management/features/auth/data/datasource/local_datasour
 import 'package:learning_management/features/auth/data/datasource/remote_datasource/auth_remote_datasource.dart';
 import 'package:learning_management/features/auth/domain/entities/sections_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
+import 'package:learning_management/features/auth/domain/entities/standards_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
@@ -29,9 +30,12 @@ class AuthRepositoryIml implements AuthRepositories{
       await sl<AuthRemoteDatasource>().refreshToken(body: body);
 
   @override
-  Future<Either<Failure, SectionsEntity>> getSections({required String batchYear}) async =>
-      await sl<AuthRemoteDatasource>().getSections(batchYear: batchYear);
+  Future<Either<Failure, SectionsEntity>> getSections({required Map<String,dynamic> query}) async =>
+      await sl<AuthRemoteDatasource>().getSections(query: query);
 
+  @override
+  Future<Either<Failure, StandardsEntity>> getStandards() async =>
+      await sl<AuthRemoteDatasource>().getStandards();
 
   @override
   Future<Either<Failure, bool>> saveSignInEntity({required SignInEntity signInEntity}) async =>
@@ -52,7 +56,5 @@ class AuthRepositoryIml implements AuthRepositories{
   @override
   Future<Either<Failure, bool>> signOut() async =>
       await sl<AuthLocalDatasource>().clearLocalSource();
-
-
 
 }

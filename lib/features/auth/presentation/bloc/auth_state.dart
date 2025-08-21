@@ -8,6 +8,7 @@ class AuthState extends Equatable {
   final Status resetPasswordStatus;
   final bool rememberUser;
   final SectionsEntity? sectionsEntity;
+  final StandardsEntity? standardsEntity;
   final SignInEntity? signInEntity;
   final StudentEntity? studentEntity;
 
@@ -19,6 +20,7 @@ class AuthState extends Equatable {
     required this.resetPasswordStatus,
     required this.rememberUser,
     required this.sectionsEntity,
+    required this.standardsEntity,
     required this.studentEntity,
     required this.signInEntity,
   });
@@ -32,6 +34,7 @@ class AuthState extends Equatable {
     resetPasswordStatus: Status.initial,
     rememberUser: false,
     sectionsEntity: null,
+    standardsEntity: null,
     signInEntity: null,
     studentEntity: null
   );
@@ -45,6 +48,7 @@ class AuthState extends Equatable {
     Status? resetPasswordStatus,
     bool? rememberUser,
     SectionsEntity? sectionsEntity,
+    StandardsEntity? standardsEntity,
     SignInEntity? signInEntity,
     StudentEntity? studentEntity,
   }) {
@@ -56,6 +60,7 @@ class AuthState extends Equatable {
       resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       rememberUser: rememberUser ?? this.rememberUser,
       sectionsEntity: sectionsEntity ?? this.sectionsEntity,
+      standardsEntity: standardsEntity ?? this.standardsEntity,
       signInEntity: signInEntity ?? this.signInEntity,
       studentEntity: studentEntity ?? this.studentEntity
     );
@@ -71,6 +76,7 @@ class AuthState extends Equatable {
     resetPasswordStatus,
     rememberUser,
     sectionsEntity,
+    standardsEntity,
     signInEntity,
     studentEntity
   ];
