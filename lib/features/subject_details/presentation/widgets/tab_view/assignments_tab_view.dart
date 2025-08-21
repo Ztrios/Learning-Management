@@ -32,7 +32,7 @@ class AssignmentsTabView extends StatelessWidget {
                 return InkWell(
                   onTap: (){
 
-                    context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${assignment.id}/${assignment.status}");
+                    context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${assignment.assignmentSubmissionId}/${assignment.assignmentSubmissionId}");
 
                     // if(assignment.status != "SUBMITTED"){
                     //   context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${assignment.id}");

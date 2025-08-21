@@ -58,10 +58,15 @@ class LessionItemView extends StatelessWidget {
           Column(
             crossAxisAlignment: crossStart,
             children: [
-              Text(
-                title,
-                style: AppTextStyles.titleMedium.copyWith(
-                  fontWeight: FontWeight.w900,
+              SizedBox(
+                width: 240.w,
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.titleMedium.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
 

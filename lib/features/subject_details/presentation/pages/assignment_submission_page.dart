@@ -36,12 +36,12 @@ class AssignmentSubmissionPage extends HookWidget {
   static String get name => "assignment-submission";
 
   final String assignmentId;
-  final String assignmentStatus;
+  final String? assignmentSubmissionId;
 
   const AssignmentSubmissionPage({
     super.key,
     required this.assignmentId,
-    required this.assignmentStatus
+    required this.assignmentSubmissionId
   });
 
   @override
@@ -107,7 +107,6 @@ class AssignmentSubmissionPage extends HookWidget {
               }
             },
             builder: (context, state) {
-
               if(state.status.isLoading){
                 return CircleLoadingWidget();
               }else if((state.assignmentDetailsEntity?.assignmentDetails).isNotNullAndNotEmpty){
@@ -144,34 +143,38 @@ class AssignmentSubmissionPage extends HookWidget {
 
                               gap24,
 
-                              if(DateTime.now().isBefore(assignmentDetails?.deadline ?? DateTime.now()))
+                              if(assignmentSubmissionId != "null" || (DateTime.now().isBefore(assignmentDetails?.deadline ?? DateTime.now())))
                               PdfListWidget(
                                 title: assignmentDetails?.title ?? "",
                                 pdfUrls: assignmentDetails?.fileUrls ?? []
                               ),
 
-                              Divider(thickness: 2),
 
-                              gap12,
-
-                              if(assignmentStatus != "SUBMITTED" &&
+                              if(assignmentSubmissionId == "null" &&
                                   DateTime.now().add(const Duration(hours: 3)).isBefore(
                                       assignmentDetails?.deadline ?? DateTime.now())
                               )
-                              FilesUploadWidget(
-                                selectedFiles: (List<File>? files, UploadType type) async {
-                                  uploadedFile.value = null;
-                                  if(files != null){
-                                    if(type == UploadType.pdf){
-                                      //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
-                                      uploadedFile.value = files.first;
-                                    }else{
-                                      uploadedFile.value =
-                                      await PdfFormatters.convertImagesToPdfFile(files,fileName: "assignment-$assignmentId.pdf");
-                                    }
-                                  }
+                              Column(
+                                children: [
+                                  Divider(thickness: 2),
+                                  gap12,
 
-                                },
+                                  FilesUploadWidget(
+                                    selectedFiles: (List<File>? files, UploadType type) async {
+                                      uploadedFile.value = null;
+                                      if(files != null){
+                                        if(type == UploadType.pdf){
+                                          //uploadedFile.value = await files.first.rename("exam-$examId.pdf");
+                                          uploadedFile.value = files.first;
+                                        }else{
+                                          uploadedFile.value =
+                                          await PdfFormatters.convertImagesToPdfFile(files,fileName: "assignment-$assignmentId.pdf");
+                                        }
+                                      }
+
+                                    },
+                                  ),
+                                ],
                               ),
 
                             ],
@@ -181,9 +184,8 @@ class AssignmentSubmissionPage extends HookWidget {
                     ),
 
 
-                    if(assignmentStatus != "SUBMITTED" &&
-                        DateTime.now().add(const Duration(hours: 3)).isBefore(
-                            assignmentDetails?.deadline ?? DateTime.now())
+                    if(assignmentSubmissionId == "null" &&
+                        DateTime.now().isBefore((assignmentDetails?.deadline ?? DateTime.now()).add(const Duration(hours: 3)))
                     )Padding(
                       padding: padding24,
                       child: PrimaryButton(

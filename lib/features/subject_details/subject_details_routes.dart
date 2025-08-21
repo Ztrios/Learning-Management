@@ -56,18 +56,18 @@ class SubjectDetailsRouter {
 
               /// Assignment Submission page route
               GoRoute(
-                path: "${AssignmentSubmissionPage.path}/:assignmentId/:assignmentStatus",
+                path: "${AssignmentSubmissionPage.path}/:assignmentId/:assignmentSubmissionId",
                 name: AssignmentSubmissionPage.name,
                 pageBuilder: (context,state){
 
                   final String assignmentId = state.pathParameters["assignmentId"] ?? "";
-                  final String assignmentStatus = state.pathParameters["assignmentStatus"] ?? "";
+                  final String? assignmentStatus = state.pathParameters["assignmentSubmissionId"] ?? null;
 
                   return CustomTransitionPage(
                       key: state.pageKey,
                       child: AssignmentSubmissionPage(
                         assignmentId: assignmentId,
-                        assignmentStatus: assignmentStatus,
+                        assignmentSubmissionId: assignmentStatus,
                       ),
                       transitionsBuilder: routerTransition
                   );

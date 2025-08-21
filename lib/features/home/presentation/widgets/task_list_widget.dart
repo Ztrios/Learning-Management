@@ -84,7 +84,7 @@ class TaskListWidget extends HookWidget {
                                     );
                                   }
                                 }else{
-                                  context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/UPCOMING");
+                                  context.push("${SubjectDetailsPage.path}${LessionDetailsPage.path}/null${AssignmentSubmissionPage.path}/${state.tasksEntity!.taskData![index].id}/null");
                                 }
                             },
                           ),
