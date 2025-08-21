@@ -69,7 +69,7 @@ class FormValidation {
   }
 
   String? passwordValidation({required String? password}) {
-    return password != null && password.length > 5
+    return password != null && password.length > 3
         ? null
         : "Enter minimum 6 digit password";
   }

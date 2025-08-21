@@ -161,8 +161,8 @@ class ExamsSubmissionPage extends HookWidget {
                                   DateTimeFormatters.timeToDateTime(
                                       date: examDetails?.examDate,
                                       time: examDetails?.endTime
-                                  )
-                              )) Column(
+                                  )) || examDetails?.currentStudentSubmissionId != null
+                              ) Column(
                                 children: [
                                   gap24,
                                   PdfListWidget(
@@ -177,7 +177,7 @@ class ExamsSubmissionPage extends HookWidget {
                               gap12,
 
                               Visibility(
-                                visible: examStatus != "SUBMITTED" && DateTimeFormatters.isTimeValid(
+                                visible: examDetails?.currentStudentSubmissionId == null && DateTimeFormatters.isTimeValid(
                                     date: examDetails?.examDate,
                                     targetTime: examDetails?.endTime
                                 ),
@@ -206,7 +206,7 @@ class ExamsSubmissionPage extends HookWidget {
                     ),
 
 
-                    if(examStatus != "SUBMITTED" &&
+                    if(examDetails?.currentStudentSubmissionId == null &&
                         DateTimeFormatters.isTimeValid(
                           date: examDetails?.examDate,
                           targetTime: examDetails?.endTime

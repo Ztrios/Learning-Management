@@ -209,6 +209,8 @@ class SubjectDetailsBloc extends Bloc<SubjectDetailsEvent, SubjectDetailsState>{
               int? submissionId = state.examDetailsEntity?.examDetails?.currentStudentSubmissionId;
               if(submissionId != null){
                 add(GetSubmittedExamData(submissionId: submissionId.toString()));
+              }else{
+                emit(state.copyWith(submittedExamEntity: SubmittedExamEntity()));
               }
             }
     );
