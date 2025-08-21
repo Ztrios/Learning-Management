@@ -85,7 +85,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
 
 
-                    gap16,
+                    //gap16,
 
                     const Divider(),
 
@@ -135,6 +135,8 @@ class CustomDrawer extends StatelessWidget {
                     ),
 
 
+                    Divider(),
+
 
                     ListTile(
                       leading: Icon(Icons.support_agent, color: AppColors.blueLight),
@@ -146,10 +148,6 @@ class CustomDrawer extends StatelessWidget {
 
                       },
                     ),
-
-
-                    Divider(),
-
 
                     ListTile(
                       leading: Icon(Icons.privacy_tip, color: AppColors.blueLight),
@@ -178,6 +176,19 @@ class CustomDrawer extends StatelessWidget {
                     ),
 
 
+                    ListTile(
+                      leading: Icon(Icons.person_remove, color: errorColor),
+                      title: Text(
+                        "Delete Account",
+                        style: AppTextStyles.titleSmall,
+                      ),
+                      onTap: () {
+                        // context.read<AuthBloc>().add(SignOut());
+                        // context.go(SignInPage.path);
+                        // Navigator.pop(context);
+                      },
+                    ),
+
                   ],
                 ),
               ),
@@ -203,24 +214,19 @@ class CustomDrawer extends StatelessWidget {
 
   Widget _drawerItem(
       {required String svgImage, required String title, required VoidCallback onPressed}) {
-    return Column(
-      children: [
-        ListTile(
-          leading: SvgPicture.asset(
-            svgImage,
-            colorFilter: ColorFilter.mode(
-                AppColors.blueLight,
-                BlendMode.srcIn
-            ),
-          ),
-          title: Text(
-            title,
-            style: AppTextStyles.titleSmall,
-          ),
-          onTap: () => onPressed(),
+    return ListTile(
+      leading: SvgPicture.asset(
+        svgImage,
+        colorFilter: ColorFilter.mode(
+            AppColors.blueLight,
+            BlendMode.srcIn
         ),
-        const Divider()
-      ],
+      ),
+      title: Text(
+        title,
+        style: AppTextStyles.titleSmall,
+      ),
+      onTap: () => onPressed(),
     );
   }
 }
