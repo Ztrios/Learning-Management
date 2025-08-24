@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/helpers/format_data/datetime_formatters.dart';
+import 'package:learning_management/core/helpers/helpers.dart';
 import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/services/file_picker_services.dart';
@@ -60,14 +61,25 @@ class SignUpPage extends HookWidget {
     final selectedSectionID = useState<int?>(null);
     final picture = useState<File?>(null);
 
+    final checkedTerms = useState<bool>(false);
+
     Future<void> uploadProfilePicture() async {
       picture.value = await FilePickerServices.uploadProfilePicture();
     }
 
     Future<void> signUp()async{
+
+      if(!checkedTerms.value){
+        ToastNotifications.showErrorToast(
+          title: "Agreement Required",
+          message: "You must agree to the Terms of Use and Privacy Policy",
+          alignment: Alignment.topCenter
+        );
+        return;
+      }
+
       if(picture.value != null){
         if(formKey.currentState!.validate()){
-
           context.read<AuthBloc>().add(SignUp(
               studentPhoto: picture.value!,
               email: emailController.text,
@@ -378,14 +390,14 @@ class SignUpPage extends HookWidget {
                     Row(
                       children: [
                         Checkbox(
-                            value: true,
+                            value: checkedTerms.value,
                             checkColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(color: AppColors.grey),
                               borderRadius: BorderRadius.circular(6), // Rounded corners
                             ),
                             activeColor: AppColors.blueLight,
-                            onChanged: (value){}
+                            onChanged: (value)=> checkedTerms.value = value ?? false
                         ),
 
 
@@ -398,7 +410,7 @@ class SignUpPage extends HookWidget {
                             children: [
                               WidgetSpan(
                                 child: InkWell(
-                                  onTap: (){},
+                                  onTap: ()=> Helpers.launchUri(uri: ""),
                                   child: Text(
                                     "Terms of use",
                                     style: AppTextStyles.caption.copyWith(
@@ -418,7 +430,7 @@ class SignUpPage extends HookWidget {
 
                               WidgetSpan(
                                   child: InkWell(
-                                    onTap: (){},
+                                    onTap: ()=> Helpers.launchUri(uri: ""),
                                     child: Text(
                                       "Privacy Policy.",
                                       style: AppTextStyles.caption.copyWith(
