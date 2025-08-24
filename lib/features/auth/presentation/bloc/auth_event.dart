@@ -67,19 +67,46 @@ class SignUp extends AuthEvent{
   ];
 }
 
-class ResetPassword extends AuthEvent{
-  final String userName;
+
+class SendOTP extends AuthEvent{
   final String phone;
-  final String password;
+  SendOTP({required this.phone});
+
+  @override
+  List<Object?> get props => [
+    phone
+  ];
+}
+
+
+class VerifyOTP extends AuthEvent{
+  final String phone;
+  final String otp;
+  VerifyOTP({required this.phone, required this.otp});
+
+  @override
+  List<Object?> get props => [
+    phone,
+    otp
+  ];
+}
+
+
+
+class ResetPassword extends AuthEvent{
+  final String resetToken;
+  final String newPassword;
 
   ResetPassword({
-    required this.userName,
-    required this.password,
-    required this.phone
+    required this.resetToken,
+    required this.newPassword,
   });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    resetToken,
+    newPassword
+  ];
 }
 
 class SignOut extends AuthEvent{

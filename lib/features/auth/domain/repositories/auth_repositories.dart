@@ -1,13 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:learning_management/core/error/failure.dart';
+import 'package:learning_management/features/auth/domain/entities/otp_entity.dart';
+import 'package:learning_management/features/auth/domain/entities/otp_verification_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/sections_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/standards_entity.dart';
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 
 abstract class AuthRepositories {
+
   Future<Either<Failure,SignInEntity>> signIn({required Map<String,dynamic> body});
   Future<Either<Failure,StudentEntity>> signUp({required Map<String,dynamic> body});
+  Future<Either<Failure, OtpEntity>> sendOTP({required Map<String, dynamic> body});
+  Future<Either<Failure, OtpVerificationEntity>> verifyOTP({required Map<String, dynamic> body});
   Future<Either<Failure,bool>> resetPassword({required Map<String,dynamic> body});
   Future<Either<Failure,SignInEntity>> refreshToken({required Map<String,dynamic> body});
 

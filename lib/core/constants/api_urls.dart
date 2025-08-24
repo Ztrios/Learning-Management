@@ -11,6 +11,8 @@ class ApiUrls {
   // auth API endpoints
   static const String signIn = "/api/v1/auth/login";
   static const String signUp = "/api/v1/students";
+  static const String sendOTP = "/api/v1/otp/send";
+  static const String verifyOTP = "/api/v1/otp/verify";
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String refreshToken = "/api/v1/auth/refresh";
   static const String sections = "/api/v1/sections";

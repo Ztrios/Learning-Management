@@ -52,12 +52,15 @@ class AuthRouter {
 
             /// OTP verification page routes
             GoRoute(
-              path: OTPVerificationPage.path,
+              path: "${OTPVerificationPage.path}/:phone",
               name: OTPVerificationPage.name,
               pageBuilder: (context,state ){
+                final String phone = state.pathParameters["phone"] ?? "";
                 return CustomTransitionPage<void>(
                     key: state.pageKey,
-                    child: OTPVerificationPage(),
+                    child: OTPVerificationPage(
+                      phone: phone,
+                    ),
                     transitionsBuilder: routerTransition
                 );
               },
@@ -65,12 +68,17 @@ class AuthRouter {
 
                 /// Reset password page routes
                 GoRoute(
-                  path: ResetPasswordPage.path,
+                  path: "${ResetPasswordPage.path}/:resetToken",
                   name: ResetPasswordPage.name,
                   pageBuilder: (context,state ){
+
+                    final String resetToken = state.pathParameters["resetToken"] ?? "";
+
                     return CustomTransitionPage<void>(
                         key: state.pageKey,
-                        child: ResetPasswordPage(),
+                        child: ResetPasswordPage(
+                          resetToken: resetToken,
+                        ),
                         transitionsBuilder: routerTransition
                     );
                   },

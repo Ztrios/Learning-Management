@@ -27,29 +27,38 @@ class ForgetPasswordPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
-    final userNameController = useTextEditingController();
+    //final userNameController = useTextEditingController();
     final phoneController = useTextEditingController();
-    final passwordController = useTextEditingController();
+    //final passwordController = useTextEditingController();
 
-    void resetPassword() {
-      if (formKey.currentState!.validate()) {
-        context.read<AuthBloc>().add(
-          ResetPassword(
-            userName: userNameController.text.trim(),
-            password: passwordController.text.trim(),
-            phone: phoneController.text.trim(),
-          ),
-        );
+    // void resetPassword() {
+    //   if (formKey.currentState!.validate()) {
+    //     context.read<AuthBloc>().add(
+    //       ResetPassword(
+    //         userName: userNameController.text.trim(),
+    //         password: passwordController.text.trim(),
+    //         phone: phoneController.text.trim(),
+    //       ),
+    //     );
+    //   }
+    // }
+
+
+    void sendOtp(){
+      if(formKey.currentState!.validate()){
+        context.read<AuthBloc>().add(SendOTP(phone: phoneController.text));
       }
     }
+
 
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: BlocConsumer<AuthBloc, AuthState>(
+          listenWhen: (previous, current)=> previous.sendingOtpStatus.isLoading && current.sendingOtpStatus.isSuccess,
           listener: (context, state) {
-            if(state.resetPasswordStatus.isSuccess){
-              context.pushReplacementNamed(SignInPage.name);
+            if(state.sendingOtpStatus.isSuccess){
+              context.go("${SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path}/${phoneController.text}");
             }
           },
           builder: (context, state){
@@ -86,7 +95,7 @@ class ForgetPasswordPage extends HookWidget {
                   gap6,
 
                   Text(
-                    "Please enter your email to reset the password",
+                    "Please enter your phone to reset the password",
                     style: AppTextStyles.caption,
                   ),
 
@@ -97,16 +106,16 @@ class ForgetPasswordPage extends HookWidget {
                     child: Column(
                       spacing: 12.w,
                       children: [
-                        PrimaryTextFormsFields(
-                          controller: userNameController,
-                          title: "User Name",
-                          hintText: "Enter your user name",
-                          textInputType: TextInputType.emailAddress,
-                          validator: (value) => FormValidation(
-                            validationType: ValidationType.required,
-                            formValue: value,
-                          ).validate(),
-                        ),
+                        // PrimaryTextFormsFields(
+                        //   controller: userNameController,
+                        //   title: "User Name",
+                        //   hintText: "Enter your user name",
+                        //   textInputType: TextInputType.emailAddress,
+                        //   validator: (value) => FormValidation(
+                        //     validationType: ValidationType.required,
+                        //     formValue: value,
+                        //   ).validate(),
+                        // ),
 
                         PrimaryTextFormsFields(
                           controller: phoneController,
@@ -119,31 +128,31 @@ class ForgetPasswordPage extends HookWidget {
                           ).validate(),
                         ),
 
-                        PrimaryTextFormsFields(
-                          controller: passwordController,
-                          title: "Password",
-                          hintText: "Enter your new password",
-                          showObscureButton: true,
-                          textInputType: TextInputType.visiblePassword,
-                          validator: (value) => FormValidation(
-                            validationType: ValidationType.password,
-                            formValue: value,
-                          ).validate(),
-                        ),
-
-                        PrimaryTextFormsFields(
-                          title: "Confirm Password",
-                          hintText: "Confirm your new password",
-                          textInputType: TextInputType.visiblePassword,
-                          showObscureButton: true,
-                          validator: (value) {
-                            if (passwordController.text == value) {
-                              return null;
-                            } else {
-                              return "Confirm password doesn't match!";
-                            }
-                          },
-                        ),
+                        // PrimaryTextFormsFields(
+                        //   controller: passwordController,
+                        //   title: "Password",
+                        //   hintText: "Enter your new password",
+                        //   showObscureButton: true,
+                        //   textInputType: TextInputType.visiblePassword,
+                        //   validator: (value) => FormValidation(
+                        //     validationType: ValidationType.password,
+                        //     formValue: value,
+                        //   ).validate(),
+                        // ),
+                        //
+                        // PrimaryTextFormsFields(
+                        //   title: "Confirm Password",
+                        //   hintText: "Confirm your new password",
+                        //   textInputType: TextInputType.visiblePassword,
+                        //   showObscureButton: true,
+                        //   validator: (value) {
+                        //     if (passwordController.text == value) {
+                        //       return null;
+                        //     } else {
+                        //       return "Confirm password doesn't match!";
+                        //     }
+                        //   },
+                        // ),
                       ],
                     ),
                   ),
@@ -151,9 +160,10 @@ class ForgetPasswordPage extends HookWidget {
                   gap24,
 
                   PrimaryButton(
-                    isLoading: state.resetPasswordStatus.isLoading,
+                    isLoading: state.sendingOtpStatus.isLoading,
                     //onPressed: () => context.push(SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path),
-                    onPressed: resetPassword,
+                    //onPressed: resetPassword,
+                    onPressed: sendOtp,
                     text: "Reset Password",
                   ),
 

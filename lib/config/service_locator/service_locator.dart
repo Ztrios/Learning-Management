@@ -14,9 +14,11 @@ import 'package:learning_management/features/auth/domain/usecases/remember_user_
 import 'package:learning_management/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/save_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sections_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/send_otp_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'package:learning_management/features/home/data/datasource/remote_datasource/home_remote_datasource.dart';
 import 'package:learning_management/features/home/data/repositories/home_repositories_impl.dart';
 import 'package:learning_management/features/home/domain/repositories/home_repositories.dart';
@@ -119,6 +121,8 @@ void initServiceLocator(){
   /// Auth UseCases
   sl.registerLazySingleton<SignUpUseCase>(()=> SignUpUseCase());
   sl.registerLazySingleton<SignInUseCase>(()=> SignInUseCase());
+  sl.registerLazySingleton<SendOTPUseCase>(()=> SendOTPUseCase());
+  sl.registerLazySingleton<VerifyOtpUseCase>(()=> VerifyOtpUseCase());
   sl.registerLazySingleton<ResetPasswordUseCase>(()=> ResetPasswordUseCase());
   sl.registerLazySingleton<SectionsUseCase>(()=> SectionsUseCase());
   sl.registerLazySingleton<GetStandardsUseCase>(()=> GetStandardsUseCase());

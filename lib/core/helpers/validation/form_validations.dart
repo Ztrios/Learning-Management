@@ -77,7 +77,7 @@ class FormValidation {
   String? otpValidation({required String? code}) {
     return code != null && code.length >= 5
         ? null
-        : "6 Digit Otp";
+        : "6 Digit number is required.";
   }
 
 }
