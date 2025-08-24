@@ -82,12 +82,19 @@ class SendOTP extends AuthEvent{
 class VerifyOTP extends AuthEvent{
   final String phone;
   final String otp;
-  VerifyOTP({required this.phone, required this.otp});
+  final bool fromForgetPassword;
+
+  VerifyOTP({
+    required this.phone,
+    required this.otp,
+    required this.fromForgetPassword
+  });
 
   @override
   List<Object?> get props => [
     phone,
-    otp
+    otp,
+    fromForgetPassword
   ];
 }
 

@@ -25,10 +25,12 @@ class OTPVerificationPage extends HookWidget {
   static String get name => "otp-verification";
 
   final String phone;
+  final bool fromSignUp;
 
   const OTPVerificationPage({
     super.key,
     required this.phone,
+    required this.fromSignUp
   });
 
   /// countdown generator
@@ -54,7 +56,11 @@ class OTPVerificationPage extends HookWidget {
     void verifyOTP() {
       if (formKey.currentState!.validate()) {
         context.read<AuthBloc>().add(
-          VerifyOTP(phone: phone, otp: otpController.text),
+          VerifyOTP(
+              phone: phone,
+              otp: otpController.text,
+              fromForgetPassword: !fromSignUp
+          ),
         );
       }
     }

@@ -52,14 +52,16 @@ class AuthRouter {
 
             /// OTP verification page routes
             GoRoute(
-              path: "${OTPVerificationPage.path}/:phone",
+              path: "${OTPVerificationPage.path}/:phone/:fromSignUp",
               name: OTPVerificationPage.name,
               pageBuilder: (context,state ){
                 final String phone = state.pathParameters["phone"] ?? "";
+                final bool fromSignUp = state.pathParameters["fromSignUp"] == "true";
                 return CustomTransitionPage<void>(
                     key: state.pageKey,
                     child: OTPVerificationPage(
                       phone: phone,
+                      fromSignUp: fromSignUp,
                     ),
                     transitionsBuilder: routerTransition
                 );

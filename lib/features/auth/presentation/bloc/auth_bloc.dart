@@ -99,12 +99,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     result.fold(
             (error) => emit(state.copyWith(signUpStatus: Status.error, message: error.message)),
         (data){
-          emit(state.copyWith(signUpStatus: Status.success, studentEntity: data));
-          add(SignIn(
-              rememberStudent: false,
-              userName: data.student?.username ?? "",
-              password: event.password
-          ));
+          emit(state.copyWith(signUpStatus: Status.success, userName: data.student?.username, password: event.password, studentEntity: data));
         }
     );
   }
@@ -122,7 +117,6 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     result.fold(
             (error)=> emit(state.copyWith(sendingOtpStatus: Status.error, message: error.message)),
             (data) => emit(state.copyWith(sendingOtpStatus: Status.success, otpEntity: data))
-
     );
   }
 
@@ -132,12 +126,21 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     Map<String,dynamic> body = {
       "phoneNumber": event.phone,
       "otp": event.otp,
-      "otpType": "PASSWORD_RESET"
+      "otpType": event.fromForgetPassword ? "PASSWORD_RESET" : "SIGN_UP",
     };
     var result = await sl<VerifyOtpUseCase>().call(params: body);
     result.fold(
             (error)=> emit(state.copyWith(verifyOtpStatus: Status.error, message: error.message)),
-            (data)=> emit(state.copyWith(verifyOtpStatus: Status.success, otpVerificationEntity: data))
+            (data){
+              emit(state.copyWith(verifyOtpStatus: Status.success, otpVerificationEntity: data));
+              if(true){
+                add(SignIn(
+                    rememberStudent: false,
+                    userName: state.userName ?? "",
+                    password: state.password ?? ""
+                ));
+              }
+            }
     );
   }
 

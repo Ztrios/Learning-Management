@@ -9,6 +9,8 @@ class AuthState extends Equatable {
   final Status verifyOtpStatus;
   final Status resetPasswordStatus;
   final bool rememberUser;
+  final String? userName;
+  final String? password;
   final SectionsEntity? sectionsEntity;
   final StandardsEntity? standardsEntity;
   final SignInEntity? signInEntity;
@@ -26,6 +28,8 @@ class AuthState extends Equatable {
     required this.resetPasswordStatus,
     required this.rememberUser,
     required this.sectionsEntity,
+    required this.userName,
+    required this.password,
     required this.standardsEntity,
     required this.studentEntity,
     required this.signInEntity,
@@ -43,6 +47,8 @@ class AuthState extends Equatable {
     verifyOtpStatus: Status.initial,
     resetPasswordStatus: Status.initial,
     rememberUser: false,
+    userName: null,
+    password: null,
     sectionsEntity: null,
     standardsEntity: null,
     signInEntity: null,
@@ -61,6 +67,8 @@ class AuthState extends Equatable {
     Status? verifyOtpStatus,
     Status? resetPasswordStatus,
     bool? rememberUser,
+    String? userName,
+    String? password,
     SectionsEntity? sectionsEntity,
     StandardsEntity? standardsEntity,
     SignInEntity? signInEntity,
@@ -76,6 +84,8 @@ class AuthState extends Equatable {
       sendingOtpStatus: sendingOtpStatus ?? this.sendingOtpStatus,
       verifyOtpStatus: verifyOtpStatus ?? this.verifyOtpStatus,
       resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
+      userName: userName ?? this.userName,
+      password: password ?? this.password,
       rememberUser: rememberUser ?? this.rememberUser,
       sectionsEntity: sectionsEntity ?? this.sectionsEntity,
       standardsEntity: standardsEntity ?? this.standardsEntity,
@@ -97,6 +107,8 @@ class AuthState extends Equatable {
     verifyOtpStatus,
     resetPasswordStatus,
     rememberUser,
+    userName,
+    password,
     sectionsEntity,
     standardsEntity,
     signInEntity,
