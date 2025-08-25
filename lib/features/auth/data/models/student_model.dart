@@ -71,6 +71,7 @@ class Student {
   final DateTime? enrollmentDate;
   final bool? isRegistrationDone;
   final DateTime? subscriptionExpiry;
+  final DateTime? otpResendTime;
 
   Student({
     this.id,
@@ -94,6 +95,7 @@ class Student {
     this.enrollmentDate,
     this.isRegistrationDone,
     this.subscriptionExpiry,
+    this.otpResendTime
   });
 
   Student copyWith({
@@ -118,6 +120,7 @@ class Student {
     DateTime? enrollmentDate,
     bool? isRegistrationDone,
     DateTime? subscriptionExpiry,
+    DateTime? otpResendTime
   }) =>
       Student(
         id: id ?? this.id,
@@ -141,6 +144,7 @@ class Student {
         enrollmentDate: enrollmentDate ?? this.enrollmentDate,
         isRegistrationDone: isRegistrationDone ?? this.isRegistrationDone,
         subscriptionExpiry: subscriptionExpiry ?? this.subscriptionExpiry,
+        otpResendTime: otpResendTime ?? this.otpResendTime
       );
 
   factory Student.fromRawJson(String str) => Student.fromJson(json.decode(str));
@@ -169,6 +173,7 @@ class Student {
     enrollmentDate: json["enrollmentDate"] == null ? null : DateTime.parse(json["enrollmentDate"]),
     isRegistrationDone: json["isRegistrationDone"],
     subscriptionExpiry: json["subscriptionExpiry"] == null ? null : DateTime.parse(json["subscriptionExpiry"]),
+    otpResendTime: json["otpResendTime"] == null ? null : DateTime.parse(json["otpResendTime"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -193,6 +198,7 @@ class Student {
     "enrollmentDate": "${enrollmentDate!.year.toString().padLeft(4, '0')}-${enrollmentDate!.month.toString().padLeft(2, '0')}-${enrollmentDate!.day.toString().padLeft(2, '0')}",
     "isRegistrationDone": isRegistrationDone,
     "subscriptionExpiry": subscriptionExpiry?.toIso8601String(),
+    "otpResendTime": otpResendTime?.toIso8601String()
   };
 
 }

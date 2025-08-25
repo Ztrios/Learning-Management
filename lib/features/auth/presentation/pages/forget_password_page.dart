@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
+import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
 import 'package:learning_management/core/utils/styles/app_colors.dart';
 import 'package:learning_management/core/utils/styles/app_text_styles.dart';
@@ -57,8 +58,8 @@ class ForgetPasswordPage extends HookWidget {
         child: BlocConsumer<AuthBloc, AuthState>(
           listenWhen: (previous, current)=> previous.sendingOtpStatus.isLoading && current.sendingOtpStatus.isSuccess,
           listener: (context, state) {
-            if(state.sendingOtpStatus.isSuccess){
-              context.go("${SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path}/${phoneController.text}");
+            if((state.otpEntity?.otpData).isNotNullAndNotEmpty){
+              context.go("${SignInPage.path + ForgetPasswordPage.path + OTPVerificationPage.path}/${phoneController.text}/false");
             }
           },
           builder: (context, state){

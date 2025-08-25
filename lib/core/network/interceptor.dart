@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 /// This interceptor is used to show request and response logs
@@ -10,7 +11,8 @@ class LoggerInterceptor extends Interceptor {
           methodCount: 0,
           colors: true,
           printEmojis: true
-      )
+      ),
+      output: DebugPrintOutput()
   );
 
   @override
@@ -68,3 +70,18 @@ class LoggerInterceptor extends Interceptor {
 }
 
 
+class DebugPrintOutput extends LogOutput {
+  @override
+  void output(OutputEvent event) {
+    const chunkSize = 800; // split big logs
+    for (var line in event.lines) {
+      if (line.length <= chunkSize) {
+        debugPrint(line);
+      } else {
+        for (var i = 0; i < line.length; i += chunkSize) {
+          debugPrint(line.substring(i, i + chunkSize > line.length ? line.length : i + chunkSize));
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:learning_management/core/helpers/toast_notification/toast_notifications.dart';
 import 'package:learning_management/core/helpers/validation/form_validations.dart';
 import 'package:learning_management/core/utils/extensions/null_empty_extension.dart';
 import 'package:learning_management/core/utils/extensions/status_extension.dart';
@@ -17,6 +18,7 @@ import 'package:learning_management/features/auth/presentation/bloc/auth_event.d
 import 'package:learning_management/features/auth/presentation/pages/forget_password_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/reset_password_page.dart';
+import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
 import 'package:pinput/pinput.dart';
 
@@ -66,7 +68,11 @@ class OTPVerificationPage extends HookWidget {
     }
 
     /// 🔹 countdown based on backend provided time
-    final streamState = useState<Stream<int>>(countdownUntil(context.read<AuthBloc>().state.otpEntity?.otpData?.otpResendTime ?? DateTime.now()));
+    final streamState = useState<Stream<int>>(countdownUntil(
+        fromSignUp ? context.read<AuthBloc>().state.studentEntity?.student?.otpResendTime ?? DateTime.now()
+        : context.read<AuthBloc>().state.otpEntity?.otpData?.otpResendTime ?? DateTime.now()
+    ));
+
     final snapshot = useStream(streamState.value);
 
     void resendOTP() {
@@ -165,14 +171,30 @@ class OTPVerificationPage extends HookWidget {
 
               BlocConsumer<AuthBloc, AuthState>(
                 listenWhen: (previous, current) =>
-                previous.verifyOtpStatus.isLoading &&
-                    current.verifyOtpStatus.isSuccess,
+                (previous.verifyOtpStatus.isLoading &&
+                    current.verifyOtpStatus.isSuccess) ||
+                    (previous.signInStatus.isLoading
+                        && current.signInStatus.isSuccess),
                 listener: (context, state) {
-                  final String? token =
-                      state.otpVerificationEntity?.otpVerificationData?.resetToken;
-                  if (token.isNotNullAndNotEmpty) {
-                    context.pushReplacement(
-                        "${SignInPage.path}${ForgetPasswordPage.path}${OTPVerificationPage.path}/$phone${ResetPasswordPage.path}/$token");
+                  if(fromSignUp){
+                    if(state.signInStatus.isError){
+                      ToastNotifications.showErrorToast(
+                          title: "Failed.Try again!",
+                          message: "Your sign in is failed."
+                      );
+                    }
+                    if(state.signInStatus.isSuccess){
+                      context.go(HomePage.path);
+                    }else{
+                      context.go(SignInPage.path);
+                    }
+                  }else{
+                    final String? token =
+                        state.otpVerificationEntity?.otpVerificationData?.resetToken;
+                    if (token.isNotNullAndNotEmpty) {
+                      context.pushReplacement(
+                          "${SignInPage.path}${ForgetPasswordPage.path}${OTPVerificationPage.path}/$phone/false${ResetPasswordPage.path}/$token");
+                    }
                   }
                 },
                 builder: (context, state) {

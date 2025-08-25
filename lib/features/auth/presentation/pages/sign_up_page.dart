@@ -22,6 +22,7 @@ import 'package:learning_management/core/utils/ui_helpers/spacing.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_management/features/auth/presentation/pages/forget_password_page.dart';
+import 'package:learning_management/features/auth/presentation/pages/otp_verification_page.dart';
 import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:learning_management/features/home/presentation/pages/home_page.dart';
 import 'package:learning_management/widgets/buttons/primary_button.dart';
@@ -116,7 +117,7 @@ class SignUpPage extends HookWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc,AuthState>(
-        listenWhen: (previous, current)=> previous.signInStatus.isLoading,
+        listenWhen: (previous, current)=> previous.signUpStatus.isLoading,
         listener: (context, state){
 
           if(state.signUpStatus.isError){
@@ -125,18 +126,26 @@ class SignUpPage extends HookWidget {
                 message: "You can't accomplish sign up."
             );
           }
+          //
+          // if(state.signInStatus.isError){
+          //   ToastNotifications.showErrorToast(
+          //       title: "Failed.Try again!",
+          //       message: "Your sign in is failed."
+          //   );
+          // }
 
-          if(state.signInStatus.isError){
-            ToastNotifications.showErrorToast(
-                title: "Failed.Try again!",
-                message: "Your sign in is failed."
-            );
-          }
+          // if(state.signUpStatus.isSuccess && state.signInStatus.isSuccess){
+          //   context.go(HomePage.path);
+          // }else if(state.signUpStatus.isSuccess){
+          //   context.go(SignInPage.path);
+          // }
 
-          if(state.signUpStatus.isSuccess && state.signInStatus.isSuccess){
-            context.go(HomePage.path);
-          }else if(state.signUpStatus.isSuccess){
-            context.go(SignInPage.path);
+          if(state.signUpStatus.isSuccess){
+            //context.go("${SignInPage.path}${ForgetPasswordPage.path}${OTPVerificationPage.path}/${phoneController.text}/true");
+            context.pushNamed(OTPVerificationPage.name, pathParameters: {
+              "phone" : phoneController.text,
+              "fromSignUp": "true"
+            });
           }
 
         },

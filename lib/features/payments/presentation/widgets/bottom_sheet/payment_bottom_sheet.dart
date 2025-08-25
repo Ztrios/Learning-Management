@@ -135,34 +135,34 @@ class PaymentBottomSheet extends HookWidget {
 
 
               /// Coupon Input
-              titleText("Apply Coupon"),
-              gap6,
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 40.h,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: outlineBorder,
-                          enabledBorder: outlineBorder,
-                          focusedBorder: outlineBorder,
-                          errorBorder: outlineBorder,
-                        ),
-                      ),
-                    ),
-                  ),
-                  gap12,
-                  SizedBox(
-                    width: 100.w,
-                    height: 40.h,
-                    child: PrimaryButton(
-                      onPressed: (){},
-                      text: "Apply",
-                    ),
-                  ),
-                ],
-              ),
+              // titleText("Apply Coupon"),
+              // gap6,
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: SizedBox(
+              //         height: 40.h,
+              //         child: TextField(
+              //           decoration: InputDecoration(
+              //             border: outlineBorder,
+              //             enabledBorder: outlineBorder,
+              //             focusedBorder: outlineBorder,
+              //             errorBorder: outlineBorder,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     gap12,
+              //     SizedBox(
+              //       width: 100.w,
+              //       height: 40.h,
+              //       child: PrimaryButton(
+              //         onPressed: (){},
+              //         text: "Apply",
+              //       ),
+              //     ),
+              //   ],
+              // ),
 
               gap12,
 

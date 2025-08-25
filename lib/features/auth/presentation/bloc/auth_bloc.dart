@@ -133,7 +133,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
             (error)=> emit(state.copyWith(verifyOtpStatus: Status.error, message: error.message)),
             (data){
               emit(state.copyWith(verifyOtpStatus: Status.success, otpVerificationEntity: data));
-              if(true){
+              if(!event.fromForgetPassword){
                 add(SignIn(
                     rememberStudent: false,
                     userName: state.userName ?? "",
