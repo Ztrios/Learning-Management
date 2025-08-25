@@ -7,6 +7,7 @@ class AuthState extends Equatable {
   final Status signUpStatus;
   final Status sendingOtpStatus;
   final Status verifyOtpStatus;
+  final Status accountDiativateStatus;
   final Status resetPasswordStatus;
   final bool rememberUser;
   final String? userName;
@@ -26,6 +27,7 @@ class AuthState extends Equatable {
     required this.sendingOtpStatus,
     required this.verifyOtpStatus,
     required this.resetPasswordStatus,
+    required this.accountDiativateStatus,
     required this.rememberUser,
     required this.sectionsEntity,
     required this.userName,
@@ -45,6 +47,7 @@ class AuthState extends Equatable {
     signUpStatus: Status.initial,
     sendingOtpStatus: Status.initial,
     verifyOtpStatus: Status.initial,
+    accountDiativateStatus: Status.initial,
     resetPasswordStatus: Status.initial,
     rememberUser: false,
     userName: null,
@@ -66,6 +69,7 @@ class AuthState extends Equatable {
     Status? sendingOtpStatus,
     Status? verifyOtpStatus,
     Status? resetPasswordStatus,
+    Status? accountDiativateStatus,
     bool? rememberUser,
     String? userName,
     String? password,
@@ -83,6 +87,7 @@ class AuthState extends Equatable {
       signUpStatus: signUpStatus ?? this.signUpStatus,
       sendingOtpStatus: sendingOtpStatus ?? this.sendingOtpStatus,
       verifyOtpStatus: verifyOtpStatus ?? this.verifyOtpStatus,
+      accountDiativateStatus: accountDiativateStatus ?? this.accountDiativateStatus,
       resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       userName: userName ?? this.userName,
       password: password ?? this.password,
@@ -105,6 +110,7 @@ class AuthState extends Equatable {
     signUpStatus,
     sendingOtpStatus,
     verifyOtpStatus,
+    accountDiativateStatus,
     resetPasswordStatus,
     rememberUser,
     userName,

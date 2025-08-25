@@ -47,6 +47,10 @@ class AuthRepositoryIml implements AuthRepositories{
       await sl<AuthRemoteDatasource>().getStandards();
 
   @override
+  Future<Either<Failure, bool>> diactivateAccount({required String studentId}) async =>
+    await sl<AuthRemoteDatasource>().diactivateAccount(studentId: studentId);
+
+  @override
   Future<Either<Failure, bool>> saveSignInEntity({required SignInEntity signInEntity}) async =>
       await sl<AuthLocalDatasource>().saveSignInEntity(signInEntity: signInEntity);
 

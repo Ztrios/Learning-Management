@@ -16,6 +16,7 @@ import 'package:learning_management/features/auth/domain/entities/standards_enti
 import 'package:learning_management/features/auth/domain/entities/student_entity.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/diactivate_account_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_standards_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/remember_user_usecase.dart';
@@ -48,6 +49,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     on<GetSignInEntity>(_onGetSignInEntity);
     on<SaveSignInEntity>(_onSaveInEntity);
     on<SignOut>(_onSignOut);
+    on<DiactivateAccount>(_onDiactivateAccount);
   }
 
 
@@ -236,6 +238,19 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     );
   }
 
+
+  Future<void> _onDiactivateAccount(DiactivateAccount event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(accountDiativateStatus: Status.loading));
+    var result = await sl<DiactivateAccountUseCase>().call(params: event.studentId);
+    result.fold(
+            (error)=> emit(state.copyWith(accountDiativateStatus: Status.error, message: error.message)),
+            (data){
+              if(data){
+                add(SignOut());
+              }
+            }
+    );
+  }
 
 
 }

@@ -7,6 +7,7 @@ import 'package:learning_management/features/auth/data/datasource/remote_datasou
 import 'package:learning_management/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:learning_management/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:learning_management/features/auth/domain/usecases/check_user_remember_usecase.dart';
+import 'package:learning_management/features/auth/domain/usecases/diactivate_account_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_signin_entity_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/get_standards_usecase.dart';
 import 'package:learning_management/features/auth/domain/usecases/refresh_token_usecase.dart';
@@ -132,6 +133,7 @@ void initServiceLocator(){
   sl.registerLazySingleton<CheckUserRememberUseCase>(()=> CheckUserRememberUseCase());
   sl.registerLazySingleton<SignOutUseCase>(()=> SignOutUseCase());
   sl.registerLazySingleton<RefreshTokenUseCase>(()=> RefreshTokenUseCase());
+  sl.registerLazySingleton<DiactivateAccountUseCase>(()=> DiactivateAccountUseCase());
 
   /// Home UseCases
   sl.registerLazySingleton<GetStudentSubjectsUseCase>(()=> GetStudentSubjectsUseCase());

@@ -24,5 +24,6 @@ abstract class AuthRepositories {
   Future<Either<Failure, bool>> rememberUser();
   Future<Either<Failure, bool>> userIsRemembered();
   Future<Either<Failure, bool>> signOut();
+  Future<Either<Failure, bool>> diactivateAccount({required String studentId});
 
 }

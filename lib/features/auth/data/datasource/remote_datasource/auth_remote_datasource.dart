@@ -28,6 +28,7 @@ sealed class AuthRemoteDatasource {
   Future<Either<Failure, SignInEntity>> refreshToken({required Map<String,dynamic> body});
   Future<Either<Failure, SectionsEntity>> getSections({required Map<String,dynamic> query});
   Future<Either<Failure, StandardsEntity>> getStandards();
+  Future<Either<Failure, bool>> diactivateAccount({required String studentId});
 }
 
 
@@ -189,5 +190,22 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
       return Left(UnknownFailure(error.toString()));
     }
   }
+
+
+  @override
+  Future<Either<Failure, bool>> diactivateAccount({required String studentId}) async {
+    try{
+      Response response = await sl<DioClient>().patch("${ApiUrls.deactivate}$studentId/deactivate");
+      return Right(response.statusCode == 200);
+    }catch(error, stackTrace){
+      log(
+          "Auth Remote DataSource: ",
+          error: error,
+          stackTrace: stackTrace
+      );
+      return Left(UnknownFailure(error.toString()));
+    }
+  }
+
 
 }

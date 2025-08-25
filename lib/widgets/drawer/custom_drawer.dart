@@ -17,10 +17,10 @@ import 'package:learning_management/features/home/presentation/pages/home_page.d
 import 'package:learning_management/features/payments/presentation/pages/payment_page.dart';
 import 'package:learning_management/features/profile/data/models/student_profile_model.dart';
 import 'package:learning_management/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:learning_management/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:learning_management/features/profile/presentation/pages/student_profile_page.dart';
 import 'package:learning_management/features/progress/presentation/pages/progress_page.dart';
 import 'package:learning_management/features/routine/presentation/pages/routine_page.dart';
+import 'package:learning_management/widgets/dialogs/account_delete_dialog.dart';
 import 'package:learning_management/widgets/network_image_widget.dart';
 import 'package:toastification/toastification.dart';
 
@@ -175,6 +175,7 @@ class CustomDrawer extends StatelessWidget {
                       },
                     ),
 
+                    Divider(),
 
                     ListTile(
                       leading: Icon(Icons.person_remove, color: errorColor),
@@ -183,9 +184,13 @@ class CustomDrawer extends StatelessWidget {
                         style: AppTextStyles.titleSmall,
                       ),
                       onTap: () {
-                        // context.read<AuthBloc>().add(SignOut());
-                        // context.go(SignInPage.path);
-                        // Navigator.pop(context);
+                        showAccountDeleteDialog(context);
+                        // int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
+                        // if(studentId != null){
+                        //   context.read<AuthBloc>().add(DiactivateAccount(studentId: studentId.toString()));
+                        //   context.go(SignInPage.path);
+                        //   Navigator.pop(context);
+                        // }
                       },
                     ),
 

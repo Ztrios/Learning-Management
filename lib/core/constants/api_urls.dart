@@ -17,6 +17,7 @@ class ApiUrls {
   static const String refreshToken = "/api/v1/auth/refresh";
   static const String sections = "/api/v1/sections";
   static const String standards = "/api/v1/standards";
+  static const String deactivate = "/api/v1/auth/users/";
 
   // Home page API endpoints
   static const String studentSubjects = "/api/v1/subjects";

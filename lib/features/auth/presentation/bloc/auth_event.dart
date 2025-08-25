@@ -123,7 +123,7 @@ class SignOut extends AuthEvent{
 
 
 class GetSections extends AuthEvent{
-  Map<String,dynamic> query;
+  final Map<String,dynamic> query;
   GetSections({required this.query});
 
   @override
@@ -162,4 +162,15 @@ class CheckRememberUser extends AuthEvent{
   @override
   List<Object?> get props => [];
 }
+
+class DiactivateAccount extends AuthEvent{
+  final String studentId;
+  DiactivateAccount({required this.studentId});
+
+  @override
+  List<Object?> get props => [
+    studentId
+  ];
+}
+
 
