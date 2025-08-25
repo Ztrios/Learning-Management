@@ -246,6 +246,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
             (error)=> emit(state.copyWith(accountDiativateStatus: Status.error, message: error.message)),
             (data){
               if(data){
+                emit(state.copyWith(accountDiativateStatus: Status.success));
                 add(SignOut());
               }
             }

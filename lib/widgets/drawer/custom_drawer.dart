@@ -183,15 +183,7 @@ class CustomDrawer extends StatelessWidget {
                         "Delete Account",
                         style: AppTextStyles.titleSmall,
                       ),
-                      onTap: () {
-                        showAccountDeleteDialog(context);
-                        // int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
-                        // if(studentId != null){
-                        //   context.read<AuthBloc>().add(DiactivateAccount(studentId: studentId.toString()));
-                        //   context.go(SignInPage.path);
-                        //   Navigator.pop(context);
-                        // }
-                      },
+                      onTap: () => showAccountDeleteDialog(context),
                     ),
 
                   ],

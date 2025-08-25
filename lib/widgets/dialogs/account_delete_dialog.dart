@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:learning_management/features/auth/presentation/bloc/auth_event.dart';
+import 'package:learning_management/features/auth/presentation/pages/sign_in_page.dart';
+import 'package:learning_management/features/splash/presentation/pages/splash_page.dart';
 
 Future<void> showAccountDeleteDialog(BuildContext context) async {
   return showDialog<void>(
@@ -38,11 +44,14 @@ Future<void> showAccountDeleteDialog(BuildContext context) async {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).pop(); // Close dialog
-              // Call your delete function here
-              // deleteAccount();
+              int? studentId = context.read<AuthBloc>().state.signInEntity?.signInData?.student?.id;
+              if(studentId != null){
+                context.read<AuthBloc>().add(DiactivateAccount(studentId: studentId.toString()));
+                context.go(SplashPage.path);
+                Navigator.pop(context);
+              }
             },
-            child: const Text('Delete'),
+            child: Text('Delete', style: TextStyle(color: Colors.white),),
           ),
         ],
       );
